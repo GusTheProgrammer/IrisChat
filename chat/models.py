@@ -1,12 +1,14 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+from users.models import CustomUser
+
 
 # Create your models here.
 
 class Room(models.Model):
     name = models.CharField(max_length=128)
-    online = models.ManyToManyField(to=User, blank=True)
+    online = models.ManyToManyField(to=CustomUser, blank=True)
 
     def get_online_count(self):
         return self.online.count()
@@ -24,7 +26,7 @@ class Room(models.Model):
 
 
 class Message(models.Model):
-    user = models.ForeignKey(to=User, on_delete=models.CASCADE)
+    user = models.ForeignKey(to=CustomUser, on_delete=models.CASCADE)
     room = models.ForeignKey(to=Room, on_delete=models.CASCADE)
     content = models.CharField(max_length=512)
     timestamp = models.DateTimeField(auto_now_add=True)

@@ -35,9 +35,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'chat.apps.ChatConfig',  # local
-    'channels',  # 3rd party
+    'chat',  # local
     'users',
+
+    'channels',  # 3rd party
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -56,8 +58,8 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [str(BASE_DIR.joinpath('templates')),
-        str(BASE_DIR.joinpath('users', 'templates')),
-        ],
+                 str(BASE_DIR.joinpath('users', 'templates')),
+                 ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -83,8 +85,6 @@ CHANNEL_LAYERS = {
         },
     },
 }
-
-
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
@@ -135,5 +135,7 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+AUTH_USER_MODEL = 'users.CustomUser'
+
 LOGIN_REDIRECT_URL = 'chat-index'
-LOGOUT_REDIRECT_URL = 'chat-index'
+LOGOUT_REDIRECT_URL = 'homepage'

@@ -17,6 +17,4 @@ class CustomUserAdmin(UserAdmin):
     list_editable = ['profile_pic']
 
 
-
 admin.site.register(CustomUser, CustomUserAdmin)
-
