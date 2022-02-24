@@ -24,6 +24,9 @@ SECRET_KEY = 'django-insecure-z492xklw41swa#=^+!f0d0$cww++9#b-!hojispf82*0f+#*5l
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+if DEBUG:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # During development only
+
 ALLOWED_HOSTS = []
 
 # Application definition
@@ -36,10 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'chat',  # local
-    'users',
+    'account',
 
     'channels',  # 3rd party
-    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -58,7 +60,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [str(BASE_DIR.joinpath('templates')),
-                 str(BASE_DIR.joinpath('users', 'templates')),
+                 str(BASE_DIR.joinpath('account', 'templates')),
                  ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -89,12 +91,21 @@ CHANNEL_LAYERS = {
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
+
+DB_NAME = "chatapp"
+DB_USER = "django"
+DB_PASSWORD = "django-password"
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': DB_NAME,
+        'USER': DB_USER,
+        'PASSWORD': DB_PASSWORD,
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -128,14 +139,31 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATICFILES_DIRS = [
+    BASE_DIR.joinpath('static'),
+    BASE_DIR.joinpath('media'),
+]
+
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR.joinpath('static_cdn')
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR.joinpath('media_cdn')
+
+TEMP = BASE_DIR.joinpath('media_cdn/temp')
+
+BASE_DIR = "http://127.0.0.1:8000"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-AUTH_USER_MODEL = 'users.CustomUser'
+AUTH_USER_MODEL = 'account.Account'
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.AllowAllUsersModelBackend',
+    'account.backends.CaseInsensitiveModelBackend',
+)
 
 LOGIN_REDIRECT_URL = 'chat-index'
 LOGOUT_REDIRECT_URL = 'homepage'

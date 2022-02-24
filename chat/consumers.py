@@ -34,7 +34,7 @@ class ChatConsumer(WebsocketConsumer):
         # send the user list to the newly joined user
         self.send(json.dumps({
             'type': 'user_list',
-            'users': [user.username for user in self.room.online.all()],
+            'account': [user.username for user in self.room.online.all()],
         }))
 
         if self.user.is_authenticated:

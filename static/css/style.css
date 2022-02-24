@@ -1,0 +1,222 @@
+head {
+    font-family: "Segoe UI";
+    font-weight: 380;
+}
+
+footer {
+    font-family: "Segoe UI";
+    font-weight: 380;
+}
+
+body {
+    background-color: #f2f2f2;
+    font-family: "Segoe UI";
+    font-weight: 380;
+}
+
+:root {
+    --main-background-color: #f2f2f2;
+    --dark-background-color: #a2a2a2;
+    --secondary-text-color: #808080;
+    --light-primary-text-color: #0080ff;
+}
+
+
+/* ---> base.html */
+.main {
+    min-height: 100vh;
+    height: 100%;
+}
+
+/* ---> components/footer.html */
+.footer {
+    min-height: 100px;
+}
+
+/* ---> account/register.html */
+.card-signin {
+    width: 100%;
+    max-width: 400px;
+    padding: 15px;
+    margin: auto;
+}
+
+.form-signin input[type="email"] {
+    margin-bottom: 10px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.form-signin input[type="text"] {
+    margin-bottom: 10px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.form-signin input[type="password"] {
+    margin-bottom: -1px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+/* ---> account/login.html */
+
+
+.card-signin {
+    width: 100%;
+    max-width: 400px;
+    padding: 15px;
+    margin: auto;
+}
+
+/* ---> templates/password_reset/password_change.html */
+
+
+.form-signin {
+    width: 100%;
+    max-width: 330px;
+    padding: 15px;
+    margin: auto;
+}
+
+.form-signin .checkbox {
+    font-weight: 400;
+}
+
+.form-signin .form-control {
+    position: relative;
+    box-sizing: border-box;
+    height: auto;
+    padding: 10px;
+    font-size: 16px;
+}
+
+.form-signin .form-control:focus {
+    z-index: 2;
+}
+
+.form-signin input[type="password"] {
+    margin-bottom: 10px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.h3 {
+    text-align: center;
+}
+
+/* ---> templates/password_reset/password_reset_form.html */
+.form-signin {
+    width: 100%;
+    max-width: 330px;
+    padding: 15px;
+    margin: auto;
+}
+
+.form-signin .checkbox {
+    font-weight: 400;
+}
+
+.form-signin .form-control {
+    position: relative;
+    box-sizing: border-box;
+    height: auto;
+    padding: 10px;
+    font-size: 16px;
+}
+
+.form-signin .form-control:focus {
+    z-index: 2;
+}
+
+.form-signin input[type="email"] {
+    margin-bottom: 10px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.h3 {
+    text-align: center;
+}
+
+
+/* ---> account/account.html */
+.image-container {
+    max-width: 250px;
+    height: auto;
+}
+
+.field-heading {
+    color: var(--secondary-text-color);
+}
+
+.icon-container:hover {
+    opacity: 0.3;
+    cursor: pointer;
+}
+
+.friends-icon {
+    color: #4287f5;
+    font-size: 40px;
+}
+
+.person-add-icon {
+    color: #4287f5;
+    font-size: 40px;
+}
+
+.friend-text {
+    font-weight: 500;
+    color: black;
+}
+
+.friends-btn {
+    background-color: #cccccc;
+    border-color: #cccccc;
+    color: #000;
+    font-weight: 500;
+}
+
+.friends-btn:hover {
+    background-color: #bfbfbf;
+    border-color: #bfbfbf;
+}
+
+.dropdown-toggle::after {
+    content: none;
+}
+
+.card {
+    border-radius: 12px;
+}
+
+.material-icons {
+    font-size: 30px;
+}
+
+.material-icons:hover {
+    cursor: pointer;
+}
+
+.confirm-friend-request {
+    color: green;
+}
+
+.confirm-friend-request:hover {
+    opacity: 0.3;
+}
+
+.decline-friend-request:hover {
+    opacity: 0.3;
+}
+
+.decline-friend-request {
+    color: red;
+}
+
+.message-btn-text {
+    font-weight: 500;
+}
+
+
+/* ---> account/account.html */

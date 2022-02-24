@@ -1,9 +1,13 @@
 {% extends 'base.html' %}
 {% block content %}
 <h1>HOME PAGE</h1>
+
+    <div class="container">
+
+    </div>
 <div class="d-grid gap-2 col-6 mx-auto">
     <a href="{% url 'login' %}" class="btn btn-outline-primary btn-rounded" type="button">Sign In</a>
-    <a href="{% url 'signup' %}" class= "btn btn-outline-success btn-rounded" type="button"> Sign Up</a>
+    <a href="{% url 'register' %}" class= "btn btn-outline-success btn-rounded" type="button"> Sign Up</a>
     <a href="{% url 'logout' %}" class= "btn btn-outline-danger btn-rounded" type="button"> Sign Out</a>
 
 </div>
