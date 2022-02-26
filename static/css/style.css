@@ -23,17 +23,22 @@ body {
 
 
 /* ---> base.html */
+
 .main {
     min-height: 100vh;
     height: 100%;
 }
 
+
 /* ---> components/footer.html */
+
 .footer {
     min-height: 100px;
 }
 
+
 /* ---> account/register.html */
+
 .card-signin {
     width: 100%;
     max-width: 400px;
@@ -59,8 +64,8 @@ body {
     border-top-right-radius: 0;
 }
 
-/* ---> account/login.html */
 
+/* ---> account/login.html */
 
 .card-signin {
     width: 100%;
@@ -69,8 +74,8 @@ body {
     margin: auto;
 }
 
-/* ---> templates/password_reset/password_change.html */
 
+/* ---> templates/password_reset/password_change.html */
 
 .form-signin {
     width: 100%;
@@ -105,7 +110,9 @@ body {
     text-align: center;
 }
 
+
 /* ---> templates/password_reset/password_reset_form.html */
+
 .form-signin {
     width: 100%;
     max-width: 330px;
@@ -141,6 +148,7 @@ body {
 
 
 /* ---> account/account.html */
+
 .image-container {
     max-width: 250px;
     height: auto;
@@ -220,3 +228,40 @@ body {
 
 
 /* ---> account/account.html */
+
+
+/* account/edit_account.html */
+
+.image-container {
+    max-width: 250px;
+    height: auto;
+    position: relative;
+}
+
+.field-heading {
+    color: #737373;
+}
+
+#id_confirm {
+    color: green;
+}
+
+#id_confirm:hover {
+    opacity: 0.3;
+}
+
+#id_cancel:hover {
+    opacity: 0.3;
+}
+
+#id_cancel {
+    color: red;
+}
+
+.material-icons {
+    font-size: 30px;
+}
+
+.material-icons:hover {
+    cursor: pointer;
+}
