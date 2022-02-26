@@ -121,8 +121,8 @@ def account_search_view(request, *args, **kwargs):
     if request.method == "GET":
         search_query = request.GET.get("q")
         if len(search_query) > 0:
-            search_results = Account.objects.filter(email_icontains=search_query).filter(
-                username_icontains=search_query)
+            search_results = Account.objects.filter(email__icontains=search_query).filter(
+                username__icontains=search_query)
             accounts = []
             for account in search_results:
                 accounts.append((account, False))
