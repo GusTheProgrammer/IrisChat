@@ -132,7 +132,6 @@ def account_search_view(request, *args, **kwargs):
             context['accounts'] = accounts
 
     return render(request, "account/search_results.html", context)
-<<<<<<< HEAD
 
 
 def edit_account_view(request, *args, **kwargs):
@@ -177,11 +176,3 @@ def edit_account_view(request, *args, **kwargs):
         context['form'] = form
     context['DATA_UPLOAD_MAX_MEMORY_SIZE'] = settings.DATA_UPLOAD_MAX_MEMORY_SIZE
     return render(request, "account/edit_account.html", context)
-
-
-
-
-
-
-=======
->>>>>>> 69d9a03156816d0c05edf06e7abab671e1123d2b
