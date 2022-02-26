@@ -1,15 +1,24 @@
 {% extends 'base.html' %}
+
 {% block content %}
-<h1>HOME PAGE</h1>
 
-    <div class="container">
 
-    </div>
-<div class="d-grid gap-2 col-6 mx-auto">
-    <a href="{% url 'login' %}" class="btn btn-outline-primary btn-rounded" type="button">Sign In</a>
-    <a href="{% url 'register' %}" class= "btn btn-outline-success btn-rounded" type="button"> Sign Up</a>
-    <a href="{% url 'logout' %}" class= "btn btn-outline-danger btn-rounded" type="button"> Sign Out</a>
+<div class="container">
+	<div class="my-grid d-flex flex-row justify-content-between">
+		<p class="my-grid-item m-auto">Item</p>
+		<p class="my-grid-item m-auto">Item</p>
+		<p class="my-grid-item m-auto">Item</p>
+		<p class="my-grid-item m-auto">Item</p>
+		<p class="my-grid-item m-auto">Item</p>
+	</div>
+
+	<div class="my-grid d-flex flex-column mt-4">
+		<p class="my-grid-item mx-auto my-1 p-1">Item</p>
+		<p class="my-grid-item mx-auto my-1 p-1">Item</p>
+		<p class="my-grid-item mx-auto my-1 p-1">Item</p>
+		<p class="my-grid-item mx-auto my-1 p-1">Item</p>
+		<p class="my-grid-item mx-auto my-1 p-1">Item</p>
+	</div>
 
 </div>
-
 {% endblock content %}

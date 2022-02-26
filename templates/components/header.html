@@ -1,5 +1,6 @@
 {% load static %}
 
+<!-- Header -->
 <div class="d-flex flex-column flex-lg-row p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
 
     <!-- MEDIUM+ SCREENS -->
@@ -98,13 +99,16 @@
 
 </div>
 
+
 <script type="text/javascript">
-    function executeQuery(){
-        var query = document.getElementByID("id_q_small").value
-        if (query == ""){
-            query = document.getElementByID("id_q_large").value
+    function executeQuery() {
+        var query = ""
+        query = document.getElementById('id_q_small').value;
+        if (query == "") {
+            query = document.getElementById('id_q_large').value;
         }
         window.location.replace("{% url 'search' %}?q=" + query)
         return false
     }
+
 </script>
