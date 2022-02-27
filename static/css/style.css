@@ -88,6 +88,22 @@ body {
     cursor: pointer;
 }
 
+#id_chatroom_loading_spinner {
+    position: absolute;
+}
+
+.connected-users {
+    color: red;
+}
+
+.connected-users-icon {
+    color: red;
+}
+
+.connected-users-icon:hover {
+    cursor: default;
+}
+
 /* ---> components/footer.html */
 .footer {
     min-height: 100px;

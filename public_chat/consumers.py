@@ -1,16 +1,18 @@
 import json
 from channels.generic.websocket import AsyncJsonWebsocketConsumer
 from channels.db import database_sync_to_async
+from django.core.paginator import Paginator
+from django.core.serializers.python import Serializer
+from django.core.serializers import serialize
 from django.contrib.auth import get_user_model
 from django.contrib.humanize.templatetags.humanize import naturaltime, naturalday
 from django.utils import timezone
 from datetime import datetime
 
 from public_chat.models import PublicChatRoom, PublicRoomChatMessage
+from .constants import *
 
 User = get_user_model()
-
-MSG_TYPE_MESSAGE = 0  # For standard messages
 
 
 # Example taken from:
@@ -57,7 +59,18 @@ class PublicChatConsumer(AsyncJsonWebsocketConsumer):
             elif command == "leave":
                 # Leave the room
                 await self.leave_room(content["room"])
+            elif command == "get_room_chat_messages":
+                await self.display_progress_bar(True)
+                room = await get_room_or_error(content['room_id'])
+                payload = await get_room_chat_messages(room, content['page_number'])
+                if payload != None:
+                    payload = json.loads(payload)
+                    await self.send_messages_payload(payload['messages'], payload['new_page_number'])
+                else:
+                    raise ClientError(204, "Something went wrong retrieving the chatroom messages.")
+                await self.display_progress_bar(False)
         except ClientError as e:
+            await self.display_progress_bar(False)
             await self.handle_client_error(e)
 
     async def send_room(self, room_id, message):
@@ -136,6 +149,17 @@ class PublicChatConsumer(AsyncJsonWebsocketConsumer):
             "join": str(room.id)
         })
 
+        # send the new user count to the room
+        num_connected_users = await get_num_connected_users(room_id)
+
+        await self.channel_layer.group_send(
+            room.group_name,
+            {
+                "type": "connected.user.count",
+                "connected_user_count": num_connected_users,
+            }
+        )
+
     async def leave_room(self, room_id):
         """
         Called by receive_json when someone sent a leave command.
@@ -156,17 +180,76 @@ class PublicChatConsumer(AsyncJsonWebsocketConsumer):
             self.channel_name,
         )
 
+        # send the new user count to the room
+        num_connected_users = await get_num_connected_users(room_id)
+        await self.channel_layer.group_send(
+            room.group_name,
+            {
+                "type": "connected.user.count",
+                "connected_user_count": num_connected_users,
+            }
+        )
+
     async def handle_client_error(self, e):
         """
         Called when a ClientError is raised.
         Sends error data to UI.
         """
-        errorData = {}
-        errorData['error'] = e.code
+        errorData = {'error': e.code}
         if e.message:
             errorData['message'] = e.message
             await self.send_json(errorData)
         return
+
+    async def send_messages_payload(self, messages, new_page_number):
+        """
+        Send a payload of messages to the ui
+        """
+        print("PublicChatConsumer: send_messages_payload. ")
+
+        await self.send_json(
+            {
+                "messages_payload": "messages_payload",
+                "messages": messages,
+                "new_page_number": new_page_number,
+            },
+        )
+
+    async def display_progress_bar(self, is_displayed):
+        """
+        1. is_displayed = True
+        - Display the progress bar on UI
+        2. is_displayed = False
+        - Hide the progress bar on UI
+        """
+        print("DISPLAY PROGRESS BAR: " + str(is_displayed))
+        await self.send_json(
+            {
+                "display_progress_bar": is_displayed
+            }
+        )
+
+    async def connected_user_count(self, event):
+        """
+        Called to send the number of connected users to the room.
+        This number is displayed in the room so other users know how many users are connected to the chat.
+        """
+        # Send a message down to the client
+        print("PublicChatConsumer: connected_user_count: count: " + str(event["connected_user_count"]))
+        await self.send_json(
+            {
+                "msg_type": MSG_TYPE_CONNECTED_USER_COUNT,
+                "connected_user_count": event["connected_user_count"]
+            },
+        )
+
+
+@database_sync_to_async
+def get_num_connected_users(room_id):
+    users = PublicChatRoom.objects.get(pk=room_id).users
+    if users:
+        return len(users.all())
+    return 0
 
 
 def is_authenticated(user):
@@ -202,6 +285,28 @@ def get_room_or_error(room_id):
     return room
 
 
+@database_sync_to_async
+def get_room_chat_messages(room, page_number):
+    try:
+        qs = PublicRoomChatMessage.objects.by_room(room)
+        p = Paginator(qs, DEFAULT_ROOM_CHAT_MESSAGE_PAGE_SIZE)
+
+        payload = {}
+        # messages_data = None
+        new_page_number = int(page_number)
+        if new_page_number <= p.num_pages:
+            new_page_number = new_page_number + 1
+            s = LazyRoomChatMessageEncoder()
+            payload['messages'] = s.serialize(p.page(page_number).object_list)
+        else:
+            payload['messages'] = "None"
+        payload['new_page_number'] = new_page_number
+        return json.dumps(payload)
+    except Exception as e:
+        print("EXCEPTION: " + str(e))
+        return None
+
+
 class ClientError(Exception):
     """
     Custom exception class that is caught by the websocket receive()
@@ -235,3 +340,15 @@ def calculate_timestamp(timestamp):
         str_time = datetime.strftime(timestamp, "%m/%d/%Y")
         ts = f"{str_time}"
     return str(ts)
+
+
+class LazyRoomChatMessageEncoder(Serializer):
+    def get_dump_object(self, obj):
+        dump_object = {}
+        dump_object.update({'msg_type': MSG_TYPE_MESSAGE})
+        dump_object.update({'user_id': str(obj.user.id)})
+        dump_object.update({'username': str(obj.user.username)})
+        dump_object.update({'message': str(obj.content)})
+        dump_object.update({'profile_image': str(obj.user.profile_image.url)})
+        dump_object.update({'natural_timestamp': calculate_timestamp(obj.timestamp)})
+        return dump_object
