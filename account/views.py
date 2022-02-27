@@ -16,7 +16,8 @@ from django.core import files
 from .forms import RegistrationForm, AccountAuthenticationForm, AccountUpdateForm
 from .models import Account
 
-TEMP_PROFILE_IMAGE_NAME = "temp_profile_image.png"
+# TEMP_PROFILE_IMAGE_NAME = "temp_profile_image.png"
+
 
 def register_view(request, *args, **kwargs):
     user = request.user
@@ -161,27 +162,26 @@ def edit_account_view(request, *args, **kwargs):
             return redirect("account:view", user_id=account.pk)
         else:
             form = AccountUpdateForm(request.POST, instance=request.user,
-
-                initial= {
-                    "id": account.pk,
-                    "email": account.email,
-                    "username": account.username,
-                    "profile_image": account.profile_image,
-                    "hide_email": account.hide_email
-                }
-            )
+                                     initial={
+                                         "id": account.pk,
+                                         "email": account.email,
+                                         "username": account.username,
+                                         "profile_image": account.profile_image,
+                                         "hide_email": account.hide_email
+                                     }
+                                     )
             context['form'] = form
     else:
         form = AccountUpdateForm(
 
-                initial= {
-                    "id": account.pk,
-                    "email": account.email,
-                    "username": account.username,
-                    "profile_image": account.profile_image,
-                    "hide_email": account.hide_email
-                }
-            )
+            initial={
+                "id": account.pk,
+                "email": account.email,
+                "username": account.username,
+                "profile_image": account.profile_image,
+                "hide_email": account.hide_email
+            }
+        )
         context['form'] = form
     context['DATA_UPLOAD_MAX_MEMORY_SIZE'] = settings.DATA_UPLOAD_MAX_MEMORY_SIZE
     return render(request, "account/edit_account.html", context)
@@ -207,6 +207,7 @@ def save_temp_profile_image_from_base64String(imageString, user):
             return save_temp_profile_image_from_base64String(imageString, user)
     return None
 
+
 def crop_image(request, *args, **kwargs):
     payload = {}
     user = request.user
@@ -225,7 +226,7 @@ def crop_image(request, *args, **kwargs):
                 cropX = 0
             if cropY < 0:
                 cropY = 0
-            crop_image = img[cropY:cropY + cropHeight, cropX:cropX+cropWidth]
+            crop_image = img[cropY:cropY + cropHeight, cropX:cropX + cropWidth]
 
             cv2.imwrite(url, crop_image)
             user.profile_image.delete()

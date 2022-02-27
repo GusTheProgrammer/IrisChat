@@ -38,8 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'chat',  # local
-    'account',
+    'django.contrib.humanize',
+    'account',  # local
+    'public_chat',
 
     'channels',  # 3rd party
 ]
