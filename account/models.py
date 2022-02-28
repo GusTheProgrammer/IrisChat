@@ -34,8 +34,8 @@ class MyAccountManager(BaseUserManager):
         return user
 
 
-def get_profile_image_filepath(self):
-    return f'profile_images/{self.pk}/{"profile_image.png"}'
+def get_profile_image_filepath(self, filename):
+    return 'profile_images/' + str(self.pk) + '/profile_image.png'
 
 
 def get_default_profile_image():

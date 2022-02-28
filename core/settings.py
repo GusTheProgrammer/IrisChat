@@ -38,8 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'chat',  # local
-    'account',
+    'django.contrib.humanize',
+    'account',  # local
+    'public_chat',
 
     'channels',  # 3rd party
 ]
@@ -167,3 +168,5 @@ AUTHENTICATION_BACKENDS = (
 
 LOGIN_REDIRECT_URL = 'chat-index'
 LOGOUT_REDIRECT_URL = 'homepage'
+
+DATA_UPLOAD_MAX_MEMORY_SIZE = 10485760
