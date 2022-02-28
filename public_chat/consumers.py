@@ -151,7 +151,6 @@ class PublicChatConsumer(AsyncJsonWebsocketConsumer):
 
         # send the new user count to the room
         num_connected_users = await get_num_connected_users(room_id)
-
         await self.channel_layer.group_send(
             room.group_name,
             {
@@ -246,7 +245,8 @@ class PublicChatConsumer(AsyncJsonWebsocketConsumer):
 
 @database_sync_to_async
 def get_num_connected_users(room_id):
-    users = PublicChatRoom.objects.get(pk=room_id).users
+    users = PublicChatRoom.objects.get(pk=room_id).users.all()
+    print(users)
     if users:
         return len(users.all())
     return 0
@@ -346,6 +346,7 @@ class LazyRoomChatMessageEncoder(Serializer):
     def get_dump_object(self, obj):
         dump_object = {}
         dump_object.update({'msg_type': MSG_TYPE_MESSAGE})
+        dump_object.update({'msg_id': str(obj.id)})
         dump_object.update({'user_id': str(obj.user.id)})
         dump_object.update({'username': str(obj.user.username)})
         dump_object.update({'message': str(obj.content)})

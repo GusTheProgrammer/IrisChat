@@ -16,7 +16,7 @@ from django.core import files
 from .forms import RegistrationForm, AccountAuthenticationForm, AccountUpdateForm
 from .models import Account
 
-# TEMP_PROFILE_IMAGE_NAME = "temp_profile_image.png"
+TEMP_PROFILE_IMAGE_NAME = "temp_profile_image.png"
 
 
 def register_view(request, *args, **kwargs):
