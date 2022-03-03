@@ -1,5 +1,6 @@
 from multiprocessing import context
 from tkinter.messagebox import NO
+from django.dispatch import receiver
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth import login, logout, authenticate
@@ -13,6 +14,9 @@ import base64
 # import requests
 from django.core import files
 
+from friends.models import FriendList, FriendRequest
+from friends.utils import get_friend_request_or_false
+from friends.friend_status import FriendRequestStatus
 from .forms import RegistrationForm, AccountAuthenticationForm, AccountUpdateForm
 from .models import Account
 
@@ -112,19 +116,51 @@ def account_view(request, *args, **kwargs):
         context['profile_image'] = account.profile_image.url
         context['hide_email'] = account.hide_email
 
+        try:
+            friend_list = FriendList.objects.get(user=account)
+        except FriendList.DoesNotExist:
+            friend_list = FriendList(user=account)
+            friend_list.save()
+        friends = friend_list.friends.all()
+        context['friends'] = friends
+
         # Define template variables
         is_self = True
         is_friend = False
+        request_sent = FriendRequestStatus.NO_REQUEST_SENT.value
+        friend_requests = None 
         user = request.user
         if user.is_authenticated and user != account:
             is_self = False
+            if friends.filter(pk=user.id):
+                is_friend = True
+            else:
+                is_frind = False
+                
+                if get_friend_request_or_false(sender= account, receiver= user) !=False:
+                    request_sent = FriendRequestStatus.THEM_SENT_TO_YOU.value
+                    context['pending_friend_request_id'] = get_friend_request_or_false(sender=account, receiver=user).id
+
+                elif get_friend_request_or_false(sender = account, receiver = user )!= False:
+                    request_sent = FriendRequestStatus.YOU_SENT_TO_THEM.value
+
+                else:
+                    request_sent = FriendRequestStatus.NO_REQUEST_SENT.value
+
         elif not user.is_authenticated:
             is_self = False
+        else:
+            try:
+                friend_requests = FriendRequest.objects.filter(receiver=user, is_active= True)
+            except: 
+                pass
 
         # Set the template variables to the values
         context['is_self'] = is_self
         context['is_friend'] = is_friend
         # context['BASE_URL'] = settings.BASE_URL
+        context['request_sent'] = request_sent
+        context[friend_requests] = friend_requests
         return render(request, "account/account.html", context)
 
 
