@@ -9,7 +9,8 @@
                     <div class="d-flex flex-column justify-content-center p-4">
                         <div class="image-container mx-auto mb-4">
                             <img class="d-block border border-dark rounded-circle img-fluid mx-auto profile-image"
-                                 alt="profile image logo" id="id_profile_image" src="{{ profile_image }}">
+                                 alt="profile image logo" id="id_profile_image"
+                                 src="{% static 'img/dummy_image.png' %}">
                         </div>
                         <p class="mt-4 mb-1 field-heading">Email</p>
                         {% if is_self %}
@@ -26,7 +27,7 @@
 
                         <!-- If Auth user is viewing their own profile -->
                         {% if is_self %}
-                            <a class="mt-4 btn btn-primary" href="{#% url 'account:edit' user_id=id %#}">Update</a>
+                            <a class="mt-4 btn btn-primary" href="{% url 'account:edit' user_id=id %}">Update</a>
                             <div class="d-flex flex-column mt-4">
                                 <a class="m-auto" href="{% url 'password_change' %}">Change password</a>
                             </div>
@@ -130,15 +131,19 @@
         </div>
     </div>
 
+    <script type="text/javascript">
+        preloadImage("{{profile_image|safe}}", 'id_profile_image')
+    </script>
 
 
 
-{#    {% include 'friend/snippets/send_friend_request.html' %}#}
-{#    {% include 'friend/snippets/accept_friend_request.html' %}#}
-{#    {% include 'friend/snippets/decline_friend_request.html' %}#}
-{#    {% include 'friend/snippets/cancel_friend_request.html' %}#}
-{#    {% include 'friend/snippets/remove_friend.html' %}#}
-{#    {% include 'chat/snippets/create_or_return_private_chat.html' %}#}
+
+    {#    {% include 'friend/snippets/send_friend_request.html' %}#}
+    {#    {% include 'friend/snippets/accept_friend_request.html' %}#}
+    {#    {% include 'friend/snippets/decline_friend_request.html' %}#}
+    {#    {% include 'friend/snippets/cancel_friend_request.html' %}#}
+    {#    {% include 'friend/snippets/remove_friend.html' %}#}
+    {#    {% include 'chat/snippets/create_or_return_private_chat.html' %}#}
 
 
 

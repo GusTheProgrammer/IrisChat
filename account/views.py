@@ -1,10 +1,22 @@
+from multiprocessing import context
+from tkinter.messagebox import NO
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth import login, logout, authenticate
 from django.conf import settings
+from django.core.files.storage import default_storage
+from django.core.files.storage import FileSystemStorage
+import os
+import cv2
+import json
+import base64
+# import requests
+from django.core import files
 
-from .forms import RegistrationForm, AccountAuthenticationForm
+from .forms import RegistrationForm, AccountAuthenticationForm, AccountUpdateForm
 from .models import Account
+
+TEMP_PROFILE_IMAGE_NAME = "temp_profile_image.png"
 
 
 def register_view(request, *args, **kwargs):
@@ -116,12 +128,116 @@ def account_view(request, *args, **kwargs):
         return render(request, "account/account.html", context)
 
 
+def account_search_view(request, *args, **kwargs):
+    context = {}
+    if request.method == "GET":
+        search_query = request.GET.get("q")
+        if len(search_query) > 0:
+            search_results = Account.objects.filter(email__icontains=search_query).filter(
+                username__icontains=search_query).distinct()
+            user = request.user
+            accounts = []  # [(account1, True), (account2, False), ...]
+            for account in search_results:
+                accounts.append((account, False))  # you have no friends yet
+            context['accounts'] = accounts
+
+    return render(request, "account/search_results.html", context)
 
 
+def edit_account_view(request, *args, **kwargs):
+    if not request.user.is_authenticated:
+        return redirect("login")
+    user_id = kwargs.get("user_id")
+    try:
+        account = Account.objects.get(pk=user_id)
+    except Account.DoesNotExist:
+        return HttpResponse("Somethings Wrong")
+    if account.pk != request.user.pk:
+        return HttpResponse("You can't edit others profiles")
+    context = {}
+    if request.POST:
+        form = AccountUpdateForm(request.POST, request.FILES, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect("account:view", user_id=account.pk)
+        else:
+            form = AccountUpdateForm(request.POST, instance=request.user,
+                                     initial={
+                                         "id": account.pk,
+                                         "email": account.email,
+                                         "username": account.username,
+                                         "profile_image": account.profile_image,
+                                         "hide_email": account.hide_email
+                                     }
+                                     )
+            context['form'] = form
+    else:
+        form = AccountUpdateForm(
+
+            initial={
+                "id": account.pk,
+                "email": account.email,
+                "username": account.username,
+                "profile_image": account.profile_image,
+                "hide_email": account.hide_email
+            }
+        )
+        context['form'] = form
+    context['DATA_UPLOAD_MAX_MEMORY_SIZE'] = settings.DATA_UPLOAD_MAX_MEMORY_SIZE
+    return render(request, "account/edit_account.html", context)
 
 
+def save_temp_profile_image_from_base64String(imageString, user):
+    INCORRECT_PADDING_EXCEPTION = "Incorrect padding"
+    try:
+        if not os.path.exists(settings.TEMP):
+            os.mkdir(settings.TEMP)
+        if not os.path.exists(f"{settings.TEMP}/{user.pk}"):
+            os.mkdir(f"{settings.TEMP}/{user.pk}")
+        url = os.path.join(f"{settings.TEMP}/{user.pk}", TEMP_PROFILE_IMAGE_NAME)
+        storage = FileSystemStorage(location=url)
+        image = base64.b64decode(imageString)
+        with storage.open('', 'wb+') as destination:
+            destination.write(image)
+            destination.close()
+        return url
+    except Exception as e:
+        if str(e) == INCORRECT_PADDING_EXCEPTION:
+            imageString += "=" * ((4 - len(imageString) % 4) % 4)
+            return save_temp_profile_image_from_base64String(imageString, user)
+    return None
 
 
+def crop_image(request, *args, **kwargs):
+    payload = {}
+    user = request.user
+    if request.POST and user.is_authenticated:
+        try:
+            imageString = request.POST.get("image")
+            url = save_temp_profile_image_from_base64String(imageString, user)
+            img = cv2.imread(url)
 
+            cropX = int(float(str(request.POST.get("cropX"))))
+            cropY = int(float(str(request.POST.get("cropY"))))
+            cropWidth = int(float(str(request.POST.get("cropWidth"))))
+            cropHeight = int(float(str(request.POST.get("cropHeight"))))
 
+            if cropX < 0:
+                cropX = 0
+            if cropY < 0:
+                cropY = 0
+            crop_image = img[cropY:cropY + cropHeight, cropX:cropX + cropWidth]
 
+            cv2.imwrite(url, crop_image)
+            user.profile_image.delete()
+            user.profile_image.save("profile_image.png", files.File(open(url, "rb")))
+            user.save()
+
+            payload['result'] = "success"
+            payload['cropped_profile_image'] = user.profile_image.url
+
+            os.remove(url)
+        except Exception as e:
+            payload['result'] = "error"
+            payload['exception'] = str(e)
+    return HttpResponse(json.dumps(payload), content_type="application/json")

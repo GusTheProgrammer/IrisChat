@@ -1,3 +1,4 @@
+// Function to load imagers Asynchronously
 function preloadCallback(src, elementId) {
     var img = document.getElementById(elementId)
     img.src = src
@@ -14,17 +15,14 @@ function preloadImage(imgSrc, elementId) {
     } else {
         objImagePreloader.onload = function () {
             preloadCallback(objImagePreloader.src, elementId);
-            //    clear onLoad, IE behaves irratically with animated gifs otherwise
+            //    clear onLoad, IE behaves erratically with animated gifs otherwise
             objImagePreloader.onload = function () {
             };
         }
     }
 }
 
-/*
-    Build a <p> for messages using markdown
-    https://github.com/markdown-it/markdown-it
-*/
+// function to validate text and render it as markdown
 function validateText(str) {
     var md = window.markdownit({
         highlight: function (str, lang) {
@@ -44,10 +42,8 @@ function validateText(str) {
     return result
 }
 
-// --> account/account.html
-// called from base_js.html
-//preloadImage("{{profile_image|safe}}", 'id_profile_image')
 
+// ----->  account/account.html
 function onFriendRequestSent() {
     location.reload();
 }
@@ -97,4 +93,3 @@ function triggerAcceptFriendRequest(friend_request_id) {
 function triggerDeclineFriendRequest(friend_request_id) {
     declineFriendRequest(friend_request_id, onFriendRequestDeclined)
 }
-
