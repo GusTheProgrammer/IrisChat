@@ -1,6 +1,6 @@
 from django.urls import path 
 
-from friends.views import (send_friend_request,)
+from friend.views import (send_friend_request, )
 
 app_name = 'friend'
 

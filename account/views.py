@@ -14,9 +14,9 @@ import base64
 # import requests
 from django.core import files
 
-from friends.models import FriendList, FriendRequest
-from friends.utils import get_friend_request_or_false
-from friends.friend_status import FriendRequestStatus
+from friend.models import FriendList, FriendRequest
+from friend.utils import get_friend_request_or_false
+from friend.friend_status import FriendRequestStatus
 from .forms import RegistrationForm, AccountAuthenticationForm, AccountUpdateForm
 from .models import Account
 
@@ -122,7 +122,7 @@ def account_view(request, *args, **kwargs):
             friend_list = FriendList(user=account)
             friend_list.save()
         friends = friend_list.friends.all()
-        context['friends'] = friends
+        context['friend'] = friends
 
         # Define template variables
         is_self = True
@@ -174,7 +174,7 @@ def account_search_view(request, *args, **kwargs):
             user = request.user
             accounts = []  # [(account1, True), (account2, False), ...]
             for account in search_results:
-                accounts.append((account, False))  # you have no friends yet
+                accounts.append((account, False))  # you have no friend yet
             context['accounts'] = accounts
 
     return render(request, "account/search_results.html", context)

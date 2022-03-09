@@ -4,7 +4,7 @@ from django.http import HttpResponse
 import json
 
 from account.models import Account
-from friends.models import FriendRequest
+from friend.models import FriendRequest
 
 def send_friend_request(request, *args, **kwargs):
     user = request.user
