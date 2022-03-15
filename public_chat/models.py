@@ -10,6 +10,10 @@ class PublicChatRoom(models.Model):
     users = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True,
                                    help_text="users who are connected to chat room.")
 
+    class Meta:
+        verbose_name = 'Room'
+
+
     def __str__(self):
         return self.title
 
@@ -53,6 +57,10 @@ class PublicRoomChatMessage(models.Model):
     content = models.TextField(unique=False, blank=False, )
 
     objects = PublicRoomChatMessageManager()
+
+    class Meta:
+        verbose_name = 'message'
+
 
     def __str__(self):
         return self.content
