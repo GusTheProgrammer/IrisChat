@@ -100,7 +100,7 @@
 
             </div>
 
-            {% if friend_requests %}
+            {% if friend_requests %} <h1>test</h1>
             <div class="card m-2 px-4 pb-4">
                 <!-- Friend requests -->
                 <div class="d-flex flex-column pt-4">
@@ -132,7 +132,7 @@
 </div>
 
 {% include 'friend/snippets/send_friend_request.html' %}
-{#    {% include 'friend/snippets/accept_friend_request.html' %}#}
+{% include 'friend/snippets/accept_friend_request.html' %}
 {#    {% include 'friend/snippets/decline_friend_request.html' %}#}
 {#    {% include 'friend/snippets/cancel_friend_request.html' %}#}
 {#    {% include 'friend/snippets/remove_friend.html' %}#}
