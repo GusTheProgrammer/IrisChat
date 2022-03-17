@@ -1,35 +1,45 @@
 from django.db import models
-from django.contrib.auth.models import User
-
-from account.models import Account
+from django.conf import settings
 
 
 # Create your models here.
 
-class Room(models.Model):
-    name = models.CharField(max_length=128)
-    online = models.ManyToManyField(to=Account, blank=True)
+class PrivateChatRoom(models.Model):
+    # A private room for people to chat in.
 
-    def get_online_count(self):
-        return self.online.count()
+    user1 = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="user1")
+    user2 = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="user2")
 
-    def join(self, user):
-        self.online.add(user)
-        self.save()
-
-    def leave(self, user):
-        self.online.remove(user)
-        self.save()
+    is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return f'{self.name} ({self.get_online_count()})'
+        return f"A chat between {user1} and {user2}."
+
+    @property
+    def group_name(self):
+        """
+        Returns the Channels Group name that sockets should subscribe to get sent
+        messages as they are generated.
+        """
+        return f"PrivateChatRoom-{self.id}"
 
 
-class Message(models.Model):
-    user = models.ForeignKey(to=Account, on_delete=models.CASCADE)
-    room = models.ForeignKey(to=Room, on_delete=models.CASCADE)
-    content = models.CharField(max_length=512)
+class RoomChatMessageManager(models.Manager):
+    def by_room(self, room):
+        qs = RoomChatMessage.objects.filter(room=room).order_by("-timestamp")
+        return qs
+
+
+class RoomChatMessage(models.Model):
+    """
+    Chat message created by a user inside a Room
+    """
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    room = models.ForeignKey(PrivateChatRoom, on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now_add=True)
+    content = models.TextField(unique=False, blank=False)
+
+    objects = RoomChatMessageManager()
 
     def __str__(self):
-        return f'{self.user.username}: {self.content} [{self.timestamp}]'
+        return self.content

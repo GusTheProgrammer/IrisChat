@@ -1,19 +1,22 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.conf import settings
 
-from chat.models import Room
-
+from .models import PrivateChatRoom, RoomChatMessage
 
 # Create your views here.
 
-
-def index_view(request):
-    return render(request, 'index.html', {
-        'rooms': Room.objects.all(),
-    })
+DEBUG = False
 
 
-def room_view(request, room_name):
-    chat_room, created = Room.objects.get_or_create(name=room_name)
-    return render(request, 'room.html', {
-        'room': chat_room,
-    })
+def private_chat_room_view(request, *args, **kwargs):
+    user = request.user
+
+    # Redirect them if not authenticated
+    if not user.is_authenticated:
+        return redirect("login")
+
+    context = {}
+    context['debug'] = DEBUG
+    context['debug_mode'] = settings.DEBUG
+    return render(request, "room.html", context)
+

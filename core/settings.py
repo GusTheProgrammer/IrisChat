@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'account',  # local
     'public_chat',
+    'chat',
 
     'channels',  # 3rd party
 ]
