@@ -4,42 +4,6 @@
 {% block content %}
 
 
-<style type="text/css">
-	.profile-image{
-		max-height: 100px;
-		max-width: 100px;
-	}
-	.profile-image{
-		border-radius: 12px;
-	}
-	.card{
-		border-radius: 12px;
-	}
-	.dropdown-toggle::after {
-		content: none;
-	}
-	.profile-link{
-		color: #000;
-	}
-	.material-icons{
-		font-size: 30px;
-	}
-	.material-icons:hover{
-		cursor: pointer;
-	}
-	.confirm-friend-request{
-		color: green;
-	}
-	.confirm-friend-request:hover {
-		opacity: 0.3;
-	}
-	.decline-friend-request:hover {
-		opacity: 0.3;
-	}
-	.decline-friend-request{
-		color: red;
-	}
-</style>
 
 <div class="container">
 	<div class="card p-2">
@@ -99,7 +63,7 @@
 </script>
 
 {% include 'friend/snippets/accept_friend_request.html' %}
-{#% include 'friend/snippets/decline_friend_request.html' %#}
+{% include 'friend/snippets/decline_friend_request.html' %}
 
 
 {% endblock content %}
