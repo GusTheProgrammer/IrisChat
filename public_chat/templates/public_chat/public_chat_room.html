@@ -4,38 +4,192 @@
 {% endif %}
 <span class="{% if not debug %}d-none{% endif %} page-number" id="id_page_number">1</span>
 
-<div class="card mt-3">
-    <div class="card-header">
-        <div class="d-flex flex-row justify-content-between">
-            <h3 class="">Public Chat</h3>
-            <div class="d-flex flex-row align-items-center">
-                <span class="material-icons m-auto pr-1 connected-users-icon">person_outline</span>
-                <span class="m-auto connected-users" id="id_connected_users"></span>
-            </div>
+<!-- Chat -->
+<main class="main is-visible" data-dropzone-area="">
+    <div class="container h-100">
 
-        </div>
-    </div>
-    <div class="card-body p-1">
-        <div class="d-flex flex-column" id="id_chat_log_container">
-            <div class="d-flex flex-row justify-content-center" id="id_chatroom_loading_spinner_container">
-                <div class="spinner-border text-primary" id="id_chatroom_loading_spinner" role="status"
-                     style="display: none; ">
-                    <span class="sr-only">Loading...</span>
+        <div class="d-flex flex-column h-100 position-relative">
+            <!-- Chat: Header -->
+            <div class="chat-header border-bottom py-4 py-lg-7">
+                <div class="row align-items-center">
+
+                    <!-- Mobile: close -->
+                    <div class="col-2 d-xl-none">
+                        <a class="icon icon-lg text-muted" href="#" data-toggle-chat="">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                 stroke-linejoin="round" class="feather feather-chevron-left">
+                                <polyline points="15 18 9 12 15 6"></polyline>
+                            </svg>
+                        </a>
+                    </div>
+                    <!-- Mobile: close -->
+
+                    <!-- Content -->
+                    <div class="col-8 col-xl-12">
+                        <div class="row align-items-center text-center text-xl-start">
+                            <!-- Title -->
+                            <div class="col-12 col-xl-6">
+                                <div class="row align-items-center gx-5">
+                                    <div class="col-auto">
+                                        <div class="avatar avatar-online d-none d-xl-inline-block">
+                                            <img class="avatar-img" src="" alt="">
+                                        </div>
+                                    </div>
+
+                                    <div class="col overflow-hidden">
+                                        <h5 class="text-truncate">{{ room_name }}</h5>
+                                        <p class="text-truncate" id="id_connected_users"></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Title -->
+
+                            <!-- Toolbar -->
+                            <div class="col-xl-6 d-none d-xl-block">
+                                <div class="row align-items-center justify-content-end gx-6">
+                                    <div class="col-auto">
+                                        <a href="#" class="icon icon-lg text-muted" data-bs-toggle="offcanvas"
+                                           data-bs-target="#offcanvas-more" aria-controls="offcanvas-more">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                 viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                 class="feather feather-more-horizontal">
+                                                <circle cx="12" cy="12" r="1"></circle>
+                                                <circle cx="19" cy="12" r="1"></circle>
+                                                <circle cx="5" cy="12" r="1"></circle>
+                                            </svg>
+                                        </a>
+                                    </div>
+
+                                    <div class="col-auto">
+                                        <div class="avatar-group">
+                                            <a href="#" class="avatar avatar-sm" data-bs-toggle="modal"
+                                               data-bs-target="#modal-user-profile">
+                                                <img class="avatar-img" src="" alt="#">
+                                            </a>
+
+                                            <a href="#" class="avatar avatar-sm" data-bs-toggle="modal"
+                                               data-bs-target="#modal-profile">
+                                                <img class="avatar-img" src="" alt="#">
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Toolbar -->
+                        </div>
+                    </div>
+                    <!-- Content -->
+
+                    <!-- Mobile: more -->
+                    <div class="col-2 d-xl-none text-end">
+                        <a href="#" class="icon icon-lg text-muted" data-bs-toggle="offcanvas"
+                           data-bs-target="#offcanvas-more" aria-controls="offcanvas-more">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                 stroke-linejoin="round" class="feather feather-more-vertical">
+                                <circle cx="12" cy="12" r="1"></circle>
+                                <circle cx="12" cy="5" r="1"></circle>
+                                <circle cx="12" cy="19" r="1"></circle>
+                            </svg>
+                        </a>
+                    </div>
+                    <!-- Mobile: more -->
+
                 </div>
             </div>
-            <div class="d-flex chat-log" id="id_chat_log">
+            <!-- Chat: Header -->
 
+            <!-- Chat: Content -->
+            <div class="chat-body hide-scrollbar flex-1 h-100">
+                <div class="chat-body-inner">
+                    <div class="d-flex flex-row justify-content-center" id="id_chatroom_loading_spinner_container">
+                        <div class="spinner-border text-primary" id="id_chatroom_loading_spinner" role="status"
+                             style="display: none; ">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </div>
+                    <div class="py-6 py-lg-12" id="id_chat_log" style="  >
+
+                        <!-- Divider -->
+                        <div class="message-divider">
+                            <small class="text-muted">Monday, Sep 16</small>
+                        </div>
+
+
+                    </div>
+                </div>
             </div>
-            <div class="d-flex chat-message-input-container">
-                <textarea class="flex-grow-1 chat-message-input" id="id_chat_message_input"></textarea>
-                <button class="btn btn-primary chat-message-submit-button">
-					<span id="id_chat_message_submit" class="material-icons">send
-					</span>
-                </button>
+            <!-- Chat: Content -->
+
+            <!-- Chat: Footer -->
+            <div class="chat-footer pb-3 pb-lg-7 position-absolute bottom-0 start-0">
+                <!-- Chat: Files -->
+                <div class="dz-preview bg-dark" id="dz-preview-row" data-horizontal-scroll="">
+                </div>
+                <!-- Chat: Files -->
+
+                <!-- Chat: Form -->
+                <form class="chat-form rounded-pill bg-dark" data-emoji-form="">
+                    <div class="row align-items-center gx-0">
+                        <div class="col-auto">
+                            <a href="#" class="btn btn-icon btn-link text-body rounded-circle" id="dz-btn">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                     stroke-linejoin="round" class="feather feather-paperclip">
+                                    <path
+                                            d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48">
+                                    </path>
+                                </svg>
+                            </a>
+                        </div>
+
+                        <div class="col">
+                            <div class="input-group">
+                                <label for="id_chat_message_input"></label><textarea class="form-control px-0"
+                                                                                     placeholder="Type your message..."
+                                                                                     rows="1"
+                                                                                     data-emoji-input=""
+                                                                                     data-autosize="true"
+                                                                                     id="id_chat_message_input"></textarea>
+
+                                <a href="#" class="input-group-text text-body pe-0" data-emoji-btn="">
+                                        <span class="icon icon-lg">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                                 stroke-linecap="round" stroke-linejoin="round"
+                                                 class="feather feather-smile">
+                                                <circle cx="12" cy="12" r="10"></circle>
+                                                <path d="M8 14s1.5 2 4 2 4-2 4-2"></path>
+                                                <line x1="9" y1="9" x2="9.01" y2="9"></line>
+                                                <line x1="15" y1="9" x2="15.01" y2="9"></line>
+                                            </svg>
+                                        </span>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="col-auto">
+                            <button class="btn btn-icon btn-primary rounded-circle ms-5" id="id_chat_message_submit">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                     stroke-linejoin="round" class="feather feather-send">
+                                    <line x1="22" y1="2" x2="11" y2="13"></line>
+                                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <!-- Chat: Form -->
             </div>
+            <!-- Chat: Footer -->
         </div>
+
     </div>
-</div>
+</main>
+<!-- Chat -->
 
 <script type="text/javascript">
 
@@ -132,18 +286,18 @@
         messageInputDom.value = '';
     };
 
-	function appendChatMessage(data, maintainPosition, isNewMessage){
-		message = data['message']
-		msg_id = data['msg_id']
-		uName = data['username']
-		user_id = data['user_id']
-		profile_image = data['profile_image']
-		timestamp = data['natural_timestamp']
+    function appendChatMessage(data, maintainPosition, isNewMessage) {
+        message = data['message']
+        msg_id = data['msg_id']
+        uName = data['username']
+        user_id = data['user_id']
+        profile_image = data['profile_image']
+        timestamp = data['natural_timestamp']
 
-		var msg = message + '\n';
-		var username = uName + ": "
-		createChatMessageElement(msg, msg_id, username, profile_image, user_id, timestamp, maintainPosition, isNewMessage)
-	}
+        var msg = message;
+        var username = uName;
+        createChatMessageElement(msg, msg_id, username, profile_image, user_id, timestamp, maintainPosition, isNewMessage)
+    }
 
     function handleMessagesPayload(messages, new_page_number) {
         if (messages != null && messages != "undefined" && messages != "None") {
@@ -191,33 +345,33 @@
         });
     })
 
-	function createChatMessageElement(msg, msg_id, username, profile_image, user_id, timestamp, maintainPosition, isNewMessage){
-		var chatLog = document.getElementById("id_chat_log")
+    function createChatMessageElement(msg, msg_id, username, profile_image, user_id, timestamp, maintainPosition, isNewMessage) {
+        var chatLog = document.getElementById("id_chat_log")
 
         var newMessageDiv = document.createElement("div")
-        newMessageDiv.classList.add("d-flex")
-        newMessageDiv.classList.add("flex-row")
-        newMessageDiv.classList.add("message-container")
+        newMessageDiv.classList.add("message")
+        var user = "{{ request.user.id }}"
+        if (user_id == user) {
+            newMessageDiv.classList.add("message-out")
+
+        }
+
+        var profileButton = document.createElement("a")
+        profileButton.classList.add("avatar")
+        profileButton.classList.add("avatar-responsive")
+        profileButton.setAttribute("data-bs-toggle", "modal")
+        profileButton.setAttribute("data-bs-target", "#modal-user-profile")
 
         var profileImage = document.createElement("img")
         profileImage.addEventListener("click", function (e) {
             selectUser(user_id)
         })
-        profileImage.classList.add("profile-image")
-        profileImage.classList.add("rounded-circle")
-        profileImage.classList.add("img-fluid")
+        profileImage.classList.add("avatar-img")
         profileImage.src = "{% static 'img/dummy_image.png' %}"
         var profile_image_id = "id_profile_image_" + msg_id
         profileImage.id = profile_image_id
-        newMessageDiv.appendChild(profileImage)
-
-        var div1 = document.createElement("div")
-        div1.classList.add("d-flex")
-        div1.classList.add("flex-column")
-
-        var div2 = document.createElement("div")
-        div2.classList.add("d-flex")
-        div2.classList.add("flex-row")
+        profileButton.appendChild(profileImage)
+        newMessageDiv.appendChild(profileButton)
 
         var usernameSpan = document.createElement("span")
         usernameSpan.addEventListener("click", function (e) {
@@ -225,26 +379,45 @@
         })
         usernameSpan.classList.add("username-span")
         usernameSpan.innerHTML = username
-        div2.appendChild(usernameSpan)
+        newMessageDiv.appendChild(usernameSpan)
+
+        var messageInner = document.createElement("div")
+        messageInner.classList.add("message-inner")
+        newMessageDiv.appendChild(messageInner)
+
+        var messageBody = document.createElement("div")
+        messageBody.classList.add("message-body")
+        messageInner.appendChild(messageBody)
+
+        var messageContent = document.createElement("div")
+        messageContent.classList.add("message-content")
+        messageBody.appendChild(messageContent)
+
+
+        var messageText = document.createElement("div")
+        messageText.classList.add("message-text")
+        messageContent.appendChild(messageText)
+
+
+        var messageFooter = document.createElement("div")
+        messageFooter.classList.add("message-footer")
+        messageInner.appendChild(messageFooter)
+
 
         var timestampSpan = document.createElement("span")
         timestampSpan.innerHTML = timestamp
-        timestampSpan.classList.add("timestamp-span")
-        timestampSpan.classList.add("d-flex")
-        timestampSpan.classList.add("align-items-center")
+        timestampSpan.classList.add("extra-small")
+        timestampSpan.classList.add("text-muted")
         timestampSpan.addEventListener("click", function (e) {
             selectUser(user_id)
         })
-        div2.appendChild(timestampSpan)
+        messageFooter.appendChild(timestampSpan)
 
-        div1.appendChild(div2)
 
-		var msgP = document.createElement("p")
-		msgP.innerHTML = validateText(msg)
-		msgP.classList.add("msg-p")
-		div1.appendChild(msgP)
+        var msgP = document.createElement("p")
+        msgP.innerHTML = validateText(msg)
+        messageText.appendChild(msgP)
 
-        newMessageDiv.appendChild(div1)
 
         if (isNewMessage) {
             chatLog.insertBefore(newMessageDiv, chatLog.firstChild)
