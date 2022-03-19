@@ -23330,3 +23330,16 @@ img.zoom-img {
     top: 0;
     left: 0
 }
+
+#id_chat_log::-webkit-scrollbar {
+  width: 0.5em;
+}
+
+#id_chat_log::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0);
+}
+
+#id_chat_log::-webkit-scrollbar-thumb {
+  background-color: rgb(39, 135, 245);
+  outline: 1px solid slategrey;
+}

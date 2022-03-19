@@ -9053,7 +9053,7 @@
                     c = null;
                 return {
                     listen: function () {
-                        document.body.addEventListener("click", (function (s) {
+                        document.addEventListener("click", (function (s) {
                             "zoom" === s.target.getAttribute("data-action") && "IMG" === s.target.tagName && function (s) {
                                 if (s.stopPropagation(), !document.body.classList.contains("zoom-overlay-open")) {
                                     if (s.metaKey || s.ctrlKey) return void window.open(event.target.getAttribute("data-original") || event.target.currentSrc || event.target.src, "_blank");

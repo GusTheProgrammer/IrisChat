@@ -22,7 +22,8 @@ TEMP_PROFILE_IMAGE_NAME = "temp_profile_image.png"
 def register_view(request, *args, **kwargs):
     user = request.user
     if user.is_authenticated:
-        return HttpResponse("You are already authenticated as " + str(user.email))
+        # return HttpResponse("You are already authenticated as " + str(user.email))
+        return redirect('homepage')
 
     context = {}
     if request.POST:

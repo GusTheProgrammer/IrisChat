@@ -38,7 +38,7 @@
                                     </div>
 
                                     <div class="col overflow-hidden">
-                                        <h5 class="text-truncate">{{ room_name }}</h5>
+                                        <h5 class="text-truncate">{{ room_title }}</h5>
                                         <p class="text-truncate" id="id_connected_users"></p>
                                     </div>
                                 </div>
@@ -110,14 +110,7 @@
                             <span class="sr-only">Loading...</span>
                         </div>
                     </div>
-                    <div class="py-6 py-lg-12" id="id_chat_log" style="  >
-
-                        <!-- Divider -->
-                        <div class="message-divider">
-                            <small class="text-muted">Monday, Sep 16</small>
-                        </div>
-
-
+                    <div class="py-6 py-lg-12" id="id_chat_log" style="overflow-y: auto; height: 1000px;">
                     </div>
                 </div>
             </div>
@@ -190,7 +183,7 @@
     </div>
 </main>
 <!-- Chat -->
-
+{% include 'components/chat-sideprofile.html' %}
 <script type="text/javascript">
 
     // Correctly decide between ws:// and wss://
@@ -268,6 +261,7 @@
 
     document.getElementById('id_chat_message_input').focus();
     document.getElementById('id_chat_message_input').onkeyup = function (e) {
+        e.preventDefault()
         if (e.keyCode === 13 && e.shiftKey) {  // enter + return
             // Handled automatically by textarea
         } else if (e.keyCode === 13 && !e.shiftKey) { // enter + !return
@@ -276,6 +270,7 @@
     };
 
     document.getElementById('id_chat_message_submit').onclick = function (e) {
+        e.preventDefault()
         const messageInputDom = document.getElementById('id_chat_message_input');
         const message = messageInputDom.value;
         public_chat_socket.send(JSON.stringify({
@@ -297,6 +292,7 @@
         var msg = message;
         var username = uName;
         createChatMessageElement(msg, msg_id, username, profile_image, user_id, timestamp, maintainPosition, isNewMessage)
+
     }
 
     function handleMessagesPayload(messages, new_page_number) {
@@ -304,6 +300,8 @@
             setPageNumber(new_page_number)
             messages.forEach(function (message) {
                 appendChatMessage(message, true, false)
+                let chatBox = document.getElementById("id_chat_log")
+                chatBox.scrollTop = chatBox.scrollHeight;
             })
         } else {
             setPaginationExhausted() // no more messages
@@ -367,7 +365,7 @@
             selectUser(user_id)
         })
         profileImage.classList.add("avatar-img")
-        profileImage.src = "{% static 'img/dummy_image.png' %}"
+        profileImage.src = profile_image
         var profile_image_id = "id_profile_image_" + msg_id
         profileImage.id = profile_image_id
         profileButton.appendChild(profileImage)
@@ -413,16 +411,27 @@
         })
         messageFooter.appendChild(timestampSpan)
 
+        if (timestamp.includes("yesterday")) {
+            var messageDivider = document.createElement("div")
+            newMessageDiv.appendChild(messageDivider)
+
+            var divider = document.createElement("small")
+            divider.classList.add("text-muted")
+            divider.innerHTML = "Yesterday"
+            messageDivider.appendChild(divider)
+        }
+
 
         var msgP = document.createElement("p")
         msgP.innerHTML = validateText(msg)
         messageText.appendChild(msgP)
 
 
-        if (isNewMessage) {
+        if (!isNewMessage) {
             chatLog.insertBefore(newMessageDiv, chatLog.firstChild)
         } else {
             chatLog.appendChild(newMessageDiv)
+            chatLog.scrollTop = chatLog.scrollHeight
         }
 
         if (!maintainPosition) {
@@ -430,7 +439,7 @@
         }
 
         // now that a default image is showing, load the actual image.
-        preloadImage(profile_image, profile_image_id) // called from base_js.html
+        // preloadImage(profile_image, profile_image_id) // called from base_js.html
     }
 
     function selectUser(user_id) {
@@ -456,7 +465,7 @@
 
     function setConnectedUsersCount(count) {
         element = document.getElementById("id_connected_users")
-        element.innerHTML = count
+        element.innerHTML = count + " Members Online"
     }
 </script>
 
