@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'account',  # local
     'public_chat',
     'chat',
+    'friend',
 
     'channels',  # 3rd party
 ]
