@@ -90,7 +90,7 @@
 
                         <!-- Friend list link -->
                         <div class="d-flex flex-column pt-4">
-                            <a href="{#% url 'friend:list' user_id=id %#}">
+                            <a href="{% url 'friend:list' user_id=id %}">
                                 <div class="d-flex flex-row align-items-center justify-content-center icon-container">
                                     <span class="material-icons mr-2 friends-icon">contact_page</span><span
                                         class="friend-text">Friends ({{ friends|length }})</span>
@@ -131,19 +131,68 @@
         </div>
     </div>
 
+
     <script type="text/javascript">
+
         preloadImage("{{profile_image|safe}}", 'id_profile_image')
+
+        function onFriendRequestSent() {
+            location.reload();
+        }
+
+        function onFriendRequestCancelled() {
+            location.reload();
+        }
+
+        function onFriendRemoved() {
+            location.reload();
+        }
+
+        function onFriendRequestAccepted() {
+            location.reload();
+        }
+
+        function onFriendRequestDeclined() {
+            location.reload();
+        }
+
+
+        var sendFriendRequestBtn = document.getElementById("id_send_friend_request_btn")
+        if (sendFriendRequestBtn != null) {
+            sendFriendRequestBtn.addEventListener("click", function () {
+                sendFriendRequest("{{id}}", onFriendRequestSent)
+            })
+        }
+
+        var cancelFriendRequestBtn = document.getElementById("id_cancel_friend_request_btn")
+        if (cancelFriendRequestBtn != null) {
+            cancelFriendRequestBtn.addEventListener("click", function () {
+                cancelFriendRequest("{{id}}", onFriendRequestCancelled)
+            })
+        }
+
+        var removeFriendBtn = document.getElementById("id_unfriend_btn")
+        if (removeFriendBtn != null) {
+            removeFriendBtn.addEventListener("click", function () {
+                removeFriend("{{id}}", onFriendRemoved)
+            })
+        }
+
+        function triggerAcceptFriendRequest(friend_request_id) {
+            acceptFriendRequest(friend_request_id, onFriendRequestAccepted)
+        }
+
+        function triggerDeclineFriendRequest(friend_request_id) {
+            declineFriendRequest(friend_request_id, onFriendRequestDeclined)
+        }
     </script>
 
-
-
-
-    {#    {% include 'friend/snippets/send_friend_request.html' %}#}
-    {#    {% include 'friend/snippets/accept_friend_request.html' %}#}
-    {#    {% include 'friend/snippets/decline_friend_request.html' %}#}
-    {#    {% include 'friend/snippets/cancel_friend_request.html' %}#}
-    {#    {% include 'friend/snippets/remove_friend.html' %}#}
-    {#    {% include 'chat/snippets/create_or_return_private_chat.html' %}#}
+    {% include 'friend/snippets/send_friend_request.html' %}
+    {% include 'friend/snippets/accept_friend_request.html' %}
+    {% include 'friend/snippets/decline_friend_request.html' %}
+    {% include 'friend/snippets/cancel_friend_request.html' %}
+    {% include 'friend/snippets/remove_friend.html' %}
+    {% include 'components/create_or_return_private_chat.html' %}
 
 
 
