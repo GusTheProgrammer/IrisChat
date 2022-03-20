@@ -16,11 +16,16 @@ DEBUG = False
 
 def private_chat_room_view(request, *args, **kwargs):
     user = request.user
-    context = {}
+    room_id = request.GET.get("room_id")
 
     # Redirect them if not authenticated
     if not user.is_authenticated:
         return redirect("login")
+
+    context = {}
+    if room_id:
+        room = PrivateChatRoom.objects.get(pk=room_id)
+        context["room"] = room
 
     # 1. Find all the rooms this user is a part of
     rooms1 = PrivateChatRoom.objects.filter(user1=user, is_active=True)
@@ -28,7 +33,6 @@ def private_chat_room_view(request, *args, **kwargs):
 
     # 2. merge the lists
     rooms = list(chain(rooms1, rooms2))
-    print(str(len(rooms)))
 
     """
     m_and_f:
