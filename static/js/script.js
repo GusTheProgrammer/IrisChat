@@ -42,5 +42,3 @@ function validateText(str) {
     return result
 }
 
-
-// ----->  account/account.html

@@ -101,6 +101,8 @@
 
 
 <script type="text/javascript">
+    setupChatDropdownHeader()
+
     function executeQuery() {
         var query = ""
         query = document.getElementById('id_q_small').value;
@@ -109,6 +111,38 @@
         }
         window.location.replace("{% url 'search' %}?q=" + query)
         return false
+    }
+
+
+    // Add a header to the dropdown so users can visit /chat/
+
+    function setupChatDropdownHeader() {
+        var notificationContainer = document.getElementById("id_chat_notifications_container")
+
+        if (notificationContainer != null) {
+
+            var div = document.createElement("div")
+            div.classList.add("chat-dropdown-header", "d-flex", "flex-row", "justify-content-end", "m-auto", "align-items-end")
+            div.addEventListener("click", function (e) {
+                var url = "{% url 'chat:private-chat-room' %}"
+                chatRedirect(url)
+            })
+
+            span1 = document.createElement("span")
+            span1.classList.add("mr-2")
+            span1.innerHTML = "Go to chat"
+            div.appendChild(span1)
+
+            span2 = document.createElement("span")
+            span2.classList.add("material-icons", "mr-2")
+            span2.innerHTML = "open_with"
+            div.appendChild(span2)
+            notificationContainer.appendChild(div)
+        }
+    }
+
+    function chatRedirect(url) {
+        window.location.href = url
     }
 
 </script>

@@ -1,6 +1,7 @@
 from django.contrib import admin
 from friend.models import FriendList, FriendRequest
 
+
 class FriendListAdmin(admin.ModelAdmin):
     list_filter = ['user']
     list_display = ['user']
@@ -10,15 +11,15 @@ class FriendListAdmin(admin.ModelAdmin):
     class Meta:
         model = FriendList
 
-admin.site.register(FriendList,FriendListAdmin)
-
 
 class FriendRequestAdmin(admin.ModelAdmin):
     list_filter = ['sender', 'receiver']
-    list_display = ['sender', 'receiver']
-    list_filter = ['sender__username', 'receiver__username']
+    list_display = ['sender', 'receiver', ]
+    search_fields = ['sender__username', 'receiver__username']
 
     class Meta:
-        model = FriendRequest 
+        model = FriendRequest
 
+
+admin.site.register(FriendList, FriendListAdmin)
 admin.site.register(FriendRequest, FriendRequestAdmin)

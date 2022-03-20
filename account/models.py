@@ -1,5 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
+from friend.models import FriendList
 
 
 # Create your models here.
@@ -9,13 +13,15 @@ class MyAccountManager(BaseUserManager):
     # Create a new user
     def create_user(self, email, username, password=None):
         if not email:
-            raise ValueError("Users must have an email address.")
+            raise ValueError('Users must have an email address')
         if not username:
-            raise ValueError("Users must have a username.")
+            raise ValueError('Users must have a username')
+
         user = self.model(
             email=self.normalize_email(email),
-            username=username
+            username=username,
         )
+
         user.set_password(password)
         user.save(using=self._db)
         return user
@@ -24,8 +30,8 @@ class MyAccountManager(BaseUserManager):
     def create_superuser(self, email, username, password):
         user = self.create_user(
             email=self.normalize_email(email),
-            username=username,
             password=password,
+            username=username,
         )
         user.is_admin = True
         user.is_staff = True
@@ -77,3 +83,8 @@ class Account(AbstractBaseUser):
     # Does this user have permission to view this app? (ALWAYS YES FOR SIMPLICITY)
     def has_module_perms(self, app_label):
         return True
+
+
+@receiver(post_save, sender=Account)
+def user_save(sender, instance, **kwargs):
+    FriendList.objects.get_or_create(user=instance)

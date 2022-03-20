@@ -28,6 +28,16 @@ body {
     height: 100%;
 }
 
+/* ---> header.html */
+.chat-dropdown-header:hover {
+    cursor: pointer;
+    background: var(--main-background-color);
+}
+
+.chat-dropdown-header {
+    color: var(--light-primary-text-color);
+}
+
 /* ---> home.html */
 .chat-log {
     height: 500px;
@@ -494,74 +504,93 @@ body {
 }
 
 /* friend_request.html */
-	.profile-image{
-		max-height: 100px;
-		max-width: 100px;
-	}
-	.profile-image{
-		border-radius: 12px;
-	}
-	.card{
-		border-radius: 12px;
-	}
-	.dropdown-toggle::after {
-		content: none;
-	}
-	.profile-link{
-		color: #000;
-	}
-	.material-icons{
-		font-size: 30px;
-	}
-	.material-icons:hover{
-		cursor: pointer;
-	}
-	.confirm-friend-request{
-		color: green;
-	}
-	.confirm-friend-request:hover {
-		opacity: 0.3;
-	}
-	.decline-friend-request:hover {
-		opacity: 0.3;
-	}
-	.decline-friend-request{
-		color: red;
-	}
+.profile-image {
+    max-height: 100px;
+    max-width: 100px;
+}
 
-    /* Friend List */
+.profile-image {
+    border-radius: 12px;
+}
 
-    	.profile-image{
-		max-height: 100px;
-		max-width: 100px;
-	}
-	.profile-image{
-		border-radius: 12px;
-	}
-	.card{
-		border-radius: 12px;
-	}
-	.friends-text{
-		color: #000;
-		font-weight: 500;
-	}
-	.friends-text-container{
-		border: 1px solid #cccccc;
-		border-radius: 12px;
-	}
-	.friends-btn:hover {
-		background-color: #bfbfbf;
-		border-color: #bfbfbf;
-	}
-	.dropdown-toggle::after {
-		content: none;
-	}
-	.profile-link{
-		color: #000;
-	}
-	.checkmark-icon{
-		color: green;
-	}
-	.cancel-icon{
-		color: red;
-	}
+.card {
+    border-radius: 12px;
+}
+
+.dropdown-toggle::after {
+    content: none;
+}
+
+.profile-link {
+    color: #000;
+}
+
+.material-icons {
+    font-size: 30px;
+}
+
+.material-icons:hover {
+    cursor: pointer;
+}
+
+.confirm-friend-request {
+    color: green;
+}
+
+.confirm-friend-request:hover {
+    opacity: 0.3;
+}
+
+.decline-friend-request:hover {
+    opacity: 0.3;
+}
+
+.decline-friend-request {
+    color: red;
+}
+
+/* Friend List */
+
+.profile-image {
+    max-height: 100px;
+    max-width: 100px;
+}
+
+.profile-image {
+    border-radius: 12px;
+}
+
+.card {
+    border-radius: 12px;
+}
+
+.friends-text {
+    color: #000;
+    font-weight: 500;
+}
+
+.friends-text-container {
+    border: 1px solid #cccccc;
+    border-radius: 12px;
+}
+
+.friends-btn:hover {
+    background-color: #bfbfbf;
+    border-color: #bfbfbf;
+}
+
+.dropdown-toggle::after {
+    content: none;
+}
+
+.profile-link {
+    color: #000;
+}
+
+.checkmark-icon {
+    color: green;
+}
+
+.cancel-icon {
+    color: red;
+}

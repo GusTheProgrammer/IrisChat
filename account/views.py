@@ -1,22 +1,18 @@
-from multiprocessing import context
-from tkinter.messagebox import NO
-from django.dispatch import receiver
-from django.shortcuts import render, redirect
-from django.http import HttpResponse
-from django.contrib.auth import login, logout, authenticate
-from django.conf import settings
-from django.core.files.storage import default_storage
-from django.core.files.storage import FileSystemStorage
+import base64
+import json
 import os
 import cv2
-import json
-import base64
-# import requests
-from django.core import files
 
+from django.conf import settings
+from django.contrib.auth import login, logout, authenticate
+from django.core import files
+from django.core.files.storage import FileSystemStorage
+from django.http import HttpResponse
+from django.shortcuts import render, redirect
+
+from friend.friend_request_status import FriendRequestStatus
 from friend.models import FriendList, FriendRequest
 from friend.utils import get_friend_request_or_false
-from friend.friend_request_status import FriendRequestStatus
 from .forms import RegistrationForm, AccountAuthenticationForm, AccountUpdateForm
 from .models import Account
 
@@ -203,6 +199,8 @@ def save_temp_profile_image_from_base64String(imageString, user):
             destination.close()
         return url
     except Exception as e:
+        print("exception: " + str(e))
+        # workaround for an issue I found
         if str(e) == INCORRECT_PADDING_EXCEPTION:
             imageString += "=" * ((4 - len(imageString) % 4) % 4)
             return save_temp_profile_image_from_base64String(imageString, user)
@@ -222,23 +220,29 @@ def crop_image(request, *args, **kwargs):
             cropY = int(float(str(request.POST.get("cropY"))))
             cropWidth = int(float(str(request.POST.get("cropWidth"))))
             cropHeight = int(float(str(request.POST.get("cropHeight"))))
-
             if cropX < 0:
                 cropX = 0
-            if cropY < 0:
+            if cropY < 0:  # There is a bug with cropperjs. y can be negative.
                 cropY = 0
-            crop_image = img[cropY:cropY + cropHeight, cropX:cropX + cropWidth]
+            crop_img = img[cropY:cropY + cropHeight, cropX:cropX + cropWidth]
 
-            cv2.imwrite(url, crop_image)
+            cv2.imwrite(url, crop_img)
+
+            # delete the old image
             user.profile_image.delete()
-            user.profile_image.save("profile_image.png", files.File(open(url, "rb")))
+
+            # Save the cropped image to user model
+            user.profile_image.save("profile_image.png", files.File(open(url, 'rb')))
             user.save()
 
             payload['result'] = "success"
             payload['cropped_profile_image'] = user.profile_image.url
 
+            # delete temp file
             os.remove(url)
+
         except Exception as e:
+            print("exception: " + str(e))
             payload['result'] = "error"
             payload['exception'] = str(e)
     return HttpResponse(json.dumps(payload), content_type="application/json")
