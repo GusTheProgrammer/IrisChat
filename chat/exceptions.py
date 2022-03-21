@@ -9,3 +9,4 @@ class ClientError(Exception):
         self.code = code
         if message:
             self.message = message
+        print("ERROR::", code, message)

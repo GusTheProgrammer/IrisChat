@@ -324,11 +324,11 @@ def get_user_info(room, user):
         if other_user == user:
             other_user = room.user2
 
-            payload = {}
-            s = LazyAccountEncoder()
-            # convert to list for serializer and select first entry (there will be only 1)
-            payload['user_info'] = s.serialize([other_user])[0]
-            return json.dumps(payload)
+        payload = {}
+        s = LazyAccountEncoder()
+        # convert to list for serializer and select first entry (there will be only 1)
+        payload['user_info'] = s.serialize([other_user])[0]
+        return json.dumps(payload)
     except ClientError as e:
         raise ClientError("DATA_ERROR", "Unable to get that users information.")
     return None
