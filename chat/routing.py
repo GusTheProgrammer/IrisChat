@@ -2,7 +2,7 @@ from django.urls import path
 
 from public_chat.consumers import PublicChatConsumer
 from chat.consumers import ChatConsumer
-from notifications.consumers import NotificationConsumer
+from notification.consumers import NotificationConsumer
 
 websocket_urlpatterns = [
     path("", NotificationConsumer.as_asgi()),
