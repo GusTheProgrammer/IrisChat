@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'public_chat',
     'chat',
     'friend',
+    'notifications',
 
     'channels',  # 3rd party
 ]
