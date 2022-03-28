@@ -123,6 +123,10 @@
             handleGeneralNotificationsData(data['notifications'], data['new_page_number'])
         }
 
+        if(data.general_msg_type == 1){
+            setGeneralPaginationExhausted()
+		}
+
         if(data.general_msg_type == 5){
 			updateGeneralNotificationDiv(data['notification'])
 		}
