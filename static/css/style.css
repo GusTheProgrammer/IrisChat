@@ -41,6 +41,13 @@ body {
     color: var(--light-primary-text-color);
 }
 
+.scrollable-menu {
+    height: auto;
+    max-height: 90vh;
+    width: 500px;
+    overflow-x: hidden;
+}
+
 
 /* ---> home.html */
 
@@ -613,7 +620,7 @@ body {
 }
 
 
-/* generalNotificationscss */
+/* general_notifications.html */
 
 .notification-thumbnail-image {
     height: 50px;
@@ -636,11 +643,4 @@ body {
 #id_notifications_loading_spinner {
     position: absolute;
     margin-top: 40px;
-}
-
-.scrollable-menu {
-    height: auto;
-    max-height: 90vh;
-    width: 500px;
-    overflow-x: hidden;
 }

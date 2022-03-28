@@ -1,5 +1,4 @@
 {% load static %}
-{% include 'components/general_notifications.html' %}
 
 <!-- Header -->
 <div class="d-flex flex-column flex-lg-row p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
@@ -101,6 +100,8 @@
 </div>
 
 
+{% include 'components/general_notifications.html' %}
+
 <!-- Setup SOCKET for NOTIFICATIONS -->
 <script type="text/javascript">
     // Correctly decide between ws:// and wss://
@@ -123,13 +124,13 @@
             handleGeneralNotificationsData(data['notifications'], data['new_page_number'])
         }
 
-        if(data.general_msg_type == 1){
+        if (data.general_msg_type == 1) {
             setGeneralPaginationExhausted()
-		}
+        }
 
-        if(data.general_msg_type == 5){
-			updateGeneralNotificationDiv(data['notification'])
-		}
+        if (data.general_msg_type == 5) {
+            updateGeneralNotificationDiv(data['notification'])
+        }
     }
 
     notificationSocket.onclose = function (e) {

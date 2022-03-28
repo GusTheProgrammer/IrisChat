@@ -69,7 +69,7 @@ class NotificationConsumer(AsyncJsonWebsocketConsumer):
                 else:
                     payload = json.loads(payload)
                     await self.send_updated_friend_request_notification(payload['notification'])
-                    
+
         except ClientError as e:
             print("EXCEPTION: receive_json: " + str(e))
             pass
@@ -103,20 +103,20 @@ class NotificationConsumer(AsyncJsonWebsocketConsumer):
 		2. payload['response']
 		"""
         await self.send_json({
-				"general_msg_type": GENERAL_MSG_TYPE_UPDATED_NOTIFICATION,
-				"notification": notification,
-			},
-		)
-    
+            "general_msg_type": GENERAL_MSG_TYPE_UPDATED_NOTIFICATION,
+            "notification": notification,
+        },
+        )
+
     async def general_pagination_exhausted(self):
         """
 		Called by receive_json when pagination is exhausted for general notifications
 		"""
         await self.send_json(
             {
-				"general_msg_type": GENERAL_MSG_TYPE_PAGINATION_EXHAUSTED,
-			}
-		)
+                "general_msg_type": GENERAL_MSG_TYPE_PAGINATION_EXHAUSTED,
+            }
+        )
 
 
 @database_sync_to_async
@@ -151,6 +151,7 @@ def get_general_notifications(user, page_number):
 
     return json.dumps(payload)
 
+
 @database_sync_to_async
 def accept_friend_request(user, notification_id):
     """
@@ -174,25 +175,26 @@ def accept_friend_request(user, notification_id):
             raise ClientError("AUTH_ERROR", "An error occurred with that notification. Try refreshing the browser.")
     return None
 
+
 @database_sync_to_async
 def decline_friend_request(user, notification_id):
-	"""
-	Decline a friend request
-	"""
-	payload = {}
-	if user.is_authenticated:
-		try:
-			notification = Notification.objects.get(pk=notification_id)
-			friend_request = notification.content_object
-			# confirm this is the correct user
-			if friend_request.receiver == user:
-				# accept the request and get the updated notification
-				updated_notification = friend_request.decline()
+    """
+    Decline a friend request
+    """
+    payload = {}
+    if user.is_authenticated:
+        try:
+            notification = Notification.objects.get(pk=notification_id)
+            friend_request = notification.content_object
+            # confirm this is the correct user
+            if friend_request.receiver == user:
+                # accept the request and get the updated notification
+                updated_notification = friend_request.decline()
 
-				# return the notification associated with this FriendRequest
-				s = LazyNotificationEncoder()
-				payload['notification'] = s.serialize([updated_notification])[0]
-				return json.dumps(payload)
-		except Notification.DoesNotExist:
-			raise ClientError("AUTH_ERROR", "An error occurred with that notification. Try refreshing the browser.")
-	return None
+                # return the notification associated with this FriendRequest
+                s = LazyNotificationEncoder()
+                payload['notification'] = s.serialize([updated_notification])[0]
+                return json.dumps(payload)
+        except Notification.DoesNotExist:
+            raise ClientError("AUTH_ERROR", "An error occurred with that notification. Try refreshing the browser.")
+    return None
