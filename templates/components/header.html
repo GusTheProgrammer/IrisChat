@@ -128,6 +128,18 @@
             setGeneralPaginationExhausted()
         }
 
+		if(data.general_msg_type == 2){
+			refreshGeneralNotificationsData(data['notifications'])
+		}
+
+		if(data.general_msg_type == 3){
+			handleNewGeneralNotificationsData(data['notifications'])
+		}
+
+        if(data.general_msg_type == 4){
+			setUnreadGeneralNotificationsCount(data['count'])
+		}
+
         if (data.general_msg_type == 5) {
             updateGeneralNotificationDiv(data['notification'])
         }
@@ -141,6 +153,7 @@
         console.log("Notification Socket on open: " + e)
         setupGeneralNotificationsMenu()
         getFirstGeneralNotificationsPage()
+        getUnreadGeneralNotificationsCount()
     }
 
     notificationSocket.onerror = function (e) {
