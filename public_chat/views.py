@@ -9,7 +9,7 @@ DEBUG = False
 
 
 def home_screen_view(request):
-    room_id = 2
+    room_id = 1
     room = PublicChatRoom.objects.get(pk=room_id)
     room_title = room.title
 
