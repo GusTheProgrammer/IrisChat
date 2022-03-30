@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'account',  # local
     'public_chat',
     'chat',
+    'friend',
+    'notification',
 
     'channels',  # 3rd party
 ]
@@ -167,7 +169,7 @@ AUTHENTICATION_BACKENDS = (
     'account.backends.CaseInsensitiveModelBackend',
 )
 
-LOGIN_REDIRECT_URL = 'chat-index'
+LOGIN_REDIRECT_URL = 'homepage'
 LOGOUT_REDIRECT_URL = 'homepage'
 
 DATA_UPLOAD_MAX_MEMORY_SIZE = 10485760
