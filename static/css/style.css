@@ -23,12 +23,15 @@ body {
 
 
 /* ---> base.html */
+
 .main {
     min-height: 100vh;
     height: 100%;
 }
 
+
 /* ---> header.html */
+
 .chat-dropdown-header:hover {
     cursor: pointer;
     background: var(--main-background-color);
@@ -38,7 +41,16 @@ body {
     color: var(--light-primary-text-color);
 }
 
+.scrollable-menu {
+    height: auto;
+    max-height: 90vh;
+    width: 500px;
+    overflow-x: hidden;
+}
+
+
 /* ---> home.html */
+
 .chat-log {
     height: 500px;
     overflow-x: hidden;
@@ -114,13 +126,16 @@ body {
     cursor: default;
 }
 
+
 /* ---> components/footer.html */
+
 .footer {
     min-height: 100px;
 }
 
 
 /* ---> account/register.html */
+
 .card-signin {
     width: 100%;
     max-width: 400px;
@@ -148,6 +163,7 @@ body {
 
 
 /* ---> account/login.html */
+
 .card-signin {
     width: 100%;
     max-width: 400px;
@@ -157,6 +173,7 @@ body {
 
 
 /* ---> templates/password_reset/password_change.html */
+
 .form-signin {
     width: 100%;
     max-width: 330px;
@@ -192,6 +209,7 @@ body {
 
 
 /* ---> templates/password_reset/password_reset_form.html */
+
 .form-signin {
     width: 100%;
     max-width: 330px;
@@ -227,6 +245,7 @@ body {
 
 
 /* ---> account/account.html */
+
 .image-container {
     max-width: 250px;
     height: auto;
@@ -306,6 +325,7 @@ body {
 
 
 /* ---> account/search_results.html */
+
 .profile-image {
     max-height: 100px;
     max-width: 100px;
@@ -352,6 +372,7 @@ body {
 
 
 /* account/edit_account.html */
+
 .image-container {
     max-width: 250px;
     height: auto;
@@ -388,6 +409,7 @@ body {
 
 
 /* chat/room.html */
+
 .chat-log {
     height: 500px;
     overflow-x: hidden;
@@ -407,7 +429,6 @@ body {
     outline: none;
     border: 1px solid #fff;
     border-top: 2px solid var(--main-background-color);
-
 }
 
 .message-container {
@@ -503,7 +524,9 @@ body {
     overflow-y: scroll;
 }
 
+
 /* friend_request.html */
+
 .profile-image {
     max-height: 100px;
     max-width: 100px;
@@ -549,6 +572,7 @@ body {
     color: red;
 }
 
+
 /* Friend List */
 
 .profile-image {
@@ -593,4 +617,119 @@ body {
 
 .cancel-icon {
     color: red;
+}
+
+
+/* general_notifications.html */
+
+.notification-thumbnail-image {
+    height: 50px;
+    width: 50px;
+}
+
+.general-card:hover {
+    cursor: pointer;
+    background: #f2f2f2;
+}
+
+.general-card {
+    border-bottom: 1px solid var(--main-background-color);
+}
+
+.timestamp-text {
+    color: var(--secondary-text-color);
+}
+
+#id_notifications_loading_spinner {
+    position: absolute;
+    margin-top: 40px;
+}
+
+.chat-dropdown-header:hover {
+    cursor: pointer;
+    background: var(--main-background-color);
+}
+
+.chat-dropdown-header {
+    color: var(--light-primary-text-color);
+}
+
+.scrollable-menu {
+    height: auto;
+    max-height: 90vh;
+    width: 500px;
+    overflow-x: hidden;
+}
+
+.notifications-material-icon {
+    font-size: 28px;
+}
+
+.notifications-icon-container {
+    width: 40px;
+    height: 40px;
+    background-color: var(--main-background-color);
+}
+
+.notifications-icon-container:hover {
+    cursor: pointer;
+    background-color: var(--secondary-text-color)
+}
+
+.notify-badge {
+    position: absolute;
+    background: transparent;
+    height: 1.2rem;
+    width: 1.2rem;
+    line-height: 1.2rem;
+    top: 1rem;
+    right: 2rem;
+    text-align: center;
+    font-size: 1rem;
+    border-radius: 50%;
+    color: white;
+    font-weight: 630;
+    margin-top: -15px;
+    margin-right: -25px;
+}
+
+#id_notifications_spinner {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.notification-thumbnail-image {
+    height: 50px;
+    width: 50px;
+}
+
+.chat-card:hover {
+    cursor: pointer;
+    background: #f2f2f2;
+}
+
+.chat-card {
+    border-bottom: 1px solid var(--main-background-color);
+}
+
+.timestamp-text {
+    color: var(--secondary-text-color);
+}
+
+.notification-chatroom-msg {
+    color: var(--light-primary-text-color);
+}
+
+#id_notifications_loading_spinner {
+    position: absolute;
+    margin-top: 40px;
+}
+
+.chat-dropdown-header:hover {
+    cursor: pointer;
+    background: var(--main-background-color);
+}
+
+.chat-dropdown-header {
+    color: var(--light-primary-text-color);
 }
