@@ -4,7 +4,7 @@ from django.http import HttpResponse
 import json
 
 from account.models import Account
-from friend.models import FriendRequest, FriendList
+from .models import FriendRequest, FriendList
 
 
 def friends_list_view(request, *args, **kwargs):

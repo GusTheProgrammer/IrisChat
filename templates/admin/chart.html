@@ -1,0 +1,38 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.3.1/echarts.min.js"
+        integrity="sha512-41TNls7qBS/8rKqfgMho0blSRty2TgHbdHq1h8x248EseHj1ZfFPAbjWVBQssJtkXptUwaBLVC3F1W8he53bgw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<h1>Charts</h1>
+<div id="chart" style="width: 600px;height:400px;"></div>
+<script type="text/javascript">
+    // Initialize the echarts instance based on the prepared dom
+    var myChart = echarts.init(document.getElementById('chart'));
+
+    // Specify the configuration items and data for the chart
+    var option = {
+        title: {
+            text: 'Messages Sent'
+        },
+        tooltip: {},
+        legend: {
+            data: ['sales']
+        },
+        xAxis: {
+            data: ['Shirts', 'Cardigans', 'Chiffons', 'Pants', 'Heels', 'Socks']
+        },
+        yAxis: {},
+        series: [
+            {
+                name: 'sales',
+                type: 'line',
+                smooth: true,
+                data: [5, 20, 36, 10, 10, 20]
+            }
+        ]
+    };
+
+    // Display the chart using the configuration items and data just specified.
+    myChart.setOption(option);
+
+
+</script>

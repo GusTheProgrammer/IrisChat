@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'django_admin_mazer',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -41,7 +42,9 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'account',  # local
     'public_chat',
+    'chat',
     'friend',
+    'notification',
 
     'channels',  # 3rd party
 ]
@@ -108,7 +111,6 @@ DATABASES = {
     }
 }
 
-
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
 
@@ -167,7 +169,7 @@ AUTHENTICATION_BACKENDS = (
     'account.backends.CaseInsensitiveModelBackend',
 )
 
-LOGIN_REDIRECT_URL = 'chat-index'
+LOGIN_REDIRECT_URL = 'homepage'
 LOGOUT_REDIRECT_URL = 'homepage'
 
 DATA_UPLOAD_MAX_MEMORY_SIZE = 10485760
