@@ -51,7 +51,7 @@
         <li class="nav-item">
             <a class="nav-link py-0 py-lg-8" id="tab-friends" href="#tab-content-friends" title="Friends"
                data-bs-toggle="tab" role="tab">
-                <div class="icon icon-xl">
+                <div class="icon icon-xl" id="id_general_notifications_count">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                          class="feather feather-users">
@@ -68,15 +68,12 @@
         <li class="nav-item">
             <a class="nav-link active py-0 py-lg-8" id="tab-chats" href="#tab-content-chats" title="Chats"
                data-bs-toggle="tab" role="tab">
-                <div class="icon icon-xl icon-badged">
+                <div class="icon icon-xl">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                          class="feather feather-message-square">
                         <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
                     </svg>
-                    <div class="badge badge-circle bg-primary">
-                        <span>4</span>
-                    </div>
                 </div>
             </a>
         </li>
@@ -85,13 +82,14 @@
         <li class="nav-item">
             <a class="nav-link py-0 py-lg-8" id="tab-notifications" href="#tab-content-notifications"
                title="Notifications" data-bs-toggle="tab" role="tab">
-                <div class="icon icon-xl">
+                <div class="icon icon-xl" id="id_chat_notifications_count">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                          class="feather feather-bell">
                         <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
                         <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
                     </svg>
+
                 </div>
             </a>
         </li>
@@ -139,3 +137,113 @@
     </ul>
 </nav>
 <!-- Navigation -->
+
+<!-- JavaScript -->
+{% include 'components/general_notifications.html' %}
+{% include 'components/chat_notifications.html' %}
+
+<!-- Setup SOCKET for NOTIFICATIONS -->
+<script type="text/javascript">
+    // Correctly decide between ws:// and wss://
+    var ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";
+    // var ws_path = ws_scheme + '://' + window.location.host + ":8001/"; // PRODUCTION
+    var ws_path = ws_scheme + '://' + window.location.host + "/";
+    // console.log("Connecting to " + ws_path);
+    var notificationSocket = new WebSocket(ws_path);
+
+    // Handle incoming messages
+    notificationSocket.onmessage = function (message) {
+        console.log("Got notification websocket message. ")
+        var data = JSON.parse(message.data);
+
+        /*
+            GENERAL NOTIFICATIONS
+        */
+        // new 'general' notifications data payload
+        if (data.general_msg_type == 0) {
+            handleGeneralNotificationsData(data['notifications'], data['new_page_number'])
+        }
+
+        if (data.general_msg_type == 1) {
+            setGeneralPaginationExhausted()
+        }
+
+        if (data.general_msg_type == 2) {
+            refreshGeneralNotificationsData(data['notifications'])
+        }
+
+        if (data.general_msg_type == 3) {
+            handleNewGeneralNotificationsData(data['notifications'])
+        }
+
+        if (data.general_msg_type == 4) {
+            setUnreadGeneralNotificationsCount(data['count'])
+        }
+
+        if (data.general_msg_type == 5) {
+            updateGeneralNotificationDiv(data['notification'])
+        }
+
+        /*
+            CHAT NOTIFICATIONS
+        */
+
+        // new 'chat' notifications data payload
+        if (data.chat_msg_type == 10) {
+            handleChatNotificationsData(data['notifications'], data['new_page_number'])
+        }
+
+        // "Chat" Pagination exhausted. No more results.
+        if (data.chat_msg_type == 11) {
+            setChatPaginationExhausted()
+        }
+
+        // refreshed chat notifications
+        if (data.chat_msg_type == 13) {
+            handleNewChatNotificationsData(data['notifications'])
+        }
+
+        if (data.chat_msg_type == 14) {
+            setChatNotificationsCount(data['count'])
+        }
+    }
+
+    notificationSocket.onclose = function (e) {
+        console.error('Notification Socket closed unexpectedly');
+    };
+
+    notificationSocket.onopen = function (e) {
+        console.log("Notification Socket on open: " + e)
+        setupGeneralNotificationsMenu()
+        getFirstGeneralNotificationsPage()
+        getUnreadGeneralNotificationsCount()
+
+        setupChatNotificationsMenu()
+        getFirstChatNotificationsPage()
+    }
+
+    notificationSocket.onerror = function (e) {
+        console.log('Notification Socket error', e)
+    }
+
+    if (notificationSocket.readyState == WebSocket.OPEN) {
+        console.log("Notification Socket OPEN complete.")
+    } else if (notificationSocket.readyState == WebSocket.CONNECTING) {
+        console.log("Notification Socket connecting..")
+    }
+</script>
+
+<script type="text/javascript">
+
+    function executeQuery() {
+        var query = ""
+        query = document.getElementById('id_q_small').value;
+        if (query == "") {
+            query = document.getElementById('id_q_large').value;
+        }
+        window.location.replace("{% url 'search' %}?q=" + query)
+        return false
+    }
+
+</script>
+<!-- JavaScript -->
