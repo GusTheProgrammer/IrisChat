@@ -5,100 +5,247 @@
 {% load static %}
 
 {% block content %}
+    <span class="{% if not debug %}d-none{% endif %} page-number" id="id_page_number">1</span>
 
+    <!-- Chat -->
+    <main id="main-div" class="main is-visible" data-dropzone-area="">
+        <div class="container h-100">
 
+            <div class="d-flex flex-column h-100 position-relative">
+                <!-- Chat: Header -->
+                <div class="chat-header border-bottom py-4 py-lg-7">
+                    <div class="row align-items-center">
 
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-9 m-0 p-2">
-                <div class="card" id="id_chatroom_card">
-                    <div class="d-flex flex-row align-items-center card-header" id="id_room_title">
-                        <a class="d-flex flex-row" target="_blank" id="id_user_info_container">
-                            <img class="profile-image rounded-circle img-fluid" id="id_other_user_profile_image"
-                                 src="{% static 'img/dummy_image.png' %}">
-                            <h3 class="ml-2" id="id_other_username"></h3>
-                        </a>
+                        <!-- Mobile: close -->
+                        <div class="col-2 d-xl-none">
+                            <a class="icon icon-lg text-muted" href="#" onclick="toggleMainClass()">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                     stroke-linejoin="round" class="feather feather-chevron-left">
+                                    <polyline points="15 18 9 12 15 6"></polyline>
+                                </svg>
+                            </a>
+                        </div>
+                        <!-- Mobile: close -->
+
+                        <!-- Content -->
+                        <div class="col-8 col-xl-12">
+                            <div class="row align-items-center text-center text-xl-start">
+                                <!-- Title -->
+                                <div class="col-12 col-xl-6">
+                                    <div class="row align-items-center gx-5">
+                                        <div class="col-auto">
+                                            <div id="id_user_online_status"
+                                                 class="avatar d-none d-xl-inline-block">
+                                                <img class="avatar-img" id="id_other_user_profile_image">
+                                            </div>
+                                        </div>
+
+                                        <div class="col overflow-hidden">
+                                            <a id="id_user_info_container"><h5 class="text-truncate"
+                                                                               id="id_other_username"></h5></a>
+                                            <p id="id_user_online_status_text" class="text-truncate"></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Title -->
+
+                                <!-- Toolbar -->
+                                <div class="col-xl-6 d-none d-xl-block">
+                                    <div class="row align-items-center justify-content-end gx-6">
+                                        <div class="col-auto">
+                                            <a href="#" class="icon icon-lg text-muted" data-bs-toggle="offcanvas"
+                                               data-bs-target="#offcanvas-more" aria-controls="offcanvas-more">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                     viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                     class="feather feather-more-horizontal">
+                                                    <circle cx="12" cy="12" r="1"></circle>
+                                                    <circle cx="19" cy="12" r="1"></circle>
+                                                    <circle cx="5" cy="12" r="1"></circle>
+                                                </svg>
+                                            </a>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <!-- Toolbar -->
+                            </div>
+                        </div>
+                        <!-- Content -->
+
+                        <!-- Mobile: more -->
+                        <div class="col-2 d-xl-none text-end">
+                            <a href="#" class="icon icon-lg text-muted" data-bs-toggle="offcanvas"
+                               data-bs-target="#offcanvas-more" aria-controls="offcanvas-more">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                     stroke-linejoin="round" class="feather feather-more-vertical">
+                                    <circle cx="12" cy="12" r="1"></circle>
+                                    <circle cx="12" cy="5" r="1"></circle>
+                                    <circle cx="12" cy="19" r="1"></circle>
+                                </svg>
+                            </a>
+                        </div>
+                        <!-- Mobile: more -->
 
                     </div>
-                    <div class="card-body p-1">
-                        <div class="d-flex flex-column" id="id_chat_log_container">
+                </div>
+                <!-- Chat: Header -->
 
-                            <div class="d-flex flex-row justify-content-center"
-                                 id="id_chatroom_loading_spinner_container">
-                                <div class="spinner-border text-primary" id="id_chatroom_loading_spinner" role="status"
-                                     style="display: none; ">
-                                    <span class="sr-only">Loading...</span>
+                <!-- Chat: Content -->
+                <div class="chat-body hide-scrollbar flex-1 h-100">
+                    <div class="chat-body-inner">
+                        <!-- Loading Spinner -->
+                        <div id="id_chatroom_loading_spinner" role="status" style="display: none;">
+                            <div class="message message-out">
+                                <a href="#" data-bs-toggle="modal" data-bs-target="#modal-profile"
+                                   class="avatar avatar-responsive">
+                                    <svg class="avatar-img placeholder-img" width="100%" height="100%"
+                                         xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder"
+                                         preserveAspectRatio="xMidYMid slice" focusable="false">
+                                        <title>Placeholder</title>
+                                        <rect width="100%" height="100%" fill="#868e96"></rect>
+                                    </svg>
+                                </a>
+
+                                <div class="message-inner">
+                                    <div class="message-body">
+                                        <div class="message-content">
+                                            <div class="message-footer col">
+                                                <div class="d-flex align-items-center mb-3 justify-content-end">
+                                                    <h5 class="placeholder-glow w-100 mb-0">
+                                                        <span class="placeholder col-3"></span>
+                                                    </h5>
+                                                </div>
+
+                                                <div class="placeholder-glow">
+                                                    <span class="placeholder col-5"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="message-footer">
+                                        <div class="placeholder-glow">
+                                            <span class="placeholder col-2"></span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="d-flex chat-log" id="id_chat_log">
+                            <div class="message">
+                                <a href="#" data-bs-toggle="modal" data-bs-target="#modal-profile"
+                                   class="avatar avatar-responsive">
+                                    <svg class="avatar-img placeholder-img" width="100%" height="100%"
+                                         xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder"
+                                         preserveAspectRatio="xMidYMid slice" focusable="false">
+                                        <title>Placeholder</title>
+                                        <rect width="100%" height="100%" fill="#868e96"></rect>
+                                    </svg>
+                                </a>
 
+                                <div class="message-inner">
+                                    <div class="message-body">
+                                        <div class="message-content">
+                                            <div class="col">
+                                                <div class="d-flex align-items-center mb-3">
+                                                    <h5 class="placeholder-glow w-100 mb-0">
+                                                        <span class="placeholder col-3"></span>
+                                                    </h5>
+                                                </div>
+
+                                                <div class="placeholder-glow">
+                                                    <span class="placeholder col-5"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="message-footer">
+                                        <div class="placeholder-glow">
+                                            <span class="placeholder col-2"></span>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <span class="{% if not debug %}d-none{% endif %} page-number" id="id_page_number">1</span>
+                        </div>
+                        <!-- Loading Spinner -->
+                        <div class="d-flex py-6 py-lg-12" id="id_chat_log">
+                        </div>
+                    </div>
+                </div>
+                <!-- Chat: Content -->
 
-                            <div class="d-flex flex-row chat-message-input-container">
-                                <textarea class="flex-grow-1 chat-message-input" id="id_chat_message_input"></textarea>
-                                <button class="btn btn-primary chat-message-submit-button">
-								<span id="id_chat_message_submit" class="material-icons">send
-								</span>
+                <!-- Chat: Footer -->
+                <div class="chat-footer pb-3 pb-lg-7 position-absolute bottom-0 start-0">
+                    <!-- Chat: Files -->
+                    <div class="dz-preview bg-dark" id="dz-preview-row" data-horizontal-scroll="">
+                    </div>
+                    <!-- Chat: Files -->
+
+                    <!-- Chat: Form -->
+                    <form class="chat-form rounded-pill bg-dark" data-emoji-form="">
+                        <div class="row align-items-center gx-0">
+                            <div class="col-auto">
+                                <a href="#" class="btn btn-icon btn-link text-body rounded-circle" id="dz-btn">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                         stroke-linejoin="round" class="feather feather-paperclip">
+                                        <path
+                                                d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48">
+                                        </path>
+                                    </svg>
+                                </a>
+                            </div>
+
+                            <div class="col">
+                                <div class="input-group">
+                                    <label for="id_chat_message_input"></label><textarea class="form-control px-0"
+                                                                                         placeholder="Type your message..."
+                                                                                         rows="1"
+                                                                                         data-emoji-input=""
+                                                                                         data-autosize="true"
+                                                                                         id="id_chat_message_input"></textarea>
+
+                                    <a href="#" class="input-group-text text-body pe-0" data-emoji-btn="">
+                                        <span class="icon icon-lg">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                                 stroke-linecap="round" stroke-linejoin="round"
+                                                 class="feather feather-smile">
+                                                <circle cx="12" cy="12" r="10"></circle>
+                                                <path d="M8 14s1.5 2 4 2 4-2 4-2"></path>
+                                                <line x1="9" y1="9" x2="9.01" y2="9"></line>
+                                                <line x1="15" y1="9" x2="15.01" y2="9"></line>
+                                            </svg>
+                                        </span>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="col-auto">
+                                <button class="btn btn-icon btn-primary rounded-circle ms-5"
+                                        id="id_chat_message_submit">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                         stroke-linejoin="round" class="feather feather-send">
+                                        <line x1="22" y1="2" x2="11" y2="13"></line>
+                                        <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                                    </svg>
                                 </button>
                             </div>
                         </div>
-                    </div>
+                    </form>
+                    <!-- Chat: Form -->
                 </div>
+                <!-- Chat: Footer -->
             </div>
 
-            <div class="col-sm-3 m-0 p-2">
-                <div class="card">
-                    <div class="d-flex flex-row align-items-center card-header">
-                        <h3>Friends</h3>
-                    </div>
-                    <div class="card-body p-1">
-                        <div class="d-flex flex-column friends-list-container ">
-                            {% for x in m_and_f %}
-                                <div class="d-flex flex-row p-2 friend-container flex-grow-1"
-                                     onclick="onSelectFriend('{{ x.friend.id }}')"
-                                     id="id_friend_container_{{ x.friend.id }}">
-                                    <img class="profile-image rounded-circle img-fluid"
-                                         id="id_friend_img_{{ x.friend.id }}" src="{% static 'img/dummy_image.png' %}">
-                                    <div class="d-flex flex-column">
-                                        <span class="username-span">{{ x.friend.username }}</span>
-                                        <span class="friend-message-span">{{ x.message|truncatechars:20 }}</span>
-                                    </div>
-                                </div>
-                            {% endfor %}
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
-    </div>
+    </main>
+    <!-- Chat -->
+    {% include 'components/chat-sideprofile.html' %}
 
-
-    <!-- Client Error MODAL -->
-    <button type="button" id="id_trigger_client_error_modal" class="d-none btn btn-primary" data-toggle="modal"
-            data-target="#id_client_error_modal">
-    </button>
-    <div class="modal fade" id="id_client_error_modal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Socket Client Error</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p id="id_client_error_modal_body">Something went wrong.</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal"
-                            id="id_client_error_modal_close_btn">Close
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Client Error MODAL -->
     <script type="text/javascript">
         var chatSocket = null;
         var roomId = null;
@@ -128,6 +275,7 @@
             createOrReturnPrivateChat(userId)
             clearHighlightedFriend()
             highlightFriend(userId)
+            toggleMainClass()
         }
 
         function closeWebSocket() {
@@ -270,10 +418,83 @@
         }
 
         function handleUserInfoPayload(user_info) {
-            document.getElementById("id_other_username").innerHTML = user_info['username']
+            var usernames = document.querySelectorAll("#id_other_username")
+
+            for (i = 0; i < usernames.length; i++) {
+                usernames[i].innerHTML = user_info['username'];
+            }
+            {#document.getElementById("id_other_username").innerHTML = user_info['username']#}
+
             document.getElementById("id_other_user_profile_image").classList.remove("d-none")
             document.getElementById("id_user_info_container").href = "{% url 'account:view' user_id=53252623623632623 %}".replace("53252623623632623", user_info['id'])
+
+
             preloadImage(user_info['profile_image'], "id_other_user_profile_image")
+            preloadImage(user_info['profile_image'], "id_other_user_profile_image_2")
+
+            // side profile
+            var email = document.getElementById("id_other_user_email")
+            email.innerHTML = user_info['email']
+
+            document.getElementById("id_other_user_email_mailto").href = "mailto:" + user_info['email']
+            document.getElementById("id_user_info_account").href = "{% url 'account:view' user_id=53252623623632623 %}".replace("53252623623632623", user_info['id'])
+
+
+            var name = document.getElementById("id_other_fullname")
+            name.innerHTML = user_info['username']
+
+            if (user_info['first_name'] != "" || user_info['last_name']) {
+                fullName = user_info['first_name'] + " " + user_info['last_name']
+                name.innerHTML = fullName
+            }
+
+            var sideprofile = document.getElementById("id_side_profile_container")
+
+            if (user_info['birth_date'] != "") {
+                var list = document.createElement("li")
+                list.classList.add("list-group-item")
+                sideprofile.appendChild(list)
+
+                var divRow = document.createElement("div")
+                divRow.classList.add("row", "align-items-center", "gx-6")
+                list.appendChild(divRow)
+                var divCol = document.createElement("div")
+                divCol.classList.add("col")
+                divRow.appendChild(divCol)
+
+                title = document.createElement("h5")
+                title.innerHTML = "Birth Date"
+
+                content = document.createElement("p")
+                content.innerHTML = user_info['birth_date']
+
+                divCol.appendChild(title)
+                divCol.appendChild(content)
+            }
+
+            if (user_info['bio'] != "") {
+                var list = document.createElement("li")
+                list.classList.add("list-group-item")
+                sideprofile.appendChild(list)
+
+                var divRow = document.createElement("div")
+                divRow.classList.add("row", "align-items-center", "gx-6")
+                list.appendChild(divRow)
+                var divCol = document.createElement("div")
+                divCol.classList.add("col")
+                divRow.appendChild(divCol)
+
+                title = document.createElement("h5")
+                title.innerHTML = "Bio"
+
+                content = document.createElement("p")
+                content.innerHTML = user_info['bio']
+
+                divCol.appendChild(title)
+                divCol.appendChild(content)
+            }
+
+
         }
 
         function showClientErrorModal(message) {
@@ -298,8 +519,8 @@
             switch (messageType) {
                 case 0:
                     // new chatroom msg
-                    username = uName + ": "
-                    msg = message + '\n'
+                    username = uName
+                    msg = message
                     createChatMessageElement(msg, msg_id, username, profile_image, user_id, timestamp, maintainPosition, isNewMessage)
                     break;
                 case 1:
@@ -323,56 +544,91 @@
             var chatLog = document.getElementById("id_chat_log")
 
             var newMessageDiv = document.createElement("div")
-            newMessageDiv.classList.add("d-flex")
-            newMessageDiv.classList.add("flex-row")
-            newMessageDiv.classList.add("message-container")
+            newMessageDiv.classList.add("message")
+            var user = "{{ request.user.id }}"
+            if (user_id == user) {
+                newMessageDiv.classList.add("message-out")
+            }
+            var profileDiv = document.createElement("div")
+
+            var profileButton = document.createElement("a")
+            profileButton.classList.add("avatar", "avatar-responsive")
+            profileButton.setAttribute("data-bs-toggle", "offcanvas")
+            profileButton.setAttribute("data-bs-target", "#offcanvas-more")
+            profileButton.setAttribute("aria-controls", "#offcanvas-more")
+
 
             var profileImage = document.createElement("img")
             profileImage.addEventListener("click", function (e) {
                 selectUser(user_id)
             })
-            profileImage.classList.add("profile-image")
-            profileImage.classList.add("rounded-circle")
-            profileImage.classList.add("img-fluid")
+            profileImage.classList.add("avatar-img")
             profileImage.src = "{% static 'img/dummy_image.png' %}"
             var profile_image_id = "id_profile_image_" + msg_id
             profileImage.id = profile_image_id
-            newMessageDiv.appendChild(profileImage)
 
-            var div1 = document.createElement("div")
-            div1.classList.add("d-flex")
-            div1.classList.add("flex-column")
-
-            var div2 = document.createElement("div")
-            div2.classList.add("d-flex")
-            div2.classList.add("flex-row")
 
             var usernameSpan = document.createElement("span")
-            usernameSpan.innerHTML = username
-            usernameSpan.classList.add("username-span")
             usernameSpan.addEventListener("click", function (e) {
                 selectUser(user_id)
             })
-            div2.appendChild(usernameSpan)
+            usernameSpan.classList.add("text-muted")
+            usernameSpan.innerHTML = username
 
-            var timestampSpan = document.createElement("span")
-            timestampSpan.innerHTML = timestamp
-            timestampSpan.classList.add("timestamp-span")
-            timestampSpan.classList.add("d-flex")
-            timestampSpan.classList.add("align-items-center")
-            timestampSpan.addEventListener("click", function (e) {
-                selectUser(user_id)
-            })
-            div2.appendChild(timestampSpan)
+            newMessageDiv.appendChild(profileDiv)
+            profileDiv.appendChild(profileButton)
+            profileDiv.appendChild(usernameSpan)
+            profileButton.appendChild(profileImage)
 
-            div1.appendChild(div2)
+            var messageInner = document.createElement("div")
+            messageInner.classList.add("message-inner")
+            newMessageDiv.appendChild(messageInner)
+
+            var messageBody = document.createElement("div")
+            messageBody.classList.add("message-body")
+            messageInner.appendChild(messageBody)
+
+            var messageContent = document.createElement("div")
+            messageContent.classList.add("message-content")
+            messageBody.appendChild(messageContent)
+
+            var messageText = document.createElement("div")
+            messageText.classList.add("message-text")
+            messageContent.appendChild(messageText)
+
 
             var msgP = document.createElement("p")
             msgP.innerHTML = validateText(msg)
             msgP.classList.add("msg-p")
-            div1.appendChild(msgP)
+            messageText.appendChild(msgP)
 
-            newMessageDiv.appendChild(div1)
+            var messageFooter = document.createElement("div")
+            messageFooter.classList.add("message-footer")
+            messageInner.appendChild(messageFooter)
+
+
+            var timestampSpan = document.createElement("span")
+            timestampSpan.innerHTML = timestamp
+            timestampSpan.id = "id_timestamp"
+            timestampSpan.classList.add("extra-small", "text-muted")
+            timestampSpan.addEventListener("click", function (e) {
+                selectUser(user_id)
+            })
+            messageFooter.appendChild(timestampSpan)
+
+
+            /*if (timestamp.includes("yesterday")) {
+                var messageDivider = document.createElement("div")
+                messageDivider.classList.add("message-divider")
+                chatLog.appendChild(messageDivider)
+
+
+                var divider = document.createElement("small")
+                divider.classList.add("text-muted")
+                divider.innerHTML = "Yesterday"
+                messageDivider.appendChild(divider)
+            }*/
+
 
             if (isNewMessage) {
                 chatLog.insertBefore(newMessageDiv, chatLog.firstChild)
@@ -387,37 +643,23 @@
             preloadImage(profile_image, profile_image_id)
         }
 
-        function createConnectedDisconnectedElement(msg, msd_id, profile_image, user_id) {
-            var chatLog = document.getElementById("id_chat_log")
+        function createConnectedDisconnectedElement(msg) {
+            var userStatus = document.getElementById("id_user_online_status")
+            var username = document.getElementById("id_user_online_status_text")
 
-            var newMessageDiv = document.createElement("div")
-            newMessageDiv.classList.add("d-flex")
-            newMessageDiv.classList.add("flex-row")
-            newMessageDiv.classList.add("message-container")
+            if (msg.includes("connected.")) {
+                userStatus.classList.remove("avatar-offline")
+                userStatus.classList.add("avatar-online")
+                username.innerHTML = "Online"
 
-            var profileImage = document.createElement("img")
-            profileImage.addEventListener("click", function (e) {
-                selectUser(user_id)
-            })
-            profileImage.classList.add("profile-image")
-            profileImage.classList.add("rounded-circle")
-            profileImage.classList.add("img-fluid")
-            profileImage.src = "{% static 'img/dummy_image.png' %}"
-            var profile_image_id = "id_profile_image_" + msg_id
-            profileImage.id = profile_image_id
-            newMessageDiv.appendChild(profileImage)
+            }
+            if (msg.includes("disconnected.")) {
+                userStatus.classList.remove("avatar-online")
+                userStatus.classList.add("avatar-offline")
+                username.innerHTML = "Offline"
 
-            var usernameSpan = document.createElement("span")
-            usernameSpan.innerHTML = msg
-            usernameSpan.classList.add("username-span")
-            usernameSpan.addEventListener("click", function (e) {
-                selectUser(user_id)
-            })
-            newMessageDiv.appendChild(usernameSpan)
 
-            chatLog.insertBefore(newMessageDiv, chatLog.firstChild)
-
-            preloadImage(profile_image, profile_image_id)
+            }
         }
 
         function setPageNumber(pageNumber) {
@@ -503,7 +745,7 @@
 
         function highlightFriend(userId) {
             // select new friend
-            document.getElementById("id_friend_container_" + userId).style.background = "#f2f2f2"
+            document.getElementById("id_friend_container_" + userId).style.background = "#1a5ca8"
         }
 
         function clearHighlightedFriend() {
@@ -545,8 +787,38 @@
                 },
             });
         }
+
+        function toggleMainClass() {
+            var mainDiv = document.getElementById("main-div")
+            mainDiv.classList.toggle("is-visible")
+        }
     </script>
 
 
+    <!-- Client Error MODAL -->
+    <button type="button" id="id_trigger_client_error_modal" class="d-none btn btn-primary" data-toggle="modal"
+            data-target="#id_client_error_modal">
+    </button>
+    <div class="modal fade" id="id_client_error_modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Socket Client Error</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p id="id_client_error_modal_body">Something went wrong.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                            id="id_client_error_modal_close_btn">Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Client Error MODAL -->
 
 {% endblock content %}

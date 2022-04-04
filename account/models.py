@@ -45,7 +45,7 @@ def get_profile_image_filepath(self, filename):
 
 
 def get_default_profile_image():
-    return 'img/Sample_User_Icon.png'
+    return 'img/dummy_image.png'
 
 
 class Account(AbstractBaseUser):
@@ -60,8 +60,8 @@ class Account(AbstractBaseUser):
     hide_email = models.BooleanField(default=True)
     profile_image = models.ImageField(upload_to=get_profile_image_filepath, blank=True, null=True, max_length=255,
                                       default=get_default_profile_image)
-    first_name = models.CharField(max_length=150)
-    last_name = models.CharField(max_length=150)
+    first_name = models.CharField(max_length=150, blank=True)
+    last_name = models.CharField(max_length=150, blank=True)
     bio = models.TextField(max_length=500, blank=True)
     birth_date = models.DateField(null=True, blank=True)
 

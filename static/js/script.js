@@ -41,3 +41,4 @@ function validateText(str) {
     var result = md.render(str);
     return result
 }
+

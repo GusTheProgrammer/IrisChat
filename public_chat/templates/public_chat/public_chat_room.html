@@ -5,7 +5,7 @@
 <span class="{% if not debug %}d-none{% endif %} page-number" id="id_page_number">1</span>
 
 <!-- Chat -->
-<main class="main is-visible" data-dropzone-area="">
+<main class="main">
     <div class="container h-100">
 
         <div class="d-flex flex-column h-100 position-relative">
@@ -15,7 +15,7 @@
 
                     <!-- Mobile: close -->
                     <div class="col-2 d-xl-none">
-                        <a class="icon icon-lg text-muted" href="#" data-toggle-chat="">
+                        <a class="icon icon-lg text-muted" href="#" onclick="toggleMainClass()">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                  stroke-linejoin="round" class="feather feather-chevron-left">
@@ -61,20 +61,6 @@
                                             </svg>
                                         </a>
                                     </div>
-
-                                    <div class="col-auto">
-                                        <div class="avatar-group">
-                                            <a href="#" class="avatar avatar-sm" data-bs-toggle="modal"
-                                               data-bs-target="#modal-user-profile">
-                                                <img class="avatar-img" src="" alt="#">
-                                            </a>
-
-                                            <a href="#" class="avatar avatar-sm" data-bs-toggle="modal"
-                                               data-bs-target="#modal-profile">
-                                                <img class="avatar-img" src="" alt="#">
-                                            </a>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                             <!-- Toolbar -->
@@ -104,13 +90,81 @@
             <!-- Chat: Content -->
             <div class="chat-body hide-scrollbar flex-1 h-100">
                 <div class="chat-body-inner">
-                    <div class="d-flex flex-row justify-content-center" id="id_chatroom_loading_spinner_container">
-                        <div class="spinner-border text-primary" id="id_chatroom_loading_spinner" role="status"
-                             style="display: none; ">
-                            <span class="sr-only">Loading...</span>
+                    <!-- Loading Spinner -->
+                    <div id="id_chatroom_loading_spinner" role="status" style="display: none;">
+                        <div class="message message-out">
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#modal-profile"
+                               class="avatar avatar-responsive">
+                                <svg class="avatar-img placeholder-img" width="100%" height="100%"
+                                     xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder"
+                                     preserveAspectRatio="xMidYMid slice" focusable="false">
+                                    <title>Placeholder</title>
+                                    <rect width="100%" height="100%" fill="#868e96"></rect>
+                                </svg>
+                            </a>
+
+                            <div class="message-inner">
+                                <div class="message-body">
+                                    <div class="message-content">
+                                        <div class="message-footer col">
+                                            <div class="d-flex align-items-center mb-3 justify-content-end">
+                                                <h5 class="placeholder-glow w-100 mb-0">
+                                                    <span class="placeholder col-3"></span>
+                                                </h5>
+                                            </div>
+
+                                            <div class="placeholder-glow">
+                                                <span class="placeholder col-5"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="message-footer">
+                                    <div class="placeholder-glow">
+                                        <span class="placeholder col-2"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="message">
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#modal-profile"
+                               class="avatar avatar-responsive">
+                                <svg class="avatar-img placeholder-img" width="100%" height="100%"
+                                     xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder"
+                                     preserveAspectRatio="xMidYMid slice" focusable="false">
+                                    <title>Placeholder</title>
+                                    <rect width="100%" height="100%" fill="#868e96"></rect>
+                                </svg>
+                            </a>
+
+                            <div class="message-inner">
+                                <div class="message-body">
+                                    <div class="message-content">
+                                        <div class="col">
+                                            <div class="d-flex align-items-center mb-3">
+                                                <h5 class="placeholder-glow w-100 mb-0">
+                                                    <span class="placeholder col-3"></span>
+                                                </h5>
+                                            </div>
+
+                                            <div class="placeholder-glow">
+                                                <span class="placeholder col-5"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="message-footer">
+                                    <div class="placeholder-glow">
+                                        <span class="placeholder col-2"></span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="py-6 py-lg-12" id="id_chat_log" style="overflow-y: auto; height: 1000px;">
+                    <!-- Loading Spinner -->
+                    <div class="d-flex py-6 py-lg-12" id="id_chat_log">
                     </div>
                 </div>
             </div>
@@ -351,33 +405,37 @@
         var user = "{{ request.user.id }}"
         if (user_id == user) {
             newMessageDiv.classList.add("message-out")
-
         }
+        var profileDiv = document.createElement("div")
 
         var profileButton = document.createElement("a")
-        profileButton.classList.add("avatar")
-        profileButton.classList.add("avatar-responsive")
-        profileButton.setAttribute("data-bs-toggle", "modal")
-        profileButton.setAttribute("data-bs-target", "#modal-user-profile")
+        profileButton.classList.add("avatar", "avatar-responsive")
+        profileButton.setAttribute("data-bs-toggle", "offcanvas")
+        profileButton.setAttribute("data-bs-target", "#offcanvas-more")
+        profileButton.setAttribute("aria-controls", "#offcanvas-more")
+
 
         var profileImage = document.createElement("img")
         profileImage.addEventListener("click", function (e) {
             selectUser(user_id)
         })
         profileImage.classList.add("avatar-img")
-        profileImage.src = profile_image
+        profileImage.src = "{% static 'img/dummy_image.png' %}"
         var profile_image_id = "id_profile_image_" + msg_id
         profileImage.id = profile_image_id
-        profileButton.appendChild(profileImage)
-        newMessageDiv.appendChild(profileButton)
+
 
         var usernameSpan = document.createElement("span")
         usernameSpan.addEventListener("click", function (e) {
             selectUser(user_id)
         })
-        usernameSpan.classList.add("username-span")
+        usernameSpan.classList.add("text-muted")
         usernameSpan.innerHTML = username
-        newMessageDiv.appendChild(usernameSpan)
+
+        newMessageDiv.appendChild(profileDiv)
+        profileDiv.appendChild(profileButton)
+        profileDiv.appendChild(usernameSpan)
+        profileButton.appendChild(profileImage)
 
         var messageInner = document.createElement("div")
         messageInner.classList.add("message-inner")
@@ -391,11 +449,15 @@
         messageContent.classList.add("message-content")
         messageBody.appendChild(messageContent)
 
-
         var messageText = document.createElement("div")
         messageText.classList.add("message-text")
         messageContent.appendChild(messageText)
 
+
+        var msgP = document.createElement("p")
+        msgP.innerHTML = validateText(msg)
+        msgP.classList.add("msg-p")
+        messageText.appendChild(msgP)
 
         var messageFooter = document.createElement("div")
         messageFooter.classList.add("message-footer")
@@ -404,34 +466,31 @@
 
         var timestampSpan = document.createElement("span")
         timestampSpan.innerHTML = timestamp
-        timestampSpan.classList.add("extra-small")
-        timestampSpan.classList.add("text-muted")
+        timestampSpan.id = "id_timestamp"
+        timestampSpan.classList.add("extra-small", "text-muted")
         timestampSpan.addEventListener("click", function (e) {
             selectUser(user_id)
         })
         messageFooter.appendChild(timestampSpan)
 
-        if (timestamp.includes("yesterday")) {
+
+        /*if (timestamp.includes("yesterday")) {
             var messageDivider = document.createElement("div")
-            newMessageDiv.appendChild(messageDivider)
+            messageDivider.classList.add("message-divider")
+            chatLog.appendChild(messageDivider)
+
 
             var divider = document.createElement("small")
             divider.classList.add("text-muted")
             divider.innerHTML = "Yesterday"
             messageDivider.appendChild(divider)
-        }
+        }*/
 
 
-        var msgP = document.createElement("p")
-        msgP.innerHTML = validateText(msg)
-        messageText.appendChild(msgP)
-
-
-        if (!isNewMessage) {
+        if (isNewMessage) {
             chatLog.insertBefore(newMessageDiv, chatLog.firstChild)
         } else {
             chatLog.appendChild(newMessageDiv)
-            chatLog.scrollTop = chatLog.scrollHeight
         }
 
         if (!maintainPosition) {
@@ -439,7 +498,8 @@
         }
 
         // now that a default image is showing, load the actual image.
-        // preloadImage(profile_image, profile_image_id) // called from base_js.html
+        preloadImage(profile_image, profile_image_id)
+
     }
 
     function selectUser(user_id) {
@@ -466,6 +526,11 @@
     function setConnectedUsersCount(count) {
         element = document.getElementById("id_connected_users")
         element.innerHTML = count + " Members Online"
+    }
+
+    function toggleMainClass() {
+        var mainDiv = document.getElementById("main-div")
+        mainDiv.classList.toggle("is-visible")
     }
 </script>
 

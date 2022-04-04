@@ -48,7 +48,7 @@
         </li>
 
         <!-- Friends -->
-        <li class="nav-item">
+        <li class="nav-item"  onclick="setGeneralNotificationsAsRead()">
             <a class="nav-link py-0 py-lg-8" id="tab-friends" href="#tab-content-friends" title="Friends"
                data-bs-toggle="tab" role="tab">
                 <div class="icon icon-xl" id="id_general_notifications_count">
@@ -236,12 +236,15 @@
 <script type="text/javascript">
 
     function executeQuery() {
-        var query = ""
-        query = document.getElementById('id_q_small').value;
-        if (query == "") {
-            query = document.getElementById('id_q_large').value;
+        var queries = document.querySelectorAll('.search-box');
+
+        for (i = 0; i < queries.length; i++) {
+            query = queries[i].value
+            if (query != "") {
+                window.location.replace("{% url 'search' %}?q=" + query)
+            }
         }
-        window.location.replace("{% url 'search' %}?q=" + query)
+
         return false
     }
 

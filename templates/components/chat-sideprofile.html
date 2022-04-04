@@ -1,261 +1,233 @@
-        <!-- Chat: Info -->
-        <div class="offcanvas offcanvas-end offcanvas-aside" data-bs-scroll="true" data-bs-backdrop="false"
-            tabindex="-1" id="offcanvas-more">
-            <!-- Offcanvas Header -->
-            <div class="offcanvas-header py-4 py-lg-7 border-bottom">
-                <a class="icon icon-lg text-muted" href="#" data-bs-dismiss="offcanvas">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                        class="feather feather-chevron-left">
-                        <polyline points="15 18 9 12 15 6"></polyline>
-                    </svg>
-                </a>
+{% load static %}
+<!-- Chat: Info -->
+<div class="offcanvas offcanvas-end offcanvas-aside" data-bs-scroll="true" data-bs-backdrop="false"
+     tabindex="-1" id="offcanvas-more">
+    <!-- Offcanvas Header -->
+    <div class="offcanvas-header py-4 py-lg-7 border-bottom">
+        <a class="icon icon-lg text-muted" href="#" data-bs-dismiss="offcanvas">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                 class="feather feather-chevron-left">
+                <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+        </a>
 
-                <div class="visibility-xl-invisible overflow-hidden text-center">
-                    <h5 class="text-truncate">Ollie Chandler</h5>
-                    <p class="text-truncate">last seen 5 minutes ago</p>
+        <div class="visibility-xl-invisible overflow-hidden text-center">
+            <h5 class="text-truncate" id="id_other_username"></h5>
+            <p class="text-truncate">last seen 5 minutes ago</p>
+        </div>
+
+        <!-- Dropdown -->
+        <div class="dropdown">
+            <a class="icon icon-lg text-muted" href="#" role="button" data-bs-toggle="dropdown"
+               aria-expanded="false">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                     class="feather feather-more-vertical">
+                    <circle cx="12" cy="12" r="1"></circle>
+                    <circle cx="12" cy="5" r="1"></circle>
+                    <circle cx="12" cy="19" r="1"></circle>
+                </svg>
+            </a>
+
+            <ul class="dropdown-menu">
+                <li>
+                    <a href="#" class="dropdown-item d-flex align-items-center">
+                        Edit
+                        <div class="icon ms-auto">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                 stroke-linejoin="round" class="feather feather-edit-3">
+                                <path d="M12 20h9"></path>
+                                <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+                            </svg>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="dropdown-item d-flex align-items-center">
+                        Mute
+                        <div class="icon ms-auto">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                 stroke-linejoin="round" class="feather feather-bell">
+                                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                                <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                            </svg>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <hr class="dropdown-divider">
+                </li>
+                <li>
+                    <a href="#" class="dropdown-item d-flex align-items-center text-danger">
+                        Leave
+                        <div class="icon ms-auto">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                 stroke-linejoin="round" class="feather feather-log-out">
+                                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                                <polyline points="16 17 21 12 16 7"></polyline>
+                                <line x1="21" y1="12" x2="9" y2="12"></line>
+                            </svg>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- Offcanvas Header -->
+
+    <!-- Offcanvas Body -->
+    <div class="offcanvas-body hide-scrollbar">
+        <!-- Avatar -->
+        <div class="text-center py-10">
+            <div class="row gy-6">
+                <div class="col-12">
+                    <div class="avatar avatar-xl mx-auto">
+                        <img src="{% static 'img/dummy_image.png' %}" id="id_other_user_profile_image_2"
+                             class="avatar-img">
+
+                    </div>
                 </div>
 
-                <!-- Dropdown -->
-                <div class="dropdown">
-                    <a class="icon icon-lg text-muted" href="#" role="button" data-bs-toggle="dropdown"
-                        aria-expanded="false">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="feather feather-more-vertical">
-                            <circle cx="12" cy="12" r="1"></circle>
-                            <circle cx="12" cy="5" r="1"></circle>
-                            <circle cx="12" cy="19" r="1"></circle>
-                        </svg>
-                    </a>
-
-                    <ul class="dropdown-menu">
-                        <li>
-                            <a href="#" class="dropdown-item d-flex align-items-center">
-                                Edit
-                                <div class="icon ms-auto">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round" class="feather feather-edit-3">
-                                        <path d="M12 20h9"></path>
-                                        <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
-                                    </svg>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="dropdown-item d-flex align-items-center">
-                                Mute
-                                <div class="icon ms-auto">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round" class="feather feather-bell">
-                                        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
-                                        <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
-                                    </svg>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li>
-                            <a href="#" class="dropdown-item d-flex align-items-center text-danger">
-                                Leave
-                                <div class="icon ms-auto">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round" class="feather feather-log-out">
-                                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
-                                        <polyline points="16 17 21 12 16 7"></polyline>
-                                        <line x1="21" y1="12" x2="9" y2="12"></line>
-                                    </svg>
-                                </div>
-                            </a>
-                        </li>
-                    </ul>
+                <div class="col-12">
+                    <h4 id="id_other_fullname"></h4>
                 </div>
             </div>
-            <!-- Offcanvas Header -->
+        </div>
+        <!-- Avatar -->
 
-            <!-- Offcanvas Body -->
-            <div class="offcanvas-body hide-scrollbar">
-                <!-- Avatar -->
-                <div class="text-center py-10">
-                    <div class="row gy-6">
-                        <div class="col-12">
-                            <div class="avatar avatar-xl mx-auto">
-                                <img src="" alt="#" class="avatar-img">
+        <!-- Tabs -->
+        <ul class="nav nav-pills nav-justified" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" data-bs-toggle="pill" href="#offcanvas-tab-profile" role="tab"
+                   aria-controls="offcanvas-tab-profile" aria-selected="true">
+                    Profile
+                </a>
+            </li>
 
-                                <a href="#"
-                                    class="badge badge-lg badge-circle bg-primary text-white border-outline position-absolute bottom-0 end-0">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round" class="feather feather-plus">
-                                        <line x1="12" y1="5" x2="12" y2="19"></line>
-                                        <line x1="5" y1="12" x2="19" y2="12"></line>
-                                    </svg>
-                                </a>
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="pill" href="#offcanvas-tab-media" role="tab"
+                   aria-controls="offcanvas-tab-media" aria-selected="true">
+                    Media
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="pill" href="#offcanvas-tab-files" role="tab"
+                   aria-controls="offcanvas-tab-files" aria-selected="false">
+                    Files
+                </a>
+            </li>
+        </ul>
+        <!-- Tabs -->
+
+        <!-- Tabs: Content -->
+        <div class="tab-content py-2" role="tablist">
+            <!-- Profile -->
+            <div class="tab-pane fade show active" id="offcanvas-tab-profile" role="tabpanel">
+                <ul class="list-group list-group-flush" id="id_side_profile_container">
+                    <li class="list-group-item">
+                        <div class="row align-items-center gx-6">
+                            <div class="col">
+                                <h5>Username</h5>
+                                <p id="id_other_username"></p>
+                            </div>
+                            <div class="col-auto">
+                                <div class="btn btn-sm btn-icon btn-dark">
+                                    <a class="text-reset" id="id_user_info_account" href="">
+
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                             stroke-linecap="round" stroke-linejoin="round"
+                                             class="feather feather-user">
+                                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                            <circle cx="12" cy="7" r="4"></circle>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </li>
+
+                    <li class="list-group-item">
+                        <div class="row align-items-center gx-6">
+                            <div class="col">
+                                <h5>E-mail</h5>
+                                <p id="id_other_user_email"></p>
+                            </div>
+
+                            <div class="col-auto">
+                                <div class="btn btn-sm btn-icon btn-dark">
+                                    <a id="id_other_user_email_mailto" href="" class="text-reset">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                             viewBox="0 0 24 24"
+                                             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                             stroke-linejoin="round" class="feather feather-mail">
+                                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                            <polyline points="22,6 12,13 2,6"></polyline>
+                                        </svg>
+                                    </a>
+                                </div>
                             </div>
                         </div>
-
-                        <div class="col-12">
-                            <h4>{{ room_title }}</h4>
-                            <p>Bootstrap is an open source <br> toolkit for developing web with <br> HTML, CSS, and JS.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <!-- Avatar -->
-
-                <!-- Tabs -->
-                <ul class="nav nav-pills nav-justified" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link active" data-bs-toggle="pill" href="#offcanvas-tab-profile" role="tab"
-                            aria-controls="offcanvas-tab-profile" aria-selected="true">
-                            Profile
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" data-bs-toggle="pill" href="#offcanvas-tab-media" role="tab"
-                            aria-controls="offcanvas-tab-media" aria-selected="true">
-                            Media
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" data-bs-toggle="pill" href="#offcanvas-tab-files" role="tab"
-                            aria-controls="offcanvas-tab-files" aria-selected="false">
-                            Files
-                        </a>
                     </li>
                 </ul>
-                <!-- Tabs -->
 
-                <!-- Tabs: Content -->
-                <div class="tab-content py-2" role="tablist">
-                    <!-- Profile -->
-                    <div class="tab-pane fade show active" id="offcanvas-tab-profile" role="tabpanel">
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">
-                                <div class="row align-items-center gx-6">
-                                    <div class="col">
-                                        <h5>Phone</h5>
-                                        <p>1-800-275-2273</p>
-                                    </div>
 
-                                    <div class="col-auto">
-                                        <div class="btn btn-sm btn-icon btn-dark">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                                stroke-linecap="round" stroke-linejoin="round"
-                                                class="feather feather-phone-call">
-                                                <path
-                                                    d="M15.05 5A5 5 0 0 1 19 8.95M15.05 1A9 9 0 0 1 23 8.94m-1 7.98v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z">
-                                                </path>
-                                            </svg>
-                                        </div>
-                                    </div>
+                <ul class="list-group list-group-flush border-top mt-8">
+                    <li class="list-group-item">
+                        <div class="row align-items-center gx-6">
+                            <div class="col">
+                                <h5>Notifications</h5>
+                                <p>Enable sound notifications</p>
+                            </div>
+
+                            <div class="col-auto">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox"
+                                           id="accordion-security-check-5">
+                                    <label class="form-check-label" for="accordion-security-check-5"></label>
                                 </div>
-                            </li>
-
-                            <li class="list-group-item">
-                                <div class="row align-items-center gx-6">
-                                    <div class="col">
-                                        <h5>Location</h5>
-                                        <p>USA, Houston</p>
-                                    </div>
-
-                                    <div class="col-auto">
-                                        <div class="btn btn-sm btn-icon btn-dark">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                                stroke-linecap="round" stroke-linejoin="round"
-                                                class="feather feather-globe">
-                                                <circle cx="12" cy="12" r="10"></circle>
-                                                <line x1="2" y1="12" x2="22" y2="12"></line>
-                                                <path
-                                                    d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z">
-                                                </path>
-                                            </svg>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-
-                            <li class="list-group-item">
-                                <div class="row align-items-center gx-6">
-                                    <div class="col">
-                                        <h5>E-mail</h5>
-                                        <p>chandler@ollie.com</p>
-                                    </div>
-
-                                    <div class="col-auto">
-                                        <div class="btn btn-sm btn-icon btn-dark">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                                stroke-linecap="round" stroke-linejoin="round"
-                                                class="feather feather-mail">
-                                                <path
-                                                    d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z">
-                                                </path>
-                                                <polyline points="22,6 12,13 2,6"></polyline>
-                                            </svg>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-
-                        <ul class="list-group list-group-flush border-top mt-8">
-                            <li class="list-group-item">
-                                <div class="row align-items-center gx-6">
-                                    <div class="col">
-                                        <h5>Notifications</h5>
-                                        <p>Enable sound notifications</p>
-                                    </div>
-
-                                    <div class="col-auto">
-                                        <div class="form-check form-switch">
-                                            <input class="form-check-input" type="checkbox"
-                                                id="accordion-security-check-5">
-                                            <label class="form-check-label" for="accordion-security-check-5"></label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-
-                        <ul class="list-group list-group-flush border-top mt-8">
-                            <li class="list-group-item">
-                                <a href="#" class="text-reset">Send Message</a>
-                            </li>
-
-                            <li class="list-group-item">
-                                <a href="#" class="text-danger">Delete Chat</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <!-- Profile -->
-
-                    <!-- Media -->
-                    <div class="tab-pane fade" id="offcanvas-tab-media" role="tabpanel">
-                        <div class="row row-cols-3 g-3 py-6">
-                            <h1>Stuff</h1>
+                            </div>
                         </div>
-                    </div>
-                    <!-- Media -->
+                    </li>
+                </ul>
 
-                    <!-- Files -->
-                    <div class="tab-pane fade" id="offcanvas-tab-files" role="tabpanel">
-                        <ul class="list-group list-group-flush">
+                <ul class="list-group list-group-flush border-top mt-8">
+                    <li class="list-group-item">
+                        <a href="#" class="text-reset">Send Message</a>
+                    </li>
 
-                        </ul>
-                    </div>
-                    <!-- Files -->
-                </div>
-                <!-- Tabs: Content -->
+                    <li class="list-group-item">
+                        <a href="#" class="text-danger">Delete Chat</a>
+                    </li>
+                </ul>
             </div>
-            <!-- Offcanvas Body -->
+
+            <!-- Profile -->
+
+            <!-- Media -->
+            <div class="tab-pane fade" id="offcanvas-tab-media" role="tabpanel">
+                <div class="row row-cols-3 g-3 py-6">
+                    <h1>Stuff</h1>
+                </div>
+            </div>
+            <!-- Media -->
+
+            <!-- Files -->
+            <div class="tab-pane fade" id="offcanvas-tab-files" role="tabpanel">
+                <ul class="list-group list-group-flush">
+
+                </ul>
+            </div>
+            <!-- Files -->
         </div>
+        <!-- Tabs: Content -->
+    </div>
+    <!-- Offcanvas Body -->
+</div>

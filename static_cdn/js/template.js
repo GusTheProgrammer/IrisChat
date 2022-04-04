@@ -1,4 +1,4 @@
-!function (e) {
+! function (e) {
     function o(o) {
         for (var n, t, s = o[0], m = o[1], c = o[2], u = 0, g = []; u < s.length; u++) t = s[u], Object.prototype.hasOwnProperty.call(a, t) && a[t] && g.push(a[t][0]), a[t] = 0;
         for (n in m) Object.prototype.hasOwnProperty.call(m, n) && (e[n] = m[n]);
@@ -16,7 +16,6 @@
         }
         return e
     }
-
     var n = {},
         a = {
             0: 0
@@ -32,7 +31,6 @@
         };
         return e[o].call(i.exports, i, i.exports, t), i.l = !0, i.exports
     }
-
     t.m = e, t.c = n, t.d = function (e, o, i) {
         t.o(e, o) || Object.defineProperty(e, o, {
             enumerable: !0,
@@ -80,8 +78,7 @@
         }));
         var a = ["input", "select", "textarea", "a[href]", "button", "[tabindex]", "audio[controls]", "video[controls]", '[contenteditable]:not([contenteditable="false"])'],
             r = a.join(","),
-            t = "undefined" == typeof Element ? function () {
-            } : Element.prototype.matches || Element.prototype.msMatchesSelector || Element.prototype.webkitMatchesSelector;
+            t = "undefined" == typeof Element ? function () { } : Element.prototype.matches || Element.prototype.msMatchesSelector || Element.prototype.webkitMatchesSelector;
 
         function s(e, o) {
             o = o || {};
@@ -102,7 +99,7 @@
             return !(!c(e) || function (e) {
                 return function (e) {
                     return l(e) && "radio" === e.type
-                }(e) && !function (e) {
+                }(e) && ! function (e) {
                     if (!e.name) return !0;
                     var o = function (e) {
                         for (var o = 0; o < e.length; o++)
@@ -120,7 +117,6 @@
                 return null === e.offsetParent || "hidden" === getComputedStyle(e).visibility
             }(e))
         }
-
         s.isTabbable = function (e) {
             if (!e) throw new Error("No node provided");
             return !1 !== t.call(e, r) && m(e)
@@ -144,7 +140,6 @@
         function l(e) {
             return "INPUT" === e.tagName
         }
-
         var v, f, y = s,
             h = function () {
                 for (var e = {}, o = 0; o < arguments.length; o++) {
@@ -160,12 +155,10 @@
                         var o = f[f.length - 1];
                         o !== e && o.pause()
                     }
-                    var i = f.indexOf(e);
-                    -1 === i || f.splice(i, 1), f.push(e)
+                    var i = f.indexOf(e); - 1 === i || f.splice(i, 1), f.push(e)
                 },
                 deactivateTrap: function (e) {
-                    var o = f.indexOf(e);
-                    -1 !== o && f.splice(o, 1), f.length > 0 && f[f.length - 1].unpause()
+                    var o = f.indexOf(e); - 1 !== o && f.splice(o, 1), f.length > 0 && f[f.length - 1].unpause()
                 }
             });
 
@@ -173,9 +166,7 @@
             return setTimeout(e, 0)
         }
 
-        function w() {
-        }
-
+        function w() { }
         w.prototype = {
             on: function (e, o, i) {
                 var n = this.e || (this.e = {});
@@ -190,7 +181,6 @@
                 function a() {
                     n.off(e, a), o.apply(i, arguments)
                 }
-
                 return a._ = o, this.on(e, a, i)
             },
             emit: function (e) {
@@ -309,8 +299,8 @@
         function N(e, o) {
             void 0 === o && (o = []);
             var i = function e(o) {
-                    return ["html", "body", "#document"].indexOf(I(o)) >= 0 ? o.ownerDocument.body : O(o) && P(o) ? o : e(T(o))
-                }(e),
+                return ["html", "body", "#document"].indexOf(I(o)) >= 0 ? o.ownerDocument.body : O(o) && P(o) ? o : e(T(o))
+            }(e),
                 n = "body" === I(i),
                 a = E(i),
                 r = n ? [a].concat(a.visualViewport || [], P(i) ? i : []) : i,
@@ -330,7 +320,6 @@
             for (var o = E(e), i = D(e); i && B(i);) i = D(i);
             return i && "body" === I(i) && "static" === M(i).position ? o : i || o
         }
-
         w.TinyEmitter = k;
         var F = "top",
             R = "bottom",
@@ -348,7 +337,6 @@
         function G(e) {
             return e.split("-")[0]
         }
-
         var X = {
             placement: "bottom",
             modifiers: [],
@@ -361,7 +349,6 @@
                 return !(e && "function" == typeof e.getBoundingClientRect)
             }))
         }
-
         var Y = {
             passive: !0
         };
@@ -426,7 +413,6 @@
             }
             return o
         }
-
         var oe = {
             top: "auto",
             right: "auto",
@@ -467,7 +453,6 @@
             }, m && oe);
             return s ? Object.assign({}, p, ((j = {})[f] = l ? "0" : "", j[v] = g ? "0" : "", j.transform = (y.devicePixelRatio || 1) < 2 ? "translate(" + d + "px, " + u + "px)" : "translate3d(" + d + "px, " + u + "px, 0)", j)) : Object.assign({}, p, ((o = {})[f] = l ? u + "px" : "", o[v] = g ? d + "px" : "", o.transform = "", o))
         }
-
         var ne = {
             left: "right",
             right: "left",
@@ -480,7 +465,6 @@
                 return ne[e]
             }))
         }
-
         var re = {
             start: "end",
             end: "start"
@@ -540,12 +524,12 @@
 
         function ue(e, o, i) {
             var n = "clippingParents" === o ? function (e) {
-                    var o = N(e),
-                        i = ["absolute", "fixed"].indexOf(M(e).position) >= 0 && O(e) ? q(e) : e;
-                    return S(i) ? o.filter((function (e) {
-                        return S(e) && me(e, i)
-                    })) : []
-                }(e) : [].concat(o),
+                var o = N(e),
+                    i = ["absolute", "fixed"].indexOf(M(e).position) >= 0 && O(e) ? q(e) : e;
+                return S(i) ? o.filter((function (e) {
+                    return S(e) && me(e, i)
+                })) : []
+            }(e) : [].concat(o),
                 a = [].concat(n, [i]),
                 r = a[0],
                 t = a.reduce((function (o, i) {
@@ -661,588 +645,584 @@
                 return e[o] >= 0
             }))
         }
-
         var je = function (e) {
-                void 0 === e && (e = {});
-                var o = e,
-                    i = o.defaultModifiers,
-                    n = void 0 === i ? [] : i,
-                    a = o.defaultOptions,
-                    r = void 0 === a ? X : a;
-                return function (e, o, i) {
-                    void 0 === i && (i = r);
-                    var a, t, s = {
-                            placement: "bottom",
-                            orderedModifiers: [],
-                            options: Object.assign({}, X, {}, r),
-                            modifiersData: {},
-                            elements: {
-                                reference: e,
-                                popper: o
-                            },
-                            attributes: {},
-                            styles: {}
-                        },
-                        m = [],
-                        c = !1,
-                        d = {
-                            state: s,
-                            setOptions: function (i) {
-                                u(), s.options = Object.assign({}, r, {}, s.options, {}, i), s.scrollParents = {
-                                    reference: S(e) ? N(e) : e.contextElement ? N(e.contextElement) : [],
-                                    popper: N(o)
-                                };
-                                var a, t, c = function (e) {
-                                    var o = function (e) {
-                                        var o = new Map,
-                                            i = new Set,
-                                            n = [];
-                                        return e.forEach((function (e) {
-                                            o.set(e.name, e)
-                                        })), e.forEach((function (e) {
-                                            i.has(e.name) || function e(a) {
-                                                i.add(a.name), [].concat(a.requires || [], a.requiresIfExists || []).forEach((function (n) {
-                                                    if (!i.has(n)) {
-                                                        var a = o.get(n);
-                                                        a && e(a)
-                                                    }
-                                                })), n.push(a)
-                                            }(e)
-                                        })), n
-                                    }(e);
-                                    return U.reduce((function (e, i) {
-                                        return e.concat(o.filter((function (e) {
-                                            return e.phase === i
-                                        })))
-                                    }), [])
-                                }((a = [].concat(n, s.options.modifiers), t = a.reduce((function (e, o) {
-                                    var i = e[o.name];
-                                    return e[o.name] = i ? Object.assign({}, i, {}, o, {
-                                        options: Object.assign({}, i.options, {}, o.options),
-                                        data: Object.assign({}, i.data, {}, o.data)
-                                    }) : o, e
-                                }), {}), Object.keys(t).map((function (e) {
-                                    return t[e]
-                                }))));
-                                return s.orderedModifiers = c.filter((function (e) {
-                                    return e.enabled
-                                })), s.orderedModifiers.forEach((function (e) {
-                                    var o = e.name,
-                                        i = e.options,
-                                        n = void 0 === i ? {} : i,
-                                        a = e.effect;
-                                    if ("function" == typeof a) {
-                                        var r = a({
-                                            state: s,
-                                            name: o,
-                                            instance: d,
-                                            options: n
-                                        });
-                                        m.push(r || function () {
-                                        })
-                                    }
-                                })), d.update()
-                            },
-                            forceUpdate: function () {
-                                if (!c) {
-                                    var e = s.elements,
-                                        o = e.reference,
-                                        i = e.popper;
-                                    if ($(o, i)) {
-                                        s.rects = {
-                                            reference: L(o, q(i), "fixed" === s.options.strategy),
-                                            popper: _(i)
-                                        }, s.reset = !1, s.placement = s.options.placement, s.orderedModifiers.forEach((function (e) {
-                                            return s.modifiersData[e.name] = Object.assign({}, e.data)
-                                        }));
-                                        for (var n = 0; n < s.orderedModifiers.length; n++)
-                                            if (!0 !== s.reset) {
-                                                var a = s.orderedModifiers[n],
-                                                    r = a.fn,
-                                                    t = a.options,
-                                                    m = void 0 === t ? {} : t,
-                                                    u = a.name;
-                                                "function" == typeof r && (s = r({
-                                                    state: s,
-                                                    options: m,
-                                                    name: u,
-                                                    instance: d
-                                                }) || s)
-                                            } else s.reset = !1, n = -1
-                                    }
-                                }
-                            },
-                            update: (a = function () {
-                                return new Promise((function (e) {
-                                    d.forceUpdate(), e(s)
-                                }))
-                            }, function () {
-                                return t || (t = new Promise((function (e) {
-                                    Promise.resolve().then((function () {
-                                        t = void 0, e(a())
-                                    }))
-                                }))), t
-                            }),
-                            destroy: function () {
-                                u(), c = !0
-                            }
-                        };
-                    if (!$(e, o)) return d;
-
-                    function u() {
-                        m.forEach((function (e) {
-                            return e()
-                        })), m = []
-                    }
-
-                    return d.setOptions(i).then((function (e) {
-                        !c && i.onFirstUpdate && i.onFirstUpdate(e)
-                    })), d
-                }
-            }({
-                defaultModifiers: [{
-                    name: "eventListeners",
-                    enabled: !0,
-                    phase: "write",
-                    fn: function () {
+            void 0 === e && (e = {});
+            var o = e,
+                i = o.defaultModifiers,
+                n = void 0 === i ? [] : i,
+                a = o.defaultOptions,
+                r = void 0 === a ? X : a;
+            return function (e, o, i) {
+                void 0 === i && (i = r);
+                var a, t, s = {
+                    placement: "bottom",
+                    orderedModifiers: [],
+                    options: Object.assign({}, X, {}, r),
+                    modifiersData: {},
+                    elements: {
+                        reference: e,
+                        popper: o
                     },
-                    effect: function (e) {
-                        var o = e.state,
-                            i = e.instance,
-                            n = e.options,
-                            a = n.scroll,
-                            r = void 0 === a || a,
-                            t = n.resize,
-                            s = void 0 === t || t,
-                            m = E(o.elements.popper),
-                            c = [].concat(o.scrollParents.reference, o.scrollParents.popper);
-                        return r && c.forEach((function (e) {
-                            e.addEventListener("scroll", i.update, Y)
-                        })), s && m.addEventListener("resize", i.update, Y),
-                            function () {
-                                r && c.forEach((function (e) {
-                                    e.removeEventListener("scroll", i.update, Y)
-                                })), s && m.removeEventListener("resize", i.update, Y)
-                            }
-                    },
-                    data: {}
-                }, {
-                    name: "popperOffsets",
-                    enabled: !0,
-                    phase: "read",
-                    fn: function (e) {
-                        var o = e.state,
-                            i = e.name;
-                        o.modifiersData[i] = ee({
-                            reference: o.rects.reference,
-                            element: o.rects.popper,
-                            strategy: "absolute",
-                            placement: o.placement
-                        })
-                    },
-                    data: {}
-                }, {
-                    name: "computeStyles",
-                    enabled: !0,
-                    phase: "beforeWrite",
-                    fn: function (e) {
-                        var o = e.state,
-                            i = e.options,
-                            n = i.gpuAcceleration,
-                            a = void 0 === n || n,
-                            r = i.adaptive,
-                            t = void 0 === r || r,
-                            s = {
-                                placement: G(o.placement),
-                                popper: o.elements.popper,
-                                popperRect: o.rects.popper,
-                                gpuAcceleration: a
+                    attributes: {},
+                    styles: {}
+                },
+                    m = [],
+                    c = !1,
+                    d = {
+                        state: s,
+                        setOptions: function (i) {
+                            u(), s.options = Object.assign({}, r, {}, s.options, {}, i), s.scrollParents = {
+                                reference: S(e) ? N(e) : e.contextElement ? N(e.contextElement) : [],
+                                popper: N(o)
                             };
-                        null != o.modifiersData.popperOffsets && (o.styles.popper = Object.assign({}, o.styles.popper, {}, ie(Object.assign({}, s, {
-                            offsets: o.modifiersData.popperOffsets,
-                            position: o.options.strategy,
-                            adaptive: t
-                        })))), null != o.modifiersData.arrow && (o.styles.arrow = Object.assign({}, o.styles.arrow, {}, ie(Object.assign({}, s, {
-                            offsets: o.modifiersData.arrow,
-                            position: "absolute",
-                            adaptive: !1
-                        })))), o.attributes.popper = Object.assign({}, o.attributes.popper, {
-                            "data-popper-placement": o.placement
-                        })
-                    },
-                    data: {}
-                }, {
-                    name: "applyStyles",
-                    enabled: !0,
-                    phase: "write",
-                    fn: function (e) {
-                        var o = e.state;
-                        Object.keys(o.elements).forEach((function (e) {
-                            var i = o.styles[e] || {},
-                                n = o.attributes[e] || {},
-                                a = o.elements[e];
-                            O(a) && I(a) && (Object.assign(a.style, i), Object.keys(n).forEach((function (e) {
-                                var o = n[e];
-                                !1 === o ? a.removeAttribute(e) : a.setAttribute(e, !0 === o ? "" : o)
-                            })))
-                        }))
-                    },
-                    effect: function (e) {
-                        var o = e.state,
-                            i = {
-                                popper: {
-                                    position: o.options.strategy,
-                                    left: "0",
-                                    top: "0",
-                                    margin: "0"
-                                },
-                                arrow: {
-                                    position: "absolute"
-                                },
-                                reference: {}
-                            };
-                        return Object.assign(o.elements.popper.style, i.popper), o.elements.arrow && Object.assign(o.elements.arrow.style, i.arrow),
-                            function () {
-                                Object.keys(o.elements).forEach((function (e) {
-                                    var n = o.elements[e],
-                                        a = o.attributes[e] || {},
-                                        r = Object.keys(o.styles.hasOwnProperty(e) ? o.styles[e] : i[e]).reduce((function (e, o) {
-                                            return e[o] = "", e
-                                        }), {});
-                                    O(n) && I(n) && (Object.assign(n.style, r), Object.keys(a).forEach((function (e) {
-                                        n.removeAttribute(e)
+                            var a, t, c = function (e) {
+                                var o = function (e) {
+                                    var o = new Map,
+                                        i = new Set,
+                                        n = [];
+                                    return e.forEach((function (e) {
+                                        o.set(e.name, e)
+                                    })), e.forEach((function (e) {
+                                        i.has(e.name) || function e(a) {
+                                            i.add(a.name), [].concat(a.requires || [], a.requiresIfExists || []).forEach((function (n) {
+                                                if (!i.has(n)) {
+                                                    var a = o.get(n);
+                                                    a && e(a)
+                                                }
+                                            })), n.push(a)
+                                        }(e)
+                                    })), n
+                                }(e);
+                                return U.reduce((function (e, i) {
+                                    return e.concat(o.filter((function (e) {
+                                        return e.phase === i
                                     })))
-                                }))
+                                }), [])
+                            }((a = [].concat(n, s.options.modifiers), t = a.reduce((function (e, o) {
+                                var i = e[o.name];
+                                return e[o.name] = i ? Object.assign({}, i, {}, o, {
+                                    options: Object.assign({}, i.options, {}, o.options),
+                                    data: Object.assign({}, i.data, {}, o.data)
+                                }) : o, e
+                            }), {}), Object.keys(t).map((function (e) {
+                                return t[e]
+                            }))));
+                            return s.orderedModifiers = c.filter((function (e) {
+                                return e.enabled
+                            })), s.orderedModifiers.forEach((function (e) {
+                                var o = e.name,
+                                    i = e.options,
+                                    n = void 0 === i ? {} : i,
+                                    a = e.effect;
+                                if ("function" == typeof a) {
+                                    var r = a({
+                                        state: s,
+                                        name: o,
+                                        instance: d,
+                                        options: n
+                                    });
+                                    m.push(r || function () { })
+                                }
+                            })), d.update()
+                        },
+                        forceUpdate: function () {
+                            if (!c) {
+                                var e = s.elements,
+                                    o = e.reference,
+                                    i = e.popper;
+                                if ($(o, i)) {
+                                    s.rects = {
+                                        reference: L(o, q(i), "fixed" === s.options.strategy),
+                                        popper: _(i)
+                                    }, s.reset = !1, s.placement = s.options.placement, s.orderedModifiers.forEach((function (e) {
+                                        return s.modifiersData[e.name] = Object.assign({}, e.data)
+                                    }));
+                                    for (var n = 0; n < s.orderedModifiers.length; n++)
+                                        if (!0 !== s.reset) {
+                                            var a = s.orderedModifiers[n],
+                                                r = a.fn,
+                                                t = a.options,
+                                                m = void 0 === t ? {} : t,
+                                                u = a.name;
+                                            "function" == typeof r && (s = r({
+                                                state: s,
+                                                options: m,
+                                                name: u,
+                                                instance: d
+                                            }) || s)
+                                        } else s.reset = !1, n = -1
+                                }
                             }
-                    },
-                    requires: ["computeStyles"]
-                }, {
-                    name: "offset",
-                    enabled: !0,
-                    phase: "main",
-                    requires: ["popperOffsets"],
-                    fn: function (e) {
-                        var o = e.state,
-                            i = e.options,
-                            n = e.name,
-                            a = i.offset,
-                            r = void 0 === a ? [0, 0] : a,
-                            t = J.reduce((function (e, i) {
-                                return e[i] = function (e, o, i) {
-                                    var n = G(e),
-                                        a = [H, F].indexOf(n) >= 0 ? -1 : 1,
-                                        r = "function" == typeof i ? i(Object.assign({}, o, {
-                                            placement: e
-                                        })) : i,
-                                        t = r[0],
-                                        s = r[1];
-                                    return t = t || 0, s = (s || 0) * a, [H, V].indexOf(n) >= 0 ? {
-                                        x: s,
-                                        y: t
-                                    } : {
-                                        x: t,
-                                        y: s
-                                    }
-                                }(i, o.rects, r), e
-                            }), {}),
-                            s = t[o.placement],
-                            m = s.x,
-                            c = s.y;
-                        null != o.modifiersData.popperOffsets && (o.modifiersData.popperOffsets.x += m, o.modifiersData.popperOffsets.y += c), o.modifiersData[n] = t
-                    }
-                }, {
-                    name: "flip",
-                    enabled: !0,
-                    phase: "main",
-                    fn: function (e) {
-                        var o = e.state,
-                            i = e.options,
-                            n = e.name;
-                        if (!o.modifiersData[n]._skip) {
-                            for (var a = i.mainAxis, r = void 0 === a || a, t = i.altAxis, s = void 0 === t || t, m = i.fallbackPlacements, c = i.padding, d = i.boundary, u = i.rootBoundary, g = i.altBoundary, l = i.flipVariations, v = void 0 === l || l, f = i.allowedAutoPlacements, y = o.options.placement, h = G(y), j = m || (h !== y && v ? function (e) {
-                                if ("auto" === G(e)) return [];
-                                var o = ae(e);
-                                return [te(e), o, te(o)]
-                            }(y) : [ae(y)]), p = [y].concat(j).reduce((function (e, i) {
-                                return e.concat("auto" === G(i) ? function (e, o) {
-                                    void 0 === o && (o = {});
-                                    var i = o,
-                                        n = i.placement,
-                                        a = i.boundary,
-                                        r = i.rootBoundary,
-                                        t = i.padding,
-                                        s = i.flipVariations,
-                                        m = i.allowedAutoPlacements,
-                                        c = void 0 === m ? J : m,
-                                        d = Z(n),
-                                        u = (d ? s ? K : K.filter((function (e) {
-                                            return Z(e) === d
-                                        })) : W).filter((function (e) {
-                                            return c.indexOf(e) >= 0
-                                        })).reduce((function (o, i) {
-                                            return o[i] = ve(e, {
-                                                placement: i,
-                                                boundary: a,
-                                                rootBoundary: r,
-                                                padding: t
-                                            })[G(i)], o
-                                        }), {});
-                                    return Object.keys(u).sort((function (e, o) {
-                                        return u[e] - u[o]
-                                    }))
-                                }(o, {
-                                    placement: i,
+                        },
+                        update: (a = function () {
+                            return new Promise((function (e) {
+                                d.forceUpdate(), e(s)
+                            }))
+                        }, function () {
+                            return t || (t = new Promise((function (e) {
+                                Promise.resolve().then((function () {
+                                    t = void 0, e(a())
+                                }))
+                            }))), t
+                        }),
+                        destroy: function () {
+                            u(), c = !0
+                        }
+                    };
+                if (!$(e, o)) return d;
+
+                function u() {
+                    m.forEach((function (e) {
+                        return e()
+                    })), m = []
+                }
+                return d.setOptions(i).then((function (e) {
+                    !c && i.onFirstUpdate && i.onFirstUpdate(e)
+                })), d
+            }
+        }({
+            defaultModifiers: [{
+                name: "eventListeners",
+                enabled: !0,
+                phase: "write",
+                fn: function () { },
+                effect: function (e) {
+                    var o = e.state,
+                        i = e.instance,
+                        n = e.options,
+                        a = n.scroll,
+                        r = void 0 === a || a,
+                        t = n.resize,
+                        s = void 0 === t || t,
+                        m = E(o.elements.popper),
+                        c = [].concat(o.scrollParents.reference, o.scrollParents.popper);
+                    return r && c.forEach((function (e) {
+                        e.addEventListener("scroll", i.update, Y)
+                    })), s && m.addEventListener("resize", i.update, Y),
+                        function () {
+                            r && c.forEach((function (e) {
+                                e.removeEventListener("scroll", i.update, Y)
+                            })), s && m.removeEventListener("resize", i.update, Y)
+                        }
+                },
+                data: {}
+            }, {
+                name: "popperOffsets",
+                enabled: !0,
+                phase: "read",
+                fn: function (e) {
+                    var o = e.state,
+                        i = e.name;
+                    o.modifiersData[i] = ee({
+                        reference: o.rects.reference,
+                        element: o.rects.popper,
+                        strategy: "absolute",
+                        placement: o.placement
+                    })
+                },
+                data: {}
+            }, {
+                name: "computeStyles",
+                enabled: !0,
+                phase: "beforeWrite",
+                fn: function (e) {
+                    var o = e.state,
+                        i = e.options,
+                        n = i.gpuAcceleration,
+                        a = void 0 === n || n,
+                        r = i.adaptive,
+                        t = void 0 === r || r,
+                        s = {
+                            placement: G(o.placement),
+                            popper: o.elements.popper,
+                            popperRect: o.rects.popper,
+                            gpuAcceleration: a
+                        };
+                    null != o.modifiersData.popperOffsets && (o.styles.popper = Object.assign({}, o.styles.popper, {}, ie(Object.assign({}, s, {
+                        offsets: o.modifiersData.popperOffsets,
+                        position: o.options.strategy,
+                        adaptive: t
+                    })))), null != o.modifiersData.arrow && (o.styles.arrow = Object.assign({}, o.styles.arrow, {}, ie(Object.assign({}, s, {
+                        offsets: o.modifiersData.arrow,
+                        position: "absolute",
+                        adaptive: !1
+                    })))), o.attributes.popper = Object.assign({}, o.attributes.popper, {
+                        "data-popper-placement": o.placement
+                    })
+                },
+                data: {}
+            }, {
+                name: "applyStyles",
+                enabled: !0,
+                phase: "write",
+                fn: function (e) {
+                    var o = e.state;
+                    Object.keys(o.elements).forEach((function (e) {
+                        var i = o.styles[e] || {},
+                            n = o.attributes[e] || {},
+                            a = o.elements[e];
+                        O(a) && I(a) && (Object.assign(a.style, i), Object.keys(n).forEach((function (e) {
+                            var o = n[e];
+                            !1 === o ? a.removeAttribute(e) : a.setAttribute(e, !0 === o ? "" : o)
+                        })))
+                    }))
+                },
+                effect: function (e) {
+                    var o = e.state,
+                        i = {
+                            popper: {
+                                position: o.options.strategy,
+                                left: "0",
+                                top: "0",
+                                margin: "0"
+                            },
+                            arrow: {
+                                position: "absolute"
+                            },
+                            reference: {}
+                        };
+                    return Object.assign(o.elements.popper.style, i.popper), o.elements.arrow && Object.assign(o.elements.arrow.style, i.arrow),
+                        function () {
+                            Object.keys(o.elements).forEach((function (e) {
+                                var n = o.elements[e],
+                                    a = o.attributes[e] || {},
+                                    r = Object.keys(o.styles.hasOwnProperty(e) ? o.styles[e] : i[e]).reduce((function (e, o) {
+                                        return e[o] = "", e
+                                    }), {});
+                                O(n) && I(n) && (Object.assign(n.style, r), Object.keys(a).forEach((function (e) {
+                                    n.removeAttribute(e)
+                                })))
+                            }))
+                        }
+                },
+                requires: ["computeStyles"]
+            }, {
+                name: "offset",
+                enabled: !0,
+                phase: "main",
+                requires: ["popperOffsets"],
+                fn: function (e) {
+                    var o = e.state,
+                        i = e.options,
+                        n = e.name,
+                        a = i.offset,
+                        r = void 0 === a ? [0, 0] : a,
+                        t = J.reduce((function (e, i) {
+                            return e[i] = function (e, o, i) {
+                                var n = G(e),
+                                    a = [H, F].indexOf(n) >= 0 ? -1 : 1,
+                                    r = "function" == typeof i ? i(Object.assign({}, o, {
+                                        placement: e
+                                    })) : i,
+                                    t = r[0],
+                                    s = r[1];
+                                return t = t || 0, s = (s || 0) * a, [H, V].indexOf(n) >= 0 ? {
+                                    x: s,
+                                    y: t
+                                } : {
+                                    x: t,
+                                    y: s
+                                }
+                            }(i, o.rects, r), e
+                        }), {}),
+                        s = t[o.placement],
+                        m = s.x,
+                        c = s.y;
+                    null != o.modifiersData.popperOffsets && (o.modifiersData.popperOffsets.x += m, o.modifiersData.popperOffsets.y += c), o.modifiersData[n] = t
+                }
+            }, {
+                name: "flip",
+                enabled: !0,
+                phase: "main",
+                fn: function (e) {
+                    var o = e.state,
+                        i = e.options,
+                        n = e.name;
+                    if (!o.modifiersData[n]._skip) {
+                        for (var a = i.mainAxis, r = void 0 === a || a, t = i.altAxis, s = void 0 === t || t, m = i.fallbackPlacements, c = i.padding, d = i.boundary, u = i.rootBoundary, g = i.altBoundary, l = i.flipVariations, v = void 0 === l || l, f = i.allowedAutoPlacements, y = o.options.placement, h = G(y), j = m || (h !== y && v ? function (e) {
+                            if ("auto" === G(e)) return [];
+                            var o = ae(e);
+                            return [te(e), o, te(o)]
+                        }(y) : [ae(y)]), p = [y].concat(j).reduce((function (e, i) {
+                            return e.concat("auto" === G(i) ? function (e, o) {
+                                void 0 === o && (o = {});
+                                var i = o,
+                                    n = i.placement,
+                                    a = i.boundary,
+                                    r = i.rootBoundary,
+                                    t = i.padding,
+                                    s = i.flipVariations,
+                                    m = i.allowedAutoPlacements,
+                                    c = void 0 === m ? J : m,
+                                    d = Z(n),
+                                    u = (d ? s ? K : K.filter((function (e) {
+                                        return Z(e) === d
+                                    })) : W).filter((function (e) {
+                                        return c.indexOf(e) >= 0
+                                    })).reduce((function (o, i) {
+                                        return o[i] = ve(e, {
+                                            placement: i,
+                                            boundary: a,
+                                            rootBoundary: r,
+                                            padding: t
+                                        })[G(i)], o
+                                    }), {});
+                                return Object.keys(u).sort((function (e, o) {
+                                    return u[e] - u[o]
+                                }))
+                            }(o, {
+                                placement: i,
+                                boundary: d,
+                                rootBoundary: u,
+                                padding: c,
+                                flipVariations: v,
+                                allowedAutoPlacements: f
+                            }) : i)
+                        }), []), b = o.rects.reference, w = o.rects.popper, k = new Map, x = !0, E = p[0], C = 0; C < p.length; C++) {
+                            var S = p[C],
+                                O = G(S),
+                                I = "start" === Z(S),
+                                A = [F, R].indexOf(O) >= 0,
+                                z = A ? "width" : "height",
+                                M = ve(o, {
+                                    placement: S,
                                     boundary: d,
                                     rootBoundary: u,
-                                    padding: c,
-                                    flipVariations: v,
-                                    allowedAutoPlacements: f
-                                }) : i)
-                            }), []), b = o.rects.reference, w = o.rects.popper, k = new Map, x = !0, E = p[0], C = 0; C < p.length; C++) {
-                                var S = p[C],
-                                    O = G(S),
-                                    I = "start" === Z(S),
-                                    A = [F, R].indexOf(O) >= 0,
-                                    z = A ? "width" : "height",
-                                    M = ve(o, {
-                                        placement: S,
-                                        boundary: d,
-                                        rootBoundary: u,
-                                        altBoundary: g,
-                                        padding: c
-                                    }),
-                                    P = A ? I ? V : H : I ? R : F;
-                                b[z] > w[z] && (P = ae(P));
-                                var L = ae(P),
-                                    _ = [];
-                                if (r && _.push(M[O] <= 0), s && _.push(M[P] <= 0, M[L] <= 0), _.every((function (e) {
-                                    return e
-                                }))) {
-                                    E = S, x = !1;
-                                    break
-                                }
-                                k.set(S, _)
+                                    altBoundary: g,
+                                    padding: c
+                                }),
+                                P = A ? I ? V : H : I ? R : F;
+                            b[z] > w[z] && (P = ae(P));
+                            var L = ae(P),
+                                _ = [];
+                            if (r && _.push(M[O] <= 0), s && _.push(M[P] <= 0, M[L] <= 0), _.every((function (e) {
+                                return e
+                            }))) {
+                                E = S, x = !1;
+                                break
                             }
-                            if (x)
-                                for (var T = function (e) {
-                                    var o = p.find((function (o) {
-                                        var i = k.get(o);
-                                        if (i) return i.slice(0, e).every((function (e) {
-                                            return e
-                                        }))
-                                    }));
-                                    if (o) return E = o, "break"
-                                }, N = v ? 3 : 1; N > 0 && "break" !== T(N); N--) ;
-                            o.placement !== E && (o.modifiersData[n]._skip = !0, o.placement = E, o.reset = !0)
+                            k.set(S, _)
                         }
-                    },
-                    requiresIfExists: ["offset"],
-                    data: {
-                        _skip: !1
+                        if (x)
+                            for (var T = function (e) {
+                                var o = p.find((function (o) {
+                                    var i = k.get(o);
+                                    if (i) return i.slice(0, e).every((function (e) {
+                                        return e
+                                    }))
+                                }));
+                                if (o) return E = o, "break"
+                            }, N = v ? 3 : 1; N > 0 && "break" !== T(N); N--);
+                        o.placement !== E && (o.modifiersData[n]._skip = !0, o.placement = E, o.reset = !0)
                     }
-                }, {
-                    name: "preventOverflow",
-                    enabled: !0,
-                    phase: "main",
-                    fn: function (e) {
-                        var o = e.state,
-                            i = e.options,
-                            n = e.name,
-                            a = i.mainAxis,
-                            r = void 0 === a || a,
-                            t = i.altAxis,
-                            s = void 0 !== t && t,
-                            m = i.boundary,
-                            c = i.rootBoundary,
-                            d = i.altBoundary,
-                            u = i.padding,
-                            g = i.tether,
-                            l = void 0 === g || g,
-                            v = i.tetherOffset,
-                            f = void 0 === v ? 0 : v,
-                            y = ve(o, {
-                                boundary: m,
-                                rootBoundary: c,
-                                padding: u,
-                                altBoundary: d
-                            }),
-                            h = G(o.placement),
-                            j = Z(o.placement),
-                            p = !j,
-                            b = Q(h),
-                            w = "x" === b ? "y" : "x",
-                            k = o.modifiersData.popperOffsets,
-                            x = o.rects.reference,
-                            E = o.rects.popper,
-                            C = "function" == typeof f ? f(Object.assign({}, o.rects, {
-                                placement: o.placement
-                            })) : f,
-                            S = {
-                                x: 0,
-                                y: 0
-                            };
-                        if (k) {
-                            if (r) {
-                                var O = "y" === b ? F : H,
-                                    I = "y" === b ? R : V,
-                                    A = "y" === b ? "height" : "width",
-                                    z = k[b],
-                                    M = k[b] + y[O],
-                                    P = k[b] - y[I],
-                                    L = l ? -E[A] / 2 : 0,
-                                    T = "start" === j ? x[A] : E[A],
-                                    N = "start" === j ? -E[A] : -x[A],
-                                    B = o.elements.arrow,
-                                    D = l && B ? _(B) : {
-                                        width: 0,
-                                        height: 0
-                                    },
-                                    W = o.modifiersData["arrow#persistent"] ? o.modifiersData["arrow#persistent"].padding : {
-                                        top: 0,
-                                        right: 0,
-                                        bottom: 0,
-                                        left: 0
-                                    },
-                                    K = W[O],
-                                    J = W[I],
-                                    U = fe(0, x[A], D[A]),
-                                    X = p ? x[A] / 2 - L - U - K - C : T - U - K - C,
-                                    $ = p ? -x[A] / 2 + L + U + J + C : N + U + J + C,
-                                    Y = o.elements.arrow && q(o.elements.arrow),
-                                    ee = Y ? "y" === b ? Y.clientTop || 0 : Y.clientLeft || 0 : 0,
-                                    oe = o.modifiersData.offset ? o.modifiersData.offset[o.placement][b] : 0,
-                                    ie = k[b] + X - oe - ee,
-                                    ne = k[b] + $ - oe,
-                                    ae = fe(l ? Math.min(M, ie) : M, z, l ? Math.max(P, ne) : P);
-                                k[b] = ae, S[b] = ae - z
-                            }
-                            if (s) {
-                                var re = "x" === b ? F : H,
-                                    te = "x" === b ? R : V,
-                                    se = k[w],
-                                    me = fe(se + y[re], se, se - y[te]);
-                                k[w] = me, S[w] = me - se
-                            }
-                            o.modifiersData[n] = S
+                },
+                requiresIfExists: ["offset"],
+                data: {
+                    _skip: !1
+                }
+            }, {
+                name: "preventOverflow",
+                enabled: !0,
+                phase: "main",
+                fn: function (e) {
+                    var o = e.state,
+                        i = e.options,
+                        n = e.name,
+                        a = i.mainAxis,
+                        r = void 0 === a || a,
+                        t = i.altAxis,
+                        s = void 0 !== t && t,
+                        m = i.boundary,
+                        c = i.rootBoundary,
+                        d = i.altBoundary,
+                        u = i.padding,
+                        g = i.tether,
+                        l = void 0 === g || g,
+                        v = i.tetherOffset,
+                        f = void 0 === v ? 0 : v,
+                        y = ve(o, {
+                            boundary: m,
+                            rootBoundary: c,
+                            padding: u,
+                            altBoundary: d
+                        }),
+                        h = G(o.placement),
+                        j = Z(o.placement),
+                        p = !j,
+                        b = Q(h),
+                        w = "x" === b ? "y" : "x",
+                        k = o.modifiersData.popperOffsets,
+                        x = o.rects.reference,
+                        E = o.rects.popper,
+                        C = "function" == typeof f ? f(Object.assign({}, o.rects, {
+                            placement: o.placement
+                        })) : f,
+                        S = {
+                            x: 0,
+                            y: 0
+                        };
+                    if (k) {
+                        if (r) {
+                            var O = "y" === b ? F : H,
+                                I = "y" === b ? R : V,
+                                A = "y" === b ? "height" : "width",
+                                z = k[b],
+                                M = k[b] + y[O],
+                                P = k[b] - y[I],
+                                L = l ? -E[A] / 2 : 0,
+                                T = "start" === j ? x[A] : E[A],
+                                N = "start" === j ? -E[A] : -x[A],
+                                B = o.elements.arrow,
+                                D = l && B ? _(B) : {
+                                    width: 0,
+                                    height: 0
+                                },
+                                W = o.modifiersData["arrow#persistent"] ? o.modifiersData["arrow#persistent"].padding : {
+                                    top: 0,
+                                    right: 0,
+                                    bottom: 0,
+                                    left: 0
+                                },
+                                K = W[O],
+                                J = W[I],
+                                U = fe(0, x[A], D[A]),
+                                X = p ? x[A] / 2 - L - U - K - C : T - U - K - C,
+                                $ = p ? -x[A] / 2 + L + U + J + C : N + U + J + C,
+                                Y = o.elements.arrow && q(o.elements.arrow),
+                                ee = Y ? "y" === b ? Y.clientTop || 0 : Y.clientLeft || 0 : 0,
+                                oe = o.modifiersData.offset ? o.modifiersData.offset[o.placement][b] : 0,
+                                ie = k[b] + X - oe - ee,
+                                ne = k[b] + $ - oe,
+                                ae = fe(l ? Math.min(M, ie) : M, z, l ? Math.max(P, ne) : P);
+                            k[b] = ae, S[b] = ae - z
                         }
-                    },
-                    requiresIfExists: ["offset"]
-                }, {
-                    name: "arrow",
-                    enabled: !0,
-                    phase: "main",
-                    fn: function (e) {
-                        var o, i = e.state,
-                            n = e.name,
-                            a = i.elements.arrow,
-                            r = i.modifiersData.popperOffsets,
-                            t = G(i.placement),
-                            s = Q(t),
-                            m = [H, V].indexOf(t) >= 0 ? "height" : "width";
-                        if (a && r) {
-                            var c = i.modifiersData[n + "#persistent"].padding,
-                                d = _(a),
-                                u = "y" === s ? F : H,
-                                g = "y" === s ? R : V,
-                                l = i.rects.reference[m] + i.rects.reference[s] - r[s] - i.rects.popper[m],
-                                v = r[s] - i.rects.reference[s],
-                                f = q(a),
-                                y = f ? "y" === s ? f.clientHeight || 0 : f.clientWidth || 0 : 0,
-                                h = l / 2 - v / 2,
-                                j = c[u],
-                                p = y - d[m] - c[g],
-                                b = y / 2 - d[m] / 2 + h,
-                                w = fe(j, b, p),
-                                k = s;
-                            i.modifiersData[n] = ((o = {})[k] = w, o.centerOffset = w - b, o)
+                        if (s) {
+                            var re = "x" === b ? F : H,
+                                te = "x" === b ? R : V,
+                                se = k[w],
+                                me = fe(se + y[re], se, se - y[te]);
+                            k[w] = me, S[w] = me - se
                         }
-                    },
-                    effect: function (e) {
-                        var o = e.state,
-                            i = e.options,
-                            n = e.name,
-                            a = i.element,
-                            r = void 0 === a ? "[data-popper-arrow]" : a,
-                            t = i.padding,
-                            s = void 0 === t ? 0 : t;
-                        null != r && ("string" != typeof r || (r = o.elements.popper.querySelector(r))) && me(o.elements.popper, r) && (o.elements.arrow = r, o.modifiersData[n + "#persistent"] = {
-                            padding: ge("number" != typeof s ? s : le(s, W))
-                        })
-                    },
-                    requires: ["popperOffsets"],
-                    requiresIfExists: ["preventOverflow"]
-                }, {
-                    name: "hide",
-                    enabled: !0,
-                    phase: "main",
-                    requiresIfExists: ["preventOverflow"],
-                    fn: function (e) {
-                        var o = e.state,
-                            i = e.name,
-                            n = o.rects.reference,
-                            a = o.rects.popper,
-                            r = o.modifiersData.preventOverflow,
-                            t = ve(o, {
-                                elementContext: "reference"
-                            }),
-                            s = ve(o, {
-                                altBoundary: !0
-                            }),
-                            m = ye(t, n),
-                            c = ye(s, a, r),
-                            d = he(m),
-                            u = he(c);
-                        o.modifiersData[i] = {
-                            referenceClippingOffsets: m,
-                            popperEscapeOffsets: c,
-                            isReferenceHidden: d,
-                            hasPopperEscaped: u
-                        }, o.attributes.popper = Object.assign({}, o.attributes.popper, {
-                            "data-popper-reference-hidden": d,
-                            "data-popper-escaped": u
-                        })
+                        o.modifiersData[n] = S
                     }
-                }]
-            }),
+                },
+                requiresIfExists: ["offset"]
+            }, {
+                name: "arrow",
+                enabled: !0,
+                phase: "main",
+                fn: function (e) {
+                    var o, i = e.state,
+                        n = e.name,
+                        a = i.elements.arrow,
+                        r = i.modifiersData.popperOffsets,
+                        t = G(i.placement),
+                        s = Q(t),
+                        m = [H, V].indexOf(t) >= 0 ? "height" : "width";
+                    if (a && r) {
+                        var c = i.modifiersData[n + "#persistent"].padding,
+                            d = _(a),
+                            u = "y" === s ? F : H,
+                            g = "y" === s ? R : V,
+                            l = i.rects.reference[m] + i.rects.reference[s] - r[s] - i.rects.popper[m],
+                            v = r[s] - i.rects.reference[s],
+                            f = q(a),
+                            y = f ? "y" === s ? f.clientHeight || 0 : f.clientWidth || 0 : 0,
+                            h = l / 2 - v / 2,
+                            j = c[u],
+                            p = y - d[m] - c[g],
+                            b = y / 2 - d[m] / 2 + h,
+                            w = fe(j, b, p),
+                            k = s;
+                        i.modifiersData[n] = ((o = {})[k] = w, o.centerOffset = w - b, o)
+                    }
+                },
+                effect: function (e) {
+                    var o = e.state,
+                        i = e.options,
+                        n = e.name,
+                        a = i.element,
+                        r = void 0 === a ? "[data-popper-arrow]" : a,
+                        t = i.padding,
+                        s = void 0 === t ? 0 : t;
+                    null != r && ("string" != typeof r || (r = o.elements.popper.querySelector(r))) && me(o.elements.popper, r) && (o.elements.arrow = r, o.modifiersData[n + "#persistent"] = {
+                        padding: ge("number" != typeof s ? s : le(s, W))
+                    })
+                },
+                requires: ["popperOffsets"],
+                requiresIfExists: ["preventOverflow"]
+            }, {
+                name: "hide",
+                enabled: !0,
+                phase: "main",
+                requiresIfExists: ["preventOverflow"],
+                fn: function (e) {
+                    var o = e.state,
+                        i = e.name,
+                        n = o.rects.reference,
+                        a = o.rects.popper,
+                        r = o.modifiersData.preventOverflow,
+                        t = ve(o, {
+                            elementContext: "reference"
+                        }),
+                        s = ve(o, {
+                            altBoundary: !0
+                        }),
+                        m = ye(t, n),
+                        c = ye(s, a, r),
+                        d = he(m),
+                        u = he(c);
+                    o.modifiersData[i] = {
+                        referenceClippingOffsets: m,
+                        popperEscapeOffsets: c,
+                        isReferenceHidden: d,
+                        hasPopperEscaped: u
+                    }, o.attributes.popper = Object.assign({}, o.attributes.popper, {
+                        "data-popper-reference-hidden": d,
+                        "data-popper-escaped": u
+                    })
+                }
+            }]
+        }),
             pe = "undefined" != typeof globalThis ? globalThis : "undefined" != typeof window ? window : void 0 !== e ? e : "undefined" != typeof self ? self : {},
             be = pe.location || {},
             we = function () {
                 var e = {
-                        base: "https://twemoji.maxcdn.com/v/13.0.0/",
-                        ext: ".png",
-                        size: "72x72",
-                        className: "emoji",
-                        convert: {
-                            fromCodePoint: function (e) {
-                                var o = "string" == typeof e ? parseInt(e, 16) : e;
-                                return o < 65536 ? s(o) : s(55296 + ((o -= 65536) >> 10), 56320 + (1023 & o))
-                            },
-                            toCodePoint: y
+                    base: "https://twemoji.maxcdn.com/v/13.0.0/",
+                    ext: ".png",
+                    size: "72x72",
+                    className: "emoji",
+                    convert: {
+                        fromCodePoint: function (e) {
+                            var o = "string" == typeof e ? parseInt(e, 16) : e;
+                            return o < 65536 ? s(o) : s(55296 + ((o -= 65536) >> 10), 56320 + (1023 & o))
                         },
-                        onerror: function () {
-                            this.parentNode && this.parentNode.replaceChild(m(this.alt, !1), this)
-                        },
-                        parse: function (o, i) {
-                            return i && "function" != typeof i || (i = {
-                                callback: i
-                            }), ("string" == typeof o ? g : u)(o, {
-                                callback: i.callback || c,
-                                attributes: "function" == typeof i.attributes ? i.attributes : v,
-                                base: "string" == typeof i.base ? i.base : e.base,
-                                ext: i.ext || e.ext,
-                                size: i.folder || (n = i.size || e.size, "number" == typeof n ? n + "x" + n : n),
-                                className: i.className || e.className,
-                                onerror: i.onerror || e.onerror
-                            });
-                            var n
-                        },
-                        replace: f,
-                        test: function (e) {
-                            i.lastIndex = 0;
-                            var o = i.test(e);
-                            return i.lastIndex = 0, o
-                        }
+                        toCodePoint: y
                     },
+                    onerror: function () {
+                        this.parentNode && this.parentNode.replaceChild(m(this.alt, !1), this)
+                    },
+                    parse: function (o, i) {
+                        return i && "function" != typeof i || (i = {
+                            callback: i
+                        }), ("string" == typeof o ? g : u)(o, {
+                            callback: i.callback || c,
+                            attributes: "function" == typeof i.attributes ? i.attributes : v,
+                            base: "string" == typeof i.base ? i.base : e.base,
+                            ext: i.ext || e.ext,
+                            size: i.folder || (n = i.size || e.size, "number" == typeof n ? n + "x" + n : n),
+                            className: i.className || e.className,
+                            onerror: i.onerror || e.onerror
+                        });
+                        var n
+                    },
+                    replace: f,
+                    test: function (e) {
+                        i.lastIndex = 0;
+                        var o = i.test(e);
+                        return i.lastIndex = 0, o
+                    }
+                },
                     o = {
                         "&": "&amp;",
                         "<": "&lt;",
@@ -10606,28 +10586,23 @@
         function Ce(e) {
             for (; e.firstChild;) e.removeChild(e.firstChild)
         }
-
         const Se = "emoji-picker__emoji",
             Oe = {
                 ext: ".svg",
                 folder: "svg"
             };
-
         class Ie {
             constructor(e, o) {
                 this.events = e, this.options = o
             }
-
             render() {
                 const e = Ee("div", "emoji-picker__preview");
                 return this.emoji = Ee("div", "emoji-picker__preview-emoji"), e.appendChild(this.emoji), this.name = Ee("div", "emoji-picker__preview-name"), e.appendChild(this.name), this.events.on("showPreview", e => this.showPreview(e)), this.events.on("hidePreview", () => this.hidePreview()), e
             }
-
             showPreview(e) {
                 let o = e.emoji;
                 e.custom ? o = `<img class="emoji-picker__custom-emoji" src="${e.emoji}">` : "twemoji" === this.options.style && (o = ke.parse(e.emoji, Oe)), this.emoji.innerHTML = o, this.name.innerHTML = e.name
             }
-
             hidePreview() {
                 this.emoji.innerHTML = "", this.name.innerHTML = ""
             }
@@ -10671,7 +10646,7 @@
                     a = !1,
                     r = void 0;
                 try {
-                    for (var t, s = e[Symbol.iterator](); !(n = (t = s.next()).done) && (i.push(t.value), !o || i.length !== o); n = !0) ;
+                    for (var t, s = e[Symbol.iterator](); !(n = (t = s.next()).done) && (i.push(t.value), !o || i.length !== o); n = !0);
                 } catch (e) {
                     a = !0, r = e
                 } finally {
@@ -10686,9 +10661,7 @@
                 throw new TypeError("Invalid attempt to destructure non-iterable instance")
             }()
         }
-
-        var Le = function () {
-            },
+        var Le = function () { },
             _e = {},
             Te = {},
             Ne = {
@@ -10697,8 +10670,7 @@
             };
         try {
             "undefined" != typeof window && (_e = window), "undefined" != typeof document && (Te = document), "undefined" != typeof MutationObserver && MutationObserver, "undefined" != typeof performance && (Ne = performance)
-        } catch (a) {
-        }
+        } catch (a) { }
         var Be = (_e.navigator || {}).userAgent,
             De = void 0 === Be ? "" : Be,
             qe = _e,
@@ -10804,7 +10776,6 @@
                 }
             }
         }
-
         var io = {
             x: 0,
             y: 0,
@@ -10857,15 +10828,15 @@
                 children: [m]
             });
             var b = Me({}, p, {
-                    prefix: a,
-                    iconName: r,
-                    main: i,
-                    mask: n,
-                    maskId: c,
-                    transform: t,
-                    symbol: s,
-                    styles: u.styles
-                }),
+                prefix: a,
+                iconName: r,
+                main: i,
+                mask: n,
+                maskId: c,
+                transform: t,
+                symbol: s,
+                styles: u.styles
+            }),
                 w = n.found && i.found ? function (e) {
                     var o, i = e.children,
                         n = e.attributes,
@@ -11011,7 +10982,6 @@
                 }]
             }(b)
         }
-
         var ro = (Je.measurePerformance && Re && Re.mark && Re.measure, function (e, o, i, n) {
             var a, r, t, s = Object.keys(e),
                 m = s.length,
@@ -11034,7 +11004,6 @@
                 }), {});
             "function" != typeof Ge.hooks.addPack || a ? Ge.styles[e] = Me({}, Ge.styles[e] || {}, r) : Ge.hooks.addPack(e, r), "fas" === e && to("fa", o)
         }
-
         var so = Ge.styles,
             mo = Ge.shims,
             co = function () {
@@ -11087,11 +11056,10 @@
         function lo(e) {
             this.name = "MissingIcon", this.message = e || "Icon unavailable", this.stack = (new Error).stack
         }
-
         co(), Ge.styles, lo.prototype = Object.create(Error.prototype), lo.prototype.constructor = lo;
         var vo = {
-                fill: "currentColor"
-            },
+            fill: "currentColor"
+        },
             fo = {
                 attributeType: "XML",
                 repeatCount: "indefinite",
@@ -11193,7 +11161,6 @@
                 n = e.iconName;
             if (n) return uo(ko.definitions, i, n) || uo(Ge.styles, i, n)
         }
-
         Me({}, vo, {
             cx: "256",
             cy: "364",
@@ -11215,43 +11182,42 @@
             values: "0;0;1;1;0;0;"
         }), Ge.styles, Ge.styles;
         var wo, ko = new (function () {
-                function e() {
-                    !function (e, o) {
-                        if (!(e instanceof o)) throw new TypeError("Cannot call a class as a function")
-                    }(this, e), this.definitions = {}
+            function e() {
+                ! function (e, o) {
+                    if (!(e instanceof o)) throw new TypeError("Cannot call a class as a function")
+                }(this, e), this.definitions = {}
+            }
+            var o, i;
+            return o = e, (i = [{
+                key: "add",
+                value: function () {
+                    for (var e = this, o = arguments.length, i = new Array(o), n = 0; n < o; n++) i[n] = arguments[n];
+                    var a = i.reduce(this._pullDefinitions, {});
+                    Object.keys(a).forEach((function (o) {
+                        e.definitions[o] = Me({}, e.definitions[o] || {}, a[o]), to(o, a[o]), co()
+                    }))
                 }
-
-                var o, i;
-                return o = e, (i = [{
-                    key: "add",
-                    value: function () {
-                        for (var e = this, o = arguments.length, i = new Array(o), n = 0; n < o; n++) i[n] = arguments[n];
-                        var a = i.reduce(this._pullDefinitions, {});
-                        Object.keys(a).forEach((function (o) {
-                            e.definitions[o] = Me({}, e.definitions[o] || {}, a[o]), to(o, a[o]), co()
-                        }))
-                    }
-                }, {
-                    key: "reset",
-                    value: function () {
-                        this.definitions = {}
-                    }
-                }, {
-                    key: "_pullDefinitions",
-                    value: function (e, o) {
-                        var i = o.prefix && o.iconName && o.icon ? {
-                            0: o
-                        } : o;
-                        return Object.keys(i).map((function (o) {
-                            var n = i[o],
-                                a = n.prefix,
-                                r = n.iconName,
-                                t = n.icon;
-                            e[a] || (e[a] = {}), e[a][r] = t
-                        })), e
-                    }
-                }]) && Ae(o.prototype, i), e
-            }()),
+            }, {
+                key: "reset",
+                value: function () {
+                    this.definitions = {}
+                }
+            }, {
+                key: "_pullDefinitions",
+                value: function (e, o) {
+                    var i = o.prefix && o.iconName && o.icon ? {
+                        0: o
+                    } : o;
+                    return Object.keys(i).map((function (o) {
+                        var n = i[o],
+                            a = n.prefix,
+                            r = n.iconName,
+                            t = n.icon;
+                        e[a] || (e[a] = {}), e[a][r] = t
+                    })), e
+                }
+            }]) && Ae(o.prototype, i), e
+        }()),
             xo = !1,
             Eo = (wo = function (e) {
                 var o = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : {},
@@ -11371,9 +11337,9 @@
             icon: [448, 512, [], "f007", "M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm89.6 32h-16.7c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16h-16.7C60.2 288 0 348.2 0 422.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-41.6c0-74.2-60.2-134.4-134.4-134.4z"]
         });
         const Co = Eo({
-                prefix: "far",
-                iconName: "building"
-            }).html[0],
+            prefix: "far",
+            iconName: "building"
+        }).html[0],
             So = Eo({
                 prefix: "fas",
                 iconName: "cat"
@@ -11436,18 +11402,15 @@
             const e = localStorage.getItem("emojiPicker.recent");
             return (e ? JSON.parse(e) : []).filter(e => !!e.emoji)
         }
-
         class Ro {
             constructor(e, o, i, n, a, r = !0) {
                 this.emoji = e, this.showVariants = o, this.showPreview = i, this.events = n, this.options = a, this.lazy = r
             }
-
             render() {
                 this.emojiButton = Ee("button", Se);
                 let e = this.emoji.emoji;
                 return this.emoji.custom ? e = this.lazy ? No : `<img class="emoji-picker__custom-emoji" src="${this.emoji.emoji}">` : "twemoji" === this.options.style && (e = this.lazy ? No : ke.parse(this.emoji.emoji)), this.emojiButton.innerHTML = e, this.emojiButton.tabIndex = -1, this.emojiButton.dataset.emoji = this.emoji.emoji, this.emoji.custom && (this.emojiButton.dataset.custom = "true"), this.emojiButton.title = this.emoji.name, this.emojiButton.addEventListener("focus", () => this.onEmojiHover()), this.emojiButton.addEventListener("blur", () => this.onEmojiLeave()), this.emojiButton.addEventListener("click", () => this.onEmojiClick()), this.emojiButton.addEventListener("mouseover", () => this.onEmojiHover()), this.emojiButton.addEventListener("mouseout", () => this.onEmojiLeave()), "twemoji" === this.options.style && this.lazy && (this.emojiButton.style.opacity = "0.25"), this.emojiButton
             }
-
             onEmojiClick() {
                 this.emoji.variations && this.showVariants && this.options.showVariants || !this.options.showRecents || function (e, o) {
                     const i = Fo(),
@@ -11464,27 +11427,22 @@
                     button: this.emojiButton
                 })
             }
-
             onEmojiHover() {
                 this.showPreview && this.events.emit("showPreview", this.emoji)
             }
-
             onEmojiLeave() {
                 this.showPreview && this.events.emit("hidePreview")
             }
         }
-
         class Vo {
             constructor(e, o, i, n, a = !0) {
                 this.showVariants = o, this.events = i, this.options = n, this.lazy = a, this.emojis = e.filter(e => !e.version || parseFloat(e.version) <= parseFloat(n.emojiVersion))
             }
-
             render() {
                 const e = Ee("div", "emoji-picker__container");
                 return this.emojis.forEach(o => e.appendChild(new Ro(o, this.showVariants, !0, this.events, this.options, this.lazy).render())), e
             }
         }
-
         var Ho = function (e, o) {
             return function (e) {
                 var o, i;
@@ -11524,37 +11482,35 @@
                     function d(e) {
                         return "object" == typeof e
                     }
-
                     var u = function () {
-                            var e = [],
-                                o = 0,
-                                i = {};
+                        var e = [],
+                            o = 0,
+                            i = {};
 
-                            function n() {
-                                for (var i = 0, n = e[i], a = 1; a < o;) {
-                                    var r = a + 1;
-                                    i = a, r < o && e[r].score < e[a].score && (i = r), e[i - 1 >> 1] = e[i], a = 1 + (i << 1)
-                                }
-                                for (var t = i - 1 >> 1; i > 0 && n.score < e[t].score; t = (i = t) - 1 >> 1) e[i] = e[t];
-                                e[i] = n
+                        function n() {
+                            for (var i = 0, n = e[i], a = 1; a < o;) {
+                                var r = a + 1;
+                                i = a, r < o && e[r].score < e[a].score && (i = r), e[i - 1 >> 1] = e[i], a = 1 + (i << 1)
                             }
-
-                            return i.add = function (i) {
-                                var n = o;
-                                e[o++] = i;
-                                for (var a = n - 1 >> 1; n > 0 && i.score < e[a].score; a = (n = a) - 1 >> 1) e[n] = e[a];
-                                e[n] = i
-                            }, i.poll = function () {
-                                if (0 !== o) {
-                                    var i = e[0];
-                                    return e[0] = e[--o], n(), i
-                                }
-                            }, i.peek = function (i) {
-                                if (0 !== o) return e[0]
-                            }, i.replaceTop = function (o) {
-                                e[0] = o, n()
-                            }, i
-                        },
+                            for (var t = i - 1 >> 1; i > 0 && n.score < e[t].score; t = (i = t) - 1 >> 1) e[i] = e[t];
+                            e[i] = n
+                        }
+                        return i.add = function (i) {
+                            var n = o;
+                            e[o++] = i;
+                            for (var a = n - 1 >> 1; n > 0 && i.score < e[a].score; a = (n = a) - 1 >> 1) e[n] = e[a];
+                            e[n] = i
+                        }, i.poll = function () {
+                            if (0 !== o) {
+                                var i = e[0];
+                                return e[0] = e[--o], n(), i
+                            }
+                        }, i.peek = function (i) {
+                            if (0 !== o) return e[0]
+                        }, i.replaceTop = function (o) {
+                            e[0] = o, n()
+                        }, i
+                    },
                         g = u();
                     return function l(v) {
                         var f = {
@@ -11572,21 +11528,21 @@
                                     y = o.length;
                                 if (i && i.keys)
                                     for (var h = i.scoreFn || m, j = i.keys, p = j.length, b = y - 1; b >= 0; --b) {
-                                        for (var w = o[b], k = new Array(p), x = p - 1; x >= 0; --x) (S = c(w, C = j[x])) ? (d(S) || (S = f.getPrepared(S)), k[x] = s(e, S, n)) : k[x] = null;
+                                        for (var w = o[b], k = new Array(p), x = p - 1; x >= 0; --x)(S = c(w, C = j[x])) ? (d(S) || (S = f.getPrepared(S)), k[x] = s(e, S, n)) : k[x] = null;
                                         k.obj = w;
                                         var E = h(k);
                                         null !== E && (E < r || (k.score = E, u < t ? (g.add(k), ++u) : (++l, E > g.peek().score && g.replaceTop(k))))
                                     } else if (i && i.key) {
-                                    var C = i.key;
-                                    for (b = y - 1; b >= 0; --b) (S = c(w = o[b], C)) && (d(S) || (S = f.getPrepared(S)), null !== (O = s(e, S, n)) && (O.score < r || (O = {
-                                        target: O.target,
-                                        _targetLowerCodes: null,
-                                        _nextBeginningIndexes: null,
-                                        score: O.score,
-                                        indexes: O.indexes,
-                                        obj: w
-                                    }, u < t ? (g.add(O), ++u) : (++l, O.score > g.peek().score && g.replaceTop(O)))))
-                                } else
+                                        var C = i.key;
+                                        for (b = y - 1; b >= 0; --b)(S = c(w = o[b], C)) && (d(S) || (S = f.getPrepared(S)), null !== (O = s(e, S, n)) && (O.score < r || (O = {
+                                            target: O.target,
+                                            _targetLowerCodes: null,
+                                            _nextBeginningIndexes: null,
+                                            score: O.score,
+                                            indexes: O.indexes,
+                                            obj: w
+                                        }, u < t ? (g.add(O), ++u) : (++l, O.score > g.peek().score && g.replaceTop(O)))))
+                                    } else
                                     for (b = y - 1; b >= 0; --b) {
                                         var S, O;
                                         (S = o[b]) && (d(S) || (S = f.getPrepared(S)), null !== (O = s(e, S, n)) && (O.score < r || (u < t ? (g.add(O), ++u) : (++l, O.score > g.peek().score && g.replaceTop(O)))))
@@ -11614,21 +11570,21 @@
                                             var u = Date.now();
                                             if (r && r.keys)
                                                 for (var v = r.scoreFn || m, E = r.keys, C = E.length; h >= 0; --h) {
-                                                    for (var S = i[h], O = new Array(C), I = C - 1; I >= 0; --I) (M = c(S, z = E[I])) ? (d(M) || (M = f.getPrepared(M)), O[I] = b(o, M, l)) : O[I] = null;
+                                                    for (var S = i[h], O = new Array(C), I = C - 1; I >= 0; --I)(M = c(S, z = E[I])) ? (d(M) || (M = f.getPrepared(M)), O[I] = b(o, M, l)) : O[I] = null;
                                                     O.obj = S;
                                                     var A = v(O);
                                                     if (null !== A && !(A < j) && (O.score = A, w < p ? (y.add(O), ++w) : (++k, A > y.peek().score && y.replaceTop(O)), h % 1e3 == 0 && Date.now() - u >= 10)) return void (e ? n(x) : setTimeout(x))
                                                 } else if (r && r.key) {
-                                                for (var z = r.key; h >= 0; --h)
-                                                    if ((M = c(S = i[h], z)) && (d(M) || (M = f.getPrepared(M)), null !== (P = b(o, M, l)) && !(P.score < j) && (P = {
-                                                        target: P.target,
-                                                        _targetLowerCodes: null,
-                                                        _nextBeginningIndexes: null,
-                                                        score: P.score,
-                                                        indexes: P.indexes,
-                                                        obj: S
-                                                    }, w < p ? (y.add(P), ++w) : (++k, P.score > y.peek().score && y.replaceTop(P)), h % 1e3 == 0 && Date.now() - u >= 10))) return void (e ? n(x) : setTimeout(x))
-                                            } else
+                                                    for (var z = r.key; h >= 0; --h)
+                                                        if ((M = c(S = i[h], z)) && (d(M) || (M = f.getPrepared(M)), null !== (P = b(o, M, l)) && !(P.score < j) && (P = {
+                                                            target: P.target,
+                                                            _targetLowerCodes: null,
+                                                            _nextBeginningIndexes: null,
+                                                            score: P.score,
+                                                            indexes: P.indexes,
+                                                            obj: S
+                                                        }, w < p ? (y.add(P), ++w) : (++k, P.score > y.peek().score && y.replaceTop(P)), h % 1e3 == 0 && Date.now() - u >= 10))) return void (e ? n(x) : setTimeout(x))
+                                                } else
                                                 for (; h >= 0; --h) {
                                                     var M, P;
                                                     if ((M = i[h]) && (d(M) || (M = f.getPrepared(M)), null !== (P = b(o, M, l)) && !(P.score < j) && (w < p ? (y.add(P), ++w) : (++k, P.score > y.peek().score && y.replaceTop(P)), h % 1e3 == 0 && Date.now() - u >= 10))) return void (e ? n(x) : setTimeout(x))
@@ -11637,7 +11593,6 @@
                                             for (var L = new Array(w), _ = w - 1; _ >= 0; --_) L[_] = y.poll();
                                             L.total = w + k, s(L)
                                         }
-
                                         e ? n(x) : x()
                                     }));
                                 return s.cancel = function () {
@@ -11727,14 +11682,12 @@
                                                 if (e[g] === e[g + 1]) continue;
                                                 c = h;
                                                 continue
-                                            }
-                                            --m, c = y[t[--v]]
+                                            } --m, c = y[t[--v]]
                                         } else if (e[0 === g ? m : g === m ? m + 1 : g === m - 1 ? m - 1 : m] === n[c]) {
                                             if (t[v++] = c, ++m === a) {
                                                 l = !0;
                                                 break
-                                            }
-                                            ++c
+                                            } ++c
                                         } else c = y[c];
                                 if (l) var j = t,
                                     p = v;
@@ -11764,8 +11717,7 @@
                                             if (t[g++] = c, ++m === a) {
                                                 u = !0;
                                                 break
-                                            }
-                                            ++c
+                                            } ++c
                                         } else c = l[c];
                                 if (u) var v = t,
                                     y = g;
@@ -11802,12 +11754,10 @@
                 exports: {}
             }), o.exports
         }();
-
         class Wo {
             constructor(e, o) {
                 this.message = e, this.iconUrl = o
             }
-
             render() {
                 const e = Ee("div", "emoji-picker__search-not-found"),
                     o = Ee("div", "emoji-picker__search-not-found-icon");
@@ -11816,7 +11766,6 @@
                 return i.innerHTML = this.message, e.appendChild(i), e
             }
         }
-
         class Ko {
             constructor(e, o, i, n, a) {
                 if (this.events = e, this.i18n = o, this.options = i, this.focusedEmojiIndex = 0, this.emojisPerRow = this.options.emojisPerRow || 8, this.emojiData = n.filter(e => e.version && parseFloat(e.version) <= parseFloat(i.emojiVersion) && void 0 !== e.category && a.indexOf(e.category) >= 0), this.options.custom) {
@@ -11830,15 +11779,12 @@
                     setTimeout(() => this.setFocusedEmoji(this.focusedEmojiIndex))
                 })
             }
-
             render() {
                 return this.searchContainer = Ee("div", "emoji-picker__search-container"), this.searchField = Ee("input", "emoji-picker__search " + this.options.inputClass), this.searchField.placeholder = this.i18n.search, this.searchContainer.appendChild(this.searchField), this.searchIcon = Ee("span", "emoji-picker__search-icon"), this.options.icons && this.options.icons.search ? this.searchIcon.appendChild(qo(this.options.icons.search)) : this.searchIcon.innerHTML = To, this.searchIcon.addEventListener("click", e => this.onClearSearch(e)), this.searchContainer.appendChild(this.searchIcon), this.searchField.addEventListener("keydown", e => this.onKeyDown(e)), this.searchField.addEventListener("keyup", e => this.onKeyUp(e)), this.searchContainer
             }
-
             onClearSearch(e) {
                 e.stopPropagation(), this.searchField.value && (this.searchField.value = "", this.resultsContainer = null, this.options.icons && this.options.icons.search ? (Ce(this.searchIcon), this.searchIcon.appendChild(qo(this.options.icons.search))) : this.searchIcon.innerHTML = To, this.searchIcon.style.cursor = "default", this.events.emit("hideSearchResults"), setTimeout(() => this.searchField.focus()))
             }
-
             setFocusedEmoji(e) {
                 if (this.resultsContainer) {
                     const o = this.resultsContainer.querySelectorAll("." + Se);
@@ -11847,18 +11793,15 @@
                     i.tabIndex = 0, i.focus()
                 }
             }
-
             handleResultsKeydown(e) {
                 if (this.resultsContainer) {
                     const o = this.resultsContainer.querySelectorAll("." + Se);
                     "ArrowRight" === e.key ? this.setFocusedEmoji(Math.min(this.focusedEmojiIndex + 1, o.length - 1)) : "ArrowLeft" === e.key ? this.setFocusedEmoji(Math.max(0, this.focusedEmojiIndex - 1)) : "ArrowDown" === e.key ? (e.preventDefault(), this.focusedEmojiIndex < o.length - this.emojisPerRow && this.setFocusedEmoji(this.focusedEmojiIndex + this.emojisPerRow)) : "ArrowUp" === e.key ? (e.preventDefault(), this.focusedEmojiIndex >= this.emojisPerRow && this.setFocusedEmoji(this.focusedEmojiIndex - this.emojisPerRow)) : "Escape" === e.key && this.onClearSearch(e)
                 }
             }
-
             onKeyDown(e) {
                 "Escape" === e.key && this.searchField.value && this.onClearSearch(e)
             }
-
             onKeyUp(e) {
                 if ("Tab" !== e.key && "Shift" !== e.key)
                     if (this.searchField.value) {
@@ -11872,22 +11815,18 @@
                     } else this.options.icons && this.options.icons.search ? (Ce(this.searchIcon), this.searchIcon.appendChild(qo(this.options.icons.search))) : this.searchIcon.innerHTML = To, this.searchIcon.style.cursor = "default", this.events.emit("hideSearchResults")
             }
         }
-
         class Jo {
             constructor(e, o, i) {
                 this.events = e, this.emoji = o, this.options = i, this.focusedEmojiIndex = 0
             }
-
             getEmoji(e) {
                 return this.popup.querySelectorAll("." + Se)[e]
             }
-
             setFocusedEmoji(e) {
                 this.getEmoji(this.focusedEmojiIndex).tabIndex = -1, this.focusedEmojiIndex = e;
                 const o = this.getEmoji(this.focusedEmojiIndex);
                 o.tabIndex = 0, o.focus()
             }
-
             render() {
                 this.popup = Ee("div", "emoji-picker__variant-popup");
                 const e = Ee("div", "emoji-picker__variant-overlay");
@@ -11904,24 +11843,23 @@
                 }), e.appendChild(this.popup), e
             }
         }
-
         const Uo = {
-                search: "Search emojis...",
-                categories: {
-                    recents: "Recent Emojis",
-                    smileys: "Smileys & Emotion",
-                    people: "People & Body",
-                    animals: "Animals & Nature",
-                    food: "Food & Drink",
-                    activities: "Activities",
-                    travel: "Travel & Places",
-                    objects: "Objects",
-                    symbols: "Symbols",
-                    flags: "Flags",
-                    custom: "Custom"
-                },
-                notFound: "No emojis found"
+            search: "Search emojis...",
+            categories: {
+                recents: "Recent Emojis",
+                smileys: "Smileys & Emotion",
+                people: "People & Body",
+                animals: "Animals & Nature",
+                food: "Food & Drink",
+                activities: "Activities",
+                travel: "Travel & Places",
+                objects: "Objects",
+                symbols: "Symbols",
+                flags: "Flags",
+                custom: "Custom"
             },
+            notFound: "No emojis found"
+        },
             Go = {
                 recents: Mo,
                 smileys: No,
@@ -11935,12 +11873,10 @@
                 flags: Io,
                 custom: Po
             };
-
         class Xo {
             constructor(e, o, i) {
                 this.options = e, this.events = o, this.i18n = i, this.activeButton = 0, this.buttons = []
             }
-
             render() {
                 const e = Ee("div", "emoji-picker__category-buttons");
                 let o = this.options.showRecents ? ["recents", ...this.options.categories || xe.categories] : this.options.categories || xe.categories;
@@ -11963,19 +11899,16 @@
                     }
                 }), e
             }
-
             setActiveButton(e, o = !0) {
                 let i = this.buttons[this.activeButton];
                 i.classList.remove("active"), i.tabIndex = -1, this.activeButton = e, i = this.buttons[this.activeButton], i.classList.add("active"), i.tabIndex = 0, o && i.focus()
             }
         }
-
         const $o = {};
         xe.emoji.forEach(e => {
             let o = $o[xe.categories[e.category]];
             o || (o = $o[xe.categories[e.category]] = []), o.push(e)
         });
-
         class Yo {
             constructor(e, o, i) {
                 this.events = e, this.i18n = o, this.options = i, this.currentCategory = 0, this.headers = [], this.focusedIndex = 0, this.handleKeyDown = e => {
@@ -12015,7 +11948,6 @@
                     this.emojis.scrollTop + this.emojis.offsetHeight === this.emojis.scrollHeight && (e = -1), 0 === e ? e = 1 : e < 0 && (e = this.headerOffsets.length), this.headerOffsets[e] === this.emojis.scrollTop && e++, this.currentCategory = e - 1, this.options.showCategoryButtons && this.categoryButtons.setActiveButton(this.currentCategory)
                 }, this.emojisPerRow = i.emojisPerRow || 8, this.categories = i.categories || xe.categories, i.showRecents && (this.categories = ["recents", ...this.categories]), i.custom && (this.categories = [...this.categories, "custom"])
             }
-
             updateRecents() {
                 if (this.options.showRecents) {
                     $o.recents = Fo();
@@ -12023,7 +11955,6 @@
                     e && e.parentNode && e.parentNode.replaceChild(new Vo($o.recents, !0, this.events, this.options, !1).render(), e)
                 }
             }
-
             render() {
                 return this.container = Ee("div", "emoji-picker__emoji-area"), this.options.showCategoryButtons && (this.categoryButtons = new Xo(this.options, this.events, this.i18n), this.container.appendChild(this.categoryButtons.render())), this.emojis = Ee("div", "emoji-picker__emojis"), this.options.showRecents && ($o.recents = Fo()), this.options.custom && ($o.custom = this.options.custom.map(e => ({
                     ...e,
@@ -12034,36 +11965,29 @@
                     })
                 }), this.emojis.addEventListener("keydown", this.handleKeyDown), this.events.on("categoryClicked", this.selectCategory), this.container.appendChild(this.emojis), this.container.querySelectorAll("." + Se)[0].tabIndex = 0, this.container
             }
-
             reset() {
                 this.headerOffsets = Array.prototype.map.call(this.headers, e => e.offsetTop), this.selectCategory(this.options.initialCategory || "smileys", !1), this.currentCategory = this.categories.indexOf(this.options.initialCategory || "smileys"), this.options.showCategoryButtons && this.categoryButtons.setActiveButton(this.currentCategory, !1)
             }
-
             get currentCategoryEl() {
                 return this.emojis.querySelectorAll(".emoji-picker__container")[this.currentCategory]
             }
-
             get focusedEmoji() {
                 return this.currentCategoryEl.querySelectorAll("." + Se)[this.focusedIndex]
             }
-
             get currentEmojiCount() {
                 return this.currentCategoryEl.querySelectorAll("." + Se).length
             }
-
             getEmojiCount(e) {
                 return this.emojis.querySelectorAll(".emoji-picker__container")[e].querySelectorAll("." + Se).length
             }
-
             setFocusedEmoji(e, o = !0) {
                 this.focusedIndex = e, this.focusedEmoji && (this.focusedEmoji.tabIndex = 0, o && this.focusedEmoji.focus())
             }
         }
-
         const Zo = {
-                ext: ".svg",
-                folder: "svg"
-            },
+            ext: ".svg",
+            folder: "svg"
+        },
             Qo = {
                 position: "auto",
                 autoHide: !0,
@@ -12084,7 +12008,6 @@
                 emojiSize: "1.8em",
                 initialCategory: "smileys"
             };
-
         class ei {
             constructor(e = {}) {
                 this.events = new k, this.publicEvents = new k, this.pickerVisible = !1, this.options = {
@@ -12095,15 +12018,12 @@
                     ...e.i18n
                 }, this.onDocumentClick = this.onDocumentClick.bind(this), this.onDocumentKeydown = this.onDocumentKeydown.bind(this), this.theme = this.options.theme || "light", this.buildPicker()
             }
-
             on(e, o) {
                 this.publicEvents.on(e, o)
             }
-
             off(e, o) {
                 this.publicEvents.off(e, o)
             }
-
             buildPicker() {
                 if (this.pickerEl = Ee("div", "emoji-picker"), this.updateTheme(this.theme), this.options.showAnimation || this.pickerEl.style.setProperty("--animation-duration", "0s"), this.options.emojisPerRow && this.pickerEl.style.setProperty("--emoji-per-row", this.options.emojisPerRow.toString()), this.options.rows && this.pickerEl.style.setProperty("--row-count", this.options.rows.toString()), this.options.emojiSize && this.pickerEl.style.setProperty("--emoji-size", this.options.emojiSize), this.options.showCategoryButtons || this.pickerEl.style.setProperty("--category-button-height", "0"), this.focusTrap = function (e, o) {
                     var i = document,
@@ -12241,9 +12161,9 @@
                 }), this.events.on("hideSearchResults", () => {
                     this.pickerContent.firstChild !== this.emojiArea.container && (Ce(this.pickerContent), this.pickerContent.appendChild(this.emojiArea.container)), this.emojiArea.reset()
                 }), this.options.showPreview && this.pickerEl.appendChild(new Ie(this.events, this.options).render()), this.events.on("emoji", ({
-                                                                                                                                                    emoji: e,
-                                                                                                                                                    showVariants: o
-                                                                                                                                                }) => {
+                    emoji: e,
+                    showVariants: o
+                }) => {
                     e.variations && o && this.options.showVariants ? this.showVariantPopup(e) : (setTimeout(() => this.emojiArea.updateRecents()), e.custom ? this.publicEvents.emit("emoji", {
                         url: e.emoji,
                         name: e.name,
@@ -12263,7 +12183,6 @@
                     }), this.options.autoHide && this.hidePicker())
                 }), this.wrapper = Ee("div", "emoji-picker__wrapper"), this.wrapper.appendChild(this.pickerEl), this.wrapper.style.display = "none", this.options.zIndex && (this.wrapper.style.zIndex = this.options.zIndex + ""), this.options.rootElement && this.options.rootElement.appendChild(this.wrapper), this.observeForLazyLoad()
             }
-
             showVariantPopup(e) {
                 const o = new Jo(this.events, e, this.options).render();
                 o && this.pickerEl.appendChild(o), this.events.on("hideVariantPopup", () => {
@@ -12272,7 +12191,6 @@
                     }, 175)), this.events.off("hideVariantPopup")
                 })
             }
-
             observeForLazyLoad() {
                 this.observer = new IntersectionObserver(e => {
                     Array.prototype.filter.call(e, e => e.intersectionRatio > 0).map(e => e.target).forEach(e => {
@@ -12288,17 +12206,14 @@
                     "twemoji" !== this.options.style && "true" !== e.dataset.custom || this.observer.observe(e)
                 })
             }
-
             onDocumentClick(e) {
                 this.pickerEl.contains(e.target) || this.hidePicker()
             }
-
             destroyPicker() {
                 this.events.off("emoji"), this.events.off("hideVariantPopup"), this.options.rootElement && (this.options.rootElement.removeChild(this.wrapper), this.popper && this.popper.destroy()), this.observer && this.observer.disconnect(), this.options.plugins && this.options.plugins.forEach(e => {
                     e.destroy && e.destroy()
                 })
             }
-
             hidePicker() {
                 this.hideInProgress = !0, this.focusTrap.deactivate(), this.pickerVisible = !1, this.overlay && (document.body.removeChild(this.overlay), this.overlay = void 0), this.emojiArea.emojis.removeEventListener("scroll", this.emojiArea.highlightCategory), this.pickerEl.classList.add("hiding"), setTimeout(() => {
                     this.wrapper.style.display = "none", this.pickerEl.classList.remove("hiding"), this.pickerContent.firstChild !== this.emojiArea.container && (Ce(this.pickerContent), this.pickerContent.appendChild(this.emojiArea.container));
@@ -12308,7 +12223,6 @@
                     document.removeEventListener("click", this.onDocumentClick), document.removeEventListener("keydown", this.onDocumentKeydown)
                 })
             }
-
             showPicker(e) {
                 if (this.hideInProgress) setTimeout(() => this.showPicker(e), 100);
                 else {
@@ -12330,15 +12244,12 @@
                     }), this.emojiArea.reset()
                 }
             }
-
             togglePicker(e) {
                 this.pickerVisible ? this.hidePicker() : this.showPicker(e)
             }
-
             isPickerVisible() {
                 return this.pickerVisible
             }
-
             onDocumentKeydown(e) {
                 if ("Escape" === e.key) this.hidePicker();
                 else if ("Tab" === e.key) this.pickerEl.classList.add("keyboard");
@@ -12347,11 +12258,9 @@
                     e && e.focus()
                 }
             }
-
             setTheme(e) {
                 e !== this.theme && (this.pickerEl.classList.remove(this.theme), this.theme = e, this.updateTheme(this.theme))
             }
-
             updateTheme(e) {
                 this.pickerEl.classList.add(e)
             }
@@ -12360,7 +12269,7 @@
 }, , function (e, o, i) {
     e.exports = i(13)
 }, , , , , function (e, o) {
-    !function () {
+    ! function () {
         const e = document.querySelector(".main"),
             o = document.querySelectorAll("[data-toggle-chat]");
         Array.prototype.forEach.call(o, o => {
@@ -12382,7 +12291,6 @@
             const i = Math.max(-1, Math.min(1, o.wheelDelta || -o.detail));
             e.scrollLeft -= 28 * i, o.preventDefault()
         }
-
         e.addEventListener ? (e.addEventListener("mousewheel", o, !1), e.addEventListener("DOMMouseScroll", o, !1)) : e.attachEvent("onmousewheel", o)
     }))
 }, function (e, o, i) {
@@ -12395,25 +12303,25 @@
         s = i(4);
     i(10);
     const m = {
-            Android: function () {
-                return navigator.userAgent.match(/Android/i)
-            },
-            BlackBerry: function () {
-                return navigator.userAgent.match(/BlackBerry/i)
-            },
-            iOS: function () {
-                return navigator.userAgent.match(/iPhone|iPod|iPad/i)
-            },
-            Opera: function () {
-                return navigator.userAgent.match(/Opera Mini/i)
-            },
-            Windows: function () {
-                return navigator.userAgent.match(/IEMobile/i) || navigator.userAgent.match(/WPDesktop/i)
-            },
-            any: function () {
-                return m.Android() || m.BlackBerry() || m.iOS() || m.Opera() || m.Windows()
-            }
+        Android: function () {
+            return navigator.userAgent.match(/Android/i)
         },
+        BlackBerry: function () {
+            return navigator.userAgent.match(/BlackBerry/i)
+        },
+        iOS: function () {
+            return navigator.userAgent.match(/iPhone|iPod|iPad/i)
+        },
+        Opera: function () {
+            return navigator.userAgent.match(/Opera Mini/i)
+        },
+        Windows: function () {
+            return navigator.userAgent.match(/IEMobile/i) || navigator.userAgent.match(/WPDesktop/i)
+        },
+        any: function () {
+            return m.Android() || m.BlackBerry() || m.iOS() || m.Opera() || m.Windows()
+        }
+    },
         c = document.querySelectorAll("[data-emoji-form]");
     m.any() ? c.forEach(e => {
         e.querySelector("[data-emoji-btn]").style.display = "none"
