@@ -29,7 +29,7 @@ urlpatterns = [
     path('account/', include('account.urls', namespace='account')),
     path('admin/', admin.site.urls),
     path('chat/', include('chat.urls', namespace='chat')),
-    path('friend/', include('friend.urls', namespace='friend')),
+    path('account/', include('friend.urls', namespace='friend')),
     path('login/', login_view, name='login'),
     path('logout/', logout_view, name='logout'),
     path('register/', register_view, name='register'),

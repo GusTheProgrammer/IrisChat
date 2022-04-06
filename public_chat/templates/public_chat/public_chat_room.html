@@ -5,7 +5,7 @@
 <span class="{% if not debug %}d-none{% endif %} page-number" id="id_page_number">1</span>
 
 <!-- Chat -->
-<main class="main">
+<main class="main is-visible" data-dropzone-area="">
     <div class="container h-100">
 
         <div class="d-flex flex-column h-100 position-relative">
@@ -526,11 +526,6 @@
     function setConnectedUsersCount(count) {
         element = document.getElementById("id_connected_users")
         element.innerHTML = count + " Members Online"
-    }
-
-    function toggleMainClass() {
-        var mainDiv = document.getElementById("main-div")
-        mainDiv.classList.toggle("is-visible")
     }
 </script>
 

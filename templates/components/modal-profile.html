@@ -37,15 +37,16 @@
 
                     <div class="profile-body">
                         <div class="avatar avatar-xl">
-                            <img class="avatar-img" src="{{ request.user.profile_image.url }}">
+                            <img class="avatar-img" src="{{ request.user.profile_image.url }}" alt="">
                         </div>
-
                         {% if user.first_name and user.last_name %}
                             <h4 class="mb-1">{{ user.first_name }} {{ user.last_name }}</h4>
                         {% else %}
                             <h4 class="mb-1">{{ user.username }}</h4>
                         {% endif %}
-                        <p>last seen 5 minutes ago</p>
+                        {% if user.bio %}
+                            <p>{{ user.bio }}</p>
+                        {% endif %}
                     </div>
                 </div>
                 <!-- Header -->
@@ -83,15 +84,7 @@
                         <div class="row align-items-center gx-6">
                             <div class="col">
                                 <h5>E-mail</h5>
-                                {% if is_self %}
-                                    <p>{{ user.email }}</p>
-                                {% else %}
-                                    {% if hide_email %}
-                                        <p>**********</p>
-                                    {% else %}
-                                        <p>{{ user.email }}</p>
-                                    {% endif %}
-                                {% endif %}
+                                <p>{{ user.email }}</p>
                             </div>
 
                             <div class="col-auto">
@@ -120,16 +113,7 @@
                             </div>
                         </li>
                     {% endif %}
-                    {% if user.bio %}
-                        <li class="list-group-item">
-                            <div class="row align-items-center gx-6">
-                                <div class="col">
-                                    <h5>Bio</h5>
-                                    <p>{{ user.bio }}</p>
-                                </div>
-                            </div>
-                        </li>
-                    {% endif %}
+
 
                 </ul>
                 <!-- List  -->
@@ -162,7 +146,8 @@
                 <ul class="list-group list-group-flush">
                     {% if user.is_superuser %}
                         <li class="list-group-item">
-                            <a href="{% url 'admin:index' %}" class="text-reset" title="Admin Dashboard">Admin Dashboard</a>
+                            <a href="{% url 'admin:index' %}" class="text-reset" title="Admin Dashboard">Admin
+                                Dashboard</a>
                         </li>
                     {% endif %}
                     <li class="list-group-item">

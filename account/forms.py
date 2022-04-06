@@ -49,7 +49,7 @@ class AccountAuthenticationForm(forms.ModelForm):
 class AccountUpdateForm(forms.ModelForm):
     class Meta:
         model = Account
-        fields = ('username', 'email', 'profile_image', 'hide_email')
+        fields = ('username', 'email', 'profile_image', 'hide_info')
 
     def clean_email(self):
         email = self.cleaned_data['email'].lower()
@@ -72,7 +72,7 @@ class AccountUpdateForm(forms.ModelForm):
         account.username = self.cleaned_data['username']
         account.email = self.cleaned_data['email']
         account.profile_image = self.cleaned_data['profile_image']
-        account.hide_email = self.cleaned_data['hide_email']
+        account.hide_info = self.cleaned_data['hide_info']
         if commit:
             account.save()
         return account

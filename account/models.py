@@ -57,7 +57,9 @@ class Account(AbstractBaseUser):
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
-    hide_email = models.BooleanField(default=True)
+    hide_info = models.BooleanField(default=True)
+    hide_friends = models.BooleanField(default=False)
+
     profile_image = models.ImageField(upload_to=get_profile_image_filepath, blank=True, null=True, max_length=255,
                                       default=get_default_profile_image)
     first_name = models.CharField(max_length=150, blank=True)

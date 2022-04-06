@@ -1,69 +1,96 @@
-{% extends 'base.html' %}
-{% load static %}
+{% if friend_requests %}
+    {% for request in friend_requests %}
+        <li class="list-group-item">
+            <div class="row align-items-center gx-5">
+                <!-- Icons -->
+                <div class="col-auto">
+                    <div class="avatar-group">
+                        <a href="{% url 'account:view' user_id=request.sender.id %}" class="avatar avatar-sm">
+                            <img src="{{ request.sender.profile_image.url }}" class="avatar-img" alt="#">
+                        </a>
 
-{% block content %}
+                    </div>
+                </div>
+                <!-- Icons -->
 
+                <!-- Text -->
+                <div class="col overflow-hidden">
+                    <h5 class="text-truncate">
+                        <a href="{% url 'account:view' user_id=request.sender.id %}">{{ request.sender.username }}</a>
+                    </h5>
+                    <ul class="list-inline m-0">
+                        <li class="list-inline-item">
+                            <small class="text-muted">Sent You A Friend Request</small>
+                        </li>
 
+                    </ul>
+                </div>
+                <!-- Text -->
+                <!-- Accept/Decline Request -->
+                <div class="col-auto">
+                    <ul class="nav nav-pills mb-3">
+                        <li class="nav-item">
+                            <button class="nav-link text-danger" id="id_cancel_{{ request.sender.id }}"
+                                    onclick='triggerDeclineFriendRequest("{{ request.id }}")'>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                     stroke-linejoin="round" class="feather feather-user-x">
+                                    <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="8.5" cy="7" r="4"></circle>
+                                    <line x1="18" y1="8" x2="23" y2="13"></line>
+                                    <line x1="23" y1="8" x2="18" y2="13"></line>
+                                </svg>
 
-<div class="container">
-	<div class="card p-2">
+                            </button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link text-white badge badge-xl bg-success border-outline bottom-0 end-0"
+                                    id="id_confirm_{{ request.sender.id }}"
+                                    onclick='triggerAcceptFriendRequest("{{ request.id }}")'>
 
-		{% if friend_requests %}
-		<div class="d-flex flex-row flex-wrap">
-		{% for request in friend_requests %}
-		<div class="card flex-row flex-grow-1 p-2 mx-2 my-2 align-items-center">
-			<a class="profile-link" href="{% url 'account:view' user_id=request.sender.id %}">
-				<div class="card-image m-2">
-					<img class="img-fluid profile-image" src="{{request.sender.profile_image.url}}" alt="">
-				</div>
-			</a>
-			<a class="profile-link" href="{% url 'account:view' user_id=request.sender.id %}">
-				<div class="card-center px-2">
-					<h4 class="card-title">{{request.sender.username}}</h4>
-				</div>
-			</a>
-			<div class="d-flex flex-row card-right flex-grow-1 justify-content-end mx-2">
-	  			<span id="id_cancel_{{request.sender.id}}" class="decline-friend-request material-icons p-1" onclick='triggerDeclineFriendRequest("{{request.id}}")'>cancel</span>
-	  			<span id="id_confirm_{{request.sender.id}}" class="confirm-friend-request material-icons p-1" onclick='triggerAcceptFriendRequest("{{request.id}}")'>check</span>
-			</div>
-		</div>
-		{% if forloop.counter|divisibleby:2 %}
-		</div><div class="d-flex flex-row flex-wrap">
-		{% endif %}
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                     stroke-linejoin="round" class="feather feather-user-check">
+                                    <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="8.5" cy="7" r="4"></circle>
+                                    <polyline points="17 11 19 13 23 9"></polyline>
+                                </svg>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Accept/Decline Request -->
 
-		{% endfor %}
+            </div>
+        </li>
+    {% endfor %}
 
-		{% else %} <!-- If no friends -->
-		<div class="d-flex flex-row flex-grow-1 justify-content-center align-items-center p-4">
-			<p>No results</p>
-		</div>
-		{% endif %}
-		</div>
-	</div>
-
-</div>
+{% else %} <!-- If no friends -->
+    <li class="list-group-item">
+        <div class="row align-items-center gx-5 text-center">
+            <h5 class="text-muted"> No Pending Requests ❕</h5>
+        </div>
+    </li>
+{% endif %}
 
 <script type="text/javascript">
 
-	function onFriendRequestAccepted(){
-		location.reload();
-	}
+    function onFriendRequestAccepted() {
+        location.reload();
+    }
 
-	function onFriendRequestDeclined(){
-		location.reload();
-	}
+    function onFriendRequestDeclined() {
+        location.reload();
+    }
 
-	function triggerAcceptFriendRequest(friend_request_id){
-		acceptFriendRequest(friend_request_id, onFriendRequestAccepted)
-	}
+    function triggerAcceptFriendRequest(friend_request_id) {
+        acceptFriendRequest(friend_request_id, onFriendRequestAccepted)
+    }
 
-	function triggerDeclineFriendRequest(friend_request_id){
-		declineFriendRequest(friend_request_id, onFriendRequestDeclined)
-	}
+    function triggerDeclineFriendRequest(friend_request_id) {
+        declineFriendRequest(friend_request_id, onFriendRequestDeclined)
+    }
 </script>
 
 {% include 'friend/snippets/accept_friend_request.html' %}
 {% include 'friend/snippets/decline_friend_request.html' %}
-
-
-{% endblock content %}

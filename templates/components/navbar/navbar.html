@@ -48,7 +48,7 @@
         </li>
 
         <!-- Friends -->
-        <li class="nav-item"  onclick="setGeneralNotificationsAsRead()">
+        <li class="nav-item" onclick="setGeneralNotificationsAsRead()">
             <a class="nav-link py-0 py-lg-8" id="tab-friends" href="#tab-content-friends" title="Friends"
                data-bs-toggle="tab" role="tab">
                 <div class="icon icon-xl" id="id_general_notifications_count">
@@ -60,6 +60,9 @@
                         <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
                         <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
                     </svg>
+                    <div id="id_general_notifications_div">
+                        <span id="id_general_notifications_span"></span>
+                    </div>
                 </div>
             </a>
         </li>
@@ -248,5 +251,10 @@
         return false
     }
 
+
+    function toggleMainClass() {
+        var mainDiv = document.querySelector(".main")
+        mainDiv.classList.toggle("is-visible")
+    }
 </script>
 <!-- JavaScript -->

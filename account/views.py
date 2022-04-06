@@ -134,8 +134,12 @@ def account_view(request, *args, **kwargs):
         context['id'] = account.id
         context['username'] = account.username
         context['email'] = account.email
+        context['bio'] = account.bio
+        context['first_name'] = account.first_name
+        context['last_name'] = account.last_name
+        context['birth_date'] = account.birth_date
         context['profile_image'] = account.profile_image.url
-        context['hide_email'] = account.hide_email
+        context['hide_info'] = account.hide_info
 
         try:
             friend_list = FriendList.objects.get(user=account)
@@ -176,7 +180,36 @@ def account_view(request, *args, **kwargs):
             except:
                 pass
 
+        # Friend List
+        user = request.user
+        if user.is_authenticated:
+            if user_id:
+                try:
+                    this_user = Account.objects.get(pk=user_id)
+                    context['this_user'] = this_user
+                except Account.DoesNotExist:
+                    return HttpResponse("That user does not exist.")
+                try:
+                    friend_list = FriendList.objects.get(user=this_user)
+                except FriendList.DoesNotExist:
+                    return HttpResponse(f"Could not find a friends list for {this_user.username}")
+
+                # Must be friends to view a friends list
+                can_view = True
+
+                if user != this_user:
+                    if not user in friend_list.friends.all():
+                        can_view = False
+                friends = []  # [(friend1, True), (friend2, False), ...]
+                # get the authenticated users friend list
+                auth_user_friend_list = FriendList.objects.get(user=user)
+                for friend in friend_list.friends.all():
+                    friends.append((friend, auth_user_friend_list.is_mutual_friend(friend)))
+                context['friends'] = friends
+
         # Set the template variables to the values
+        print("###################################################################", can_view)
+        context['can_view'] = can_view
         context['is_self'] = is_self
         context['is_friend'] = is_friend
         context['request_sent'] = request_sent
@@ -269,7 +302,7 @@ def edit_account_view(request, *args, **kwargs):
                                          "email": account.email,
                                          "username": account.username,
                                          "profile_image": account.profile_image,
-                                         "hide_email": account.hide_email,
+                                         "hide_info": account.hide_info,
                                      }
                                      )
             context['form'] = form
@@ -280,7 +313,7 @@ def edit_account_view(request, *args, **kwargs):
                 "email": account.email,
                 "username": account.username,
                 "profile_image": account.profile_image,
-                "hide_email": account.hide_email,
+                "hide_info": account.hide_info,
             }
         )
         context['form'] = form
