@@ -124,6 +124,7 @@ def account_view(request, *args, **kwargs):
                 0: THEM_SENT_TO_YOU
                 1: YOU_SENT_TO_THEM
     """
+    global can_view
     context = {}
     user_id = kwargs.get("user_id")
     try:
@@ -140,6 +141,7 @@ def account_view(request, *args, **kwargs):
         context['birth_date'] = account.birth_date
         context['profile_image'] = account.profile_image.url
         context['hide_info'] = account.hide_info
+        context['hide_friends'] = account.hide_friends
 
         try:
             friend_list = FriendList.objects.get(user=account)
@@ -208,7 +210,6 @@ def account_view(request, *args, **kwargs):
                 context['friends'] = friends
 
         # Set the template variables to the values
-        print("###################################################################", can_view)
         context['can_view'] = can_view
         context['is_self'] = is_self
         context['is_friend'] = is_friend
@@ -297,14 +298,11 @@ def edit_account_view(request, *args, **kwargs):
             return redirect("account:view", user_id=account.pk)
         else:
             form = AccountUpdateForm(request.POST, instance=request.user,
-                                     initial={
-                                         "id": account.pk,
-                                         "email": account.email,
-                                         "username": account.username,
-                                         "profile_image": account.profile_image,
-                                         "hide_info": account.hide_info,
-                                     }
-                                     )
+                                     initial={"id": account.pk, "email": account.email, "username": account.username,
+                                              "profile_image": account.profile_image, "first_name": account.first_name,
+                                              "last_name": account.last_name, "bio": account.bio,
+                                              "birth_date": account.birth_date, "hide_info": account.hide_info,
+                                              "hide_friends": account.hide_friends, })
             context['form'] = form
     else:
         form = AccountUpdateForm(
@@ -313,7 +311,12 @@ def edit_account_view(request, *args, **kwargs):
                 "email": account.email,
                 "username": account.username,
                 "profile_image": account.profile_image,
+                "first_name": account.first_name,
+                "last_name": account.last_name,
+                "bio": account.bio,
+                "birth_date": account.birth_date,
                 "hide_info": account.hide_info,
+                "hide_friends": account.hide_friends,
             }
         )
         context['form'] = form

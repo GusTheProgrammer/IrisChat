@@ -18,29 +18,44 @@
 
                             <div class="col-12">
                                 <div class="form-floating">
-                                    <input type="email" name="email" class="form-control" id="inputEmail"
+                                    <input type="email" name="email"
+                                            {% if login_form.errors.email %}
+                                           class="form-control is-invalid"
+                                            {% else %}
+                                           class="form-control"
+                                            {% endif %}
+                                           id="id_input_email"
                                            placeholder="Email" required autofocus>
-                                    <label for="inputEmail">Email</label>
+                                    <label for="id_input_email">Email</label>
+                                    {% if login_form.errors.email %}
+                                        <div id="id_input_email" class="invalid-feedback">
+                                            <p>{{ login_form.errors.email|striptags }}</p>
+                                        </div>
+                                    {% endif %}
                                 </div>
                             </div>
 
                             <div class="col-12">
                                 <div class="form-floating">
-                                    <input type="password" name="password" class="form-control" id="inputPassword"
+                                    <input type="password" name="password"
+                                            {% if login_form.errors.password %}
+                                           class="form-control is-invalid"
+                                            {% else %}
+                                           class="form-control"
+                                            {% endif %}
+                                           id="id_input_password"
                                            placeholder="Password" required>
-                                    <label for="inputEmail">Password</label>
+                                    <label for="id_input_password">Password</label>
+                                    {% if login_form.errors.password %}
+                                        <div id="id_input_password" class="invalid-feedback">
+                                            <p>{{ login_form.errors.password|striptags }}</p>
+                                        </div>
+                                    {% endif %}
                                 </div>
                             </div>
-                            {% for field in login_form %}
-                                    {% for error in field.errors %}
-                                        <p style="color: red">{{ error }}</p>
-                                    {% endfor %}
-                            {% endfor %}
-                            {% if login_form.non_field_errors %}
-                                <div style="color: red">
-                                    <p>{{ login_form.non_field_errors }}</p>
-                                </div>
 
+                            {% if login_form.non_field_errors %}
+                                <p class="text-danger">{{ login_form.non_field_errors|striptags }}</p>
                             {% endif %}
 
                             <div class="col-12">

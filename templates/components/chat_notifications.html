@@ -324,6 +324,7 @@
         I do not update the image_url since that makes the notifications "flicker".
     */
     function refreshChatNotificationsList(notification) {
+        getLatestChatMessages()
         notificationContainer = document.getElementById("id_chat_notifications_container")
 
         if (notificationContainer != null) {
@@ -415,6 +416,10 @@
 
 <!-- Payloads sent to consumer -->
 <script type="text/javascript">
+    function getLatestChatMessages(latest_messages){
+        console.log("####################################################### " + latest_messages['room'])
+    }
+
 
     /*
         Retrieve the number of unread chat notifications. (This is the red dot in the notifications icon)
@@ -441,6 +446,7 @@
                 "page_number": pageNumber,
             }));
             getUnreadChatNotificationsCount()
+
         }
     }
 

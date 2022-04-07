@@ -52,12 +52,17 @@
                                     <div class="col">
                                         <div class="d-flex align-items-center mb-3">
                                             <h5 class="me-auto mb-0">{{ x.friend.username }}</h5>
-                                            <span class="text-muted extra-small ms-2">08:45 PM</span>
+                                            <span class="text-muted extra-small ms-2">{{ x.message.timestamp|timesince }} ago</span>
                                         </div>
 
                                         <div class="d-flex align-items-center">
                                             <div class="line-clamp me-auto">
-                                                {{ x.message|truncatechars:20 }}
+                                                {% if x.message.user.id == request.user.id %}
+                                                    You: {{ x.message|truncatechars:20 }}
+                                                {% else %}
+                                                    {{ x.message|truncatechars:20 }}
+                                                {% endif %}
+
                                             </div>
 
                                             <div class="badge badge-circle bg-primary ms-5">

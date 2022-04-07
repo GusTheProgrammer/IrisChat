@@ -25,7 +25,7 @@
                                     <a class="d-flex align-items-center" href="#"
                                        onclick="createOrReturnPrivateChat('{{ friend.0.id }}')">
                                         Send a Message
-                                        <div class="icon mx-auto">
+                                        <div class="icon px-2">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                                  stroke-linecap="round" stroke-linejoin="round"
@@ -45,8 +45,8 @@
                     <!-- Text -->
                     <div class="col-auto">
                         {% if friend.1 %}
-                            <div class="d-flex flex-row friends-text-container p-3">
-                                <p class="friends-text m-auto">
+                            <div class="d-flex flex-row text-muted">
+                                <p class="mx-4">
                                     Friends
                                 </p>
 
@@ -60,8 +60,8 @@
                             </div>
                         {% else %}
                             {% if friend.0 !=  request.user %}
-                                <div class="d-flex flex-row friends-text-container p-3">
-                                    <p class="friends-text m-auto">
+                                <div class="d-flex flex-row text-muted">
+                                    <p class="mx-4">
                                         Not Friends
                                     </p>
 
@@ -77,8 +77,8 @@
                             {% endif %}
                         {% endif %}
                         {% if friend.0 == request.user %}
-                            <div class="d-flex flex-row friends-text-container p-3">
-                                <p class="friends-text m-auto">
+                            <div class="d-flex flex-row text-muted">
+                                <p class="mx-4">
                                     This is you
                                 </p>
 
@@ -110,7 +110,7 @@
 
                             <ul class="dropdown-menu">
                                 <li>
-                                    <a class="dropdown-item d-flex align-items-center" href="#"
+                                    <a class="dropdown-item d-flex align-items-center text-info" href="#"
                                        onclick="createOrReturnPrivateChat('{{ friend.0.id }}')">
                                         Send Message
                                         <div class="icon ms-auto">
@@ -141,27 +141,30 @@
                                         </div>
                                     </a>
                                 </li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li>
-                                    <a class="dropdown-item d-flex align-items-center text-danger"
-                                       href="#" onclick="removeFriend('{{ id }}', onFriendRemoved)">
-                                        <span class="me-auto">Unfriend</span>
-                                        <div class="icon">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                 viewBox="0 0 24 24"
-                                                 fill="none" stroke="currentColor" stroke-width="2"
-                                                 stroke-linecap="round"
-                                                 stroke-linejoin="round" class="feather feather-user-x">
-                                                <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                                                <circle cx="8.5" cy="7" r="4"></circle>
-                                                <line x1="18" y1="8" x2="23" y2="13"></line>
-                                                <line x1="23" y1="8" x2="18" y2="13"></line>
-                                            </svg>
-                                        </div>
-                                    </a>
-                                </li>
+                                {% if is_self %}
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+
+                                    <li>
+                                        <a class="dropdown-item d-flex align-items-center text-danger"
+                                           href="#" onclick="removeFriend('{{ friend.0.pk }}', onFriendRemoved)">
+                                            <span class="me-auto">Unfriend</span>
+                                            <div class="icon">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                     viewBox="0 0 24 24"
+                                                     fill="none" stroke="currentColor" stroke-width="2"
+                                                     stroke-linecap="round"
+                                                     stroke-linejoin="round" class="feather feather-user-x">
+                                                    <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                                    <circle cx="8.5" cy="7" r="4"></circle>
+                                                    <line x1="18" y1="8" x2="23" y2="13"></line>
+                                                    <line x1="23" y1="8" x2="18" y2="13"></line>
+                                                </svg>
+                                            </div>
+                                        </a>
+                                    </li>
+                                {% endif %}
                             </ul>
                         </div>
                     </div>

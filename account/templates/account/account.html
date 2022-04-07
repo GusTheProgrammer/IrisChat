@@ -5,9 +5,9 @@
     <main class="main is-visible" data-dropzone-area="">
         <div class="container h-100">
             <div class="d-flex flex-column h-100 position-relative">
-                <!-- Offcanvas Header -->
+                <!-- Account Header -->
                 <div class="offcanvas-header py-4 py-lg-7 border-bottom">
-                    <a class="icon icon-lg text-muted" href="#" data-bs-dismiss="offcanvas" onclick="toggleMainClass()">
+                    <a class="icon icon-lg text-muted" href="#" onclick="toggleMainClass()">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                              class="feather feather-chevron-left">
@@ -16,12 +16,23 @@
                     </a>
 
                     <div class="visibility-xl-invisible overflow-hidden text-center">
-                        {% if first_name and last_name %}
-                            <h5 class="text-truncate">{{ first_name }} {{ last_name }}</h5>
+                        {% if is_self %}
+                            {% if first_name and last_name %}
+                                <h5 class="text-truncate">{{ first_name }} {{ last_name }}</h5>
+                            {% else %}
+                                <h5 class="text-truncate">{{ username }}</h5>
+                            {% endif %}
                         {% else %}
-                            <h5 class="text-truncate">{{ username }}</h5>
+                            {% if not hide_info %}
+                                {% if first_name and last_name %}
+                                    <h5 class="text-truncate">{{ first_name }} {{ last_name }}</h5>
+                                {% else %}
+                                    <h5 class="text-truncate">{{ username }}</h5>
+                                {% endif %}
+                            {% else %}
+                                <h5 class="text-truncate">{{ username }}</h5>
+                            {% endif %}
                         {% endif %}
-
                     </div>
 
                     <!-- If Auth user is viewing their own profile -->
@@ -83,9 +94,9 @@
 
                     <!-- Dropdown -->
                 </div>
-                <!-- Offcanvas Header -->
+                <!-- Account Header -->
 
-                <!-- Offcanvas Body -->
+                <!-- Account Body -->
                 <div class="offcanvas-body hide-scrollbar">
                     <!-- Avatar -->
                     <div class="text-center py-10">
@@ -156,17 +167,45 @@
                                 {% endif %}
                                 <!-- THEM to YOU -->
                                 {% if request_sent == 0 %}
-                                    <div class="card m-2 p-4">
-                                        <div class="d-flex flex-row align-items-center">
-                                            <span class="friend-text align-items-center mr-2">Accept Friend Request</span>
-                                            <span id="id_cancel_{{ id }}"
-                                                  class="decline-friend-request material-icons p-1"
-                                                  onclick='triggerDeclineFriendRequest("{{ pending_friend_request_id }}")'>cancel</span>
-                                            <span id="id_confirm_{{ id }}"
-                                                  class="confirm-friend-request material-icons p-1"
-                                                  onclick='triggerAcceptFriendRequest("{{ pending_friend_request_id }}")'>check</span>
-                                        </div>
+                                    <!-- Accept/Decline Request -->
+                                    <div class="col-4 mx-auto pt-4">
+                                        <ul class="nav nav-pills justify-content-md-center">
+                                            <li class="nav-item">
+                                                <button class="nav-link text-danger"
+                                                        id="id_cancel_{{ id }}"
+                                                        onclick='triggerDeclineFriendRequest("{{ pending_friend_request_id }}")'>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                         viewBox="0 0 24 24"
+                                                         fill="none" stroke="currentColor" stroke-width="2"
+                                                         stroke-linecap="round"
+                                                         stroke-linejoin="round" class="feather feather-user-x">
+                                                        <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                                        <circle cx="8.5" cy="7" r="4"></circle>
+                                                        <line x1="18" y1="8" x2="23" y2="13"></line>
+                                                        <line x1="23" y1="8" x2="18" y2="13"></line>
+                                                    </svg>
+
+                                                </button>
+                                            </li>
+                                            <li class="nav-item">
+                                                <button class="nav-link text-white badge badge-xl bg-success border-outline bottom-0 end-0"
+                                                        id="id_confirm_{{ id }}"
+                                                        onclick='triggerAcceptFriendRequest("{{ pending_friend_request_id }}")'>
+
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                         viewBox="0 0 24 24"
+                                                         fill="none" stroke="currentColor" stroke-width="2"
+                                                         stroke-linecap="round"
+                                                         stroke-linejoin="round" class="feather feather-user-check">
+                                                        <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                                        <circle cx="8.5" cy="7" r="4"></circle>
+                                                        <polyline points="17 11 19 13 23 9"></polyline>
+                                                    </svg>
+                                                </button>
+                                            </li>
+                                        </ul>
                                     </div>
+                                    <!-- Accept/Decline Request -->
                                 {% endif %}
 
                             </div>
@@ -180,20 +219,46 @@
                             <a class="nav-link active" data-bs-toggle="pill" href="#offcanvas-tab-profile" role="tab"
                                aria-controls="offcanvas-tab-profile" aria-selected="true">
                                 Profile
+
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                     stroke-linejoin="round" class="feather feather-user">
+                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="12" cy="7" r="4"></circle>
+                                </svg>
                             </a>
                         </li>
 
                         <li class="nav-item">
                             <a class="nav-link" data-bs-toggle="pill" href="#offcanvas-tab-media" role="tab"
                                aria-controls="offcanvas-tab-media" aria-selected="true">
-                                Friends
+                                {% if friends|length > 0 %}
+                                    Friends ({{ friends|length }})
+                                {% else %}
+                                    Friends
+                                {% endif %}
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                     stroke-linejoin="round" class="feather feather-users">
+                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="9" cy="7" r="4"></circle>
+                                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                                </svg>
+
                             </a>
                         </li>
                         {% if is_self %}
                             <li class="nav-item">
                                 <a class="nav-link" data-bs-toggle="pill" href="#offcanvas-tab-files" role="tab"
                                    aria-controls="offcanvas-tab-files" aria-selected="false">
-                                    Friends Requests
+                                    Requests
+                                    {% if friend_requests|length > 0 %}
+                                        <div class="badge badge-circle bg-warning ms-2">
+                                            <span class="text-light">{{ friend_requests|length }}</span>
+                                        </div>
+                                    {% endif %}
+
                                 </a>
                             </li>
                         {% endif %}
@@ -286,28 +351,44 @@
                                     {% if birth_date %}
                                         <li class="list-group-item">
                                             <div class="row align-items-center gx-6">
-                                                    <div class="col">
-                                                        <h5>Birth Date</h5>
-                                                        <p>{{ birth_date|date:"m / d / Y" }}</p>
-                                                    </div>
-                                                    <div class="col-auto">
-                                                        <div class="btn btn-sm btn-icon btn-dark">
-                                                            <a href="https://www.google.com/calendar/event?action=TEMPLATE&dates={% now "Y" %}{{ birth_date|date:"md" }}T180000Z%2F20220406T190000Z&text={{ username }}'s%20Birthday&location=&details=Celebrate%20{{ username }}'s%20Birthday!!" target="_blank" class="text-reset">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                                     height="24" viewBox="0 0 24 24" fill="none"
-                                                                     stroke="currentColor" stroke-width="2"
-                                                                     stroke-linecap="round" stroke-linejoin="round"
-                                                                     class="feather feather-calendar">
-                                                                    <rect x="3" y="4" width="18" height="18" rx="2"
-                                                                          ry="2"></rect>
-                                                                    <line x1="16" y1="2" x2="16" y2="6"></line>
-                                                                    <line x1="8" y1="2" x2="8" y2="6"></line>
-                                                                    <line x1="3" y1="10" x2="21" y2="10"></line>
-                                                                </svg>
-                                                            </a>
-                                                        </div>
+                                                <div class="col">
+                                                    <h5>Birth Date</h5>
+                                                    <p>{{ birth_date|date:"m / d / Y" }}</p>
+                                                </div>
+                                                <div class="col-auto">
+                                                    <div class="btn btn-sm btn-icon btn-dark">
+                                                        <a href="https://www.google.com/calendar/event?action=TEMPLATE&dates=
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                                {% now "Y" %}{{ birth_date|date:"md" }}T180000Z%2F20220406T190000Z&text={{ username }}'s%20Birthday&location=&details=Celebrate%20{{ username }}'s%20Birthday!!"
+                                                           target="_blank" class="text-reset">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                                                 height="24" viewBox="0 0 24 24" fill="none"
+                                                                 stroke="currentColor" stroke-width="2"
+                                                                 stroke-linecap="round" stroke-linejoin="round"
+                                                                 class="feather feather-calendar">
+                                                                <rect x="3" y="4" width="18" height="18" rx="2"
+                                                                      ry="2"></rect>
+                                                                <line x1="16" y1="2" x2="16" y2="6"></line>
+                                                                <line x1="8" y1="2" x2="8" y2="6"></line>
+                                                                <line x1="3" y1="10" x2="21" y2="10"></line>
+                                                            </svg>
+                                                        </a>
                                                     </div>
                                                 </div>
+                                            </div>
                                         </li>
                                     {% endif %}
                                 {% else %}
@@ -321,7 +402,23 @@
                                                     </div>
                                                     <div class="col-auto">
                                                         <div class="btn btn-sm btn-icon btn-dark">
-                                                            <a href="https://www.google.com/calendar/event?action=TEMPLATE&dates={% now "Y" %}{{ birth_date|date:"md" }}T180000Z%2F20220406T190000Z&text={{ username }}'s%20Birthday&location=&details=Celebrate%20{{ username }}'s%20Birthday!!" target="_blank" class="text-reset">
+                                                            <a href="https://www.google.com/calendar/event?action=TEMPLATE&dates=
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                                    {% now "Y" %}{{ birth_date|date:"md" }}T180000Z%2F20220406T190000Z&text={{ username }}'s%20Birthday&location=&details=Celebrate%20{{ username }}'s%20Birthday!!"
+                                                               target="_blank" class="text-reset">
                                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24"
                                                                      height="24" viewBox="0 0 24 24" fill="none"
                                                                      stroke="currentColor" stroke-width="2"
@@ -344,33 +441,13 @@
                                 {% endif %}
 
 
-
                             </ul>
 
-                            <ul class="list-group list-group-flush border-top mt-8">
-                                <li class="list-group-item">
-                                    <div class="row align-items-center gx-6">
-                                        <div class="col">
-                                            <h5>Hide Info</h5>
-                                            <p>Other Users cannot see your private info.</p>
-                                        </div>
-
-                                        <div class="col-auto">
-                                            <div class="form-check form-switch">
-                                                <input class="form-check-input" type="checkbox"
-                                                       id="accordion-security-check-5">
-                                                <label class="form-check-label"
-                                                       for="accordion-security-check-5"></label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
                             {% if is_friend %}
                                 <ul class="list-group list-group-flush border-top mt-8">
                                     <li class="list-group-item">
                                         <a class="d-flex align-items-center" href="#"
-                                           onclick="createOrReturnPrivateChat('{{ friend.0.id }}')">
+                                           onclick="createOrReturnPrivateChat('{{ id }}')">
                                             Send Message
                                             <div class="icon ms-auto">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -411,10 +488,42 @@
                         <!-- Friends List -->
                         <div class="tab-pane fade" id="offcanvas-tab-media" role="tabpanel">
                             <div class="list-group list-group-flush">
-                                {% if id == request.user.id or is_friend == True %}
+                                {% if id == request.user.id %}
                                     {% include 'friend/friend_list.html' %}
+                                {% elif is_friend == True %}
+                                    {% if hide_friends %}
+                                        <li class="list-group-item">
+                                            <div class="row align-items-center gx-5">
+                                                <!-- Text -->
+                                                <div class="col overflow-hidden">
+                                                    <div class="card border-0 mb-5">
+                                                        <div class="card-body text-center">
+                                                            <h4 class="text-muted mb-1">Sorry! Your Friend Chose to Hide
+                                                                Their Friend List 😥
+                                                            </h4>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </li>
+                                    {% else %}
+                                        {% include 'friend/friend_list.html' %}
+                                    {% endif %}
                                 {% else %}
-                                    <h1>YOU CANT VIEW WHATEVER</h1>
+                                    <li class="list-group-item">
+                                        <div class="row align-items-center gx-5">
+                                            <!-- Text -->
+                                            <div class="col overflow-hidden">
+                                                <div class="card border-0 mb-5">
+                                                    <div class="card-body text-center">
+                                                        <h4 class="text-muted mb-1"> Sorry! You Have to be Friends to
+                                                            See Their Friend List 😥</h4>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
                                 {% endif %}
 
                             </div>
@@ -432,7 +541,7 @@
                     </div>
                     <!-- Tabs: Content -->
                 </div>
-                <!-- Offcanvas Body -->
+                <!-- Account Body -->
 
             </div>
 

@@ -46,10 +46,18 @@ class AccountAuthenticationForm(forms.ModelForm):
                 raise forms.ValidationError("Invalid login")
 
 
+class DateInput(forms.DateInput):
+    input_type = 'date'
+
+
 class AccountUpdateForm(forms.ModelForm):
     class Meta:
         model = Account
-        fields = ('username', 'email', 'profile_image', 'hide_info')
+        fields = ('username', 'email', 'profile_image', 'hide_info', 'hide_friends', 'first_name', 'last_name', 'bio',
+                  'birth_date')
+        widgets = {
+            'birth_date': DateInput(),
+        }
 
     def clean_email(self):
         email = self.cleaned_data['email'].lower()
