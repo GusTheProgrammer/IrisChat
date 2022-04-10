@@ -87,6 +87,28 @@
                                         </div>
                                     </a>
                                 </li>
+                                {% if user.is_superuser %}
+                                    <li>
+                                        <a href="{% url 'admin:index' %}"
+                                           class="dropdown-item d-flex align-items-center text-warning">
+                                            Admin Dashboard
+                                            <div class="icon ms-auto">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                     viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                     class="feather feather-aperture">
+                                                    <circle cx="12" cy="12" r="10"></circle>
+                                                    <line x1="14.31" y1="8" x2="20.05" y2="17.94"></line>
+                                                    <line x1="9.69" y1="8" x2="21.17" y2="8"></line>
+                                                    <line x1="7.38" y1="12" x2="13.12" y2="2.06"></line>
+                                                    <line x1="9.69" y1="16" x2="3.95" y2="6.06"></line>
+                                                    <line x1="14.31" y1="16" x2="2.83" y2="16"></line>
+                                                    <line x1="16.62" y1="12" x2="10.88" y2="21.94"></line>
+                                                </svg>
+                                            </div>
+                                        </a>
+                                    </li>
+                                {% endif %}
                             </ul>
                         {% endif %}
 
@@ -372,6 +394,8 @@
 
 
 
+
+
                                                                 {% now "Y" %}{{ birth_date|date:"md" }}T180000Z%2F20220406T190000Z&text={{ username }}'s%20Birthday&location=&details=Celebrate%20{{ username }}'s%20Birthday!!"
                                                            target="_blank" class="text-reset">
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="24"
@@ -402,22 +426,7 @@
                                                     </div>
                                                     <div class="col-auto">
                                                         <div class="btn btn-sm btn-icon btn-dark">
-                                                            <a href="https://www.google.com/calendar/event?action=TEMPLATE&dates=
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                                                                    {% now "Y" %}{{ birth_date|date:"md" }}T180000Z%2F20220406T190000Z&text={{ username }}'s%20Birthday&location=&details=Celebrate%20{{ username }}'s%20Birthday!!"
+                                                            <a href="https://www.google.com/calendar/event?action=TEMPLATE&dates={% now "Y" %}{{ user.birth_date|date:"md" }}T180000Z%2F20220406T190000Z&text={{ user.username }}'s%20Birthday&location=&details=Celebrate%20{{ username }}'s%20Birthday!!"
                                                                target="_blank" class="text-reset">
                                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24"
                                                                      height="24" viewBox="0 0 24 24" fill="none"

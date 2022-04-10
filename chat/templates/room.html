@@ -386,6 +386,7 @@
 
         document.getElementById('id_chat_message_input').focus();
         document.getElementById('id_chat_message_input').onkeyup = function (e) {
+            e.preventDefault()
             if (e.keyCode === 13 && e.shiftKey) {  // enter + return
                 // Handled automatically by textarea
             } else if (e.keyCode === 13 && !e.shiftKey) { // enter + !return
@@ -394,6 +395,7 @@
         };
 
         document.getElementById('id_chat_message_submit').onclick = function (e) {
+            e.preventDefault()
             const messageInputDom = document.getElementById('id_chat_message_input');
             const message = messageInputDom.value;
             chatSocket.send(JSON.stringify({
@@ -705,7 +707,7 @@
         function selectUser(user_id) {
             // Weird work-around for passing arg to url
             var url = "{% url 'account:view' user_id=53252623623632623 %}".replace("53252623623632623", user_id)
-            var win = window.open(url, "_blank")
+            var win = window.open(url, "_self")
             win.focus()
         }
 

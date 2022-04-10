@@ -6,8 +6,16 @@
 
             <div class="container py-8">
                 <!-- Title -->
-                <div class="mb-8">
+                <div class="d-flex justify-content-between mb-8">
                     <h2 class="fw-bold m-0">Chats</h2>
+                    <a class="icon icon-lg text-muted d-xl-none my-auto me-6" href="#"
+                       onclick="toggleMainClass()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                             stroke-linejoin="round" class="feather feather-chevron-right">
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                    </a>
                 </div>
 
                 <!-- Search -->
@@ -43,7 +51,7 @@
                             <div class="card-body">
                                 <div class="row gx-5">
                                     <div class="col-auto">
-                                        <div class="avatar avatar-online">
+                                        <div class="avatar">
                                             <img src="{% static 'img/dummy_image.png' %}" alt="#" class="avatar-img"
                                                  id="id_friend_img_{{ x.friend.id }}">
                                         </div>
@@ -65,9 +73,9 @@
 
                                             </div>
 
-                                            <div class="badge badge-circle bg-primary ms-5">
-                                                <span>3</span>
-                                            </div>
+{#                                            <div class="badge badge-circle bg-primary ms-5">#}
+{#                                                <span>3</span>#}
+{#                                            </div>#}
                                         </div>
                                     </div>
                                 </div>

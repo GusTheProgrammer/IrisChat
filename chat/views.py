@@ -90,7 +90,7 @@ def get_recent_chatroom_messages(user):
                     timestamp=today,
                     content="",
                 )
-                print("#######################################################", message)
+
             m_and_f.append({
                 'message': message,
                 'friend': friend

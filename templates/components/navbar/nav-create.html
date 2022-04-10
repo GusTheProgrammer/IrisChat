@@ -12,6 +12,23 @@
 
                 <!-- Search -->
                 {% include 'components/navbar/nav-search.html' %}
+                <div class="mb-6">
+                    <ul class="nav nav-pills nav-justified" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-bs-toggle="pill" href="#create-chat-info" role="tab"
+                               aria-controls="create-chat-info" aria-selected="true">
+                                Details
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="pill" href="#create-chat-members" role="tab"
+                               aria-controls="create-chat-members" aria-selected="true">
+                                People
+                            </a>
+                        </li>
+                    </ul>
+                </div>
 
                 <!-- Tabs content -->
                 <div class="tab-content" role="tablist">
@@ -135,7 +152,40 @@
 
                     <!-- Members -->
                     <div class="tab-pane fade" id="create-chat-members" role="tabpanel">
-                        <h1>friend list here</h1>
+                        <nav>
+                            {% for friend in friends %}
+                                <!-- Card -->
+                                <div class="card border-0 mt-5">
+                                    <div class="card-body">
+
+                                        <div class="row align-items-center gx-5">
+                                            <div class="col-auto">
+                                                <div class="avatar ">
+
+                                                    <img class="avatar-img" src="{{ friend.0.profile_image.url }}" alt="">
+
+
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <h5>{{ friend.0.username|truncatechars:50 }}</h5>
+                                                <p></p>
+                                            </div>
+                                            <div class="col-auto">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value=""
+                                                           id="id-member-{{ friend.0.id }}">
+                                                    <label class="form-check-label" for="id-member-{{ friend.0.id }}"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <label class="stretched-label" for="id-member-{{ friend.0.id }}"></label>
+                                    </div>
+                                </div>
+                                <!-- Card -->
+                            {% endfor %}
+
+                        </nav>
                     </div>
                 </div>
                 <!-- Tabs content -->

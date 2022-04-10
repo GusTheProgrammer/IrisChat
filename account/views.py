@@ -255,12 +255,22 @@ def crop_image(request, *args, **kwargs):
             cropY = int(float(str(request.POST.get("cropY"))))
             cropWidth = int(float(str(request.POST.get("cropWidth"))))
             cropHeight = int(float(str(request.POST.get("cropHeight"))))
+            cropRotate = int(float(str(request.POST.get("cropRotate"))))
             if cropX < 0:
                 cropX = 0
             if cropY < 0:  # There is a bug with cropperjs. y can be negative.
                 cropY = 0
-            crop_img = img[cropY:cropY + cropHeight, cropX:cropX + cropWidth]
 
+            if cropRotate == 90:
+                final_img = cv2.rotate(img, cv2.cv2.ROTATE_90_CLOCKWISE)
+            elif cropRotate == 180:
+                final_img = cv2.rotate(img, cv2.cv2.ROTATE_180)
+            elif cropRotate == 270:
+                final_img = cv2.rotate(img, cv2.cv2.ROTATE_90_COUNTERCLOCKWISE)
+            else:
+                final_img = img
+
+            crop_img = final_img[cropY:cropY + cropHeight, cropX:cropX + cropWidth]
             cv2.imwrite(url, crop_img)
 
             # delete the old image
