@@ -47,7 +47,7 @@ class NotificationConsumer(AsyncJsonWebsocketConsumer):
         for us and pass it as the first argument.
         """
         command = content.get("command", None)
-        print("NotificationConsumer: receive_json. Command: " + command)
+        # print("NotificationConsumer: receive_json. Command: " + command)
         try:
             if command == "get_general_notifications":
                 payload = await get_general_notifications(self.scope["user"], content.get("page_number", None))
@@ -155,6 +155,7 @@ class NotificationConsumer(AsyncJsonWebsocketConsumer):
         """
 		Called by receive_json when pagination is exhausted for general notifications
 		"""
+        print("General Pagination DONE... No more notifications.")
         await self.send_json(
             {
                 "general_msg_type": GENERAL_MSG_TYPE_PAGINATION_EXHAUSTED,
@@ -267,12 +268,13 @@ def get_general_notifications(user, page_number):
                 payload['notifications'] = serialized_notifications
                 new_page_number = int(page_number) + 1
                 payload['new_page_number'] = new_page_number
+                return json.dumps(payload)
         else:
             return None
     else:
         raise ClientError("User must be authenticated to get notifications.")
 
-    return json.dumps(payload)
+    return None
 
 
 @database_sync_to_async

@@ -420,80 +420,48 @@
         }
 
         function handleUserInfoPayload(user_info) {
-            var usernames = document.querySelectorAll("#id_other_username")
+            let usernames = document.querySelectorAll("#id_other_username")
 
-            for (i = 0; i < usernames.length; i++) {
+            for (let i = 0; i < usernames.length; i++) {
                 usernames[i].innerHTML = user_info['username'];
             }
-            {#document.getElementById("id_other_username").innerHTML = user_info['username']#}
+
+            let names = document.querySelectorAll("#id_other_fullname")
+            let fullName = user_info['first_name'] + " " + user_info['last_name']
+
+            for (let i = 0; i < names.length; i++) {
+                if (user_info['first_name'] !== "" || user_info['last_name'] !== "") {
+                    names[i].innerHTML = fullName
+                } else {
+                    names[i].innerHTML = user_info['username'];
+
+                }
+            }
 
             document.getElementById("id_other_user_profile_image").classList.remove("d-none")
-            document.getElementById("id_user_info_container").href = "{% url 'account:view' user_id=53252623623632623 %}".replace("53252623623632623", user_info['id'])
+            document.getElementById("id_user_dropdown").href = "{% url 'account:view' user_id=53252623623632623 %}".replace("53252623623632623", user_info['id'])
 
 
             preloadImage(user_info['profile_image'], "id_other_user_profile_image")
             preloadImage(user_info['profile_image'], "id_other_user_profile_image_2")
 
-            // side profile
-            var email = document.getElementById("id_other_user_email")
+            let email = document.getElementById("id_other_user_email")
             email.innerHTML = user_info['email']
 
             document.getElementById("id_other_user_email_mailto").href = "mailto:" + user_info['email']
             document.getElementById("id_user_info_account").href = "{% url 'account:view' user_id=53252623623632623 %}".replace("53252623623632623", user_info['id'])
 
 
-            var name = document.getElementById("id_other_fullname")
-            name.innerHTML = user_info['username']
-
-            if (user_info['first_name'] != "" || user_info['last_name']) {
-                fullName = user_info['first_name'] + " " + user_info['last_name']
-                name.innerHTML = fullName
+            if (user_info['bio'] != "") {
+                let bio = document.getElementById("id_user_bio")
+                bio.innerHTML = user_info['bio']
             }
-
-            var sideprofile = document.getElementById("id_side_profile_container")
 
             if (user_info['birth_date'] != "") {
-                var list = document.createElement("li")
-                list.classList.add("list-group-item")
-                sideprofile.appendChild(list)
+                document.getElementById("id_birth_date_container").classList.remove("d-none")
+                let birthDate = document.getElementById("id_user_birth_date")
+                birthDate.innerHTML = user_info['birth_date']
 
-                var divRow = document.createElement("div")
-                divRow.classList.add("row", "align-items-center", "gx-6")
-                list.appendChild(divRow)
-                var divCol = document.createElement("div")
-                divCol.classList.add("col")
-                divRow.appendChild(divCol)
-
-                title = document.createElement("h5")
-                title.innerHTML = "Birth Date"
-
-                content = document.createElement("p")
-                content.innerHTML = user_info['birth_date']
-
-                divCol.appendChild(title)
-                divCol.appendChild(content)
-            }
-
-            if (user_info['bio'] != "") {
-                var list = document.createElement("li")
-                list.classList.add("list-group-item")
-                sideprofile.appendChild(list)
-
-                var divRow = document.createElement("div")
-                divRow.classList.add("row", "align-items-center", "gx-6")
-                list.appendChild(divRow)
-                var divCol = document.createElement("div")
-                divCol.classList.add("col")
-                divRow.appendChild(divCol)
-
-                title = document.createElement("h5")
-                title.innerHTML = "Bio"
-
-                content = document.createElement("p")
-                content.innerHTML = user_info['bio']
-
-                divCol.appendChild(title)
-                divCol.appendChild(content)
             }
 
 
@@ -501,7 +469,7 @@
 
         function showClientErrorModal(message) {
             document.getElementById("id_client_error_modal_body").innerHTML = message
-            document.getElementById("id_trigger_client_error_modal").click()
+            $('#id_client_error_modal').modal('toggle')
         }
 
         function appendChatMessage(data, maintainPosition, isNewMessage) {
@@ -527,11 +495,11 @@
                     break;
                 case 1:
                     // User joined room
-                    createConnectedDisconnectedElement(message, msg_id, profile_image, user_id)
+                    createConnectedDisconnectedElement(message)
                     break;
                 case 2:
                     // User left room
-                    createConnectedDisconnectedElement(message, msg_id, profile_image, user_id)
+                    createConnectedDisconnectedElement(message)
                     break;
                 default:
                     console.log("Unsupported message type!");
@@ -547,34 +515,35 @@
 
             var newMessageDiv = document.createElement("div")
             newMessageDiv.classList.add("message")
-            var user = "{{ request.user.id }}"
-            if (user_id == user) {
-                newMessageDiv.classList.add("message-out")
-            }
+
             var profileDiv = document.createElement("div")
 
             var profileButton = document.createElement("a")
-            profileButton.classList.add("avatar", "avatar-responsive")
-            profileButton.setAttribute("data-bs-toggle", "offcanvas")
-            profileButton.setAttribute("data-bs-target", "#offcanvas-more")
-            profileButton.setAttribute("aria-controls", "#offcanvas-more")
+            profileButton.classList.add("avatar", "avatar-responsive", "mx-auto", "mb-2")
+            if (user_id == "{{ request.user.id }}") {
+                newMessageDiv.classList.add("message-out")
+                profileButton.setAttribute("data-bs-toggle", "modal")
+                profileButton.setAttribute("data-bs-target", "#modal-profile")
+                profileButton.setAttribute("aria-controls", "#modal-profile")
+
+            } else {
+                profileButton.setAttribute("data-bs-toggle", "offcanvas")
+                profileButton.setAttribute("data-bs-target", "#offcanvas-more")
+                profileButton.setAttribute("aria-controls", "#offcanvas-more")
+
+            }
 
 
             var profileImage = document.createElement("img")
-            profileImage.addEventListener("click", function (e) {
-                selectUser(user_id)
-            })
             profileImage.classList.add("avatar-img")
             profileImage.src = "{% static 'img/dummy_image.png' %}"
             var profile_image_id = "id_profile_image_" + msg_id
             profileImage.id = profile_image_id
 
 
-            var usernameSpan = document.createElement("span")
-            usernameSpan.addEventListener("click", function (e) {
-                selectUser(user_id)
-            })
-            usernameSpan.classList.add("text-muted")
+            var usernameSpan = document.createElement("div")
+            usernameSpan.classList.add("text-muted", "text-center", "text-break")
+            usernameSpan.style.width = "3.75rem"
             usernameSpan.innerHTML = username
 
             newMessageDiv.appendChild(profileDiv)
@@ -601,7 +570,7 @@
 
             var msgP = document.createElement("p")
             msgP.innerHTML = validateText(msg)
-            msgP.classList.add("msg-p")
+            msgP.classList.add("text-break")
             messageText.appendChild(msgP)
 
             var messageFooter = document.createElement("div")
@@ -613,9 +582,6 @@
             timestampSpan.innerHTML = timestamp
             timestampSpan.id = "id_timestamp"
             timestampSpan.classList.add("extra-small", "text-muted")
-            timestampSpan.addEventListener("click", function (e) {
-                selectUser(user_id)
-            })
             messageFooter.appendChild(timestampSpan)
 
 
@@ -652,13 +618,13 @@
             if (msg.includes("connected.")) {
                 userStatus.classList.remove("avatar-offline")
                 userStatus.classList.add("avatar-online")
-                username.innerHTML = "Online"
+                username.innerHTML = "Connected"
 
             }
             if (msg.includes("disconnected.")) {
                 userStatus.classList.remove("avatar-online")
                 userStatus.classList.add("avatar-offline")
-                username.innerHTML = "Offline"
+                username.innerHTML = "Disconnected"
 
 
             }
@@ -702,13 +668,6 @@
             } else {
                 setPaginationExhausted() // no more messages
             }
-        }
-
-        function selectUser(user_id) {
-            // Weird work-around for passing arg to url
-            var url = "{% url 'account:view' user_id=53252623623632623 %}".replace("53252623623632623", user_id)
-            var win = window.open(url, "_self")
-            win.focus()
         }
 
         /*
@@ -792,31 +751,5 @@
 
     </script>
 
-
-    <!-- Client Error MODAL -->
-    <button type="button" id="id_trigger_client_error_modal" class="d-none btn btn-primary" data-toggle="modal"
-            data-target="#id_client_error_modal">
-    </button>
-    <div class="modal fade" id="id_client_error_modal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Socket Client Error</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p id="id_client_error_modal_body">Something went wrong.</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal"
-                            id="id_client_error_modal_close_btn">Close
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Client Error MODAL -->
-
+{% include 'components/modal-error.html' %}
 {% endblock content %}

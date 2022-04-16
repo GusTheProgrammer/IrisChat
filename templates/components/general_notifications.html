@@ -6,8 +6,8 @@
 
 <script type="text/javascript">
 
-    const GENERAL_NOTIFICATION_INTERVAL = 4000
-    const GENERAL_NOTIFICATION_TIMEOUT = 5000
+    const GENERAL_NOTIFICATION_INTERVAL = 1000
+    const GENERAL_NOTIFICATION_TIMEOUT = 1500
 
     // Keep track of what notifications are currently visible to the user.
     var generalCachedNotifList = new List([])
@@ -89,7 +89,11 @@
 
         username = document.createElement("h5")
         username.classList.add("me-auto", "mb-0")
-        username.innerHTML = notification['from']['title']
+        if (notification['from']['title'].length > 18) {
+            username.innerHTML = notification['from']['title'].slice(0, 18) + "..."
+        } else {
+            username.innerHTML = notification['from']['title']
+        }
 
 
         timestampDiv.appendChild(username)
@@ -164,7 +168,11 @@
 
             username = document.createElement("h5")
             username.classList.add("me-auto", "mb-0")
-            username.innerHTML = notification['from']['title']
+            if (notification['from']['title'].length > 18) {
+                username.innerHTML = notification['from']['title'].slice(0, 12) + "..."
+            } else {
+                username.innerHTML = notification['from']['title']
+            }
 
             timestampDiv.appendChild(username)
             cardBody2.appendChild(timestampDiv)
@@ -177,7 +185,11 @@
 
             span = document.createElement("span")
             span.classList.add("me-auto")
-            span.innerHTML = notification['verb']
+            if (notification['verb'].length > 50) {
+                span.innerHTML = notification['verb'].slice(0, 25) + "..."
+            } else {
+                span.innerHTML = notification['verb']
+            }
             span.id = assignGeneralVerbId(notification)
             messageDiv.appendChild(span)
             card.appendChild(cardBody)
@@ -248,7 +260,11 @@
 
             username = document.createElement("h5")
             username.classList.add("me-auto", "mb-0")
-            username.innerHTML = notification['from']['title']
+            if (notification['from']['title'].length > 18) {
+                username.innerHTML = notification['from']['title'].slice(0, 18) + "..."
+            } else {
+                username.innerHTML = notification['from']['title']
+            }
 
             timestampDiv.appendChild(username)
             cardBody2.appendChild(timestampDiv)
@@ -261,7 +277,11 @@
 
             span = document.createElement("span")
             span.classList.add("me-auto")
-            span.innerHTML = notification['verb']
+            if (notification['verb'].length > 50) {
+                span.innerHTML = notification['verb'].slice(0, 25) + "..."
+            } else {
+                span.innerHTML = notification['verb']
+            }
             span.id = assignGeneralVerbId(notification)
             messageDiv.appendChild(span)
             card.appendChild(cardBody)
@@ -270,6 +290,79 @@
         }
 
         return card
+    }
+
+
+    // General Notification Toast
+    function createGeneralNotificationToastElement(notification) {
+        let toastContainer = document.getElementById("id_chat_notification_toast_container")
+
+        let toast = document.createElement("div")
+        toast.setAttribute("role", "alert")
+        toast.classList.add("toast")
+        toast.ariaLive = "assertive"
+        toast.ariaAtomic = "true"
+        toast.id = notification['notification_id']
+
+        let toastHeader = document.createElement("div")
+        toastHeader.classList.add("toast-header")
+        toast.appendChild(toastHeader)
+
+        let toastAvatar = document.createElement("div")
+        toastAvatar.classList.add("avatar", "avatar-xs", "me-4")
+        toastHeader.appendChild(toastAvatar)
+
+        let avatarSpan = document.createElement("span")
+        avatarSpan.classList.add("avatar-text")
+        toastAvatar.appendChild(avatarSpan)
+
+        let avatarImg = document.createElement("img")
+        avatarImg.src = notification['from']['image_url']
+        avatarImg.classList.add("avatar-img")
+
+        avatarSpan.appendChild(avatarImg)
+
+        let toastUsername = document.createElement("h5")
+        toastUsername.classList.add("me-12")
+        if (notification['from']['title'].length > 18) {
+            toastUsername.innerHTML = notification['from']['title'].slice(0, 18) + "..."
+        } else {
+            toastUsername.innerHTML = notification['from']['title']
+
+        }
+
+        let toastTimestamp = document.createElement("small")
+        toastTimestamp.classList.add("text-muted")
+        toastTimestamp.innerHTML = notification['natural_timestamp']
+
+        let toastDismiss = document.createElement("button")
+        toastDismiss.classList.add("btn-close")
+        toastDismiss.type = "button"
+        toastDismiss.ariaLabel = "Close"
+        toastDismiss.setAttribute("data-bs-dismiss", "toast")
+
+        toastHeader.appendChild(toastUsername)
+        toastHeader.appendChild(toastTimestamp)
+        toastHeader.appendChild(toastDismiss)
+
+        let toastBody = document.createElement("div")
+        toastBody.classList.add("toast-body")
+        toastBody.addEventListener("click", function () {
+            generalRedirect(notification['actions']['redirect_url'])
+        })
+
+        if (notification['verb'].length > 65) {
+            toastBody.innerHTML = notification['verb'].slice(0, 50) + "..."
+        } else {
+            toastBody.innerHTML = notification['verb']
+        }
+
+        toast.appendChild(toastBody)
+        toastContainer.appendChild(toast)
+
+        $("#" + toast.id).toast("show");
+
+
     }
 
     /*
@@ -370,22 +463,6 @@
         }
     }
 
-    /*
-    Sets the scroll listener for when user scrolls to bottom of notification menu.
-    It will retrieve the next page of results.
-*/
-    function setOnGeneralNotificationScrollListener() {
-        var menu = document.getElementById("id_general_notifications_container")
-        if (menu != null) {
-            menu.addEventListener("scroll", function (e) {
-                if ((menu.scrollTop) >= (menu.scrollHeight - menu.offsetHeight)) {
-                    getNextGeneralNotificationsPage()
-                }
-            })
-        }
-    }
-
-    setOnGeneralNotificationScrollListener()
 
     /*
         Called when pagination is exhausted and there is no more notifications.
@@ -546,6 +623,7 @@
 
                 submitGeneralNotificationToCache(notification)
 
+
                 setGeneralOldestTimestamp(notification['timestamp'])
                 setGeneralNewestTimestamp(notification['timestamp'])
             })
@@ -560,12 +638,16 @@
         switch (notification['notification_type']) {
 
             case "FriendRequest":
+                createGeneralNotificationToastElement(notification)
+
                 notificationContainer = document.getElementById("id_general_notifications_container")
                 card = createFriendRequestElement(notification)
                 notificationContainer.insertBefore(card, notificationContainer.childNodes[0]);
                 break;
 
             case "FriendList":
+                createGeneralNotificationToastElement(notification)
+
                 notificationContainer = document.getElementById("id_general_notifications_container")
                 card = createFriendListElement(notification)
                 notificationContainer.insertBefore(card, notificationContainer.childNodes[0]);
@@ -621,9 +703,9 @@
     Set the number of unread notifications.
 */
     function setUnreadGeneralNotificationsCount(count) {
-        var countDiv = document.getElementById("id_general_notifications_count")
-        var spanDiv = document.getElementById("id_general_notifications_div")
-        var span = document.getElementById("id_general_notifications_span")
+        let countDiv = document.getElementById("id_general_notifications_count")
+        let spanDiv = document.getElementById("id_general_notifications_div")
+        let span = document.getElementById("id_general_notifications_span")
 
         if (count > 0) {
             countDiv.classList.add("icon-badged")

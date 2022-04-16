@@ -402,35 +402,41 @@
 
         var newMessageDiv = document.createElement("div")
         newMessageDiv.classList.add("message")
-        var user = "{{ request.user.id }}"
-        if (user_id == user) {
-            newMessageDiv.classList.add("message-out")
-        }
+
         var profileDiv = document.createElement("div")
 
         var profileButton = document.createElement("a")
-        profileButton.classList.add("avatar", "avatar-responsive")
-        profileButton.setAttribute("data-bs-toggle", "offcanvas")
-        profileButton.setAttribute("data-bs-target", "#offcanvas-more")
-        profileButton.setAttribute("aria-controls", "#offcanvas-more")
+        profileButton.classList.add("avatar", "avatar-responsive", "mx-auto", "mb-2")
 
 
         var profileImage = document.createElement("img")
-        profileImage.addEventListener("click", function (e) {
-            selectUser(user_id)
-        })
+
         profileImage.classList.add("avatar-img")
         profileImage.src = "{% static 'img/dummy_image.png' %}"
         var profile_image_id = "id_profile_image_" + msg_id
         profileImage.id = profile_image_id
 
 
-        var usernameSpan = document.createElement("span")
-        usernameSpan.addEventListener("click", function (e) {
-            selectUser(user_id)
-        })
-        usernameSpan.classList.add("text-muted")
+        var usernameSpan = document.createElement("div")
+        usernameSpan.classList.add("text-muted", "text-center", "text-break")
+        usernameSpan.style.width = "3.75rem"
         usernameSpan.innerHTML = username
+
+        if (user_id == "{{ request.user.id }}") {
+            newMessageDiv.classList.add("message-out")
+            profileButton.setAttribute("data-bs-toggle", "modal")
+            profileButton.setAttribute("data-bs-target", "#modal-profile")
+            profileButton.setAttribute("aria-controls", "#modal-profile")
+
+        } else {
+            profileImage.addEventListener("click", function (e) {
+                selectUser(user_id)
+            })
+            usernameSpan.addEventListener("click", function (e) {
+                selectUser(user_id)
+            })
+
+        }
 
         newMessageDiv.appendChild(profileDiv)
         profileDiv.appendChild(profileButton)
@@ -456,7 +462,7 @@
 
         var msgP = document.createElement("p")
         msgP.innerHTML = validateText(msg)
-        msgP.classList.add("msg-p")
+        msgP.classList.add("text-break")
         messageText.appendChild(msgP)
 
         var messageFooter = document.createElement("div")
@@ -468,9 +474,6 @@
         timestampSpan.innerHTML = timestamp
         timestampSpan.id = "id_timestamp"
         timestampSpan.classList.add("extra-small", "text-muted")
-        timestampSpan.addEventListener("click", function (e) {
-            selectUser(user_id)
-        })
         messageFooter.appendChild(timestampSpan)
 
 
@@ -505,13 +508,13 @@
     function selectUser(user_id) {
         // Weird work-around for passing arg to url
         var url = "{% url 'account:view' user_id=53252623623632623 %}".replace("53252623623632623", user_id)
-        var win = window.open(url, "_blank")
+        var win = window.open(url, "_self")
         win.focus()
     }
 
     function showClientErrorModal(message) {
         document.getElementById("id_client_error_modal_body").innerHTML = message
-        document.getElementById("id_trigger_client_error_modal").click()
+        $('#id_client_error_modal').modal('toggle')
     }
 
     function displayChatroomLoadingSpinner(isDisplayed) {
@@ -529,29 +532,4 @@
     }
 </script>
 
-
-<!-- Client Error MODAL -->
-<button type="button" id="id_trigger_client_error_modal" class="d-none btn btn-primary" data-toggle="modal"
-        data-target="#id_client_error_modal">
-</button>
-<div class="modal fade" id="id_client_error_modal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Socket Client Error</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p id="id_client_error_modal_body">Something went wrong.</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal"
-                        id="id_client_error_modal_close_btn">Close
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Client Error MODAL -->
+{% include 'components/modal-error.html' %}

@@ -4,9 +4,6 @@
 <p class="d-none" id="id_chat_page_number">1</p>
 
 <script type="text/javascript">
-
-    setOnChatNotificationScrollListener()
-
     /*
         Called when pagination is exhausted and there is no more notifications.
     */
@@ -21,7 +18,7 @@
         document.getElementById("id_chat_page_number").innerHTML = pageNumber
     }
 
-    const CHAT_NOTIFICATION_INTERVAL = 4000
+    const CHAT_NOTIFICATION_INTERVAL = 2000
 
     // Keep track of what notifications are currently visible to the user.
     var chatCachedNotifList = new List([])
@@ -86,6 +83,8 @@
                 submitNewChatNotificationToCache(notification)
 
                 setChatNewestTimestamp(notification['timestamp'])
+                // toasts
+                createChatNotificationToastElement(notification)
             })
         }
     }
@@ -127,7 +126,7 @@
 
 
             var text = document.createElement("h4")
-            text.classList.add("text-muted","mb-1")
+            text.classList.add("text-muted", "mb-1")
             text.innerHTML = "You have no Notifications !"
             div.appendChild(text)
 
@@ -256,6 +255,87 @@
         return card
     }
 
+    var toastCount = 0
+
+    // Create Chat Notification Toast Element
+    function createChatNotificationToastElement(notification) {
+        let toastContainer = document.getElementById("id_chat_notification_toast_container")
+
+        let toast = document.createElement("div")
+        toast.setAttribute("role", "alert")
+        toast.classList.add("toast")
+        toast.ariaLive = "assertive"
+        toast.ariaAtomic = "true"
+        toast.id = assignToastId(notification)
+
+
+        let toastHeader = document.createElement("div")
+        toastHeader.classList.add("toast-header")
+        toast.appendChild(toastHeader)
+
+        let toastAvatar = document.createElement("div")
+        toastAvatar.classList.add("avatar", "avatar-xs", "me-4")
+        toastHeader.appendChild(toastAvatar)
+
+        let avatarSpan = document.createElement("span")
+        avatarSpan.classList.add("avatar-text")
+        toastAvatar.appendChild(avatarSpan)
+
+        let avatarImg = document.createElement("img")
+        avatarImg.src = notification['from']['image_url']
+        avatarImg.classList.add("avatar-img")
+
+        avatarSpan.appendChild(avatarImg)
+
+        let toastUsername = document.createElement("h5")
+        toastUsername.classList.add("me-12")
+        if (notification['from']['title'].length > 18) {
+            toastUsername.innerHTML = notification['from']['title'].slice(0, 18) + "..."
+        } else {
+            toastUsername.innerHTML = notification['from']['title']
+
+        }
+
+        let toastTimestamp = document.createElement("small")
+        toastTimestamp.classList.add("text-muted")
+        toastTimestamp.innerHTML = notification['natural_timestamp']
+
+        let toastDismiss = document.createElement("button")
+        toastDismiss.classList.add("btn-close")
+        toastDismiss.type = "button"
+        toastDismiss.ariaLabel = "Close"
+        toastDismiss.setAttribute("data-bs-dismiss", "toast")
+
+        toastHeader.appendChild(toastUsername)
+        toastHeader.appendChild(toastTimestamp)
+        toastHeader.appendChild(toastDismiss)
+
+        let toastBody = document.createElement("div")
+        toastBody.classList.add("toast-body", "w-100")
+        toastBody.addEventListener("click", function () {
+            chatRedirect(notification['actions']['redirect_url'])
+        })
+        if (notification['verb'].length > 65) {
+            toastBody.innerHTML = notification['verb'].slice(0, 50) + "..."
+        } else {
+            toastBody.innerHTML = notification['verb']
+        }
+
+        toast.appendChild(toastBody)
+        toastContainer.appendChild(toast)
+
+
+        const toasts = document.getElementsByClassName("toast");
+        const lastToast = toasts[toasts.length - 1]
+        toastCount++
+
+        toast.id = "id_toast_" + notification['notification_id'] + "_" + toastCount
+        $("#" + lastToast.id).toast("show");
+
+
+    }
+
+
     /*
         Append a chat notification to the TOP of the list.
     */
@@ -324,7 +404,6 @@
         I do not update the image_url since that makes the notifications "flicker".
     */
     function refreshChatNotificationsList(notification) {
-        getLatestChatMessages()
         notificationContainer = document.getElementById("id_chat_notifications_container")
 
         if (notificationContainer != null) {
@@ -380,35 +459,21 @@
         })
     }
 
-    /*
-    Sets the scroll listener for when user scrolls to bottom of notification menu.
-    It will retrieve the next page of results.
-*/
-    function setOnChatNotificationScrollListener() {
-        var menu = document.getElementById("id_chat_notifications_container")
-        if (menu != null) {
-            menu.addEventListener("scroll", function (e) {
-
-                if ((menu.scrollTop) >= (menu.scrollHeight - menu.offsetHeight)) {
-                    getNextChatNotificationsPage()
-                }
-            });
-        }
-
-    }
 
     function setChatNotificationsCount(count) {
-        var iconDiv = document.getElementById("id_chat_notifications_count")
+        let countDiv = document.getElementById("id_chat_notifications_count")
+        let spanDiv = document.getElementById("id_chat_notifications_div")
+        let span = document.getElementById("id_chat_notifications_span")
+
         if (count > 0) {
-            var countDiv = document.createElement("div")
-            countDiv.classList.add("badge", "badge-circle", "bg-primary")
-            var countSpan = document.createElement("span")
-            iconDiv.appendChild(countDiv)
-            countDiv.appendChild(countSpan)
-            iconDiv.classList.add("icon-badged")
-            countSpan.innerHTML = count
+            countDiv.classList.add("icon-badged")
+            spanDiv.classList.add("badge", "badge-circle", "bg-primary")
+            span.innerHTML = count
         } else {
-            iconDiv.classList.remove("icon-badged")
+            countDiv.classList.remove("icon-badged")
+            spanDiv.classList.remove("badge", "badge-circle", "bg-primary")
+            span.innerHTML = ""
+
         }
     }
 
@@ -416,9 +481,6 @@
 
 <!-- Payloads sent to consumer -->
 <script type="text/javascript">
-    function getLatestChatMessages(latest_messages){
-        console.log("####################################################### " + latest_messages['room'])
-    }
 
 
     /*
@@ -521,6 +583,10 @@
 
     function assignChatCardId(notification) {
         return "id_notification_" + notification['notification_id']
+    }
+
+    function assignToastId(notification) {
+        return "id_toast_" + notification['notification_id']
     }
 
     function setChatInitialTimestamp() {

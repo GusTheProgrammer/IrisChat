@@ -7,7 +7,7 @@
             <div class="d-flex flex-column h-100 position-relative">
                 <!-- Account Header -->
                 <div class="offcanvas-header py-4 py-lg-7 border-bottom">
-                    <a class="icon icon-lg text-muted" href="#" onclick="toggleMainClass()">
+                    <a class="icon icon-lg text-muted d-xl-none" href="#" onclick="toggleMainClass()">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                              class="feather feather-chevron-left">
@@ -190,9 +190,9 @@
                                 <!-- THEM to YOU -->
                                 {% if request_sent == 0 %}
                                     <!-- Accept/Decline Request -->
-                                    <div class="col-4 mx-auto pt-4">
-                                        <ul class="nav nav-pills justify-content-md-center">
-                                            <li class="nav-item">
+                                    <div class="col-lg-2 col-md-3 col-5 mx-auto pt-4">
+                                        <ul class="nav nav-pills justify-content-center">
+                                            <li class="nav-item ">
                                                 <button class="nav-link text-danger"
                                                         id="id_cancel_{{ id }}"
                                                         onclick='triggerDeclineFriendRequest("{{ pending_friend_request_id }}")'>
@@ -379,24 +379,7 @@
                                                 </div>
                                                 <div class="col-auto">
                                                     <div class="btn btn-sm btn-icon btn-dark">
-                                                        <a href="https://www.google.com/calendar/event?action=TEMPLATE&dates=
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                                                                {% now "Y" %}{{ birth_date|date:"md" }}T180000Z%2F20220406T190000Z&text={{ username }}'s%20Birthday&location=&details=Celebrate%20{{ username }}'s%20Birthday!!"
+                                                        <a href="https://www.google.com/calendar/event?action=TEMPLATE&dates={% now "Y" %}{{ birth_date|date:"md" }}T180000Z%2F20220406T190000Z&text={{ username }}'s%20Birthday&location=&details=Celebrate%20{{ username }}'s%20Birthday!!"
                                                            target="_blank" class="text-reset">
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="24"
                                                                  height="24" viewBox="0 0 24 24" fill="none"
@@ -472,8 +455,8 @@
                                     </li>
 
                                     <li class="list-group-item">
-                                        <a class="d-flex align-items-center text-danger"
-                                           href="#" onclick="removeFriend('{{ id }}', onFriendRemoved)">
+                                        <a class="d-flex align-items-center text-danger" href="#" data-bs-toggle="modal"
+                                           data-bs-target="#unfriendModal">
                                             <span class="me-auto">Unfriend</span>
                                             <div class="icon">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -556,6 +539,51 @@
 
         </div>
     </main>
+
+    {% if is_friend %}
+        <!-- Modal -->
+        <div class="modal fade" id="unfriendModal" tabindex="-1"
+             aria-labelledby="unfriendModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title text-danger" id="unfriendModalLabel">
+                            Unfriend {{ username }}?</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Are you sure you want to unfriend {{ username }}?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary"
+                                data-bs-dismiss="modal">No
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                 viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                 stroke-width="2" stroke-linecap="round"
+                                 stroke-linejoin="round" class="feather feather-x">
+                                <line x1="18" y1="6" x2="6" y2="18"></line>
+                                <line x1="6" y1="6" x2="18" y2="18"></line>
+                            </svg>
+                        </button>
+                        <button type="button" class="btn btn-danger"
+                                onclick="removeFriend('{{ id }}', onFriendRemoved)">Yes
+
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                 viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                 stroke-width="2" stroke-linecap="round"
+                                 stroke-linejoin="round" class="feather feather-trash-2">
+                                <polyline points="3 6 5 6 21 6"></polyline>
+                                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                <line x1="10" y1="11" x2="10" y2="17"></line>
+                                <line x1="14" y1="11" x2="14" y2="17"></line>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
 
     <script type="text/javascript">
 

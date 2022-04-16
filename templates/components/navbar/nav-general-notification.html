@@ -36,3 +36,22 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    /*
+        Sets the scroll listener for when user scrolls to bottom of notification menu.
+        It will retrieve the next page of results.
+    */
+    function setOnGeneralNotificationScrollListener() {
+        var menu = document.getElementById("id_general_notifications_container")
+        if (menu != null) {
+            menu.addEventListener("scroll", function (e) {
+                if ((menu.scrollTop) >= (menu.scrollHeight - menu.offsetHeight)) {
+                    getNextGeneralNotificationsPage()
+                }
+            })
+        }
+    }
+
+    setOnGeneralNotificationScrollListener()
+</script>

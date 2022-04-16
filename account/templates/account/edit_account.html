@@ -8,7 +8,7 @@
                 {% csrf_token %}
                 <!-- Account Header -->
                 <div class="offcanvas-header py-4 py-lg-7 border-bottom">
-                    <a class="icon icon-lg text-muted" href="#" onclick="toggleMainClass()">
+                    <a class="icon icon-lg text-muted d-xl-none" href="#" onclick="toggleMainClass()">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                              class="feather feather-chevron-left">
@@ -89,8 +89,8 @@
                     <!-- Avatar -->
                     <div class="text-center py-10">
                         <div class="row gy-6">
-                            <div class="col-4 mx-auto" id="id_rotate_container">
-                                <ul class="nav nav-pills justify-content-md-center">
+                            <div class="col-lg-3 col-md-5 col-7 mx-auto" id="id_rotate_container">
+                                <ul class="nav nav-pills justify-content-center">
                                     <li class="nav-item">
                                              <span class="nav-link text-dark badge badge-xl border-outline mx-3"
                                                    id="id_rotate_ccw" role="button">
@@ -142,8 +142,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-4 mx-auto pt-4" id="id_image_crop_confirm">
-                                    <ul class="nav nav-pills justify-content-md-center">
+                                <div class="col-lg-3 col-md-5 col-7 mx-auto pt-4" id="id_image_crop_confirm">
+                                    <ul class="nav nav-pills justify-content-center">
                                         <li class="nav-item">
                                              <span class="nav-link text-danger badge badge-xl border-outline mx-3"
                                                    id="id_cancel" role="button">

@@ -148,7 +148,9 @@
 
                                     <li>
                                         <a class="dropdown-item d-flex align-items-center text-danger"
-                                           href="#" onclick="removeFriend('{{ friend.0.pk }}', onFriendRemoved)">
+                                           href="#" data-bs-toggle="modal"
+                                           data-bs-target="#unfriendModal_{{ friend.0.pk }}"
+                                        >
                                             <span class="me-auto">Unfriend</span>
                                             <div class="icon">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -164,6 +166,7 @@
                                             </div>
                                         </a>
                                     </li>
+
                                 {% endif %}
                             </ul>
                         </div>
@@ -171,6 +174,48 @@
                     <!-- Dropdown -->
                 </div>
             </li>
+
+            <div class="modal fade" id="unfriendModal_{{ friend.0.pk }}" tabindex="-1"
+                 aria-labelledby="unfriendModalLabel_{{ friend.0.pk }}" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title text-danger" id="unfriendModalLabel_{{ friend.0.pk }}">
+                                Unfriend {{ friend.0.username }}?</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            Are you sure you want to unfriend {{ friend.0.username }}?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary"
+                                    data-bs-dismiss="modal">No
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                     viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                     stroke-width="2" stroke-linecap="round"
+                                     stroke-linejoin="round" class="feather feather-x">
+                                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                                </svg>
+                            </button>
+                            <button type="button" class="btn btn-danger"
+                                    onclick="removeFriend('{{ friend.0.pk }}', onFriendRemoved)">Yes
+
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                     viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                     stroke-width="2" stroke-linecap="round"
+                                     stroke-linejoin="round" class="feather feather-trash-2">
+                                    <polyline points="3 6 5 6 21 6"></polyline>
+                                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                    <line x1="10" y1="11" x2="10" y2="17"></line>
+                                    <line x1="14" y1="11" x2="14" y2="17"></line>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
         {% endfor %}
 

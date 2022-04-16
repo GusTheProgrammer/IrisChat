@@ -59,16 +59,16 @@
 
                                     <div class="col">
                                         <div class="d-flex align-items-center mb-3">
-                                            <h5 class="me-auto mb-0">{{ x.friend.username }}</h5>
+                                            <h5 class="me-auto mb-0">{{ x.friend.username|truncatechars:14 }}</h5>
                                             <span class="text-muted extra-small ms-2">{{ x.message.timestamp|timesince }} ago</span>
                                         </div>
 
                                         <div class="d-flex align-items-center">
                                             <div class="line-clamp me-auto">
                                                 {% if x.message.user.id == request.user.id %}
-                                                    You: {{ x.message|truncatechars:20 }}
+                                                    You: {{ x.message|truncatechars:30 }}
                                                 {% else %}
-                                                    {{ x.message|truncatechars:20 }}
+                                                    {{ x.message|truncatechars:30 }}
                                                 {% endif %}
 
                                             </div>
