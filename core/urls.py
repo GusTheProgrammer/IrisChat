@@ -22,10 +22,9 @@ from django.views.generic import TemplateView
 from django.contrib.auth import views as auth_views
 
 from account.views import register_view, login_view, logout_view, account_search_view
-from public_chat.views import home_screen_view
 
 urlpatterns = [
-    path('', home_screen_view, name='homepage'),
+    path('', include('public_chat.urls', namespace='public_chat')),
     path('account/', include('account.urls', namespace='account')),
     path('admin/', admin.site.urls),
     path('chat/', include('chat.urls', namespace='chat')),

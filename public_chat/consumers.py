@@ -2,14 +2,13 @@ import json
 from channels.generic.websocket import AsyncJsonWebsocketConsumer
 from channels.db import database_sync_to_async
 from django.core.paginator import Paginator
-from django.core.serializers.python import Serializer
-
 from django.utils import timezone
 
-from .models import PublicChatRoom, PublicRoomChatMessage
-from .constants import *
 from chat.exceptions import ClientError
 from chat.utils import calculate_timestamp
+from .models import PublicChatRoom, PublicRoomChatMessage
+from .constants import *
+from .utils import LazyRoomChatMessageEncoder, LazyGroupInfoEncoder
 
 
 # Example taken from:
@@ -65,6 +64,16 @@ class PublicChatConsumer(AsyncJsonWebsocketConsumer):
                     await self.send_messages_payload(payload['messages'], payload['new_page_number'])
                 else:
                     raise ClientError(204, "Something went wrong retrieving the chatroom messages.")
+                await self.display_progress_bar(False)
+            elif command == "get_group_info":
+                await self.display_progress_bar(True)
+                room = await get_room_or_error(content['room_id'])
+                payload = await get_group_info(room)
+                if payload != None:
+                    payload = json.loads(payload)
+                    await self.send_group_info_payload(payload['group_info'])
+                else:
+                    raise ClientError(204, "Something went wrong retrieving the other group's details.")
                 await self.display_progress_bar(False)
         except ClientError as e:
             await self.display_progress_bar(False)
@@ -239,6 +248,17 @@ class PublicChatConsumer(AsyncJsonWebsocketConsumer):
             },
         )
 
+    async def send_group_info_payload(self, group_info):
+        """
+        Send a payload of user information to the ui
+        """
+        print("ChatConsumer: send_user_info_payload. ")
+        await self.send_json(
+            {
+                "group_info": group_info,
+            },
+        )
+
 
 @database_sync_to_async
 def get_num_connected_users(room_id):
@@ -304,14 +324,16 @@ def get_room_chat_messages(room, page_number):
         return None
 
 
-class LazyRoomChatMessageEncoder(Serializer):
-    def get_dump_object(self, obj):
-        dump_object = {}
-        dump_object.update({'msg_type': MSG_TYPE_MESSAGE})
-        dump_object.update({'msg_id': str(obj.id)})
-        dump_object.update({'user_id': str(obj.user.id)})
-        dump_object.update({'username': str(obj.user.username)})
-        dump_object.update({'message': str(obj.content)})
-        dump_object.update({'profile_image': str(obj.user.profile_image.url)})
-        dump_object.update({'natural_timestamp': calculate_timestamp(obj.timestamp)})
-        return dump_object
+@database_sync_to_async
+def get_group_info(room):
+    """
+    Retrieve group chat info
+    """
+    try:
+        payload = {}
+        s = LazyGroupInfoEncoder()
+        payload['group_info'] = s.serialize([room])[0]
+        return json.dumps(payload)
+    except ClientError as e:
+        raise ClientError("DATA_ERROR", "Unable to get that users information.")
+

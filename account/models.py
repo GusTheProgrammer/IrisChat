@@ -62,9 +62,9 @@ class Account(AbstractBaseUser):
 
     profile_image = models.ImageField(upload_to=get_profile_image_filepath, blank=True, null=True, max_length=255,
                                       default=get_default_profile_image)
-    first_name = models.CharField(max_length=150, blank=True)
-    last_name = models.CharField(max_length=150, blank=True)
-    bio = models.TextField(max_length=500, blank=True)
+    first_name = models.CharField(max_length=64, blank=True)
+    last_name = models.CharField(max_length=64, blank=True)
+    bio = models.TextField(max_length=150, blank=True)
     birth_date = models.DateField(null=True, blank=True)
 
     USERNAME_FIELD = 'email'

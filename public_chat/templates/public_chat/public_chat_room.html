@@ -33,12 +33,12 @@
                                 <div class="row align-items-center gx-5">
                                     <div class="col-auto">
                                         <div class="avatar avatar-online d-none d-xl-inline-block">
-                                            <img class="avatar-img" src="" alt="">
+                                            <img class="avatar-img" src="{% static 'img/dummy_image.png' %}" id="id_group_image">
                                         </div>
                                     </div>
 
                                     <div class="col overflow-hidden">
-                                        <h5 class="text-truncate">{{ room_title }}</h5>
+                                        <h5 class="text-truncate" id="id_group_name"></h5>
                                         <p class="text-truncate" id="id_connected_users"></p>
                                     </div>
                                 </div>
@@ -237,80 +237,134 @@
     </div>
 </main>
 <!-- Chat -->
-{% include 'components/chat-sideprofile.html' %}
+{% include 'components/private-chat-sideprofile.html' %}
 <script type="text/javascript">
+    var publicChatSocket = null;
+    var roomId = null;
 
-    // Correctly decide between ws:// and wss://
-    var ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";
-    {% if debug_mode %}
-        var ws_path = ws_scheme + '://' + window.location.host + "/public_chat/{{room_id}}/"; // development
-    {% else %}
-        var ws_path = ws_scheme + '://' + window.location.host + ":8001/public_chat/{{room_id}}/"; // production
-    {% endif %}
-    var public_chat_socket = new WebSocket(ws_path);
+    onStart()
 
-    // Handle incoming messages
-    public_chat_socket.onmessage = function (message) {
-        console.log("Got chat websocket message " + message.data);
-        var data = JSON.parse(message.data);
+    function onStart() {
+        {% if groups %}
+            onSelectGroup("{{groups.0.room.id}}")
+        {% endif %}
 
-        // display the progress bar?
-        displayChatroomLoadingSpinner(data.display_progress_bar)
-
-        // Handle errors (ClientError)
-        if (data.error) {
-            console.error(data.error + ": " + data.message)
-            showClientErrorModal(data.message)
-            return;
-        }
-        // Handle joining (Client perspective)
-        if (data.join) {
-            console.log("Joining public room " + data.join);
-            getRoomChatMessages()
-        }
-
-        // Handle getting a message
-        if (data.msg_type == 0) {
-            appendChatMessage(data, true, true)
-        }
-        // Handle getting the connected_user count
-        if (data.msg_type == 1) {
-            setConnectedUsersCount(data['connected_user_count'])
-        }
-        // new payload of messages coming in from backend
-        if (data.messages_payload) {
-            console.log("PAYLOAD")
-            handleMessagesPayload(data.messages, data.new_page_number)
-        }
-    };
-
-    public_chat_socket.addEventListener("open", function (e) {
-        console.log("Public Public ChatSocket OPEN")
-        // join chat room
-        if ("{{request.user.is_authenticated}}") {
-            public_chat_socket.send(JSON.stringify({
-                "command": "join",
-                "room": "{{room_id}}"
-            }));
-        }
-    })
-
-    public_chat_socket.onclose = function (e) {
-        console.error('Public ChatSocket closed.');
-    };
-
-    public_chat_socket.onOpen = function (e) {
-        console.log("Public ChatSocket onOpen", e)
+        {% for group in groups %}
+            preloadImage("{{group.room.group_image.url|safe}}", "id_group_img_{{group.room.id}}")
+        {% endfor %}
     }
 
-    public_chat_socket.onerror = function (e) {
-        console.log('Public ChatSocket error', e)
+    function onSelectGroup(roomId) {
+        console.log("onSelectGroup: " + roomId)
+        createOrReturnPublicChat(roomId)
+        clearHighlightedGroup()
+        highlightGroup(roomId)
+        toggleMainClass()
     }
 
-    if (public_chat_socket.readyState == WebSocket.OPEN) {
-        console.log("Public ChatSocket OPEN")
-    } else if (public_chat_socket.readyState == WebSocket.CONNECTING) {
-        console.log("Public ChatSocket connecting..")
+    function closeWebSocket() {
+        if (publicChatSocket != null) {
+            publicChatSocket.close()
+            publicChatSocket = null
+            clearChatLog()
+            setPageNumber("1")
+            disableChatLogScrollListener()
+        }
+    }
+
+    function setupWebSocket(room_id) {
+        console.log("setupWebSocket: " + room_id)
+
+        roomId = room_id
+
+        // close previous socket if one is open
+        closeWebSocket()
+
+        // Correctly decide between ws:// and wss://
+        var ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";
+        {% if debug_mode %}
+            var ws_path = ws_scheme + '://' + window.location.host + "/public_chat/" + roomId + "/"; // development
+        {% else %}
+            var ws_path = ws_scheme + '://' + window.location.host + ":8001/public_chat/" + roomId + "/"; // production
+        {% endif %}
+
+
+        publicChatSocket = new WebSocket(ws_path);
+
+        // Handle incoming messages
+        publicChatSocket.onmessage = function (message) {
+            console.log("Got chat websocket message " + message.data);
+            var data = JSON.parse(message.data);
+
+            // display the progress bar?
+            displayChatroomLoadingSpinner(data.display_progress_bar)
+
+            // Handle errors (ClientError)
+            if (data.error) {
+                console.error(data.error + ": " + data.message)
+                showClientErrorModal(data.message)
+                return;
+            }
+            // Handle joining (Client perspective)
+            if (data.join) {
+                console.log("Joining public room " + data.join);
+                getGroupInfo()
+                getRoomChatMessages()
+                enableChatLogScrollListener()
+            }
+            // Handle leaving (client perspective)
+            if (data.leave) {
+                // do nothing
+                console.log("Leaving room " + data.leave);
+            }
+
+            if (data.group_info) {
+                console.log(data.group_info)
+                handleGroupInfoPayload(data.group_info)
+            }
+
+            // Handle getting a message
+            if (data.msg_type == 0) {
+                appendChatMessage(data, true, true)
+            }
+            // Handle getting the connected_user count
+            if (data.msg_type == 1) {
+                setConnectedUsersCount(data['connected_user_count'])
+            }
+            // new payload of messages coming in from backend
+            if (data.messages_payload) {
+                console.log("PAYLOAD")
+                handleMessagesPayload(data.messages, data.new_page_number)
+            }
+        };
+
+        publicChatSocket.addEventListener("open", function (e) {
+            console.log("Public Public ChatSocket OPEN")
+            // join chat room
+            if ("{{request.user.is_authenticated}}") {
+                publicChatSocket.send(JSON.stringify({
+                    "command": "join",
+                    "room": roomId
+                }));
+            }
+        })
+
+        publicChatSocket.onclose = function (e) {
+            console.error('Public ChatSocket closed.');
+        };
+
+        publicChatSocket.onOpen = function (e) {
+            console.log("Public ChatSocket onOpen", e)
+        }
+
+        publicChatSocket.onerror = function (e) {
+            console.log('Public ChatSocket error', e)
+        }
+        if (publicChatSocket.readyState == WebSocket.OPEN) {
+            console.log("Public ChatSocket OPEN")
+        } else if (publicChatSocket.readyState == WebSocket.CONNECTING) {
+            console.log("Public ChatSocket connecting..")
+        }
     }
 
     document.getElementById('id_chat_message_input').focus();
@@ -324,16 +378,45 @@
     };
 
     document.getElementById('id_chat_message_submit').onclick = function (e) {
+        console.log("###############################", roomId)
         e.preventDefault()
         const messageInputDom = document.getElementById('id_chat_message_input');
         const message = messageInputDom.value;
-        public_chat_socket.send(JSON.stringify({
+        publicChatSocket.send(JSON.stringify({
             "command": "send",
             "message": message,
-            "room_id": "{{room_id}}"
+            "room_id": roomId
         }));
         messageInputDom.value = '';
     };
+
+    /*
+           Retrieve the user information of the user other in the chat.
+           1. Profile image
+           2. username
+           3. etc...
+       */
+    function getGroupInfo() {
+        publicChatSocket.send(JSON.stringify({
+            "command": "get_group_info",
+            "room_id": roomId,
+        }));
+    }
+
+    function handleGroupInfoPayload(group_info) {
+        let groupName = document.getElementById("id_group_name")
+        groupName.innerHTML = group_info['title']
+
+
+        preloadImage(group_info['group_image'], "id_group_image")
+
+
+        if (group_info['about'] != "") {
+            let bio = document.getElementById("id_user_bio")
+            bio.innerHTML = group_info['bio']
+        }
+    }
+
 
     function appendChatMessage(data, maintainPosition, isNewMessage) {
         message = data['message']
@@ -348,54 +431,6 @@
         createChatMessageElement(msg, msg_id, username, profile_image, user_id, timestamp, maintainPosition, isNewMessage)
 
     }
-
-    function handleMessagesPayload(messages, new_page_number) {
-        if (messages != null && messages != "undefined" && messages != "None") {
-            setPageNumber(new_page_number)
-            messages.forEach(function (message) {
-                appendChatMessage(message, true, false)
-                let chatBox = document.getElementById("id_chat_log")
-                chatBox.scrollTop = chatBox.scrollHeight;
-            })
-        } else {
-            setPaginationExhausted() // no more messages
-        }
-    }
-
-    function setPageNumber(pageNumber) {
-        document.getElementById("id_page_number").innerHTML = pageNumber
-    }
-
-    function setPaginationExhausted() {
-        setPageNumber("-1")
-    }
-
-    /*
-        Retrieve the chat room messages given the page number.
-    */
-    function getRoomChatMessages() {
-        var pageNumber = document.getElementById("id_page_number").innerHTML
-        if (pageNumber != "-1") {
-            setPageNumber("-1") // Do not allow any other queries while one is in progress
-            public_chat_socket.send(JSON.stringify({
-                "command": "get_room_chat_messages",
-                "room_id": "{{room_id}}",
-                "page_number": pageNumber,
-            }));
-        }
-    }
-
-    /*
-        Get the next page of chat messages when scrolls to bottom
-    */
-    document.getElementById("id_chat_log").addEventListener("scroll", function (e) {
-        var chatLog = document.getElementById("id_chat_log")
-        chatLog.addEventListener("scroll", function (e) {
-            if ((Math.abs(chatLog.scrollTop) + 2) >= (chatLog.scrollHeight - chatLog.offsetHeight)) {
-                getRoomChatMessages()
-            }
-        });
-    })
 
     function createChatMessageElement(msg, msg_id, username, profile_image, user_id, timestamp, maintainPosition, isNewMessage) {
         var chatLog = document.getElementById("id_chat_log")
@@ -505,6 +540,96 @@
 
     }
 
+
+    function setPageNumber(pageNumber) {
+        document.getElementById("id_page_number").innerHTML = pageNumber
+    }
+
+    function clearChatLog() {
+        document.getElementById("id_chat_log").innerHTML = ""
+    }
+
+    function setPaginationExhausted() {
+        setPageNumber("-1")
+    }
+
+    /*
+        Retrieve the chat room messages given the page number.
+    */
+    function getRoomChatMessages() {
+        var pageNumber = document.getElementById("id_page_number").innerHTML
+        if (pageNumber != "-1") {
+            setPageNumber("-1") // Do not allow any other queries while one is in progress
+            publicChatSocket.send(JSON.stringify({
+                "command": "get_room_chat_messages",
+                "room_id": roomId,
+                "page_number": pageNumber,
+            }));
+        }
+    }
+
+    function handleMessagesPayload(messages, new_page_number) {
+        if (messages != null && messages != "undefined" && messages != "None") {
+            setPageNumber(new_page_number)
+            messages.forEach(function (message) {
+                appendChatMessage(message, true, false)
+                let chatBox = document.getElementById("id_chat_log")
+                chatBox.scrollTop = chatBox.scrollHeight;
+            })
+        } else {
+            setPaginationExhausted() // no more messages
+        }
+    }
+
+
+    /*
+        Get the next page of chat messages when scrolls to bottom
+    */
+    function chatLogScrollListener(e) {
+        var chatLog = document.getElementById("id_chat_log")
+        if ((Math.abs(chatLog.scrollTop) + 2) >= (chatLog.scrollHeight - chatLog.offsetHeight)) {
+            getRoomChatMessages()
+        }
+    }
+
+    /*
+            Enable the function "chatLogScrollListener"
+        */
+    function enableChatLogScrollListener() {
+        document.getElementById("id_chat_log").addEventListener("scroll", chatLogScrollListener);
+    }
+
+    /*
+        Disable the function "chatLogScrollListener"
+    */
+    function disableChatLogScrollListener() {
+        document.getElementById("id_chat_log").removeEventListener("scroll", chatLogScrollListener)
+    }
+
+    function displayChatroomLoadingSpinner(isDisplayed) {
+        var spinner = document.getElementById("id_chatroom_loading_spinner")
+        if (isDisplayed) {
+            spinner.style.display = "block"
+        } else {
+            spinner.style.display = "none"
+        }
+    }
+
+    function highlightGroup(userId) {
+        // select new friend
+        document.getElementById("id_group_container_" + userId).style.background = "#0f79f4"
+    }
+
+    function clearHighlightedGroup() {
+        {% if groups %}
+            {% for group in groups %}
+                document.getElementById("id_group_container_{{group.room.id}}").style.background = ""
+            {% endfor %}
+        {% endif %}
+
+    }
+
+
     function selectUser(user_id) {
         // Weird work-around for passing arg to url
         var url = "{% url 'account:view' user_id=53252623623632623 %}".replace("53252623623632623", user_id)
@@ -517,18 +642,36 @@
         $('#id_client_error_modal').modal('toggle')
     }
 
-    function displayChatroomLoadingSpinner(isDisplayed) {
-        var spinner = document.getElementById("id_chatroom_loading_spinner")
-        if (isDisplayed) {
-            spinner.style.display = "block"
-        } else {
-            spinner.style.display = "none"
-        }
-    }
 
     function setConnectedUsersCount(count) {
         element = document.getElementById("id_connected_users")
         element.innerHTML = count + " Members Online"
+    }
+
+    function createOrReturnPublicChat(id) {
+        payload = {
+            "csrfmiddlewaretoken": "{{ csrf_token }}",
+            "public_room_id": id,
+        }
+        $.ajax({
+            type: 'POST',
+            dataType: "json",
+            url: "{% url 'public_chat:create_public_chat' %}", // production
+            data: payload,
+            timeout: 5000,
+            success: function (data) {
+                console.log("SUCCESS", data)
+                if (data['response'] == "Successfully got the chat.") {
+                    setupWebSocket(data['chatroom_id'])
+                } else if (data['response'] != null) {
+                    alert(data['response'])
+                }
+            },
+            error: function (data) {
+                console.error("ERROR...", data)
+                alert("Something went wrong.")
+            },
+        });
     }
 </script>
 
