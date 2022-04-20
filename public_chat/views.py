@@ -1,10 +1,13 @@
 import json
+import pytz
+
+from datetime import datetime
 
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.conf import settings
 
-from .models import PublicChatRoom
+from .models import PublicChatRoom, PublicRoomChatMessage
 
 # Create your views here.
 
@@ -17,8 +20,27 @@ def home_screen_view(request):
     rooms = PublicChatRoom.objects.all()
     groups = []
     for room in rooms:
+        try:
+            message = PublicRoomChatMessage.objects.filter(room=room).latest("timestamp")
+        except PublicRoomChatMessage.DoesNotExist:
+            # create a dummy message with dummy timestamp
+            today = datetime(
+                year=1950,
+                month=1,
+                day=1,
+                hour=1,
+                minute=1,
+                second=1,
+                tzinfo=pytz.UTC
+            )
+            message = PublicRoomChatMessage(
+                room=room,
+                timestamp=today,
+                content="",
+            )
         groups.append({
             "room": room,
+            "message": message,
         })
         room_id = room.id
 
@@ -59,7 +81,3 @@ def create_public_chat(request, *args, **kwargs):
     else:
         payload['response'] = "You can't start a chat if you are not authenticated."
     return HttpResponse(json.dumps(payload), content_type="application/json")
-
-
-
-

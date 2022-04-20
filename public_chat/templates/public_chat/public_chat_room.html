@@ -33,7 +33,8 @@
                                 <div class="row align-items-center gx-5">
                                     <div class="col-auto">
                                         <div class="avatar avatar-online d-none d-xl-inline-block">
-                                            <img class="avatar-img" src="{% static 'img/dummy_image.png' %}" id="id_group_image">
+                                            <img class="avatar-img" src="{% static 'img/dummy_image.png' %}"
+                                                 id="id_group_image">
                                         </div>
                                     </div>
 
@@ -237,7 +238,7 @@
     </div>
 </main>
 <!-- Chat -->
-{% include 'components/private-chat-sideprofile.html' %}
+{% include 'components/chat-sideprofile.html' %}
 <script type="text/javascript">
     var publicChatSocket = null;
     var roomId = null;
@@ -378,7 +379,6 @@
     };
 
     document.getElementById('id_chat_message_submit').onclick = function (e) {
-        console.log("###############################", roomId)
         e.preventDefault()
         const messageInputDom = document.getElementById('id_chat_message_input');
         const message = messageInputDom.value;
@@ -404,16 +404,19 @@
     }
 
     function handleGroupInfoPayload(group_info) {
-        let groupName = document.getElementById("id_group_name")
-        groupName.innerHTML = group_info['title']
+        let groupName = document.querySelectorAll("#id_group_name")
+        for (let i = 0; i < groupName.length; i++) {
+            groupName[i].innerHTML = group_info['title'];
+        }
 
 
         preloadImage(group_info['group_image'], "id_group_image")
+        preloadImage(group_info['group_image'], "id_other_group_image")
 
 
         if (group_info['about'] != "") {
-            let bio = document.getElementById("id_user_bio")
-            bio.innerHTML = group_info['bio']
+            let about = document.getElementById("id_group_about")
+            about.innerHTML = group_info['about']
         }
     }
 
@@ -644,8 +647,11 @@
 
 
     function setConnectedUsersCount(count) {
-        element = document.getElementById("id_connected_users")
-        element.innerHTML = count + " Members Online"
+        let userCount = document.querySelectorAll("#id_connected_users")
+        for (let i = 0; i < userCount.length; i++) {
+            userCount[i].innerHTML = count + " Members Online"
+        }
+
     }
 
     function createOrReturnPublicChat(id) {

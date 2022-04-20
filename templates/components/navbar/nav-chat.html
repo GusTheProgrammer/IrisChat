@@ -98,18 +98,22 @@
 
                                     <div class="col">
                                         <div class="d-flex align-items-center mb-3">
-                                            <h5 class="me-auto mb-0">{{ group.room.title }}</h5>
-                                            <span class="text-muted extra-small ms-2">08:45 PM</span>
+                                            <h5 class="me-auto mb-0">{{ group.room.title|truncatechars:35 }}</h5>
+                                            <span class="text-muted extra-small ms-2">{{ group.message.timestamp|timesince }} ago</span>
                                         </div>
 
                                         <div class="d-flex align-items-center">
                                             <div class="line-clamp me-auto">
-                                                {{ group.room.id }}
+                                                {% if group.message.user.id == request.user.id %}
+                                                    You: {{ group.message|truncatechars:30 }}
+                                                {% else %}
+                                                    {{ group.message|truncatechars:30 }}
+                                                {% endif %}
                                             </div>
 
-                                            <div class="badge badge-circle bg-primary ms-5">
-                                                <span>3</span>
-                                            </div>
+{#                                            <div class="badge badge-circle bg-primary ms-5">#}
+{#                                                <span>3</span>#}
+{#                                            </div>#}
                                         </div>
                                     </div>
                                 </div>
