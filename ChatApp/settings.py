@@ -31,12 +31,11 @@ ROOT_URLCONF = f'{config("PROJECT_NAME")}.urls'
 
 WSGI_APPLICATION = f'{config("PROJECT_NAME")}.wsgi.application'
 
-ASGI_APPLICATION = f'{config("PROJECT_NAME")}.routing.application'
+ASGI_APPLICATION = f'{config("PROJECT_NAME")}.asgi.application'
 
-if DEBUG:
-    EMAIL_BACKEND = 'django.ChatApp.mail.backends.console.EmailBackend'  # During development only
+#if DEBUG:
+ #   EMAIL_BACKEND = 'django.ChatApp.mail.backends.console.EmailBackend'  # During development only
 
-ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -103,19 +102,8 @@ CHANNEL_LAYERS = {
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 
-DB_NAME = "chatapp"
-DB_USER = "django"
-DB_PASSWORD = "django-password"
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': DB_NAME,
-        'USER': DB_USER,
-        'PASSWORD': DB_PASSWORD,
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
-}
+
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -152,11 +140,11 @@ USE_TZ = True
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': config("DB_NAME"),
-        'USER': config("DB_USER"),
-        'PASSWORD': config("DB_PASSWORD"),
+        'NAME': f'{config("DB_NAME")}',
+        'USER': f'{config("DB_USER")}',
+        'PASSWORD': f'{config("DB_PASSWORD")}',
         'HOST': 'localhost',
-        'PORT': '',
+        'PORT': '5432',
     }
 }
 
