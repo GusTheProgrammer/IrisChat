@@ -25,7 +25,7 @@ DEBUG = config('DEBUG', default=False, cast=bool)
 
 SECRET_KEY = config("SECRET_KEY")
 
-ALLOWED_HOSTS = ["64.227.35.168", ]
+ALLOWED_HOSTS = ["64.227.35.168", "irischat.me", "www.irischat.me"]
 
 ROOT_URLCONF = f'{config("PROJECT_NAME")}.urls'
 
@@ -171,7 +171,7 @@ EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = 'CodingWithMitch Team <noreply@codingwithmitch.com>'
+DEFAULT_FROM_EMAIL = 'IrisChat Team <noreply@irischat.com>'
 
 BASE_URL = "http://64.227.35.168"
 
