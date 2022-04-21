@@ -1,0 +1,68 @@
+<!-- Notifications - Notices -->
+<div class="tab-pane fade h-100
+{% if not groups or not m_and_f %}
+show active
+{% endif %}" id="tab-content-notifications" role="tabpanel">
+    <div class="d-flex flex-column h-100">
+        <div class="hide-scrollbar">
+            <div class="container py-8">
+
+                <!-- Title -->
+                <div class="d-flex justify-content-between mb-8">
+                    <h2 class="fw-bold m-0">Notifications</h2>
+                    <a class="icon icon-lg text-muted d-xl-none my-auto me-6" href="#"
+                       onclick="toggleMainClass()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                             stroke-linejoin="round" class="feather feather-chevron-right">
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                    </a>
+                </div>
+
+                <!-- Search -->
+                {% include 'components/navbar/nav-search.html' %}
+                <!-- Title -->
+                <div class="d-flex align-items-center my-4 px-6">
+                    <small class="text-muted me-auto"></small>
+
+                    <a href="#" class="text-muted small">Clear all</a>
+                </div>
+                <!-- Title -->
+
+                <!-- Notifications -->
+                <div class="card-list mt-8" id="id_chat_notifications_container">
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="toast-container position-absolute p-5 bottom-0 end-0" style="z-index: 99"
+     id="id_chat_notification_toast_container">
+</div>
+
+<script type="text/javascript">
+    /*
+        Sets the scroll listener for when user scrolls to bottom of notification menu.
+        It will retrieve the next page of results.
+    */
+    function setOnChatNotificationScrollListener() {
+        var menu = document.getElementById("id_chat_notifications_container")
+        if (menu != null) {
+            menu.addEventListener("scroll", function (e) {
+
+                if ((menu.scrollTop) >= (menu.scrollHeight - menu.offsetHeight)) {
+                    getNextChatNotificationsPage()
+                }
+            });
+        }
+
+    }
+
+    setOnChatNotificationScrollListener()
+
+</script>

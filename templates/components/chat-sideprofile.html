@@ -1,0 +1,238 @@
+{% load static %}
+<!-- Chat: Info -->
+<div class="offcanvas offcanvas-end offcanvas-aside" data-bs-scroll="true" data-bs-backdrop="false"
+     tabindex="-1" id="offcanvas-more">
+    <!-- Offcanvas Header -->
+    <div class="offcanvas-header py-4 py-lg-7 border-bottom">
+        <a class="icon icon-lg text-muted" href="#" data-bs-dismiss="offcanvas">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                 class="feather feather-chevron-left">
+                <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+        </a>
+
+        {% if m_and_f %}
+
+            <div class="visibility-xl-invisible overflow-hidden text-center">
+                <h5 class="text-truncate" id="id_other_username"></h5>
+                <p class="text-truncate" id="id_other_fullname"></p>
+            </div>
+
+            <!-- Dropdown -->
+            <div class="dropdown">
+                <a class="icon icon-lg text-muted" href="#" role="button" data-bs-toggle="dropdown"
+                   aria-expanded="false">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                         class="feather feather-more-vertical">
+                        <circle cx="12" cy="12" r="1"></circle>
+                        <circle cx="12" cy="5" r="1"></circle>
+                        <circle cx="12" cy="19" r="1"></circle>
+                    </svg>
+                </a>
+
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="#" class="dropdown-item d-flex align-items-center text-info" id="id_user_dropdown">
+                            View Full Profile
+                            <div class="icon ms-auto">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                     stroke-linecap="round" stroke-linejoin="round"
+                                     class="feather feather-user">
+                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="12" cy="7" r="4"></circle>
+                                </svg>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            </div>
+            <!-- Offcanvas Header -->
+
+            <!-- Offcanvas Body -->
+            <div class="offcanvas-body hide-scrollbar">
+                <!-- Avatar -->
+                <div class="text-center py-10">
+                    <div class="row gy-6">
+                        <div class="col-12">
+                            <div class="avatar avatar-xl mx-auto">
+                                <img src="{% static 'img/dummy_image.png' %}" id="id_other_user_profile_image_2"
+                                     class="avatar-img">
+
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <h4 id="id_other_fullname"></h4>
+                            <p id="id_user_bio"></p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Avatar -->
+
+
+                <!-- Tabs: Content -->
+                <div class="tab-content py-2" role="tablist">
+                    <!-- Profile -->
+                    <div class="tab-pane fade show active" id="offcanvas-tab-profile" role="tabpanel">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <div class="row align-items-center gx-6">
+                                    <div class="col">
+                                        <h5>Username</h5>
+                                        <p id="id_other_username"></p>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="btn btn-sm btn-icon btn-dark">
+                                            <a class="text-reset" id="id_user_info_account" href="">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                     viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                     stroke-width="2"
+                                                     stroke-linecap="round" stroke-linejoin="round"
+                                                     class="feather feather-user">
+                                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                                    <circle cx="12" cy="7" r="4"></circle>
+                                                </svg>
+                                            </a>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </li>
+
+                            <li class="list-group-item">
+                                <div class="row align-items-center gx-6">
+                                    <div class="col">
+                                        <h5>E-mail</h5>
+                                        <p id="id_other_user_email"></p>
+                                    </div>
+
+                                    <div class="col-auto">
+                                        <div class="btn btn-sm btn-icon btn-dark">
+                                            <a id="id_other_user_email_mailto" href="" class="text-reset">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                     viewBox="0 0 24 24"
+                                                     fill="none" stroke="currentColor" stroke-width="2"
+                                                     stroke-linecap="round"
+                                                     stroke-linejoin="round" class="feather feather-mail">
+                                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                                    <polyline points="22,6 12,13 2,6"></polyline>
+                                                </svg>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li class="list-group-item d-none" id="id_birth_date_container">
+                                <div class="row align-items-center gx-6">
+                                    <div class="col">
+                                        <h5>Birth Date</h5>
+                                        <p id="id_user_birth_date"></p>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="btn btn-sm btn-icon btn-dark">
+                                            <a href="#" class="text-reset">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                                     height="24" viewBox="0 0 24 24" fill="none"
+                                                     stroke="currentColor" stroke-width="2"
+                                                     stroke-linecap="round" stroke-linejoin="round"
+                                                     class="feather feather-calendar">
+                                                    <rect x="3" y="4" width="18" height="18" rx="2"
+                                                          ry="2"></rect>
+                                                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                                                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                                                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                                                </svg>
+                                            </a>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+
+                </div>
+                <!-- Tabs: Content -->
+            </div>
+        {% endif %}
+    <!-- Offcanvas Body -->
+
+
+    {% if groups %}
+        <!-- Offcanvas Header -->
+        <div class="visibility-xl-invisible overflow-hidden text-center">
+            <h5 class="text-truncate" id="id_group_name"></h5>
+            <p class="text-truncate" id="id_connected_users"></p>
+        </div>
+
+        <!-- Dropdown -->
+        <div class="dropdown">
+
+        </div>
+        </div>
+        <!-- Offcanvas Header -->
+
+        <!-- Offcanvas Body -->
+        <div class="offcanvas-body hide-scrollbar">
+            <!-- Avatar -->
+            <div class="text-center py-10">
+                <div class="row gy-6">
+                    <div class="col-12">
+                        <div class="avatar avatar-xl mx-auto">
+                            <img src="{% static 'img/dummy_image.png' %}" id="id_other_group_image" alt="#"
+                                 class="avatar-img">
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <h4 id="id_group_name"></h4>
+                        <p id="id_group_about"></p>
+                    </div>
+                </div>
+            </div>
+            <!-- Avatar -->
+
+            <!-- Tabs -->
+            <ul class="nav nav-pills nav-justified" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" data-bs-toggle="pill" href="#offcanvas-group-tab-members" role="tab"
+                       aria-controls="offcanvas-group-tab-members" aria-selected="true">
+                        Connected Members
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                             class="feather feather-users">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="9" cy="7" r="4"></circle>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                        </svg>
+                    </a>
+                </li>
+            </ul>
+            <!-- Tabs -->
+
+            <!-- Tabs: Content -->
+            <div class="tab-content py-2" role="tablist">
+                <!-- Members -->
+                <div class="tab-pane fade show active" id="offcanvas-group-tab-members" role="tabpanel">
+                    <ul class="list-group list-group-flush" id="id_group_users_container">
+
+
+
+                    </ul>
+                </div>
+                <!-- Members -->
+            </div>
+            <!-- Tabs: Content -->
+        </div>
+        <!-- Offcanvas Body -->
+
+    {% endif %}
+</div>

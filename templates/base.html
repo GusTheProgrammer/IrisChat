@@ -2,33 +2,41 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<!-- Head -->
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1, shrink-to-fit=no, viewport-fit=cover">
+    <title>{% block title %}IrisChat{% endblock title %}</title>
+
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="{% static 'img/favicon/favicon.ico' %}" type="image/x-icon">
+
+    <!-- Font -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700" rel="stylesheet">
 
     <!--  Local  -->
+    <link rel="stylesheet" href="{% static 'css/style.dark.css' %}" media="(prefers-color-scheme: dark)">
+    {#    <link rel="stylesheet" href="{% static 'css/style.light.css' %}">#}
     <script src="{% static 'js/script.js' %}"></script>
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script src="{% static 'js/template.js' %}"></script>
+    <script src="{% static 'js/vendor.js' %}"></script>
 
-    <!--  Boostrap & jQuery  -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--  jQuery  -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
             integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
             crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
-            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-            crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
-            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-            crossorigin="anonymous"></script>
 
 
     <!--  Cropper JS  -->
-    <link rel="stylesheet" href="{% static 'cropperjs/dist/cropper.min.css' %}">
-    <script type="module" src="{% static 'cropperjs/dist/cropper.min.js' %}"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/2.0.0-alpha.2/cropper.min.css"
+          integrity="sha512-6QxSiaKfNSQmmqwqpTNyhHErr+Bbm8u8HHSiinMEz0uimy9nu7lc/2NaXJiUJj2y4BApd5vgDjSHyLzC8nP6Ng=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/2.0.0-alpha.2/cropper.min.js"
+            integrity="sha512-IlZV3863HqEgMeFLVllRjbNOoh8uVj0kgx0aYxgt4rdBABTZCl/h5MfshHD9BrnVs6Rs9yNN7kUQpzhcLkNmHw=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <!--  Collections  -->
     <script src="{% static 'collections/collections.min.js' %}"></script>
@@ -48,16 +56,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/languages/python.min.js"
             integrity="sha512-efcjzRpCxyR9hzqNDmYMy202NuRdmiGm80QQg4o6Dh3DdU+fbnC6BKGuJrRMbLLYm70+lR55mkCMiZETYHKGVw=="
             crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
-
-
-    <title>{% block title %}Home{% endblock title %}</title>
+    <script>hljs.highlightAll();</script>
 </head>
 
+
 <body>
-{% include 'components/header.html' %}
-
-
 <div class="container" id="id_loading_spinner" style="display: none">
     <div class="d-flex flex-row mx-auto flex-grow-1 justify-content-center">
         <div class="spinner-border text-primary" role="status">
@@ -65,13 +68,51 @@
         </div>
     </div>
 </div>
+<!-- Layout -->
+<div class="layout overflow-hidden">
+    <!-- Navigation -->
+    {% include 'components/navbar/navbar.html' %}
 
-<div class="main">
+    <!-- Sidebar -->
+    <aside class="sidebar bg-light">
+        <div class="tab-content h-100" role="tablist">
+            {% include 'components/navbar/nav-public-chat.html' %}
+            {% include 'components/navbar/nav-general-notification.html' %}
+            {% include 'components/navbar/nav-chat.html' %}
+            {% include 'components/navbar/nav-chat-notification.html' %}
+            {% include 'components/navbar/nav-settings.html' %}
+
+        </div>
+    </aside>
+    <!-- Sidebar -->
+
+    <!-- Chat -->
     {% block content %}
-    {% endblock content %}
-</div>
+        <main class="main">
+            <div class="container h-100">
 
-{% include 'components/footer.html' %}
+                <div class="d-flex flex-column h-100 justify-content-center text-center">
+                    <div class="mb-6">
+                            <span class="icon icon-xl text-muted">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                     stroke-linejoin="round" class="feather feather-message-square"><path
+                                        d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                            </span>
+                    </div>
+
+                    <p class="text-muted">Pick a person from left menu, <br> and start your conversation.</p>
+                </div>
+
+            </div>
+        </main>
+    {% endblock content %}
+    {% include 'components/modal-invite.html' %}
+    {% include 'components/modal-profile.html' %}
+    <!-- Chat -->
+
+</div>
+<!-- Layout -->
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" />

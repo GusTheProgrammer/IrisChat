@@ -25,7 +25,7 @@ DEBUG = config('DEBUG', default=False, cast=bool)
 
 SECRET_KEY = config("SECRET_KEY")
 
-ALLOWED_HOSTS = ["64.227.35.168",]
+ALLOWED_HOSTS = ["64.227.35.168", ]
 
 ROOT_URLCONF = f'{config("PROJECT_NAME")}.urls'
 
@@ -33,8 +33,8 @@ WSGI_APPLICATION = f'{config("PROJECT_NAME")}.wsgi.application'
 
 ASGI_APPLICATION = f'{config("PROJECT_NAME")}.asgi.application'
 
-#if DEBUG:
- #   EMAIL_BACKEND = 'django.ChatApp.mail.backends.console.EmailBackend'  # During development only
+# if DEBUG:
+#   EMAIL_BACKEND = 'django.ChatApp.mail.backends.console.EmailBackend'  # During development only
 
 
 # Application definition
@@ -67,12 +67,14 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [str(BASE_DIR.joinpath('templates')),
                  str(BASE_DIR.joinpath('account', 'templates')),
+                 str(BASE_DIR.joinpath('chat', 'templates')),
+                 str(BASE_DIR.joinpath('friend', 'templates')),
+                 str(BASE_DIR.joinpath('public_chat', 'templates')),
                  ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -85,7 +87,6 @@ TEMPLATES = [
         },
     },
 ]
-
 
 # Channel Layers
 
@@ -100,8 +101,6 @@ CHANNEL_LAYERS = {
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
-
-
 
 
 # Password validation
@@ -160,21 +159,19 @@ STATICFILES_DIRS = [
     BASE_DIR.joinpath('static'),
 ]
 
-#STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 STATIC_URL = 'https://%s/%s/' % (AWS_S3_ENDPOINT_URL, AWS_LOCATION)
 TEMP = BASE_DIR.joinpath('temp')
 STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
-
-#EMAIL_BACKEND = 'django.ChatApp.mail.backends.smtp.EmailBackend'
+# EMAIL_BACKEND = 'django.ChatApp.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'CodingWithMitch Team <noreply@codingwithmitch.com>'
-
 
 BASE_URL = "http://64.227.35.168"
 
@@ -189,7 +186,7 @@ AUTHENTICATION_BACKENDS = (
     'account.backends.CaseInsensitiveModelBackend',
 )
 
-LOGIN_REDIRECT_URL = 'homepage'
-LOGOUT_REDIRECT_URL = 'homepage'
+LOGIN_REDIRECT_URL = 'public_chat:public_chat_view'
+LOGOUT_REDIRECT_URL = 'login'
 
 DATA_UPLOAD_MAX_MEMORY_SIZE = 10485760

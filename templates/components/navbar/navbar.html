@@ -1,0 +1,286 @@
+<nav class="navigation d-flex flex-column text-center navbar navbar-light hide-scrollbar">
+    <!-- Brand -->
+    <a href="{% url 'public_chat:public_chat_view' %}" title="Messenger" class="d-none d-xl-block mb-6">
+        <svg version="1.1" width="46px" height="46px" fill="currentColor" xmlns="http://www.w3.org/2000/svg"
+             xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 46 46"
+             enable-background="new 0 0 46 46" xml:space="preserve">
+            <polygon opacity="0.7" points="45,11 36,11 35.5,1 "/>
+            <polygon points="35.5,1 25.4,14.1 39,21 "/>
+            <polygon opacity="0.4" points="17,9.8 39,21 17,26 "/>
+            <polygon opacity="0.7" points="2,12 17,26 17,9.8 "/>
+            <polygon opacity="0.7" points="17,26 39,21 28,36 "/>
+            <polygon points="28,36 4.5,44 17,26 "/>
+            <polygon points="17,26 1,26 10.8,20.1 "/>
+        </svg>
+
+    </a>
+
+    <!-- Nav items -->
+    <ul class="d-flex nav navbar-nav flex-row flex-xl-column flex-grow-1 justify-content-between justify-content-xl-center align-items-center w-100 py-4 py-lg-2 px-lg-3"
+        role="tablist">
+        <!-- Invisible item to center nav vertically -->
+        <li class="nav-item d-none d-xl-block invisible flex-xl-grow-1">
+            <a class="nav-link py-0 py-lg-8" href="#" title="">
+                <div class="icon icon-xl">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                         class="feather feather-x">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </div>
+            </a>
+        </li>
+
+        <!-- Public Channesl -->
+        <li class="nav-item">
+            <a class="nav-link py-0 py-lg-8
+                {% if groups %}
+                active
+                {% endif %}" id="tab-public-channels" href="#tab-content-public-channels"
+               title="Public Channels"
+               data-bs-toggle="tab" role="tab">
+                <div class="icon icon-xl">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                         class="feather feather-hash">
+                        <line x1="4" y1="9" x2="20" y2="9"></line>
+                        <line x1="4" y1="15" x2="20" y2="15"></line>
+                        <line x1="10" y1="3" x2="8" y2="21"></line>
+                        <line x1="16" y1="3" x2="14" y2="21"></line>
+                    </svg>
+                </div>
+            </a>
+        </li>
+
+        <!-- Friends -->
+        <li class="nav-item" onclick="setGeneralNotificationsAsRead()">
+            <a class="nav-link py-0 py-lg-8" id="tab-friends" href="#tab-content-friends" title="Friends"
+               data-bs-toggle="tab" role="tab">
+                <div class="icon icon-xl" id="id_general_notifications_count">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                         class="feather feather-users">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="9" cy="7" r="4"></circle>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                    </svg>
+                    <div id="id_general_notifications_div">
+                        <span id="id_general_notifications_span"></span>
+                    </div>
+                </div>
+            </a>
+        </li>
+
+        <!-- Notification -->
+        <li class="nav-item">
+            <a class="nav-link
+             {% if not groups and not m_and_f %}
+             active
+             {% endif %}py-0 py-lg-8" id="tab-notifications" href="#tab-content-notifications"
+               title="Notifications" data-bs-toggle="tab" role="tab">
+                <div class="icon icon-xl" id="id_chat_notifications_count">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                         class="feather feather-bell">
+                        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                        <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                    </svg>
+                    <div id="id_chat_notifications_div">
+                        <span id="id_chat_notifications_span"></span>
+                    </div>
+                </div>
+            </a>
+        </li>
+
+
+        <!-- Chats -->
+        <li class="nav-item">
+            <a class="nav-link py-0 py-lg-8
+                {% if m_and_f %}
+                active
+                {% endif %}" id="tab-chats" href="#tab-content-chats" title="Chats"
+               data-bs-toggle="tab" role="tab">
+                <div class="icon icon-xl">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                         class="feather feather-message-square">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                    </svg>
+                </div>
+            </a>
+
+        </li>
+
+        <!-- Settings -->
+        <li class="nav-item d-none d-xl-block flex-xl-grow-1">
+{#            <a class="nav-link py-0 py-lg-8" id="tab-settings" href="#tab-content-settings" title="Settings"#}
+{#               data-bs-toggle="tab" role="tab">#}
+{#                <div class="icon icon-xl">#}
+{#                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"#}
+{#                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"#}
+{#                         class="feather feather-settings">#}
+{#                        <circle cx="12" cy="12" r="3"></circle>#}
+{#                        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>#}
+{#                    </svg>#}
+{#                </div>#}
+{#            </a>#}
+        </li>
+
+        <!-- Dark Mode -->
+        <li class="nav-item d-none d-xl-block">
+            <a class="nav-link py-0 py-lg-8" href="#" title="Dark Mode">
+                <div class="icon icon-xl">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                         class="feather feather-moon">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </div>
+            </a>
+        </li>
+
+        <!-- Profile -->
+        <li class="nav-item">
+            <a href="#" class="nav-link p-0 mt-lg-2" data-bs-toggle="modal" data-bs-target="#modal-profile">
+                <div class="avatar avatar-online mx-auto d-none d-xl-block">
+                    <img class="avatar-img" src="{{ request.user.profile_image.url }}">
+                </div>
+                <div class="avatar avatar-online avatar-xs d-xl-none">
+                    <img class="avatar-img" src="{{ request.user.profile_image.url }}">
+
+                </div>
+            </a>
+        </li>
+    </ul>
+</nav>
+<!-- Navigation -->
+
+<!-- JavaScript -->
+{% include 'components/general_notifications.html' %}
+{% include 'components/chat_notifications.html' %}
+
+<!-- Setup SOCKET for NOTIFICATIONS -->
+<script type="text/javascript">
+    // Correctly decide between ws:// and wss://
+    var ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";
+    var ws_path = ws_scheme + '://' + window.location.host + ":8001/"; // PRODUCTION
+    // var ws_path = ws_scheme + '://' + window.location.host + "/";
+    // console.log("Connecting to " + ws_path);
+    var notificationSocket = new WebSocket(ws_path);
+
+    // Handle incoming messages
+    notificationSocket.onmessage = function (message) {
+        console.log("Got notification websocket message. ")
+        var data = JSON.parse(message.data);
+
+        /*
+            GENERAL NOTIFICATIONS
+        */
+        // new 'general' notifications data payload
+        if (data.general_msg_type == 0) {
+            handleGeneralNotificationsData(data['notifications'], data['new_page_number'])
+        }
+
+        if (data.general_msg_type == 1) {
+            setGeneralPaginationExhausted()
+        }
+
+        if (data.general_msg_type == 2) {
+            refreshGeneralNotificationsData(data['notifications'])
+        }
+
+        if (data.general_msg_type == 3) {
+            handleNewGeneralNotificationsData(data['notifications'])
+        }
+
+        if (data.general_msg_type == 4) {
+            setUnreadGeneralNotificationsCount(data['count'])
+        }
+
+        if (data.general_msg_type == 5) {
+            updateGeneralNotificationDiv(data['notification'])
+        }
+
+        /*
+            CHAT NOTIFICATIONS
+        */
+
+        // new 'chat' notifications data payload
+        if (data.chat_msg_type == 10) {
+            handleChatNotificationsData(data['notifications'], data['new_page_number'])
+        }
+
+        // "Chat" Pagination exhausted. No more results.
+        if (data.chat_msg_type == 11) {
+            setChatPaginationExhausted()
+        }
+
+        // refreshed chat notifications
+        if (data.chat_msg_type == 13) {
+            handleNewChatNotificationsData(data['notifications'])
+        }
+
+        if (data.chat_msg_type == 14) {
+            setChatNotificationsCount(data['count'])
+        }
+    }
+
+    notificationSocket.onclose = function (e) {
+        console.error('Notification Socket closed unexpectedly');
+    };
+
+    notificationSocket.onopen = function (e) {
+        console.log("Notification Socket on open: " + e)
+        setupGeneralNotificationsMenu()
+        getFirstGeneralNotificationsPage()
+        getUnreadGeneralNotificationsCount()
+
+        setupChatNotificationsMenu()
+        getFirstChatNotificationsPage()
+    }
+
+    notificationSocket.onerror = function (e) {
+        console.log('Notification Socket error', e)
+    }
+
+    if (notificationSocket.readyState == WebSocket.OPEN) {
+        console.log("Notification Socket OPEN complete.")
+    } else if (notificationSocket.readyState == WebSocket.CONNECTING) {
+        console.log("Notification Socket connecting..")
+    }
+</script>
+
+<script type="text/javascript">
+    document.getElementById("tab-public-channels").addEventListener("click", function (e) {
+        window.location.href = "{% url 'public_chat:public_chat_view' %}"
+
+    })
+
+    document.getElementById("tab-chats").addEventListener("click", function (e) {
+        window.location.href = "{% url 'private_chat:private-chat-room' %}"
+
+    })
+
+
+    function executeQuery() {
+        var queries = document.querySelectorAll('.search-box');
+
+        for (i = 0; i < queries.length; i++) {
+            query = queries[i].value
+            if (query != "") {
+                window.location.replace("{% url 'search' %}?q=" + query)
+            }
+        }
+
+        return false
+    }
+
+
+    function toggleMainClass() {
+        var mainDiv = document.querySelector(".main")
+        mainDiv.classList.toggle("is-visible")
+    }
+</script>
+<!-- JavaScript -->
