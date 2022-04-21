@@ -53,7 +53,7 @@ def home_screen_view(request):
     context['debug_mode'] = settings.DEBUG
 
     if user.is_authenticated:
-        return render(request, "home.html", context)
+        return render(request, "public_chat/public_chat_room.html", context)
     else:
         return redirect('login')
 

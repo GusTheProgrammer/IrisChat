@@ -35,7 +35,7 @@ def private_chat_room_view(request, *args, **kwargs):
 
     context['debug'] = DEBUG
     context['debug_mode'] = settings.DEBUG
-    return render(request, "room.html", context)
+    return render(request, "chat/room.html", context)
 
 
 def get_recent_chatroom_messages(user):
