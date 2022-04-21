@@ -122,12 +122,15 @@
 
             var div = document.createElement("div")
             div.classList.add("card-body", "text-center")
+            div.addEventListener("click", function(e){
+                window.location.href = "{% url 'private_chat:private-chat-room' %}"
+			})
             card.appendChild(div)
 
 
             var text = document.createElement("h4")
             text.classList.add("text-muted", "mb-1")
-            text.innerHTML = "You have no Notifications !"
+            text.innerHTML = "You have no Notifications <br> Click Here to start a new conversation !"
             div.appendChild(text)
 
 

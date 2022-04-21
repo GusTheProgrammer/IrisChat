@@ -8,7 +8,7 @@
         $.ajax({
             type: 'POST',
             dataType: "json",
-            url: "{% url 'chat:create-or-return-private-chat' %}", // production
+            url: "{% url 'private_chat:create-or-return-private-chat' %}", // production
             data: payload,
             timeout: 5000,
             success: function (data) {
@@ -29,7 +29,7 @@
 
 
     function OnGetOrCreateChatroomSuccess(chatroomId) {
-        var url = "{% url 'chat:private-chat-room' %}?room_id=" + chatroomId
+        var url = "{% url 'private_chat:private-chat-room' %}?room_id=" + chatroomId
         var win = window.location.replace(url)
         // window.open(url) // for new tab
         win.focus()

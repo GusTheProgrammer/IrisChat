@@ -268,6 +268,7 @@
             publicChatSocket.close()
             publicChatSocket = null
             clearChatLog()
+            clearGroupUsers()
             setPageNumber("1")
             disableChatLogScrollListener()
         }
@@ -320,8 +321,11 @@
             }
 
             if (data.group_info) {
-                console.log(data.group_info)
                 handleGroupInfoPayload(data.group_info)
+            }
+
+            if (data.group_users) {
+                handleGroupUsersPayload(data.group_users)
             }
 
             // Handle getting a message
@@ -330,6 +334,7 @@
             }
             // Handle getting the connected_user count
             if (data.msg_type == 1) {
+                console.log(data['connected_user_count'].group_use)
                 setConnectedUsersCount(data['connected_user_count'])
             }
             // new payload of messages coming in from backend
@@ -418,6 +423,82 @@
             let about = document.getElementById("id_group_about")
             about.innerHTML = group_info['about']
         }
+    }
+
+    function handleGroupUsersPayload(data) {
+        for (let i = 0; i < data.length; i++) {
+            console.log(data[i])
+            user_id = data[i]['id']
+            username = data[i]['username']
+            profile_image = data[i]['profile_image']
+
+            createGroupUserElement(user_id, username, profile_image)
+
+        }
+    }
+
+    function createGroupUserElement(user_id, username, profile_image) {
+        let usersContainer = document.getElementById("id_group_users_container")
+
+        let userElement = document.createElement("li")
+        userElement.classList.add("list-group-item")
+        usersContainer.appendChild(userElement)
+
+        let userBody = document.createElement("div")
+        userBody.classList.add("row", "align-items-center", "gx-5")
+        userElement.appendChild(userBody)
+
+        // Avatar
+        let userAvatar = document.createElement("div")
+        userAvatar.classList.add("col-auto")
+        userBody.appendChild(userAvatar)
+
+        let userProfile = document.createElement("a")
+        userProfile.classList.add("avatar", "avatar-online")
+        userAvatar.appendChild(userProfile)
+
+        let userImage = document.createElement("img")
+        userImage.classList.add("avatar-img")
+        userImage.src = profile_image
+        userImage.style.cursor = "pointer"
+        userImage.addEventListener("click", function (e) {
+            selectUser(user_id)
+        })
+
+        userProfile.appendChild(userImage)
+
+        // Text
+        let userText = document.createElement("div")
+        userText.classList.add("col")
+        userBody.appendChild(userText)
+
+        let userHeader = document.createElement("h5")
+        if (user_id == "{{ request.user.id }}")
+            userHeader.innerHTML = username + " ( You )"
+        else {
+            userHeader.innerHTML = username
+
+        }
+        userHeader.style.cursor = "pointer"
+        userHeader.addEventListener("click", function (e) {
+            selectUser(user_id)
+        })
+        userText.appendChild(userHeader)
+
+        let userLink = document.createElement("a")
+        userLink.classList.add("d-flex", "align-items-center")
+        userLink.innerHTML = "View Profile"
+        userLink.style.cursor = "pointer"
+
+        userLink.addEventListener("click", function (e) {
+            selectUser(user_id)
+        })
+
+        userText.appendChild(userLink)
+    }
+
+    function clearGroupUsers() {
+        document.getElementById("id_group_users_container").innerHTML = ""
     }
 
 
@@ -634,10 +715,14 @@
 
 
     function selectUser(user_id) {
-        // Weird work-around for passing arg to url
-        var url = "{% url 'account:view' user_id=53252623623632623 %}".replace("53252623623632623", user_id)
-        var win = window.open(url, "_self")
-        win.focus()
+        if (user_id == "{{ request.user.id }}") {
+            $('#modal-profile').modal('toggle')
+        } else {
+            var url = "{% url 'account:view' user_id=53252623623632623 %}".replace("53252623623632623", user_id)
+            var win = window.open(url, "_self")
+            win.focus()
+        }
+
     }
 
     function showClientErrorModal(message) {

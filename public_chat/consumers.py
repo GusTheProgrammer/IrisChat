@@ -4,6 +4,7 @@ from channels.db import database_sync_to_async
 from django.core.paginator import Paginator
 from django.utils import timezone
 
+from account.utils import LazyAccountEncoder
 from chat.exceptions import ClientError
 from chat.utils import calculate_timestamp
 from .models import PublicChatRoom, PublicRoomChatMessage
@@ -71,7 +72,7 @@ class PublicChatConsumer(AsyncJsonWebsocketConsumer):
                 payload = await get_group_info(room)
                 if payload != None:
                     payload = json.loads(payload)
-                    await self.send_group_info_payload(payload['group_info'])
+                    await self.send_group_info_payload(payload['group_info'], payload['group_users'])
                 else:
                     raise ClientError(204, "Something went wrong retrieving the other group's details.")
                 await self.display_progress_bar(False)
@@ -248,7 +249,7 @@ class PublicChatConsumer(AsyncJsonWebsocketConsumer):
             },
         )
 
-    async def send_group_info_payload(self, group_info):
+    async def send_group_info_payload(self, group_info, group_users):
         """
         Send a payload of user information to the ui
         """
@@ -256,6 +257,7 @@ class PublicChatConsumer(AsyncJsonWebsocketConsumer):
         await self.send_json(
             {
                 "group_info": group_info,
+                "group_users": group_users,
             },
         )
 
@@ -263,7 +265,6 @@ class PublicChatConsumer(AsyncJsonWebsocketConsumer):
 @database_sync_to_async
 def get_num_connected_users(room_id):
     users = PublicChatRoom.objects.get(pk=room_id).users.all()
-    print(users)
     if users:
         return len(users.all())
     return 0
@@ -330,10 +331,15 @@ def get_group_info(room):
     Retrieve group chat info
     """
     try:
+        users = PublicChatRoom.objects.get(pk=room.id).users.all()
+
         payload = {}
+
+        u = LazyAccountEncoder()
         s = LazyGroupInfoEncoder()
         payload['group_info'] = s.serialize([room])[0]
+        payload['group_users'] = u.serialize(users)
+
         return json.dumps(payload)
     except ClientError as e:
         raise ClientError("DATA_ERROR", "Unable to get that users information.")
-

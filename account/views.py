@@ -47,7 +47,7 @@ def register_view(request, *args, **kwargs):
     user = request.user
     if user.is_authenticated:
         # return HttpResponse("You are already authenticated as " + str(user.email))
-        return redirect('public_chat:homepage')
+        return redirect('public_chat:public_chat_view')
 
     context = {}
     if request.POST:
@@ -61,7 +61,7 @@ def register_view(request, *args, **kwargs):
             destination = kwargs.get("next")
             if destination:
                 return redirect(destination)
-            return redirect('public_chat:homepage')
+            return redirect('public_chat:public_chat_view')
         else:
             context['registration_form'] = form
 
@@ -73,7 +73,7 @@ def register_view(request, *args, **kwargs):
 
 def logout_view(request):
     logout(request)
-    return redirect("public_chat:homepage")
+    return redirect("public_chat:public_chat_view")
 
 
 def login_view(request, *args, **kwargs):
@@ -81,7 +81,7 @@ def login_view(request, *args, **kwargs):
 
     user = request.user
     if user.is_authenticated:
-        return redirect("public_chat:homepage")
+        return redirect("public_chat:public_chat_view")
 
     destination = get_redirect_if_exists(request)
     print("destination: " + str(destination))
@@ -97,7 +97,7 @@ def login_view(request, *args, **kwargs):
                 login(request, user)
                 if destination:
                     return redirect(destination)
-                return redirect("public_chat:homepage")
+                return redirect("public_chat:public_chat_view")
 
     else:
         form = AccountAuthenticationForm()

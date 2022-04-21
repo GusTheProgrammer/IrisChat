@@ -731,7 +731,7 @@
             $.ajax({
                 type: 'POST',
                 dataType: "json",
-                url: "{% url 'chat:create-or-return-private-chat' %}", // production
+                url: "{% url 'private_chat:create-or-return-private-chat' %}", // production
                 data: payload,
                 timeout: 5000,
                 success: function (data) {

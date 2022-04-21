@@ -22,13 +22,13 @@ from django.contrib.auth import views as auth_views
 from account.views import register_view, login_view, logout_view, account_search_view
 
 urlpatterns = [
-    path('', include('public_chat.urls', namespace='public_chat')),
+    path('', include('chat.urls', namespace='private_chat')),
     path('account/', include('account.urls', namespace='account')),
     path('admin/', admin.site.urls),
-    path('chat/', include('chat.urls', namespace='chat')),
     path('friend/', include('friend.urls', namespace='friend')),
     path('login/', login_view, name='login'),
     path('logout/', logout_view, name='logout'),
+    path('public', include('public_chat.urls', namespace='public_chat')),
     path('register/', register_view, name='register'),
     path('search/', account_search_view, name='search'),
 
