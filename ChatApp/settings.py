@@ -18,6 +18,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
+import logging.config
 from pathlib import Path
 from decouple import config
 
@@ -173,7 +174,7 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'IrisChat Team <noreply@irischat.com>'
 
-BASE_URL = "http://64.227.35.168"
+BASE_URL = "https://www.irischat.me"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
@@ -190,3 +191,29 @@ LOGIN_REDIRECT_URL = 'public_chat:public_chat_view'
 LOGOUT_REDIRECT_URL = 'login'
 
 DATA_UPLOAD_MAX_MEMORY_SIZE = 10485760
+
+# Clear prev config
+LOGGING_CONFIG = None
+logging.config.dictConfig({
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'console': {
+            'format': '%(message)s',
+        },
+    },
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'console',
+        },
+    },
+    'loggers': {
+        'gunicorn': { # this was what I was missing, I kept using django and not seeing any server logs
+            'level': 'INFO',
+            'handlers': ['console'],
+            'propagate': True,
+        },
+    },
+
+})

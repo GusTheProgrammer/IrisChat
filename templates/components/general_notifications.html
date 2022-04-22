@@ -62,6 +62,7 @@
 
         card = createGeneralNotificationCard()
         card.id = assignGeneralCardId(notification)
+        console.log(notification['actions']['redirect_url'])
         card.addEventListener("click", function () {
             generalRedirect(notification['actions']['redirect_url'])
         })
