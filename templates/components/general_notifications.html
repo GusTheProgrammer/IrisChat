@@ -420,7 +420,7 @@
         imgDiv.classList.add("avatar")
         var img = document.createElement("img")
         img.classList.add("avatar-img")
-        img.src = "{% static 'img/dummy_image.png' %}"
+        img.src = "{% static 'img/dummy_image.png' %}".replace(/&amp;/g, "&")
         img.id = assignGeneralImgId(notification)
         imgDiv.appendChild(img)
 

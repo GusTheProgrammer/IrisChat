@@ -531,7 +531,7 @@
             var profileImage = document.createElement("img")
 
             profileImage.classList.add("avatar-img")
-            profileImage.src = "{% static 'img/dummy_image.png' %}"
+            profileImage.src = "{% static 'img/dummy_image.png' %}".replace(/&amp;/g, "&")
             var profile_image_id = "id_profile_image_" + msg_id
             profileImage.id = profile_image_id
 
