@@ -1,5 +1,5 @@
-
 module.exports = GenericSet;
+
 function GenericSet() {
     throw new Error("Can't construct. GenericSet is a mixin.");
 }
@@ -7,7 +7,7 @@ function GenericSet() {
 GenericSet.prototype.isSet = true;
 
 GenericSet.prototype.union = function (that) {
-    var union =  this.constructClone(this);
+    var union = this.constructClone(this);
     union.addEach(that);
     return union;
 };
@@ -19,7 +19,7 @@ GenericSet.prototype.intersection = function (that) {
 };
 
 GenericSet.prototype.difference = function (that) {
-    var union =  this.constructClone(this);
+    var union = this.constructClone(this);
     union.deleteEach(that);
     return union;
 };
@@ -79,11 +79,15 @@ GenericSet.prototype.toggle = function (value) {
     }
 };
 
-var _valuesArrayFunction = function(value,key) {return value;};
-GenericSet.prototype.valuesArray = function() {
+var _valuesArrayFunction = function (value, key) {
+    return value;
+};
+GenericSet.prototype.valuesArray = function () {
     return this.map(_valuesArrayFunction);
 }
-var _entriesArrayFunction = function(value,key) {return [key,value];};
-GenericSet.prototype.entriesArray = function() {
+var _entriesArrayFunction = function (value, key) {
+    return [key, value];
+};
+GenericSet.prototype.entriesArray = function () {
     return this.map(_entriesArrayFunction);
 }

@@ -40,7 +40,7 @@ Object.addEach(LruMap.prototype, GenericMap.prototype);
 Object.addEach(LruMap.prototype, PropertyChanges.prototype);
 Object.addEach(LruMap.prototype, MapChanges.prototype);
 
-Object.defineProperty(LruMap.prototype,"size",GenericCollection._sizePropertyDescriptor);
+Object.defineProperty(LruMap.prototype, "size", GenericCollection._sizePropertyDescriptor);
 LruMap.from = GenericCollection.from;
 
 LruMap.prototype.constructClone = function (values) {
@@ -68,12 +68,12 @@ LruMap.prototype.addMapChangeListener = function () {
         // Array and Heap have no store.
         // Dict and FastMap define no listeners on their store.
         var self = this;
-        this.store.addBeforeRangeChangeListener(function(plus, minus) {
+        this.store.addBeforeRangeChangeListener(function (plus, minus) {
             if (plus.length && minus.length) {  // LRU item pruned
                 self.dispatchBeforeMapChange(minus[0].key, undefined);
             }
         });
-        this.store.addRangeChangeListener(function(plus, minus) {
+        this.store.addRangeChangeListener(function (plus, minus) {
             if (plus.length && minus.length) {
                 self.dispatchMapChange(minus[0].key, undefined);
             }

@@ -91,6 +91,7 @@ describe("Set-spec", function () {
         function Type(value) {
             this.value = value;
         }
+
         Type.prototype.hash = function () {
             return this.value;
         };
@@ -118,6 +119,7 @@ describe("Set-spec", function () {
         function Type(value) {
             this.value = value;
         }
+
         Type.prototype.hash = function () {
             return this.value;
         };
@@ -142,6 +144,7 @@ describe("Set-spec", function () {
         function Type(value) {
             this.value = value;
         }
+
         Type.prototype.hash = function () {
             return this.value;
         };

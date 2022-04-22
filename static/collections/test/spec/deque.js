@@ -6,6 +6,7 @@
 var fuzzDeque = require("./deque-fuzz").fuzzDeque;
 
 module.exports = describeDeque;
+
 function describeDeque(Deque) {
 
     describe("add(value)", function () {
@@ -245,7 +246,7 @@ function describeDeque(Deque) {
         });
     });
 
-    
+
     if (!Deque.prototype.isSorted) {
         fuzzDeque(Deque);
     }
@@ -281,7 +282,7 @@ function describeDeque(Deque) {
         if (!Deque.prototype.peek)
             return;
 
-        it("returns undefined when empty deque", function() {
+        it("returns undefined when empty deque", function () {
             var a = new Deque();
             expect(a.length).toBe(0);
             expect(a.peek()).toBe(undefined);
@@ -289,14 +290,14 @@ function describeDeque(Deque) {
             expect(a.length).toBe(0);
         });
 
-        it("returns the item at the front of the deque", function() {
+        it("returns the item at the front of the deque", function () {
             var a = new Deque();
-            a.push(1,2,3,4,5,6,7,8,9);
+            a.push(1, 2, 3, 4, 5, 6, 7, 8, 9);
 
             expect(a.peek()).toBe(1);
 
             var l = 5;
-            while(l--) a.pop();
+            while (l--) a.pop();
 
             expect(a.toArray()).toEqual([1, 2, 3, 4]);
 
@@ -309,13 +310,13 @@ function describeDeque(Deque) {
 
             expect(a.toArray()).toEqual([3, 4]);
 
-            a.unshift(1,2,3,4,5,6,78,89,12901,10121,0,12, 1,2,3,4,5,6,78,89,12901,10121,0,12);
+            a.unshift(1, 2, 3, 4, 5, 6, 78, 89, 12901, 10121, 0, 12, 1, 2, 3, 4, 5, 6, 78, 89, 12901, 10121, 0, 12);
 
-            expect(a.toArray()).toEqual([1,2,3,4,5,6,78,89,12901,10121,0,12, 1,2,3,4,5,6,78,89,12901,10121,0,12, 3, 4]);
+            expect(a.toArray()).toEqual([1, 2, 3, 4, 5, 6, 78, 89, 12901, 10121, 0, 12, 1, 2, 3, 4, 5, 6, 78, 89, 12901, 10121, 0, 12, 3, 4]);
 
             expect(a.peek()).toBe(1);
 
-            a.push(1,3,4);
+            a.push(1, 3, 4);
 
             expect(a.peek()).toBe(1);
 
@@ -323,14 +324,14 @@ function describeDeque(Deque) {
             a.shift();
 
             expect(a.peek()).toBe(2);
-            expect(a.toArray()).toEqual([2,3,4,5,6,78,89,12901,10121,0,12, 1,2,3,4,5,6,78,89,12901,10121,0,12, 3, 4, 1, 3]);
+            expect(a.toArray()).toEqual([2, 3, 4, 5, 6, 78, 89, 12901, 10121, 0, 12, 1, 2, 3, 4, 5, 6, 78, 89, 12901, 10121, 0, 12, 3, 4, 1, 3]);
 
         });
     });
 
     describe("clear", function () {
-        it("should clear the deque", function() {
-            var a = new Deque([1,2,3,4]);
+        it("should clear the deque", function () {
+            var a = new Deque([1, 2, 3, 4]);
             a.clear();
             expect(a.length).toBe(0);
         });

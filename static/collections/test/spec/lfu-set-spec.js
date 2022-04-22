@@ -28,7 +28,7 @@ describe("LfuSet-spec", function () {
     it("should emit LFU changes as singleton operation", function () {
         var a = 1, b = 2, c = 3, d = 4;
         var lfuset = LfuSet([d, c, a, b, c], 3);
-        lfuset.addRangeChangeListener(function(plus, minus) {
+        lfuset.addRangeChangeListener(function (plus, minus) {
             expect(plus).toEqual([d]);
             expect(minus).toEqual([a]);
         });
@@ -48,8 +48,10 @@ describe("LfuSet-spec", function () {
         });
         expect(set.add(4)).toBe(false);
 
-        
-        var argsForCall = spy.calls.all().map(function (call) { return call.args });
+
+        var argsForCall = spy.calls.all().map(function (call) {
+            return call.args
+        });
         expect(argsForCall).toEqual([
             ['before-plus', [4]],
             ['before-minus', [1]],

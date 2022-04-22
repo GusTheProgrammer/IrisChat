@@ -1,4 +1,3 @@
-
 var Iterator = require("collections/iterator");
 
 describe("Iterator-spec", function () {
@@ -70,9 +69,9 @@ describe("Iterator-spec", function () {
     describe("Iterator.concat", function () {
         it("should work", function () {
             var iterator = Iterator.concat([
-               Iterator([1, 2, 3]),
-               Iterator([4, 5, 6]),
-               Iterator([7, 8, 9])
+                Iterator([1, 2, 3]),
+                Iterator([4, 5, 6]),
+                Iterator([7, 8, 9])
             ]);
             for (var i = 0; i < 9; i++) {
                 expect(iterator.next().value).toEqual(i + 1);
@@ -85,9 +84,9 @@ describe("Iterator-spec", function () {
     describe("Iterator.chain", function () {
         it("should work", function () {
             var iterator = Iterator.chain(
-               Iterator([1, 2, 3]),
-               Iterator([4, 5, 6]),
-               Iterator([7, 8, 9])
+                Iterator([1, 2, 3]),
+                Iterator([4, 5, 6]),
+                Iterator([7, 8, 9])
             );
             for (var i = 0; i < 9; i++) {
                 expect(iterator.next().value).toEqual(i + 1);
@@ -231,9 +230,9 @@ function shouldWorkWithConstructor(Iterator) {
         var iterator = Iterator({
             next: function next() {
                 if (++n > 3) {
-                    return {value:void 0,done:true};
+                    return {value: void 0, done: true};
                 } else {
-                    return {value:n,done:false};
+                    return {value: n, done: false};
                 }
             }
         });
@@ -248,9 +247,9 @@ function shouldWorkWithConstructor(Iterator) {
         var n = 0;
         var iterator = Iterator(function next() {
             if (++n > 3) {
-                return {value:void 0,done:true};
+                return {value: void 0, done: true};
             } else {
-                return {value:n,done:false};
+                return {value: n, done: false};
             }
         });
         expect(iterator.next().value).toEqual(1);
@@ -493,9 +492,9 @@ function shouldWorkWithConstructor(Iterator) {
 
         it("should work", function () {
             var iterator = indefiniteIterator()
-            .mapIterator(function (n, i, o) {
-                return n * 2;
-            });
+                .mapIterator(function (n, i, o) {
+                    return n * 2;
+                });
             expect(iterator.next().value).toBe(0);
             expect(iterator.next().value).toBe(2);
             expect(iterator.next().value).toBe(4);
@@ -521,11 +520,11 @@ function shouldWorkWithConstructor(Iterator) {
 
         it("should work", function () {
             var iterator = indefiniteIterator()
-            .filterIterator(function (n, i, o) {
-                expect(i).toBe(n);
-                //expect(o).toBe(iterator);
-                return n % 2 === 0;
-            });
+                .filterIterator(function (n, i, o) {
+                    expect(i).toBe(n);
+                    //expect(o).toBe(iterator);
+                    return n % 2 === 0;
+                });
             expect(iterator.next().value).toBe(0);
             expect(iterator.next().value).toBe(2);
             expect(iterator.next().value).toBe(4);
@@ -564,9 +563,9 @@ function shouldWorkWithConstructor(Iterator) {
 
         it("should work", function () {
             var iterator = indefiniteIterator()
-            .dropWhile(function (n) {
-                return n < 10;
-            });
+                .dropWhile(function (n) {
+                    return n < 10;
+                });
             expect(iterator.next().value).toBe(10);
             expect(iterator.next().value).toBe(11);
             expect(iterator.next().value).toBe(12);
@@ -589,9 +588,9 @@ function shouldWorkWithConstructor(Iterator) {
 
         it("should work", function () {
             var iterator = indefiniteIterator()
-            .takeWhile(function (n) {
-                return n < 3;
-            });
+                .takeWhile(function (n) {
+                    return n < 3;
+                });
             expect(iterator.next().value).toBe(0);
             expect(iterator.next().value).toBe(1);
             expect(iterator.next().value).toBe(2);

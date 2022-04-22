@@ -41,7 +41,7 @@ Object.addEach(SortedMap.prototype, GenericCollection.prototype);
 Object.addEach(SortedMap.prototype, GenericMap.prototype);
 Object.addEach(SortedMap.prototype, PropertyChanges.prototype);
 Object.addEach(SortedMap.prototype, MapChanges.prototype);
-Object.defineProperty(SortedMap.prototype,"size",GenericCollection._sizePropertyDescriptor);
+Object.defineProperty(SortedMap.prototype, "size", GenericCollection._sizePropertyDescriptor);
 
 SortedMap.prototype.constructClone = function (values) {
     return new this.constructor(

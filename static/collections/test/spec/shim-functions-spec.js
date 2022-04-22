@@ -1,4 +1,3 @@
-
 require("collections/shim-object");
 require("collections/shim-function");
 

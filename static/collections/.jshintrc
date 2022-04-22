@@ -17,16 +17,13 @@
     "globals": {
         "CustomEvent": true,
         "WebSocket": false,
-
         "require": false,
         "exports": false,
         "module": false,
         "global": false,
-
         "WeakMap": true,
         "Map": true,
         "Set": true,
-
         "console": false
     }
 }

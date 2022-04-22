@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-  - "4.8.0"
+    - "4.8.0"
 script: npm test
 deploy:
     provider: npm
@@ -9,9 +9,9 @@ deploy:
     on:
         tags: true
 notifications:
-  irc:
-    channels:
-      - "chat.freenode.net#montage"
-    on_success: false
-    template:
-      - "%{author} broke the %{repository} tests on %{branch}: %{build_url}"
+    irc:
+        channels:
+            - "chat.freenode.net#montage"
+        on_success: false
+        template:
+            - "%{author} broke the %{repository} tests on %{branch}: %{build_url}"

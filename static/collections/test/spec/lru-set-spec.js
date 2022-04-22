@@ -1,4 +1,3 @@
-
 var LruSet = require("collections/lru-set");
 var describeCollection = require("./collection");
 var describeSet = require("./set");
@@ -24,7 +23,7 @@ describe("LruSet-spec", function () {
     it("should emit LRU changes as singleton operation", function () {
         var a = 1, b = 2, c = 3, d = 4;
         var lruset = LruSet([d, c, a, b, c], 3);
-        lruset.addRangeChangeListener(function(plus, minus) {
+        lruset.addRangeChangeListener(function (plus, minus) {
             expect(plus).toEqual([d]);
             expect(minus).toEqual([a]);
         });
@@ -44,7 +43,9 @@ describe("LruSet-spec", function () {
         });
         expect(set.add(4)).toBe(false);
 
-        var argsForCall = spy.calls.all().map(function (call) { return call.args });
+        var argsForCall = spy.calls.all().map(function (call) {
+            return call.args
+        });
         expect(argsForCall).toEqual([
             ['before-plus', [4]],
             ['before-minus', [1]],

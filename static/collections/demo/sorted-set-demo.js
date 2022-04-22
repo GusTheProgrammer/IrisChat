@@ -1,4 +1,3 @@
-
 var SortedSet = require("../sorted-set");
 
 var set = new SortedSet();

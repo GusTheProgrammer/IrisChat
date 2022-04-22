@@ -10,6 +10,7 @@ module.exports = List;
 function List(values, equals, getDefault) {
     return _List._init(List, this, values, equals, getDefault);
 }
+
 List.prototype = new _List();
 List.prototype.constructor = List;
 List.List = List; // hack so require("list").List will work in MontageJS
@@ -60,7 +61,7 @@ Object.defineProperty(List.prototype, "superClear", {
     value: _List.prototype.clear,
     enumerable: false,
     configurable: true,
-    writable:true
+    writable: true
 });
 List.prototype.clear = function () {
     var plus, minus;
@@ -94,7 +95,7 @@ Object.defineProperty(List.prototype, "superPush", {
     value: _List.prototype.push,
     enumerable: false,
     configurable: true,
-    writable:true
+    writable: true
 });
 
 List.prototype.push = function () {
@@ -107,10 +108,10 @@ List.prototype.push = function () {
     }
 
     arguments.length === 1
-    ? this.superPush.call(this, arguments[0])
-    : (arguments.length === 2)
-        ? this.superPush.call(this, arguments[0],  arguments[1])
-        : this.superPush.apply(this, arguments);
+        ? this.superPush.call(this, arguments[0])
+        : (arguments.length === 2)
+            ? this.superPush.call(this, arguments[0], arguments[1])
+            : this.superPush.apply(this, arguments);
 
     if (this.dispatchesRangeChanges) {
         this.updateIndexes(start.next, start.index === undefined ? 0 : start.index + 1);
@@ -122,7 +123,7 @@ Object.defineProperty(List.prototype, "superUnshift", {
     value: _List.prototype.unshift,
     enumerable: false,
     configurable: true,
-    writable:true
+    writable: true
 });
 
 List.prototype.unshift = function () {
@@ -133,10 +134,10 @@ List.prototype.unshift = function () {
     }
 
     arguments.length === 1
-    ? this.superUnshift.call(this, arguments[0])
-    : (arguments.length === 2)
-        ? this.superUnshift.call(this, arguments[0],  arguments[1])
-        : this.superUnshift.apply(this, arguments);
+        ? this.superUnshift.call(this, arguments[0])
+        : (arguments.length === 2)
+            ? this.superUnshift.call(this, arguments[0], arguments[1])
+            : this.superUnshift.apply(this, arguments);
 
     if (this.dispatchesRangeChanges) {
         this.updateIndexes(this.head.next, 0);
@@ -145,7 +146,7 @@ List.prototype.unshift = function () {
 };
 
 Object.defineProperty(List.prototype, "_beforePop", {
-    value: function(value, index) {
+    value: function (value, index) {
         var popDispatchValueArray;
         if (this.dispatchesRangeChanges) {
             popDispatchValueArray = [value];
@@ -155,31 +156,31 @@ Object.defineProperty(List.prototype, "_beforePop", {
     },
     enumerable: false,
     configurable: true,
-    writable:true
+    writable: true
 });
 Object.defineProperty(List.prototype, "_afterPop", {
-    value: function(value, index, popDispatchValueArray) {
+    value: function (value, index, popDispatchValueArray) {
         if (this.dispatchesRangeChanges) {
             this.dispatchRangeChange(/*plus*/this._dispatchEmptyArray, /*minus*/popDispatchValueArray, index);
         }
     },
     enumerable: false,
     configurable: true,
-    writable:true
+    writable: true
 });
 Object.defineProperty(List.prototype, "superPop", {
     value: _List.prototype.pop,
     enumerable: false,
     configurable: true,
-    writable:true
+    writable: true
 });
 
 List.prototype.pop = function () {
-    return this.superPop(this._beforePop,this._afterPop);
+    return this.superPop(this._beforePop, this._afterPop);
 };
 
 Object.defineProperty(List.prototype, "_beforeShift", {
-    value: function(value, index) {
+    value: function (value, index) {
         var dispatchValueArray;
         if (this.dispatchesRangeChanges) {
             dispatchValueArray = [value];
@@ -189,10 +190,10 @@ Object.defineProperty(List.prototype, "_beforeShift", {
     },
     enumerable: false,
     configurable: true,
-    writable:true
+    writable: true
 });
 Object.defineProperty(List.prototype, "_afterShift", {
-    value: function(value, index, dispatchValueArray) {
+    value: function (value, index, dispatchValueArray) {
         if (this.dispatchesRangeChanges) {
             this.updateIndexes(this.head.next, index);
             this.dispatchRangeChange(/*plus*/this._dispatchEmptyArray, /*minus*/dispatchValueArray, index);
@@ -200,29 +201,29 @@ Object.defineProperty(List.prototype, "_afterShift", {
     },
     enumerable: false,
     configurable: true,
-    writable:true
+    writable: true
 });
 Object.defineProperty(List.prototype, "superShift", {
     value: _List.prototype.shift,
     enumerable: false,
     configurable: true,
-    writable:true
+    writable: true
 });
 List.prototype.shift = function () {
-    return this.superShift(this._beforeShift,this._afterShift);
+    return this.superShift(this._beforeShift, this._afterShift);
 };
 
 Object.defineProperty(List.prototype, "superSwap", {
     value: _List.prototype.swap,
     enumerable: false,
     configurable: true,
-    writable:true
+    writable: true
 });
 List.prototype.swap = function (start, length, plus) {
 
     // before range change
     var index, startNode;
-    var _beforeSwap = function(start, plus, minus) {
+    var _beforeSwap = function (start, plus, minus) {
         if (this.dispatchesRangeChanges) {
             if (start === this.head) {
                 index = this.length;
@@ -235,7 +236,7 @@ List.prototype.swap = function (start, length, plus) {
             this.dispatchBeforeRangeChange(plus, minus, index);
         }
     };
-    var _afterSwap = function(start, plus, minus) {
+    var _afterSwap = function (start, plus, minus) {
         // after range change
         if (this.dispatchesRangeChanges) {
             if (start === this.head) {
@@ -254,7 +255,7 @@ Object.defineProperty(List.prototype, "superReverse", {
     value: _List.prototype.reverse,
     enumerable: false,
     configurable: true,
-    writable:true
+    writable: true
 });
 List.prototype.reverse = function () {
     if (this.dispatchesRangeChanges) {

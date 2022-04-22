@@ -1,4 +1,3 @@
-
 var SortedArray = require("collections/sorted-array");
 var describeCollection = require("./collection");
 var describeDeque = require("./deque");

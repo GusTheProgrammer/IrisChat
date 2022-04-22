@@ -217,11 +217,12 @@ SortedArray.prototype.lastIndexOf = function (value) {
 };
 
 var deprecatedWarnNonce = {};
+
 function deprecatedWarn(msg, notOnce) {
     if (
         typeof console !== 'undefined' &&
-            typeof console.warn === 'function' &&
-                (notOnce !== true && deprecatedWarnNonce.hasOwnProperty(msg) === false)
+        typeof console.warn === 'function' &&
+        (notOnce !== true && deprecatedWarnNonce.hasOwnProperty(msg) === false)
     ) {
         console.warn(msg);
         deprecatedWarnNonce[msg]++;

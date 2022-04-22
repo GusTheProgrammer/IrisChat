@@ -5,6 +5,7 @@ var MapChanges = require("./listen/map-changes");
 var PropertyChanges = require("./listen/property-changes");
 
 module.exports = GenericMap;
+
 function GenericMap() {
     throw new Error("Can't construct. GenericMap is a mixin.");
 }
@@ -24,7 +25,7 @@ GenericMap.prototype.addEach = function (values) {
                 values.forEach(function (value, key) {
                     this.set(key, value);
                 }, this);
-            // iterate key value pairs of other iterables
+                // iterate key value pairs of other iterables
             } else {
                 values.forEach(function (pair) {
                     this.set(pair[0], pair[1]);

@@ -1,4 +1,3 @@
-
 var SortedSet = require("../sorted-set");
 
 var tree = new SortedSet();

@@ -15,9 +15,9 @@ var jasmineInterface = jasmineRequire.interface(jasmine, jasmineEnv);
 global.jasmine = jasmine;
 for (var property in jasmineInterface) {
     if (jasmineInterface.hasOwnProperty(property)) {
-       global[property] = jasmineInterface[property];
+        global[property] = jasmineInterface[property];
     }
-}   
+}
 
 //
 // Init Reporter
@@ -27,7 +27,7 @@ function queryString(parameter) {
     var i, key, value, equalSign;
     var loc = location.search.substring(1, location.search.length);
     var params = loc.split('&');
-    for (i=0; i<params.length;i++) {
+    for (i = 0; i < params.length; i++) {
         equalSign = params[i].indexOf('=');
         if (equalSign < 0) {
             key = params[i];
@@ -35,11 +35,10 @@ function queryString(parameter) {
                 value = true;
                 break;
             }
-        }
-        else {
+        } else {
             key = params[i].substring(0, equalSign);
             if (key === parameter) {
-                value = decodeURIComponent(params[i].substring(equalSign+1));
+                value = decodeURIComponent(params[i].substring(equalSign + 1));
                 break;
             }
         }
@@ -48,14 +47,14 @@ function queryString(parameter) {
 }
 
 function insertParam(key, value) {
-    key = encodeURI(key); 
+    key = encodeURI(key);
     value = encodeURI(value);
 
     var param,
         params = document.location.search.substr(1).split('&'),
-        i = params.length; 
+        i = params.length;
 
-    while(i--)  {
+    while (i--) {
         param = params[i].split('=');
 
         if (param[0] === key) {
@@ -70,7 +69,7 @@ function insertParam(key, value) {
     }
 
     //this will reload the page, it's likely better to store this until finished
-    document.location.search = params.join('&'); 
+    document.location.search = params.join('&');
 }
 
 // Default reporter
@@ -80,7 +79,9 @@ var catchingExceptions = queryString("catch");
 jasmineEnv.catchExceptions(catchingExceptions === "false" ? false : true);
 
 var queryString2 = new jasmineRequire.QueryString(jasmine)({
-    getWindowLocation: function() { return window.location; }
+    getWindowLocation: function () {
+        return window.location;
+    }
 });
 
 // Html reporter
@@ -88,12 +89,18 @@ jasmineRequire.html(jasmine);
 var htmlReporter = new jasmine.HtmlReporter({
     env: jasmineEnv,
     queryString: queryString2,
-    onRaiseExceptionsClick: function() { 
-        insertParam("catch", !jasmineEnv.catchingExceptions()); 
+    onRaiseExceptionsClick: function () {
+        insertParam("catch", !jasmineEnv.catchingExceptions());
     },
-    getContainer: function() { return document.body; },
-    createElement: function() { return document.createElement.apply(document, arguments); },
-    createTextNode: function() { return document.createTextNode.apply(document, arguments); },
+    getContainer: function () {
+        return document.body;
+    },
+    createElement: function () {
+        return document.createElement.apply(document, arguments);
+    },
+    createTextNode: function () {
+        return document.createTextNode.apply(document, arguments);
+    },
     timer: new jasmine.Timer()
 });
 htmlReporter.initialize();
@@ -102,11 +109,11 @@ jasmineEnv.addReporter(htmlReporter);
 
 // Filter which specs will be run by matching the start of the full name against the `spec` query param.
 var specFilter = new jasmine.HtmlSpecFilter({
-    filterString: function() { 
-        return queryString("spec"); 
+    filterString: function () {
+        return queryString("spec");
     }
 });
 
-jasmineEnv.specFilter = function(spec) {
+jasmineEnv.specFilter = function (spec) {
     return specFilter.matches(spec.getFullName());
 };

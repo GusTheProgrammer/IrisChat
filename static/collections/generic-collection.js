@@ -1,42 +1,42 @@
 "use strict";
 
 module.exports = GenericCollection;
+
 function GenericCollection() {
     throw new Error("Can't construct. GenericCollection is a mixin.");
 }
 
-var DOMTokenList = global.DOMTokenList || function(){};
+var DOMTokenList = global.DOMTokenList || function () {
+};
 
 GenericCollection.EmptyArray = Object.freeze([]);
 
 GenericCollection.prototype.addEach = function (values, mapFn, thisp) {
     //We want to eliminate everything but array like: Strings, Arrays, DOMTokenList
-    if(values && (values instanceof Array || (values instanceof DOMTokenList) || values instanceof String)) {
-        if(mapFn) {
+    if (values && (values instanceof Array || (values instanceof DOMTokenList) || values instanceof String)) {
+        if (mapFn) {
             for (var i = 0; i < values.length; i++) {
-                this.add(mapFn.call(thisp,values[i]), i);
+                this.add(mapFn.call(thisp, values[i]), i);
             }
         } else {
             for (var i = 0; i < values.length; i++) {
                 this.add(values[i], i);
             }
         }
-    }
-    else if (values && Object(values) === values) {
+    } else if (values && Object(values) === values) {
         if (typeof values.forEach === "function") {
-            if(mapFn) {
+            if (mapFn) {
                 values.map(mapFn, thisp).forEach(this.add, this);
             } else {
                 values.forEach(this.add, this);
             }
-        } else if(typeof values.next === "function") {
-            var value, i=0;
-            if(mapFn) {
+        } else if (typeof values.next === "function") {
+            var value, i = 0;
+            if (mapFn) {
                 while ((value = values.next().value)) {
-                    this.add(mapFn.call(thisp,value), i++);
+                    this.add(mapFn.call(thisp, value), i++);
                 }
-            }
-            else {
+            } else {
                 while ((value = values.next().value)) {
                     this.add(value, i++);
                 }
@@ -44,20 +44,19 @@ GenericCollection.prototype.addEach = function (values, mapFn, thisp) {
         } else if (typeof values.length === "number") {
             // Array-like objects that do not implement forEach, ergo,
             // Arguments
-            if(mapFn) {
+            if (mapFn) {
                 for (var i = 0; i < values.length; i++) {
-                    this.add(mapFn.call(thisp,values[i]), i);
+                    this.add(mapFn.call(thisp, values[i]), i);
                 }
-            }
-            else {
+            } else {
                 for (var i = 0; i < values.length; i++) {
                     this.add(values[i], i);
                 }
             }
         } else {
-            if(mapFn) {
+            if (mapFn) {
                 Object.keys(values).forEach(function (key) {
-                    this.add(mapFn.call(thisp,values[key]), key);
+                    this.add(mapFn.call(thisp, values[key]), key);
                 }, this);
             } else {
                 Object.keys(values).forEach(function (key) {
@@ -145,7 +144,7 @@ GenericCollection.prototype.toObject = function () {
 };
 
 GenericCollection.from = function () {
-    return this.apply(this,arguments);
+    return this.apply(this, arguments);
 };
 
 GenericCollection.prototype.filter = function (callback /*, thisp*/) {
@@ -276,12 +275,12 @@ GenericCollection.prototype.sorted = function (compare, by, order) {
             value: item
         };
     })
-    .sort(function (a, b) {
-        return compare(a.by, b.by) * order;
-    })
-    .map(function (pair) {
-        return pair.value;
-    });
+        .sort(function (a, b) {
+            return compare(a.by, b.by) * order;
+        })
+        .map(function (pair) {
+            return pair.value;
+        });
 };
 
 GenericCollection.prototype.reversed = function () {
@@ -312,13 +311,13 @@ GenericCollection.prototype.iterator = function () {
 };
 
 GenericCollection._sizePropertyDescriptor = {
-    get: function() {
+    get: function () {
         return this.length;
     },
     enumerable: false,
     configurable: true
 };
 
-Object.defineProperty(GenericCollection.prototype,"size",GenericCollection._sizePropertyDescriptor);
+Object.defineProperty(GenericCollection.prototype, "size", GenericCollection._sizePropertyDescriptor);
 
 require("./shim-array");

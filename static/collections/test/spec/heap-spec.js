@@ -1,4 +1,3 @@
-
 var Heap = require("collections/heap");
 var permute = require("./permute");
 var describeToJson = require("./to-json");
@@ -54,7 +53,7 @@ describe("Heap-spec", function () {
 
     it("should be observable", function () {
 
-        var heap = new Heap([1,2,3,4,5]);
+        var heap = new Heap([1, 2, 3, 4, 5]);
         var top;
         heap.addMapChangeListener(function (value, key) {
             if (key === 0) {

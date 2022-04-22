@@ -1,4 +1,3 @@
-
 var LruMap = require("../lru-map");
 
 var map = new LruMap({a: 10, b: 20, c: 30}, 3);

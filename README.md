@@ -18,6 +18,7 @@
 6. #### create a superuser using `python manage.py createsuperuser`
 7. #### Go to `/admin` and create a room for the public chat
 8. #### Run `django manage.py shell` then copy the script (press enter twice after copying it)
+
 ```python
 from friend.models import FriendList
 from chat.utils import find_or_create_private_chat
@@ -28,6 +29,7 @@ for f in friend_lists:
   chat.is_active = True
   chat.save()
 ```
+
 8. #### type `quit()` to exit the shell
 
 ***

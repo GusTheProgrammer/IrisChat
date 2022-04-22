@@ -1,5 +1,5 @@
-from django.core.serializers.python import Serializer
 from django.contrib.humanize.templatetags.humanize import naturaltime
+from django.core.serializers.python import Serializer
 
 
 class LazyNotificationEncoder(Serializer):

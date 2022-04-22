@@ -4,6 +4,7 @@
 // tests.
 
 module.exports = describeCollection;
+
 function describeCollection(Collection, values, setLike) {
 
     var a = values[0];

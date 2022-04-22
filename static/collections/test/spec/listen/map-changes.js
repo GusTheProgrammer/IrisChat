@@ -1,5 +1,5 @@
-
 module.exports = describeMapChanges;
+
 function describeMapChanges(Map) {
 
     it("should dispatch addition", function () {
@@ -13,7 +13,9 @@ function describeMapChanges(Map) {
         });
         map.set(0, 10);
 
-        var argsForCall = spy.calls.all().map(function (call) { return call.args });
+        var argsForCall = spy.calls.all().map(function (call) {
+            return call.args
+        });
         expect(argsForCall).toEqual([
             ['before', 0, undefined],
             ['after', 0, 10]
@@ -31,7 +33,9 @@ function describeMapChanges(Map) {
         });
         map.set(0, 20);
 
-        var argsForCall = spy.calls.all().map(function (call) { return call.args });
+        var argsForCall = spy.calls.all().map(function (call) {
+            return call.args
+        });
         expect(argsForCall).toEqual([
             ['before', 0, 10],
             ['after', 0, 20]
@@ -53,7 +57,9 @@ function describeMapChanges(Map) {
         });
         map.delete(0);
 
-        var argsForCall = spy.calls.all().map(function (call) { return call.args });
+        var argsForCall = spy.calls.all().map(function (call) {
+            return call.args
+        });
         expect(argsForCall).toEqual([
             ['before', 0, 20],
             ['after', 0, undefined]

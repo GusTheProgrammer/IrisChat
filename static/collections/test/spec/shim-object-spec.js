@@ -120,7 +120,7 @@ describe("ObjectShim-spec", function () {
         });
 
         it("should recognize a falsy property", function () {
-            expect(Object.has({a:0}, "a")).toEqual(true);
+            expect(Object.has({a: 0}, "a")).toEqual(true);
         });
 
         it("should throw an error if the first argument is not an object", function () {
@@ -202,7 +202,9 @@ describe("ObjectShim-spec", function () {
             var instance = Object.create(Type);
             Object.set(instance, "a", 10);
 
-            var argsForCall = spy.calls.all().map(function (call) { return call.args });
+            var argsForCall = spy.calls.all().map(function (call) {
+                return call.args
+            });
             expect(argsForCall).toEqual([
                 ["a", 10]
             ]);
@@ -216,7 +218,9 @@ describe("ObjectShim-spec", function () {
             var spy = jasmine.createSpy();
             var object = {a: 10, b: 20, c: 30};
             Object.forEach(object, spy);
-            var argsForCall = spy.calls.all().map(function (call) { return call.args });
+            var argsForCall = spy.calls.all().map(function (call) {
+                return call.args
+            });
             expect(argsForCall).toEqual([
                 [10, "a", object],
                 [20, "b", object],
@@ -284,8 +288,8 @@ describe("ObjectShim-spec", function () {
         var distinctValues = {
             'positive zero': 0,
             'negative zero': -0,
-            'positive infinity': 1/0,
-            'negative infinity': -1/0,
+            'positive infinity': 1 / 0,
+            'negative infinity': -1 / 0,
             'one': 1,
             'two': 2,
             'NaN': NaN,

@@ -1,4 +1,3 @@
-
 var Deque = require("collections/deque");
 var describeDeque = require("./deque");
 var describeOrder = require("./order");
@@ -70,8 +69,10 @@ describe("Deque-spec", function () {
         deque.unshift(4, 5);
         deque.removeRangeChangeListener(handler);
         deque.shift();
-        
-        var argsForCall = spy.calls.all().map(function (call) { return call.args });
+
+        var argsForCall = spy.calls.all().map(function (call) {
+            return call.args
+        });
         expect(argsForCall).toEqual([
             [[1], [], 0],
             [[2, 3], [], 1],
@@ -84,8 +85,8 @@ describe("Deque-spec", function () {
     // from https://github.com/petkaantonov/deque
 
     describe('get', function () {
-        it("should return undefined on nonsensical argument", function() {
-            var a = new Deque([1,2,3,4]);
+        it("should return undefined on nonsensical argument", function () {
+            var a = new Deque([1, 2, 3, 4]);
             expect(a.get(-5)).toBe(void 0);
             expect(a.get(-100)).toBe(void 0);
             expect(a.get(void 0)).toBe(void 0);
@@ -98,16 +99,16 @@ describe("Deque-spec", function () {
         });
 
 
-        it("should support positive indexing", function() {
-            var a = new Deque([1,2,3,4]);
+        it("should support positive indexing", function () {
+            var a = new Deque([1, 2, 3, 4]);
             expect(a.get(0)).toBe(1);
             expect(a.get(1)).toBe(2);
             expect(a.get(2)).toBe(3);
             expect(a.get(3)).toBe(4);
         });
 
-        it("should support negative indexing", function() {
-            var a = new Deque([1,2,3,4]);
+        it("should support negative indexing", function () {
+            var a = new Deque([1, 2, 3, 4]);
             expect(a.get(-1)).toBe(4);
             expect(a.get(-2)).toBe(3);
             expect(a.get(-3)).toBe(2);

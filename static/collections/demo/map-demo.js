@@ -1,4 +1,3 @@
-
 var Map = require("../map");
 
 var map = new Map();

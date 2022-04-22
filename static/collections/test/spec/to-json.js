@@ -1,4 +1,5 @@
 module.exports = describeToJson;
+
 function describeToJson(Collection, values) {
     describe("toJSON", function () {
         it("stringifies and parses to a collection with the same data", function () {

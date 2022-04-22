@@ -1,4 +1,3 @@
-
 ## Future work
 
 Goals

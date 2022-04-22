@@ -1,4 +1,3 @@
-
 require("collections/shim-array");
 
 describe("ArrayShim-spec", function () {
@@ -25,7 +24,7 @@ describe("ArrayShim-spec", function () {
         });
 
         it("clones sparse arrays", function () {
-            expect([,,].clone()).toEqual([,,]);
+            expect([, ,].clone()).toEqual([, ,]);
         });
 
         it("clones sparse arrays quickly", function () {

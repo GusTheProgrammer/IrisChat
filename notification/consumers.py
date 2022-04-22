@@ -1,20 +1,17 @@
-import imp
-from django.conf import settings
-from channels.generic.websocket import AsyncJsonWebsocketConsumer
-from django.core.paginator import Paginator
-from django.core.serializers import serialize
-from channels.db import database_sync_to_async
-from django.contrib.contenttypes.models import ContentType
-
 import json
 from datetime import datetime
 
+from channels.db import database_sync_to_async
+from channels.generic.websocket import AsyncJsonWebsocketConsumer
+from django.contrib.contenttypes.models import ContentType
+from django.core.paginator import Paginator
+
+from chat.exceptions import ClientError
 from chat.models import UnreadChatRoomMessages
 from friend.models import FriendRequest, FriendList
+from notification.constants import *
 from notification.models import Notification
 from notification.utils import LazyNotificationEncoder
-from notification.constants import *
-from chat.exceptions import ClientError
 
 
 class NotificationConsumer(AsyncJsonWebsocketConsumer):

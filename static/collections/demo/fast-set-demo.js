@@ -1,4 +1,3 @@
-
 var Set = require("../fast-set");
 var Iterator = require("../iterator");
 

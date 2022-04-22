@@ -1,4 +1,3 @@
-
 var SortedArrayMap = require("collections/sorted-array-map");
 var describeDict = require("./dict");
 var describeMap = require("./map");

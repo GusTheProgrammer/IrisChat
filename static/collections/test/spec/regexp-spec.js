@@ -1,4 +1,3 @@
-
 require("collections/shim-regexp");
 
 describe("RegExp-spec", function () {

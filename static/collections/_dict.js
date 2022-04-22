@@ -7,6 +7,7 @@ var GenericMap = require("./generic-map");
 // Burgled from https://github.com/domenic/dict
 
 module.exports = Dict;
+
 function Dict(values, getDefault) {
     if (!(this instanceof Dict)) {
         return new Dict(values, getDefault);
@@ -35,22 +36,22 @@ Dict.prototype.assertString = function (key) {
     }
 }
 
-Object.defineProperty(Dict.prototype,"$__proto__",{writable:true});
-Object.defineProperty(Dict.prototype,"_hasProto",{
-    get:function() {
+Object.defineProperty(Dict.prototype, "$__proto__", {writable: true});
+Object.defineProperty(Dict.prototype, "_hasProto", {
+    get: function () {
         return this.hasOwnProperty("$__proto__") && typeof this._protoValue !== "undefined";
     }
 });
-Object.defineProperty(Dict.prototype,"_protoValue",{
-    get:function() {
+Object.defineProperty(Dict.prototype, "_protoValue", {
+    get: function () {
         return this["$__proto__"];
     },
-    set: function(value) {
+    set: function (value) {
         this["$__proto__"] = value;
     }
 });
 
-Object.defineProperty(Dict.prototype,"size",GenericCollection._sizePropertyDescriptor);
+Object.defineProperty(Dict.prototype, "size", GenericCollection._sizePropertyDescriptor);
 
 
 Dict.prototype.get = function (key, defaultValue) {
@@ -63,8 +64,7 @@ Dict.prototype.get = function (key, defaultValue) {
         } else {
             return this.getDefault(key);
         }
-    }
-    else {
+    } else {
         if (key in this.store) {
             return this.store[key];
         } else if (arguments.length > 1) {
@@ -129,8 +129,7 @@ Dict.prototype["delete"] = function (key) {
             return true;
         }
         return false;
-    }
-    else {
+    } else {
         if (key in this.store) {
             if (this.dispatchesMapChanges) {
                 this.dispatchBeforeMapChange(key, this.store[key]);
@@ -170,7 +169,7 @@ Dict.prototype.clear = function () {
 };
 
 Dict.prototype.reduce = function (callback, basis, thisp) {
-    if(this._hasProto) {
+    if (this._hasProto) {
         basis = callback.call(thisp, basis, "$__proto__", "__proto__", this);
     }
     var store = this.store;
@@ -187,7 +186,7 @@ Dict.prototype.reduceRight = function (callback, basis, thisp) {
         return callback.call(thisp, basis, store[key], key, self);
     }, basis);
 
-    if(this._hasProto) {
+    if (this._hasProto) {
         return callback.call(thisp, basis, this._protoValue, "__proto__", self);
     }
     return basis;

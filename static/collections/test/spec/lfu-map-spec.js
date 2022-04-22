@@ -1,4 +1,3 @@
-
 var LfuMap = require("collections/lfu-map");
 var describeDict = require("./dict");
 var describeMap = require("./map");
@@ -73,8 +72,10 @@ describe("LfuMap-spec", function () {
             spy('after', key, value);
         });
         map.set('d', 40);
-        
-        var argsForCall = spy.calls.all().map(function (call) { return call.args });
+
+        var argsForCall = spy.calls.all().map(function (call) {
+            return call.args
+        });
         expect(argsForCall).toEqual([
             ['before', 'd', undefined], // d will be added
             ['before', 'a', undefined], // then a is pruned (stale)

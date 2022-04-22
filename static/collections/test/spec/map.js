@@ -4,6 +4,7 @@
 var describeMapChanges = require("./listen/map-changes");
 
 module.exports = describeMap;
+
 function describeMap(Map, values) {
 
     describeMapChanges(Map);
@@ -30,7 +31,8 @@ function describeMap(Map, values) {
         }, [], map)).toEqual([
             [map, a, 10],
             [map, b, 20]
-        ]);;
+        ]);
+        ;
     }
 
     it("should be constructable from entry duples with object keys", function () {

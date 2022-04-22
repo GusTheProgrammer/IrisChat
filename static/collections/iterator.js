@@ -15,7 +15,7 @@ function Iterator(iterable, standardMode) {
         without passing standardMode, new Iterator instances will behave as intended independently of standards.
     */
     var values = standardMode && iterable && iterable.values && iterable.values();
-    if(values && typeof values.next === "function" ) {
+    if (values && typeof values.next === "function") {
         return values;
     }
 
@@ -69,9 +69,9 @@ Iterator.prototype.toObject = GenericCollection.prototype.toObject;
 Iterator.prototype.iterator = GenericCollection.prototype.iterator;
 
 Iterator.prototype.__iterationObject = null;
-Object.defineProperty(Iterator.prototype,"_iterationObject", {
-    get: function() {
-        return this.__iterationObject || (this.__iterationObject = { done: false, value:void 0});
+Object.defineProperty(Iterator.prototype, "_iterationObject", {
+    get: function () {
+        return this.__iterationObject || (this.__iterationObject = {done: false, value: void 0});
     }
 });
 
@@ -93,7 +93,7 @@ Iterator.prototype.mapIterator = function (callback /*, thisp*/) {
         throw new TypeError();
 
     return new self.constructor(function () {
-        if(self._iterationObject.done !== true) {
+        if (self._iterationObject.done !== true) {
             var callbackValue = callback.call(thisp, self.next().value, i++, self);
             self._iterationObject.value = callbackValue;
         }
@@ -113,11 +113,10 @@ Iterator.prototype.filterIterator = function (callback /*, thisp*/) {
         var nextEntry;
         while (true) {
             nextEntry = self.next();
-            if(nextEntry.done !== true) {
+            if (nextEntry.done !== true) {
                 if (callback.call(thisp, nextEntry.value, i++, self))
                     return nextEntry;
-            }
-            else {
+            } else {
                 //done true and value undefined at this point
                 return nextEntry;
             }
@@ -137,7 +136,7 @@ Iterator.prototype.reduce = function (callback /*, initial, thisp*/) {
 
     // first iteration unrolled
     nextEntry = self.next();
-    if(nextEntry.done === true) {
+    if (nextEntry.done === true) {
         if (arguments.length > 1) {
             return arguments[1]; // initial
         } else {
@@ -153,7 +152,7 @@ Iterator.prototype.reduce = function (callback /*, initial, thisp*/) {
     // remaining entries
     while (true) {
         nextEntry = self.next();
-        if(nextEntry.done === true) {
+        if (nextEntry.done === true) {
             return result;
         }
         result = callback.call(thisp, result, nextEntry.value, i, self);
@@ -181,7 +180,7 @@ Iterator.prototype.dropWhile = function (callback /*, thisp */) {
 
     while (true) {
         nextEntry = self.next();
-        if(nextEntry.done === true) {
+        if (nextEntry.done === true) {
             break;
         }
         if (!callback.call(thisp, nextEntry.value, i, self)) {
@@ -209,12 +208,11 @@ Iterator.prototype.takeWhile = function (callback /*, thisp*/) {
         throw new TypeError();
 
     return new self.constructor(function () {
-        if(self._iterationObject.done !== true) {
+        if (self._iterationObject.done !== true) {
             var value = self.next().value;
-            if(callback.call(thisp, value, i++, self)) {
+            if (callback.call(thisp, value, i++, self)) {
                 self._iterationObject.value = value;
-            }
-            else {
+            } else {
                 self._iterationObject.done = true;
                 self._iterationObject.value = void 0;
             }
@@ -247,15 +245,14 @@ Iterator.iterate = function (iterable) {
                     this._iterationObject.done = true;
                     this._iterationObject.value = void 0;
                     break;
-                }
-                else start += 1;
+                } else start += 1;
             }
         } else if (start >= iterable.length) {
             this._iterationObject.done = true;
             this._iterationObject.value = void 0;
         }
 
-        if(!this._iterationObject.done) {
+        if (!this._iterationObject.done) {
             this._iterationObject.value = iterable[start];
             start += 1;
         }
@@ -271,19 +268,19 @@ Iterator.cycle = function (cycle, times) {
     return new Iterator(function () {
         var iteration, nextEntry;
 
-        if(next) {
+        if (next) {
             nextEntry = next();
         }
 
-        if(!next || nextEntry.done === true) {
+        if (!next || nextEntry.done === true) {
             if (times > 0) {
                 times--;
                 iteration = Iterator.iterate(cycle);
                 nextEntry = (next = iteration.next.bind(iteration))();
-            }
-            else {
+            } else {
                 this._iterationObject.done = true;
-                nextEntry = this._iterationObject;            }
+                nextEntry = this._iterationObject;
+            }
         }
         return nextEntry;
     });
@@ -292,21 +289,19 @@ Iterator.cycle = function (cycle, times) {
 Iterator.concat = function (iterators) {
     iterators = Iterator(iterators);
     var next;
-    return new Iterator(function (){
+    return new Iterator(function () {
         var iteration, nextEntry;
-        if(next) nextEntry = next();
-        if(!nextEntry || nextEntry.done === true) {
+        if (next) nextEntry = next();
+        if (!nextEntry || nextEntry.done === true) {
             nextEntry = iterators.next();
-            if(nextEntry.done === false) {
+            if (nextEntry.done === false) {
                 iteration = Iterator(nextEntry.value);
                 next = iteration.next.bind(iteration);
                 return next();
-            }
-            else {
+            } else {
                 return nextEntry;
             }
-        }
-        else return nextEntry;
+        } else return nextEntry;
     });
 };
 
@@ -318,7 +313,7 @@ Iterator.unzip = function (iterators) {
         var stopped, nextEntry;
         var result = iterators.map(function (iterator) {
             nextEntry = iterator.next();
-            if (nextEntry.done === true ) {
+            if (nextEntry.done === true) {
                 stopped = true;
             }
             return nextEntry.value;
@@ -326,8 +321,7 @@ Iterator.unzip = function (iterators) {
         if (stopped) {
             this._iterationObject.done = true;
             this._iterationObject.value = void 0;
-        }
-        else {
+        } else {
             this._iterationObject.value = result;
         }
         return this._iterationObject;

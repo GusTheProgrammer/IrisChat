@@ -1,5 +1,5 @@
-from django.db import models
 from django.conf import settings
+from django.db import models
 
 
 # Create your models here.
@@ -18,7 +18,7 @@ class PublicChatRoom(models.Model):
                                    help_text="users who are connected to chat room.")
     about = models.TextField(max_length=150, blank=True)
     group_image = models.ImageField(upload_to=get_group_image_filepath, blank=True, null=True, max_length=255,
-                                      default=get_default_group_image)
+                                    default=get_default_group_image)
 
     class Meta:
         verbose_name = 'Room'

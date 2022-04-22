@@ -1,4 +1,3 @@
-
 // used exclusively to generate collections.min.js for browsers
 
 var Shim = require("./shim");

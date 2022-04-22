@@ -1,5 +1,5 @@
-
 module.exports = permute;
+
 function permute(values) {
     if (values.length === 0)
         return [];

@@ -4,6 +4,7 @@ var Map = require("./map").Map;
 
 
 module.exports = MultiMap;
+
 function MultiMap(values, bucket, equals, hash) {
     if (!(this instanceof MultiMap)) {
         return new MultiMap(values, bucket, equals, hash);

@@ -1,4 +1,3 @@
-
 var List = require("collections/list");
 var describeDeque = require("./deque");
 var describeCollection = require("./collection");

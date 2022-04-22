@@ -149,10 +149,10 @@ List.prototype.pop = function (_before, _after) {
     if (head.prev !== head) {
         value = head.prev.value;
         var index = this.length - 1;
-        var popDispatchValueArray = _before ? _before.call(this,value,index) : void 0;
+        var popDispatchValueArray = _before ? _before.call(this, value, index) : void 0;
         head.prev['delete']();
         this.length--;
-        _after ? _after.call(this,value,index, popDispatchValueArray) : void 0;
+        _after ? _after.call(this, value, index, popDispatchValueArray) : void 0;
     }
     return value;
 };
@@ -162,10 +162,10 @@ List.prototype.shift = function (_before, _after) {
     var head = this.head;
     if (head.prev !== head) {
         value = head.next.value;
-        var dispatchValueArray = _before ? _before.call(this,value,0) : void 0;
+        var dispatchValueArray = _before ? _before.call(this, value, 0) : void 0;
         head.next['delete']();
         this.length--;
-        _after ? _after.call(this,value,0,dispatchValueArray) : void 0;
+        _after ? _after.call(this, value, 0, dispatchValueArray) : void 0;
     }
     return value;
 };
@@ -345,9 +345,9 @@ function ListIterator(head) {
 };
 
 ListIterator.prototype.__iterationObject = null;
-Object.defineProperty(ListIterator.prototype,"_iterationObject", {
-    get: function() {
-        return this.__iterationObject || (this.__iterationObject = { done: false, value:null});
+Object.defineProperty(ListIterator.prototype, "_iterationObject", {
+    get: function () {
+        return this.__iterationObject || (this.__iterationObject = {done: false, value: null});
     }
 });
 

@@ -1,19 +1,18 @@
-import json
 import asyncio
+import json
 
-from channels.generic.websocket import AsyncJsonWebsocketConsumer
 from channels.db import database_sync_to_async
-from django.utils import timezone
-from django.core.serializers import serialize
+from channels.generic.websocket import AsyncJsonWebsocketConsumer
 from django.core.paginator import Paginator
+from django.utils import timezone
 
-from .models import RoomChatMessage, PrivateChatRoom, UnreadChatRoomMessages
-from .exceptions import ClientError
-from .utils import calculate_timestamp, LazyRoomChatMessageEncoder
-from .constants import *
-from friend.models import FriendList
-from account.utils import LazyAccountEncoder
 from account.models import Account
+from account.utils import LazyAccountEncoder
+from friend.models import FriendList
+from .constants import *
+from .exceptions import ClientError
+from .models import RoomChatMessage, PrivateChatRoom, UnreadChatRoomMessages
+from .utils import calculate_timestamp, LazyRoomChatMessageEncoder
 
 
 class ChatConsumer(AsyncJsonWebsocketConsumer):

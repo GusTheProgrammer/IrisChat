@@ -209,7 +209,7 @@ logging.config.dictConfig({
         },
     },
     'loggers': {
-        'gunicorn': { # this was what I was missing, I kept using django and not seeing any server logs
+        'gunicorn': {  # this was what I was missing, I kept using django and not seeing any server logs
             'level': 'INFO',
             'handlers': ['console'],
             'propagate': True,

@@ -28,7 +28,7 @@ Object.addEach(SortedSet.prototype, GenericCollection.prototype);
 Object.addEach(SortedSet.prototype, GenericSet.prototype);
 Object.addEach(SortedSet.prototype, PropertyChanges.prototype);
 Object.addEach(SortedSet.prototype, RangeChanges.prototype);
-Object.defineProperty(SortedSet.prototype,"size",GenericCollection._sizePropertyDescriptor);
+Object.defineProperty(SortedSet.prototype, "size", GenericCollection._sizePropertyDescriptor);
 SortedSet.from = GenericCollection.from;
 
 SortedSet.prototype.isSorted = true;
@@ -744,10 +744,11 @@ function Iterator(set, start, end) {
         }
     }
 }
+
 Iterator.prototype.__iterationObject = null;
-Object.defineProperty(Iterator.prototype,"_iterationObject", {
-    get: function() {
-        return this.__iterationObject || (this.__iterationObject = { done: false, value:null});
+Object.defineProperty(Iterator.prototype, "_iterationObject", {
+    get: function () {
+        return this.__iterationObject || (this.__iterationObject = {done: false, value: null});
     }
 });
 
@@ -761,18 +762,16 @@ Iterator.prototype.next = function () {
     if (!next) {
         this._iterationObject.done = true;
         this._iterationObject.value = void 0;
-    }
-    else {
+    } else {
         if (
             this.end !== undefined &&
             this.set.contentCompare(next.value, this.end) >= 0
         ) {
             this._iterationObject.done = true;
             this._iterationObject.value = void 0;
-        }
-        else {
+        } else {
             this.prev = next;
-            this._iterationObject.value =  next.value;
+            this._iterationObject.value = next.value;
         }
 
     }

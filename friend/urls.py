@@ -1,7 +1,7 @@
 from django.urls import path
 
 from .views import (send_friend_request, friend_requests, accept_friend_request, remove_friend,
-                    decline_friend_request, cancel_friend_request, friends_list_view, )
+                    decline_friend_request, cancel_friend_request, )
 
 app_name = 'friend'
 

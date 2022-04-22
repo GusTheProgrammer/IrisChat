@@ -1,4 +1,3 @@
-
 require("../listen/array-changes");
 
 var array = [];

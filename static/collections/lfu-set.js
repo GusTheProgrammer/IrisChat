@@ -46,7 +46,7 @@ Object.addEach(LfuSet.prototype, GenericCollection.prototype);
 Object.addEach(LfuSet.prototype, GenericSet.prototype);
 Object.addEach(LfuSet.prototype, PropertyChanges.prototype);
 Object.addEach(LfuSet.prototype, RangeChanges.prototype);
-Object.defineProperty(LfuSet.prototype,"size",GenericCollection._sizePropertyDescriptor);
+Object.defineProperty(LfuSet.prototype, "size", GenericCollection._sizePropertyDescriptor);
 LfuSet.from = GenericCollection.from;
 
 LfuSet.prototype.constructClone = function (values) {

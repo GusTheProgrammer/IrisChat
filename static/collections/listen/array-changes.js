@@ -46,7 +46,8 @@ Object.defineProperty(Array.prototype, "makeObservable", {
 
 //This is a no-op test in property-changes.js - PropertyChanges.prototype.makePropertyObservable, so might as well not pay the price every time....
 Object.defineProperty(Array.prototype, "makePropertyObservable", {
-    value: function(){},
+    value: function () {
+    },
     writable: true,
     configurable: true,
     enumerable: false
@@ -107,7 +108,7 @@ var observableArrayProperties = {
 
     _dispatchBeforeOwnPropertyChange: {
         value: function _dispatchBeforeOwnPropertyChange(start, length) {
-            for (var i = start, countI = start+length; i < countI; i++) {
+            for (var i = start, countI = start + length; i < countI; i++) {
                 PropertyChanges.dispatchBeforeOwnPropertyChange(this, i, this[i]);
                 this.dispatchBeforeMapChange(i, this[i]);
             }
@@ -116,7 +117,7 @@ var observableArrayProperties = {
 
     _dispatchOwnPropertyChange: {
         value: function _dispatchOwnPropertyChange(start, length) {
-            for (var i = start, countI = start+length; i < countI; i++) {
+            for (var i = start, countI = start + length; i < countI; i++) {
                 this.dispatchOwnPropertyChange(i, this[i]);
                 this.dispatchMapChange(i, this[i]);
             }
@@ -176,7 +177,7 @@ var observableArrayProperties = {
                 // all subsequent values changed or shifted.
                 // avoid (longest - start) long walks if there are no
                 // registered descriptors.
-                this._dispatchBeforeOwnPropertyChange(start, longest-start);
+                this._dispatchBeforeOwnPropertyChange(start, longest - start);
             }
 
             // actual work
@@ -187,12 +188,12 @@ var observableArrayProperties = {
 
             // dispatch after change events
             if (diff === 0) { // substring replacement
-                this._dispatchOwnPropertyChange(start,plusLength);
+                this._dispatchOwnPropertyChange(start, plusLength);
             } else if (hasOwnPropertyChangeDescriptor) {
                 // all subsequent values changed or shifted.
                 // avoid (longest - start) long walks if there are no
                 // registered descriptors.
-                this._dispatchOwnPropertyChange(start,longest-start);
+                this._dispatchOwnPropertyChange(start, longest - start);
             }
             this.dispatchRangeChange(plus, minus, start);
             if (diff) {
@@ -223,10 +224,11 @@ var observableArrayProperties = {
     // place
 
     spliceOne: {
-        value: function splice(start,itemToAdd) {
+        value: function splice(start, itemToAdd) {
             //Nothhing to add so length will go down by one.
-            var plus, minus, oldLength = this.length, newLength, longest, argumentsLength = arguments.length, hasOwnPropertyChangeDescriptor;
-            if(argumentsLength === 1) {
+            var plus, minus, oldLength = this.length, newLength, longest, argumentsLength = arguments.length,
+                hasOwnPropertyChangeDescriptor;
+            if (argumentsLength === 1) {
                 PropertyChanges.dispatchBeforeOwnPropertyChange(this, LENGTH, this.length);
                 newLength = this.length - 1;
                 plus = Array.empty;
@@ -246,28 +248,27 @@ var observableArrayProperties = {
                 // all subsequent values changed or shifted.
                 // avoid (longest - start) long walks if there are no
                 // registered descriptors.
-                this._dispatchBeforeOwnPropertyChange(start, longest-start);
+                this._dispatchBeforeOwnPropertyChange(start, longest - start);
             }
 
             if (argumentsLength === 1) { // substring replacement
-                array_spliceOne.call(this,start);
-            }
-            else {
-                array_spliceOne.call(this,start,itemToAdd);
+                array_spliceOne.call(this, start);
+            } else {
+                array_spliceOne.call(this, start, itemToAdd);
             }
 
             // dispatch after change events
             if (argumentsLength === 2) { // substring replacement
-                this._dispatchOwnPropertyChange(start,1);
+                this._dispatchOwnPropertyChange(start, 1);
             } else if (hasOwnPropertyChangeDescriptor) {
                 // all subsequent values changed or shifted.
                 // avoid (longest - start) long walks if there are no
                 // registered descriptors.
-                this._dispatchOwnPropertyChange(start,longest-start);
+                this._dispatchOwnPropertyChange(start, longest - start);
             }
             this.dispatchRangeChange(plus, minus, start);
 
-            if(argumentsLength === 1) {
+            if (argumentsLength === 1) {
                 this.dispatchOwnPropertyChange(LENGTH, this.length);
             }
 
@@ -276,8 +277,8 @@ var observableArrayProperties = {
         configurable: true
     },
     _setSwapBuffer: {
-        get: function() {
-            return this.__setSwapBuffer || (Object.defineProperty(this,"__setSwapBuffer",{
+        get: function () {
+            return this.__setSwapBuffer || (Object.defineProperty(this, "__setSwapBuffer", {
                 value: [],
                 writable: true,
                 configurable: true,
@@ -289,19 +290,18 @@ var observableArrayProperties = {
     set: {
         value: function set(index, value) {
             var hasValue = typeof value !== undefined,
-                diff ,
+                diff,
                 plus = hasValue ? [] : Array.empty,
                 minus,
                 start,
                 hasOwnPropertyChangeDescriptor;
 
 
-            if(index >= this.length) {
+            if (index >= this.length) {
                 plus[index - this.length] = value;
                 diff = (index + 1) - this.length;
                 start = this.length;
-            }
-            else {
+            } else {
                 plus[0] = value;
                 diff = 0;
                 start = index;
@@ -309,7 +309,7 @@ var observableArrayProperties = {
             minus = diff === 0 ? [this[index]] : Array.empty;
 
 
-            if(diff>0) {
+            if (diff > 0) {
                 PropertyChanges.dispatchBeforeOwnPropertyChange(this, LENGTH, this.length);
             }
             this.dispatchBeforeRangeChange(plus, minus, start);
@@ -326,12 +326,12 @@ var observableArrayProperties = {
 
             // dispatch after change events
             if (diff === 0) { // substring replacement
-                this._dispatchOwnPropertyChange(start,1);
+                this._dispatchOwnPropertyChange(start, 1);
             } else if (hasOwnPropertyChangeDescriptor) {
                 // all subsequent values changed or shifted.
                 // avoid (longest - start) long walks if there are no
                 // registered descriptors.
-                this._dispatchOwnPropertyChange(start,diff);
+                this._dispatchOwnPropertyChange(start, diff);
             }
             this.dispatchRangeChange(plus, minus, start);
             if (diff) {
@@ -370,22 +370,22 @@ var observableArrayProperties = {
 
             argArray = addedCount === 1 ? [arguments[0]] : Array.apply(null, arguments);
 
-            if(addedCount > 0) {
+            if (addedCount > 0) {
                 PropertyChanges.dispatchBeforeOwnPropertyChange(this, LENGTH, start);
                 this.dispatchBeforeRangeChange(argArray, Array.empty, start);
 
-                if(hasOwnPropertyChangeDescriptor = PropertyChanges.hasOwnPropertyChangeDescriptor(this)) {
+                if (hasOwnPropertyChangeDescriptor = PropertyChanges.hasOwnPropertyChangeDescriptor(this)) {
                     this._dispatchBeforeOwnPropertyChange(start, addedCount);
                 }
             }
 
-            array_push.apply(this,arguments);
+            array_push.apply(this, arguments);
 
             if (addedCount > 0) {
                 if (hasOwnPropertyChangeDescriptor) {
-                    this._dispatchOwnPropertyChange(start,addedCount);
+                    this._dispatchOwnPropertyChange(start, addedCount);
                 }
-                this.dispatchRangeChange(argArray,Array.empty, start);
+                this.dispatchRangeChange(argArray, Array.empty, start);
                 this.dispatchOwnPropertyChange(LENGTH, this.length);
             }
 

@@ -1,7 +1,7 @@
-
 var GenericCollection = require("collections/generic-collection");
 
 module.exports = describeOrder;
+
 function describeOrder(Collection) {
 
     /*
@@ -15,6 +15,7 @@ function describeOrder(Collection) {
     function FakeArray() {
         this.length = 3;
     }
+
     Object.addEach(FakeArray.prototype, GenericCollection.prototype);
     FakeArray.prototype.reduce = function (callback, basis) {
         basis = callback(basis, 10, 0, this);

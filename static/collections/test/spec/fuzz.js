@@ -1,10 +1,10 @@
-
 // TODO rename set-fuzz
 
 var makeRandom = require("./prng");
 exports.makeRandom = makeRandom;
 
 exports.make = makeFuzz;
+
 function makeFuzz(length, seed, max) {
     var random = makeRandom(seed);
     var operations = [];
@@ -16,11 +16,11 @@ function makeFuzz(length, seed, max) {
             return random() - .5;
         });
         var choice = random();
-        if (previous !== "delete" && content.length && choice > 2/3) {
+        if (previous !== "delete" && content.length && choice > 2 / 3) {
             operation = {type: 'delete', value: content.shift()};
-        } else if (previous !== "get" && content.length && choice > 1/3) {
+        } else if (previous !== "get" && content.length && choice > 1 / 3) {
             operation = {type: 'get', value: content[0]};
-        } else if (previous !== "add")  {
+        } else if (previous !== "add") {
             var value = Math.floor(random() * max);
             content.push(value);
             operation = {type: 'add', value: value};
@@ -32,6 +32,7 @@ function makeFuzz(length, seed, max) {
 }
 
 exports.stringify = stringifyFuzz;
+
 function stringifyFuzz(operations) {
     return operations.map(function (operation) {
         if (operation.type === "add") {
@@ -45,6 +46,7 @@ function stringifyFuzz(operations) {
 }
 
 exports.parse = parseFuzz;
+
 function parseFuzz(fuzz) {
     return fuzz.split(", ").map(function (fuzz) {
         if (fuzz[0] === "+") {
@@ -58,6 +60,7 @@ function parseFuzz(fuzz) {
 }
 
 exports.execute = executeFuzz;
+
 function executeFuzz(set, operations, log) {
     operations.forEach(function (operation) {
         if (operation.type === "add") {

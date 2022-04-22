@@ -8,7 +8,7 @@ var GlobalSet;
 var SIZE = "size";
 
 
-if( (global.Set !== void 0) && (typeof global.Set.prototype.values === "function")) {
+if ((global.Set !== void 0) && (typeof global.Set.prototype.values === "function")) {
     GlobalSet = global.Set;
     module.exports = Set
 
@@ -52,7 +52,7 @@ if( (global.Set !== void 0) && (typeof global.Set.prototype.values === "function
                 if (this.dispatchesRangeChanges) {
                     clearing = this.toArray();
                     this.dispatchBeforeRangeChange(this._dispatchEmptyArray, clearing, 0);
-                    
+
                 }
 
                 set_clear.call(this);
@@ -78,7 +78,7 @@ if( (global.Set !== void 0) && (typeof global.Set.prototype.values === "function
                         this.dispatchBeforeRangeChange(dispatchValueArray, this._dispatchEmptyArray, index);
                     }
 
-                    set_add.call(this,value);
+                    set_add.call(this, value);
 
                     if (this.dispatchesRangeChanges) {
                         this.dispatchRangeChange(dispatchValueArray, this._dispatchEmptyArray, index);
@@ -93,13 +93,13 @@ if( (global.Set !== void 0) && (typeof global.Set.prototype.values === "function
         },
 
         "delete": {
-            value: function (value,index) {
+            value: function (value, index) {
                 if (this.has(value)) {
                     var size = this.size;
-                    if(index === undefined) {
+                    if (index === undefined) {
                         var setIterator = this.values();
                         index = 0
-                        while(setIterator.next().value !== value) {
+                        while (setIterator.next().value !== value) {
                             index++;
                         }
                     }
@@ -128,7 +128,8 @@ if( (global.Set !== void 0) && (typeof global.Set.prototype.values === "function
     Object.defineEach(Set.prototype, PropertyChanges.prototype, false, /*configurable*/true, /*enumerable*/ false, /*writable*/true);
     //This is a no-op test in property-changes.js - PropertyChanges.prototype.makePropertyObservable, so might as well not pay the price every time....
     Object.defineProperty(Set.prototype, "makePropertyObservable", {
-        value: function(){},
+        value: function () {
+        },
         writable: true,
         configurable: true,
         enumerable: false
@@ -145,8 +146,7 @@ if( (global.Set !== void 0) && (typeof global.Set.prototype.values === "function
         enumerable: false
     });
 
-}
-else {
+} else {
     setupCollectionSet();
 }
 
@@ -170,7 +170,7 @@ function setupCollectionSet() {
     CollectionsSet.prototype.Order = List;
     CollectionsSet.prototype.Store = FastSet;
 
-    Object.defineProperty(CollectionsSet.prototype,"_dispatchEmptyArray", {
+    Object.defineProperty(CollectionsSet.prototype, "_dispatchEmptyArray", {
         value: []
     });
 

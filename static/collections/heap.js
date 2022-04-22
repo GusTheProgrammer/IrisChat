@@ -1,4 +1,3 @@
-
 // Adapted from Eloquent JavaScript by Marijn Haverbeke
 // http://eloquentjavascript.net/appendix2.html
 

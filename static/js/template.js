@@ -12016,6 +12016,18 @@
                 }, this.emojisPerRow = i.emojisPerRow || 8, this.categories = i.categories || xe.categories, i.showRecents && (this.categories = ["recents", ...this.categories]), i.custom && (this.categories = [...this.categories, "custom"])
             }
 
+            get currentCategoryEl() {
+                return this.emojis.querySelectorAll(".emoji-picker__container")[this.currentCategory]
+            }
+
+            get focusedEmoji() {
+                return this.currentCategoryEl.querySelectorAll("." + Se)[this.focusedIndex]
+            }
+
+            get currentEmojiCount() {
+                return this.currentCategoryEl.querySelectorAll("." + Se).length
+            }
+
             updateRecents() {
                 if (this.options.showRecents) {
                     $o.recents = Fo();
@@ -12037,18 +12049,6 @@
 
             reset() {
                 this.headerOffsets = Array.prototype.map.call(this.headers, e => e.offsetTop), this.selectCategory(this.options.initialCategory || "smileys", !1), this.currentCategory = this.categories.indexOf(this.options.initialCategory || "smileys"), this.options.showCategoryButtons && this.categoryButtons.setActiveButton(this.currentCategory, !1)
-            }
-
-            get currentCategoryEl() {
-                return this.emojis.querySelectorAll(".emoji-picker__container")[this.currentCategory]
-            }
-
-            get focusedEmoji() {
-                return this.currentCategoryEl.querySelectorAll("." + Se)[this.focusedIndex]
-            }
-
-            get currentEmojiCount() {
-                return this.currentCategoryEl.querySelectorAll("." + Se).length
             }
 
             getEmojiCount(e) {

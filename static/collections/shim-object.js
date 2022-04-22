@@ -14,51 +14,51 @@ module.exports = Object;
 */
 
 /**
-    Defines extensions to intrinsic <code>Object</code>.
-    @see [Object class]{@link external:Object}
-*/
+ Defines extensions to intrinsic <code>Object</code>.
+ @see [Object class]{@link external:Object}
+ */
 
 /**
-    A utility object to avoid unnecessary allocations of an empty object
-    <code>{}</code>.  This object is frozen so it is safe to share.
+ A utility object to avoid unnecessary allocations of an empty object
+ <code>{}</code>.  This object is frozen so it is safe to share.
 
-    @object external:Object.empty
-*/
+ @object external:Object.empty
+ */
 Object.empty = Object.freeze(Object.create(null));
 
 /**
-    Returns whether the given value is an object, as opposed to a value.
-    Unboxed numbers, strings, true, false, undefined, and null are not
-    objects.  Arrays are objects.
+ Returns whether the given value is an object, as opposed to a value.
+ Unboxed numbers, strings, true, false, undefined, and null are not
+ objects.  Arrays are objects.
 
-    @function external:Object.isObject
-    @param {Any} value
-    @returns {Boolean} whether the given value is an object
-*/
+ @function external:Object.isObject
+ @param {Any} value
+ @returns {Boolean} whether the given value is an object
+ */
 Object.isObject = function (object) {
     return Object(object) === object;
 };
 
 /**
-    Returns the value of an any value, particularly objects that
-    implement <code>valueOf</code>.
+ Returns the value of an any value, particularly objects that
+ implement <code>valueOf</code>.
 
-    <p>Note that, unlike the precedent of methods like
-    <code>Object.equals</code> and <code>Object.compare</code> would suggest,
-    this method is named <code>Object.getValueOf</code> instead of
-    <code>valueOf</code>.  This is a delicate issue, but the basis of this
-    decision is that the JavaScript runtime would be far more likely to
-    accidentally call this method with no arguments, assuming that it would
-    return the value of <code>Object</code> itself in various situations,
-    whereas <code>Object.equals(Object, null)</code> protects against this case
-    by noting that <code>Object</code> owns the <code>equals</code> property
-    and therefore does not delegate to it.
+ <p>Note that, unlike the precedent of methods like
+ <code>Object.equals</code> and <code>Object.compare</code> would suggest,
+ this method is named <code>Object.getValueOf</code> instead of
+ <code>valueOf</code>.  This is a delicate issue, but the basis of this
+ decision is that the JavaScript runtime would be far more likely to
+ accidentally call this method with no arguments, assuming that it would
+ return the value of <code>Object</code> itself in various situations,
+ whereas <code>Object.equals(Object, null)</code> protects against this case
+ by noting that <code>Object</code> owns the <code>equals</code> property
+ and therefore does not delegate to it.
 
-    @function external:Object.getValueOf
-    @param {Any} value a value or object wrapping a value
-    @returns {Any} the primitive value of that object, if one exists, or passes
-    the value through
-*/
+ @function external:Object.getValueOf
+ @param {Any} value a value or object wrapping a value
+ @returns {Any} the primitive value of that object, if one exists, or passes
+ the value through
+ */
 Object.getValueOf = function (value) {
     if (value && typeof value.valueOf === "function") {
         value = value.valueOf();
@@ -81,43 +81,43 @@ Object.hash = function (object) {
 };
 
 /**
-    A shorthand for <code>Object.prototype.hasOwnProperty.call(object,
-    key)</code>.  Returns whether the object owns a property for the given key.
-    It does not consult the prototype chain and works for any string (including
-    "hasOwnProperty") except "__proto__".
+ A shorthand for <code>Object.prototype.hasOwnProperty.call(object,
+ key)</code>.  Returns whether the object owns a property for the given key.
+ It does not consult the prototype chain and works for any string (including
+ "hasOwnProperty") except "__proto__".
 
-    @function external:Object.owns
-    @param {Object} object
-    @param {String} key
-    @returns {Boolean} whether the object owns a property wfor the given key.
-*/
+ @function external:Object.owns
+ @param {Object} object
+ @param {String} key
+ @returns {Boolean} whether the object owns a property wfor the given key.
+ */
 var owns = Object.prototype.hasOwnProperty;
 Object.owns = function (object, key) {
     return owns.call(object, key);
 };
 
 /**
-    A utility that is like Object.owns but is also useful for finding
-    properties on the prototype chain, provided that they do not refer to
-    methods on the Object prototype.  Works for all strings except "__proto__".
+ A utility that is like Object.owns but is also useful for finding
+ properties on the prototype chain, provided that they do not refer to
+ methods on the Object prototype.  Works for all strings except "__proto__".
 
-    <p>Alternately, you could use the "in" operator as long as the object
-    descends from "null" instead of the Object.prototype, as with
-    <code>Object.create(null)</code>.  However,
-    <code>Object.create(null)</code> only works in fully compliant EcmaScript 5
-    JavaScript engines and cannot be faithfully shimmed.
+ <p>Alternately, you could use the "in" operator as long as the object
+ descends from "null" instead of the Object.prototype, as with
+ <code>Object.create(null)</code>.  However,
+ <code>Object.create(null)</code> only works in fully compliant EcmaScript 5
+ JavaScript engines and cannot be faithfully shimmed.
 
-    <p>If the given object is an instance of a type that implements a method
-    named "has", this function defers to the collection, so this method can be
-    used to generically handle objects, arrays, or other collections.  In that
-    case, the domain of the key depends on the instance.
+ <p>If the given object is an instance of a type that implements a method
+ named "has", this function defers to the collection, so this method can be
+ used to generically handle objects, arrays, or other collections.  In that
+ case, the domain of the key depends on the instance.
 
-    @param {Object} object
-    @param {String} key
-    @returns {Boolean} whether the object, or any of its prototypes except
-    <code>Object.prototype</code>
-    @function external:Object.has
-*/
+ @param {Object} object
+ @param {String} key
+ @returns {Boolean} whether the object, or any of its prototypes except
+ <code>Object.prototype</code>
+ @function external:Object.has
+ */
 Object.has = function (object, key) {
     if (typeof object !== "object") {
         throw new Error("Object.has can't accept non-object: " + typeof object);
@@ -125,8 +125,8 @@ Object.has = function (object, key) {
     // forward to mapped collections that implement "has"
     if (object && typeof object.has === "function") {
         return object.has(key);
-    // otherwise report whether the key is on the prototype chain,
-    // as long as it is not one of the methods on object.prototype
+        // otherwise report whether the key is on the prototype chain,
+        // as long as it is not one of the methods on object.prototype
     } else if (typeof key === "string") {
         return key in object && object[key] !== Object.prototype[key];
     } else {
@@ -135,28 +135,28 @@ Object.has = function (object, key) {
 };
 
 /**
-    Gets the value for a corresponding key from an object.
+ Gets the value for a corresponding key from an object.
 
-    <p>Uses Object.has to determine whether there is a corresponding value for
-    the given key.  As such, <code>Object.get</code> is capable of retriving
-    values from the prototype chain as long as they are not from the
-    <code>Object.prototype</code>.
+ <p>Uses Object.has to determine whether there is a corresponding value for
+ the given key.  As such, <code>Object.get</code> is capable of retriving
+ values from the prototype chain as long as they are not from the
+ <code>Object.prototype</code>.
 
-    <p>If there is no corresponding value, returns the given default, which may
-    be <code>undefined</code>.
+ <p>If there is no corresponding value, returns the given default, which may
+ be <code>undefined</code>.
 
-    <p>If the given object is an instance of a type that implements a method
-    named "get", this function defers to the collection, so this method can be
-    used to generically handle objects, arrays, or other collections.  In that
-    case, the domain of the key depends on the implementation.  For a `Map`,
-    for example, the key might be any object.
+ <p>If the given object is an instance of a type that implements a method
+ named "get", this function defers to the collection, so this method can be
+ used to generically handle objects, arrays, or other collections.  In that
+ case, the domain of the key depends on the implementation.  For a `Map`,
+ for example, the key might be any object.
 
-    @param {Object} object
-    @param {String} key
-    @param {Any} value a default to return, <code>undefined</code> if omitted
-    @returns {Any} value for key, or default value
-    @function external:Object.get
-*/
+ @param {Object} object
+ @param {String} key
+ @param {Any} value a default to return, <code>undefined</code> if omitted
+ @returns {Any} value for key, or default value
+ @function external:Object.get
+ */
 Object.get = function (object, key, value) {
     if (typeof object !== "object") {
         throw new Error("Object.get can't accept non-object: " + typeof object);
@@ -172,19 +172,19 @@ Object.get = function (object, key, value) {
 };
 
 /**
-    Sets the value for a given key on an object.
+ Sets the value for a given key on an object.
 
-    <p>If the given object is an instance of a type that implements a method
-    named "set", this function defers to the collection, so this method can be
-    used to generically handle objects, arrays, or other collections.  As such,
-    the key domain varies by the object type.
+ <p>If the given object is an instance of a type that implements a method
+ named "set", this function defers to the collection, so this method can be
+ used to generically handle objects, arrays, or other collections.  As such,
+ the key domain varies by the object type.
 
-    @param {Object} object
-    @param {String} key
-    @param {Any} value
-    @returns <code>undefined</code>
-    @function external:Object.set
-*/
+ @param {Object} object
+ @param {String} key
+ @param {Any} value
+ @returns <code>undefined</code>
+ @function external:Object.set
+ */
 Object.set = function (object, key, value) {
     if (object && typeof object.set === "function") {
         object.set(key, value);
@@ -202,7 +202,7 @@ Object.addEach = function (target, source, overrides) {
             source.forEach(function (value, key) {
                 target[key] = value;
             });
-        // iterate key value pairs of other iterables
+            // iterate key value pairs of other iterables
         } else {
             source.forEach(function (pair) {
                 target[pair[0]] = pair[1];
@@ -215,8 +215,8 @@ Object.addEach = function (target, source, overrides) {
         }
     } else {
         // copy other objects as map-alikes
-        for(var keys = Object.keys(source), i = 0, key;(key = keys[i]); i++) {
-            if(overridesExistingProperty || !Object.owns(target,key)) {
+        for (var keys = Object.keys(source), i = 0, key; (key = keys[i]); i++) {
+            if (overridesExistingProperty || !Object.owns(target, key)) {
                 target[key] = source[key];
             }
         }
@@ -255,7 +255,7 @@ Object.defineEach = function (target, source, overrides, configurable, enumerabl
                     enumerable: enumerable
                 });
             });
-        // iterate key value pairs of other iterables
+            // iterate key value pairs of other iterables
         } else {
             source.forEach(function (pair) {
                 Object.defineProperty(target, pair[0], {
@@ -280,8 +280,8 @@ Object.defineEach = function (target, source, overrides, configurable, enumerabl
         }
     } else {
         // copy other objects as map-alikes
-        for(var keys = Object.keys(source), i = 0, key;(key = keys[i]); i++) {
-            if(overridesExistingProperty || !Object.owns(target,key)) {
+        for (var keys = Object.keys(source), i = 0, key; (key = keys[i]); i++) {
+            if (overridesExistingProperty || !Object.owns(target, key)) {
                 Object.defineProperty(target, key, {
                     value: source[key],
                     writable: writable,
@@ -296,55 +296,55 @@ Object.defineEach = function (target, source, overrides, configurable, enumerabl
 };
 
 /**
-    Iterates over the owned properties of an object.
+ Iterates over the owned properties of an object.
 
-    @function external:Object.forEach
-    @param {Object} object an object to iterate.
-    @param {Function} callback a function to call for every key and value
-    pair in the object.  Receives <code>value</code>, <code>key</code>,
-    and <code>object</code> as arguments.
-    @param {Object} thisp the <code>this</code> to pass through to the
-    callback
-*/
+ @function external:Object.forEach
+ @param {Object} object an object to iterate.
+ @param {Function} callback a function to call for every key and value
+ pair in the object.  Receives <code>value</code>, <code>key</code>,
+ and <code>object</code> as arguments.
+ @param {Object} thisp the <code>this</code> to pass through to the
+ callback
+ */
 Object.forEach = function (object, callback, thisp) {
 
     var keys = Object.keys(object), i = 0, iKey;
-    for(;(iKey = keys[i]);i++) {
+    for (; (iKey = keys[i]); i++) {
         callback.call(thisp, object[iKey], iKey, object);
     }
 
 };
 
 /**
-    Iterates over the owned properties of a map, constructing a new array of
-    mapped values.
+ Iterates over the owned properties of a map, constructing a new array of
+ mapped values.
 
-    @function external:Object.map
-    @param {Object} object an object to iterate.
-    @param {Function} callback a function to call for every key and value
-    pair in the object.  Receives <code>value</code>, <code>key</code>,
-    and <code>object</code> as arguments.
-    @param {Object} thisp the <code>this</code> to pass through to the
-    callback
-    @returns {Array} the respective values returned by the callback for each
-    item in the object.
-*/
+ @function external:Object.map
+ @param {Object} object an object to iterate.
+ @param {Function} callback a function to call for every key and value
+ pair in the object.  Receives <code>value</code>, <code>key</code>,
+ and <code>object</code> as arguments.
+ @param {Object} thisp the <code>this</code> to pass through to the
+ callback
+ @returns {Array} the respective values returned by the callback for each
+ item in the object.
+ */
 Object.map = function (object, callback, thisp) {
     var keys = Object.keys(object), i = 0, result = [], iKey;
-    for(;(iKey = keys[i]);i++) {
+    for (; (iKey = keys[i]); i++) {
         result.push(callback.call(thisp, object[iKey], iKey, object));
     }
     return result;
 };
 
 /**
-    Returns the values for owned properties of an object.
+ Returns the values for owned properties of an object.
 
-    @function external:Object.map
-    @param {Object} object
-    @returns {Array} the respective value for each owned property of the
-    object.
-*/
+ @function external:Object.map
+ @param {Object} object
+ @returns {Array} the respective value for each owned property of the
+ object.
+ */
 Object.values = function (object) {
     return Object.map(object, Function.identity);
 };
@@ -361,19 +361,19 @@ Object.concat = function () {
 Object.from = Object.concat;
 
 /**
-    Returns whether two values are identical.  Any value is identical to itself
-    and only itself.  This is much more restictive than equivalence and subtly
-    different than strict equality, <code>===</code> because of edge cases
-    including negative zero and <code>NaN</code>.  Identity is useful for
-    resolving collisions among keys in a mapping where the domain is any value.
-    This method does not delgate to any method on an object and cannot be
-    overridden.
-    @see http://wiki.ecmascript.org/doku.php?id=harmony:egal
-    @param {Any} this
-    @param {Any} that
-    @returns {Boolean} whether this and that are identical
-    @function external:Object.is
-*/
+ Returns whether two values are identical.  Any value is identical to itself
+ and only itself.  This is much more restictive than equivalence and subtly
+ different than strict equality, <code>===</code> because of edge cases
+ including negative zero and <code>NaN</code>.  Identity is useful for
+ resolving collisions among keys in a mapping where the domain is any value.
+ This method does not delgate to any method on an object and cannot be
+ overridden.
+ @see http://wiki.ecmascript.org/doku.php?id=harmony:egal
+ @param {Any} this
+ @param {Any} that
+ @returns {Boolean} whether this and that are identical
+ @function external:Object.is
+ */
 Object.is = function (x, y) {
     if (x === y) {
         // 0 === -0, but they are not identical
@@ -388,41 +388,41 @@ Object.is = function (x, y) {
 };
 
 /**
-    Performs a polymorphic, type-sensitive deep equivalence comparison of any
-    two values.
+ Performs a polymorphic, type-sensitive deep equivalence comparison of any
+ two values.
 
-    <p>As a basic principle, any value is equivalent to itself (as in
-    identity), any boxed version of itself (as a <code>new Number(10)</code> is
-    to 10), and any deep clone of itself.
+ <p>As a basic principle, any value is equivalent to itself (as in
+ identity), any boxed version of itself (as a <code>new Number(10)</code> is
+ to 10), and any deep clone of itself.
 
-    <p>Equivalence has the following properties:
+ <p>Equivalence has the following properties:
 
-    <ul>
-        <li><strong>polymorphic:</strong>
-            If the given object is an instance of a type that implements a
-            methods named "equals", this function defers to the method.  So,
-            this function can safely compare any values regardless of type,
-            including undefined, null, numbers, strings, any pair of objects
-            where either implements "equals", or object literals that may even
-            contain an "equals" key.
-        <li><strong>type-sensitive:</strong>
-            Incomparable types are not equal.  No object is equivalent to any
-            array.  No string is equal to any other number.
-        <li><strong>deep:</strong>
-            Collections with equivalent content are equivalent, recursively.
-        <li><strong>equivalence:</strong>
-            Identical values and objects are equivalent, but so are collections
-            that contain equivalent content.  Whether order is important varies
-            by type.  For Arrays and lists, order is important.  For Objects,
-            maps, and sets, order is not important.  Boxed objects are mutally
-            equivalent with their unboxed values, by virtue of the standard
-            <code>valueOf</code> method.
-    </ul>
-    @param this
-    @param that
-    @returns {Boolean} whether the values are deeply equivalent
-    @function external:Object.equals
-*/
+ <ul>
+ <li><strong>polymorphic:</strong>
+ If the given object is an instance of a type that implements a
+ methods named "equals", this function defers to the method.  So,
+ this function can safely compare any values regardless of type,
+ including undefined, null, numbers, strings, any pair of objects
+ where either implements "equals", or object literals that may even
+ contain an "equals" key.
+ <li><strong>type-sensitive:</strong>
+ Incomparable types are not equal.  No object is equivalent to any
+ array.  No string is equal to any other number.
+ <li><strong>deep:</strong>
+ Collections with equivalent content are equivalent, recursively.
+ <li><strong>equivalence:</strong>
+ Identical values and objects are equivalent, but so are collections
+ that contain equivalent content.  Whether order is important varies
+ by type.  For Arrays and lists, order is important.  For Objects,
+ maps, and sets, order is not important.  Boxed objects are mutally
+ equivalent with their unboxed values, by virtue of the standard
+ <code>valueOf</code> method.
+ </ul>
+ @param this
+ @param that
+ @returns {Boolean} whether the values are deeply equivalent
+ @function external:Object.equals
+ */
 Object.equals = function (a, b, equals, memo) {
     equals = equals || Object.equals;
     //console.log("Object.equals: a:",a, "b:",b, "equals:",equals);
@@ -482,34 +482,34 @@ Object.equals = function (a, b, equals, memo) {
 // way around.
 
 /**
-    Determines the order in which any two objects should be sorted by returning
-    a number that has an analogous relationship to zero as the left value to
-    the right.  That is, if the left is "less than" the right, the returned
-    value will be "less than" zero, where "less than" may be any other
-    transitive relationship.
+ Determines the order in which any two objects should be sorted by returning
+ a number that has an analogous relationship to zero as the left value to
+ the right.  That is, if the left is "less than" the right, the returned
+ value will be "less than" zero, where "less than" may be any other
+ transitive relationship.
 
-    <p>Arrays are compared by the first diverging values, or by length.
+ <p>Arrays are compared by the first diverging values, or by length.
 
-    <p>Any two values that are incomparable return zero.  As such,
-    <code>equals</code> should not be implemented with <code>compare</code>
-    since incomparability is indistinguishable from equality.
+ <p>Any two values that are incomparable return zero.  As such,
+ <code>equals</code> should not be implemented with <code>compare</code>
+ since incomparability is indistinguishable from equality.
 
-    <p>Sorts strings lexicographically.  This is not suitable for any
-    particular international setting.  Different locales sort their phone books
-    in very different ways, particularly regarding diacritics and ligatures.
+ <p>Sorts strings lexicographically.  This is not suitable for any
+ particular international setting.  Different locales sort their phone books
+ in very different ways, particularly regarding diacritics and ligatures.
 
-    <p>If the given object is an instance of a type that implements a method
-    named "compare", this function defers to the instance.  The method does not
-    need to be an owned property to distinguish it from an object literal since
-    object literals are incomparable.  Unlike <code>Object</code> however,
-    <code>Array</code> implements <code>compare</code>.
+ <p>If the given object is an instance of a type that implements a method
+ named "compare", this function defers to the instance.  The method does not
+ need to be an owned property to distinguish it from an object literal since
+ object literals are incomparable.  Unlike <code>Object</code> however,
+ <code>Array</code> implements <code>compare</code>.
 
-    @param {Any} left
-    @param {Any} right
-    @returns {Number} a value having the same transitive relationship to zero
-    as the left and right values.
-    @function external:Object.compare
-*/
+ @param {Any} left
+ @param {Any} right
+ @returns {Number} a value having the same transitive relationship to zero
+ as the left and right values.
+ @function external:Object.compare
+ */
 Object.compare = function (a, b) {
     // unbox objects, but do not confuse object literals
     // mercifully handles the Date case
@@ -523,7 +523,7 @@ Object.compare = function (a, b) {
         return a - b;
     if (aType === "string" && bType === "string")
         return a < b ? -Infinity : Infinity;
-        // the possibility of equality elimiated above
+    // the possibility of equality elimiated above
     if (a && typeof a.compare === "function")
         return a.compare(b);
     // not commutative, the relationship is reversed
@@ -533,22 +533,22 @@ Object.compare = function (a, b) {
 };
 
 /**
-    Creates a deep copy of any value.  Values, being immutable, are
-    returned without alternation.  Forwards to <code>clone</code> on
-    objects and arrays.
+ Creates a deep copy of any value.  Values, being immutable, are
+ returned without alternation.  Forwards to <code>clone</code> on
+ objects and arrays.
 
-    @function external:Object.clone
-    @param {Any} value a value to clone
-    @param {Number} depth an optional traversal depth, defaults to infinity.
-    A value of <code>0</code> means to make no clone and return the value
-    directly.
-    @param {Map} memo an optional memo of already visited objects to preserve
-    reference cycles.  The cloned object will have the exact same shape as the
-    original, but no identical objects.  Te map may be later used to associate
-    all objects in the original object graph with their corresponding member of
-    the cloned graph.
-    @returns a copy of the value
-*/
+ @function external:Object.clone
+ @param {Any} value a value to clone
+ @param {Number} depth an optional traversal depth, defaults to infinity.
+ A value of <code>0</code> means to make no clone and return the value
+ directly.
+ @param {Map} memo an optional memo of already visited objects to preserve
+ reference cycles.  The cloned object will have the exact same shape as the
+ original, but no identical objects.  Te map may be later used to associate
+ all objects in the original object graph with their corresponding member of
+ the cloned graph.
+ @returns a copy of the value
+ */
 Object.clone = function (value, depth, memo) {
     value = Object.getValueOf(value);
     memo = memo || new WeakMap();
@@ -580,12 +580,12 @@ Object.clone = function (value, depth, memo) {
 };
 
 /**
-    Removes all properties owned by this object making the object suitable for
-    reuse.
+ Removes all properties owned by this object making the object suitable for
+ reuse.
 
-    @function external:Object.clear
-    @returns this
-*/
+ @function external:Object.clear
+ @returns this
+ */
 Object.clear = function (object) {
     if (object && typeof object.clear === "function") {
         object.clear();

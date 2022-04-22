@@ -21,8 +21,10 @@ describe("PropertyChanges", function () {
         });
         object.x = 10;
         expect(object.x).toEqual(10);
-        
-        var argsForCall = spy.calls.all().map(function (call) { return call.args });
+
+        var argsForCall = spy.calls.all().map(function (call) {
+            return call.args
+        });
         expect(argsForCall).toEqual([
             ['from', undefined, 'x'],
             ['to', 10, 'x'],
@@ -57,7 +59,9 @@ describe("PropertyChanges", function () {
         object.x = 20;
         expect(object.x).toEqual(20);
 
-        var argsForCall = spy.calls.all().map(function (call) { return call.args });
+        var argsForCall = spy.calls.all().map(function (call) {
+            return call.args
+        });
         expect(argsForCall).toEqual([
             ['from', 10, 'x'],
             ['to', 20, 'x'], // reports no change
@@ -90,14 +94,14 @@ describe("PropertyChanges", function () {
         expect(spy).not.toHaveBeenCalled();
     });
 
-    it("calls setter on object when the new value is the current value", function() {
+    it("calls setter on object when the new value is the current value", function () {
         var object = Object.create(Object.prototype, {
             _x: {value: 0, writable: true},
             x: {
-                get: function() {
+                get: function () {
                     return this._x;
                 },
-                set: function(value) {
+                set: function (value) {
                     this._x = value * 2;
                 },
                 configurable: true,
@@ -105,7 +109,8 @@ describe("PropertyChanges", function () {
             }
         });
 
-        PropertyChanges.addOwnPropertyChangeListener(object, "x", function() {});
+        PropertyChanges.addOwnPropertyChangeListener(object, "x", function () {
+        });
 
         object.x = 1;
         object.x = 2;

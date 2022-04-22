@@ -12,7 +12,7 @@ global.jasmine = jasmine;
 global.jasmineRequire = jasmineRequire;
 for (var property in jasmineInterface) {
     if (jasmineInterface.hasOwnProperty(property)) {
-       global[property] = jasmineInterface[property];
+        global[property] = jasmineInterface[property];
     }
 }
 
@@ -32,7 +32,7 @@ jasmineEnv.addReporter(consoleReporter);
 // Exit code
 var exitCode = 0;
 jasmineEnv.addReporter({
-    specDone: function(result) {
+    specDone: function (result) {
         exitCode = exitCode || result.status === 'failed';
     }
 });

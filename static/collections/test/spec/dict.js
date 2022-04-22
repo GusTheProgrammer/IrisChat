@@ -1,6 +1,7 @@
 // tests that are equally applicable to Dict, Map, SortedMap, unbounded LruMap, FastMap
 
 module.exports = describeDict;
+
 function describeDict(Dict) {
 
     it("should be constructable from entry duples", function () {
@@ -48,7 +49,7 @@ function describeDict(Dict) {
     it("should send a value for MapChange events", function () {
         var dict = Dict.from({a: 1});
 
-        var listener = function(value, key) {
+        var listener = function (value, key) {
             expect(value).toBe(2);
         };
         dict.addMapChangeListener(listener);

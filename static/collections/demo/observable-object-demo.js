@@ -1,4 +1,3 @@
-
 require("../observable-object");
 
 var object = {};

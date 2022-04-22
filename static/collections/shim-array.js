@@ -25,13 +25,13 @@ if (!Array.empty) {
     }
 }
 
-if(!Array.nativeFrom ) {
+if (!Array.nativeFrom) {
     Array.nativeFrom = Array.from;
 }
 
 var isSymbolDefined = typeof Symbol !== "undefined";
 Array.from = function (values, mapFn, thisArg) {
-    if(isSymbolDefined && values && (typeof values[Symbol.iterator] === "function" || typeof mapFn === "function")) {
+    if (isSymbolDefined && values && (typeof values[Symbol.iterator] === "function" || typeof mapFn === "function")) {
         return Array.nativeFrom(values, mapFn, thisArg);
     }
     //Now we add support for values that implement forEach:
@@ -146,7 +146,7 @@ define("deleteAll", function (value, equals) {
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find
 // https://tc39.github.io/ecma262/#sec-array.prototype.find
 if (!Array.prototype.find) {
-    define("find", function(predicate) {
+    define("find", function (predicate) {
         // 1. Let O be ? ToObject(this value).
         if (this == null) {
             throw new TypeError('"this" is null or not defined');
@@ -186,11 +186,12 @@ if (!Array.prototype.find) {
 
 // TODO remove in v6 (not present in v2)
 var deprecatedWarnNonce = {};
+
 function deprecatedWarn(msg, notOnce) {
     if (
         typeof console !== 'undefined' &&
-            typeof console.warn === 'function' &&
-                (notOnce !== true && deprecatedWarnNonce.hasOwnProperty(msg) === false)
+        typeof console.warn === 'function' &&
+        (notOnce !== true && deprecatedWarnNonce.hasOwnProperty(msg) === false)
     ) {
         console.warn(msg);
         deprecatedWarnNonce[msg]++;
@@ -203,7 +204,7 @@ var ArrayFindPrototype = Object.getOwnPropertyDescriptor(Array.prototype, 'find'
 define("find", function (value, equals, index) {
     if (
         typeof arguments[0] === 'function' &&
-            this instanceof Array
+        this instanceof Array
     ) {
         return ArrayFindPrototype.apply(this, arguments);
     } else {
@@ -263,7 +264,7 @@ define("swap", function (start, length, plus) {
         // the common case.
         if (plusLength < 1000) {
             for (i; i < plusLength; i++) {
-                args[i+2] = plus[i];
+                args[i + 2] = plus[i];
             }
             return array_splice.apply(this, args);
         } else {
@@ -272,7 +273,7 @@ define("swap", function (start, length, plus) {
             returnValue = array_splice.apply(this, args);
             // Second batch in 1000s.
             for (i; i < plusLength;) {
-                args = [start+i, 0];
+                args = [start + i, 0];
                 for (j = 2; j < 1002 && i < plusLength; j++, i++) {
                     args[j] = plus[i];
                 }
@@ -280,10 +281,10 @@ define("swap", function (start, length, plus) {
             }
             return returnValue;
         }
-    // using call rather than apply to cut down on transient objects
+        // using call rather than apply to cut down on transient objects
     } else if (typeof length !== "undefined") {
         return array_splice.call(this, start, length);
-    }  else if (typeof start !== "undefined") {
+    } else if (typeof start !== "undefined") {
         return array_splice.call(this, start);
     } else {
         return [];
@@ -416,7 +417,8 @@ define("clone", function (depth, memo) {
     memo.set(this, clone);
     for (var i in this) {
         clone[i] = Object.clone(this[i], depth - 1, memo);
-    };
+    }
+    ;
     return clone;
 });
 
@@ -424,18 +426,19 @@ define("iterate", function (start, end) {
     return new ArrayIterator(this, start, end);
 });
 
-if(Array.prototype.spliceOne === void 0) {
-    define("spliceOne", function (index,itemToAdd) {
-        var len=this.length;
-        if (!len) { return }
-        if(arguments.length === 1) {
-            while (index<len) {
-                this[index] = this[index+1];
+if (Array.prototype.spliceOne === void 0) {
+    define("spliceOne", function (index, itemToAdd) {
+        var len = this.length;
+        if (!len) {
+            return
+        }
+        if (arguments.length === 1) {
+            while (index < len) {
+                this[index] = this[index + 1];
                 index++
             }
             this.length--;
-        }
-        else {
+        } else {
             this[index] = itemToAdd;
         }
     });
@@ -450,9 +453,9 @@ function ArrayIterator(array, start, end) {
 }
 
 ArrayIterator.prototype.__iterationObject = null;
-Object.defineProperty(ArrayIterator.prototype,"_iterationObject", {
-    get: function() {
-        return this.__iterationObject || (this.__iterationObject = { done: false, value:null});
+Object.defineProperty(ArrayIterator.prototype, "_iterationObject", {
+    get: function () {
+        return this.__iterationObject || (this.__iterationObject = {done: false, value: null});
     }
 });
 

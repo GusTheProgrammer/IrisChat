@@ -20857,6 +20857,7 @@ fieldset:disabled .btn {
     padding: .52515em .81em;
     font-size: 2em
 }
+
 .badge-xxl.badge-circle {
     height: calc(1em + 1.0503em);
     padding: .52515em
@@ -23365,8 +23366,6 @@ img.zoom-img {
     background-color: rgb(39, 135, 245, 0.7);
     border-radius: 10px;
 }
-
-
 
 
 #id_general_notifications_container {

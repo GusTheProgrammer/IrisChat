@@ -4,10 +4,10 @@ var Shim = require("./shim");
 var GenericCollection = require("./generic-collection");
 var Map, GlobalMap, CollectionsMap;
 
-if((global.Map !== void 0) && (typeof global.Set.prototype.values === "function")) {
+if ((global.Map !== void 0) && (typeof global.Set.prototype.values === "function")) {
 
     Map = module.exports = global.Map,
-    GlobalMap = Map;
+        GlobalMap = Map;
     Map.Map = Map; // hack so require("map").Map will work in MontageJS
 
     // use different strategies for making sets observable between Internet
@@ -34,7 +34,8 @@ if((global.Map !== void 0) && (typeof global.Set.prototype.values === "function"
 
     //This is a no-op test in property-changes.js - PropertyChanges.prototype.makePropertyObservable, so might as well not pay the price every time....
     Object.defineProperty(Map.prototype, "makePropertyObservable", {
-        value: function(){},
+        value: function () {
+        },
         writable: true,
         configurable: true,
         enumerable: false
@@ -54,7 +55,7 @@ if((global.Map !== void 0) && (typeof global.Set.prototype.values === "function"
                     values.forEach(function (value, key) {
                         this.set(key, value);
                     }, this);
-                // iterate key value pairs of other iterables
+                    // iterate key value pairs of other iterables
                 } else {
                     values.forEach(function (pair) {
                         this.set(pair[0], pair[1]);
@@ -87,7 +88,7 @@ if((global.Map !== void 0) && (typeof global.Set.prototype.values === "function"
 
     Map.prototype.reduce = function (callback, basis /*, thisp*/) {
         var thisp = arguments[2];
-        this.forEach(function(value, key, map) {
+        this.forEach(function (value, key, map) {
             basis = callback.call(thisp, basis, value, key, this);
         });
         return basis;
@@ -124,16 +125,22 @@ if((global.Map !== void 0) && (typeof global.Set.prototype.values === "function"
         }
     };
 
-    var _keysArrayFunction = function(value,key) {return key;};
-    Map.prototype.keysArray = function() {
+    var _keysArrayFunction = function (value, key) {
+        return key;
+    };
+    Map.prototype.keysArray = function () {
         return this.map(_keysArrayFunction);
     }
-    var _valuesArrayFunction = function(value,key) {return value;};
-    Map.prototype.valuesArray = function() {
+    var _valuesArrayFunction = function (value, key) {
+        return value;
+    };
+    Map.prototype.valuesArray = function () {
         return this.map(_valuesArrayFunction);
     }
-    var _entriesArrayFunction = function(value,key) {return [key,value];};
-    Map.prototype.entriesArray = function() {
+    var _entriesArrayFunction = function (value, key) {
+        return [key, value];
+    };
+    Map.prototype.entriesArray = function () {
         return this.map(_entriesArrayFunction);
     }
     Map.prototype.toJSON = function () {
@@ -157,12 +164,12 @@ if((global.Map !== void 0) && (typeof global.Set.prototype.values === "function"
 
 
     //Backward compatibility:
-    Object.defineProperty(Map.prototype,"length",{
-        get: function() {
+    Object.defineProperty(Map.prototype, "length", {
+        get: function () {
             return this.size;
         },
         enumerable: true,
-        configurable:true
+        configurable: true
     });
 
 
@@ -171,7 +178,7 @@ if((global.Map !== void 0) && (typeof global.Set.prototype.values === "function"
         map_delete = Map.prototype.delete;
 
     var observableMapProperties = {
-        clear : {
+        clear: {
             value: function () {
                 var keys;
                 if (this.dispatchesMapChanges) {
@@ -191,7 +198,7 @@ if((global.Map !== void 0) && (typeof global.Set.prototype.values === "function"
             configurable: true
 
         },
-        set : {
+        set: {
             value: function (key, value) {
                 var found = this.get(key);
                 if (found) { // update
@@ -199,7 +206,7 @@ if((global.Map !== void 0) && (typeof global.Set.prototype.values === "function"
                         this.dispatchBeforeMapChange(key, found);
                     }
 
-                    map_set.call(this,key, value);
+                    map_set.call(this, key, value);
 
                     if (this.dispatchesMapChanges) {
                         this.dispatchMapChange(key, value);
@@ -209,7 +216,7 @@ if((global.Map !== void 0) && (typeof global.Set.prototype.values === "function"
                         this.dispatchBeforeMapChange(key, undefined);
                     }
 
-                    map_set.call(this,key, value);
+                    map_set.call(this, key, value);
 
                     if (this.dispatchesMapChanges) {
                         this.dispatchMapChange(key, value);
@@ -227,7 +234,7 @@ if((global.Map !== void 0) && (typeof global.Set.prototype.values === "function"
                     if (this.dispatchesMapChanges) {
                         this.dispatchBeforeMapChange(key, this.get(key));
                     }
-                    map_delete.call(this,key);
+                    map_delete.call(this, key);
 
                     if (this.dispatchesMapChanges) {
                         this.dispatchMapChange(key, undefined);
@@ -240,71 +247,69 @@ if((global.Map !== void 0) && (typeof global.Set.prototype.values === "function"
     };
 
 
-
     Object.addEach(Map.prototype, GenericCollection.prototype, false);
 
     var ChangeDispatchMap = Object.create(Map.prototype, observableMapProperties);
 }
 
-    var Set = require("./_set").CollectionsSet;
-    var GenericMap = require("./generic-map");
+var Set = require("./_set").CollectionsSet;
+var GenericMap = require("./generic-map");
 
-    CollectionsMap = Map = function Map(values, equals, hash, getDefault) {
-        if (!(this instanceof Map)) {
-            return new Map(values, equals, hash, getDefault);
+CollectionsMap = Map = function Map(values, equals, hash, getDefault) {
+    if (!(this instanceof Map)) {
+        return new Map(values, equals, hash, getDefault);
+    }
+    equals = equals || Object.equals;
+    hash = hash || Object.hash;
+    getDefault = getDefault || Function.noop;
+    this.contentEquals = equals;
+    this.contentHash = hash;
+    this.getDefault = getDefault;
+    this.store = new Set(
+        undefined,
+        function keysEqual(a, b) {
+            return equals(a.key, b.key);
+        },
+        function keyHash(item) {
+            return hash(item.key);
         }
-        equals = equals || Object.equals;
-        hash = hash || Object.hash;
-        getDefault = getDefault || Function.noop;
-        this.contentEquals = equals;
-        this.contentHash = hash;
-        this.getDefault = getDefault;
-        this.store = new Set(
-            undefined,
-            function keysEqual(a, b) {
-                return equals(a.key, b.key);
-            },
-            function keyHash(item) {
-                return hash(item.key);
-            }
-        );
-        this.length = 0;
-        this.addEach(values);
-    }
+    );
+    this.length = 0;
+    this.addEach(values);
+}
 
-    Map.Map = Map; // hack so require("map").Map will work in MontageJS
+Map.Map = Map; // hack so require("map").Map will work in MontageJS
 
-    Object.addEach(Map.prototype, GenericCollection.prototype);
-    Object.addEach(Map.prototype, GenericMap.prototype); // overrides GenericCollection
-    Object.defineProperty(Map.prototype,"size",GenericCollection._sizePropertyDescriptor);
+Object.addEach(Map.prototype, GenericCollection.prototype);
+Object.addEach(Map.prototype, GenericMap.prototype); // overrides GenericCollection
+Object.defineProperty(Map.prototype, "size", GenericCollection._sizePropertyDescriptor);
 
-    Map.from = GenericCollection.from;
+Map.from = GenericCollection.from;
 
-    Map.prototype.constructClone = function (values) {
-        return new this.constructor(
-            values,
-            this.contentEquals,
-            this.contentHash,
-            this.getDefault
-        );
-    };
+Map.prototype.constructClone = function (values) {
+    return new this.constructor(
+        values,
+        this.contentEquals,
+        this.contentHash,
+        this.getDefault
+    );
+};
 
-    Map.prototype.log = function (charmap, logNode, callback, thisp) {
-        logNode = logNode || this.logNode;
-        this.store.log(charmap, function (node, log, logBefore) {
-            logNode(node.value.value, log, logBefore);
-        }, callback, thisp);
-    };
+Map.prototype.log = function (charmap, logNode, callback, thisp) {
+    logNode = logNode || this.logNode;
+    this.store.log(charmap, function (node, log, logBefore) {
+        logNode(node.value.value, log, logBefore);
+    }, callback, thisp);
+};
 
-    Map.prototype.logNode = function (node, log) {
-        log(' key: ' + node.key);
-        log(' value: ' + node.value);
-    };
+Map.prototype.logNode = function (node, log) {
+    log(' key: ' + node.key);
+    log(' value: ' + node.value);
+};
 
-    if(!GlobalMap) {
-        module.exports = CollectionsMap;
-    }
-    else {
-        module.exports = GlobalMap;
-        GlobalMap.CollectionsMap = CollectionsMap;
-    }
+if (!GlobalMap) {
+    module.exports = CollectionsMap;
+} else {
+    module.exports = GlobalMap;
+    GlobalMap.CollectionsMap = CollectionsMap;
+}

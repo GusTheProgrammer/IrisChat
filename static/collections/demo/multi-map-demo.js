@@ -1,4 +1,3 @@
-
 var MultiMap = require("../multi-map");
 require("../shim-array"); // for Array#swap
 var List = require("../list");

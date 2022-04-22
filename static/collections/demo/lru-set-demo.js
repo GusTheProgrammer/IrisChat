@@ -1,4 +1,3 @@
-
 var LruSet = require("../lru-set");
 
 var set = new LruSet([1, 2, 3], 3);

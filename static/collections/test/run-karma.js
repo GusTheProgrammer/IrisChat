@@ -8,10 +8,10 @@ var globalEval = eval,
 
 // Bootsrap Karma
 if (global.__karma__) {
-    
+
     //jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
-    
-    global.__karma__.loaded = function() {
+
+    global.__karma__.loaded = function () {
         console.log('karma loaded');
     };
 
@@ -27,9 +27,9 @@ if (global.__karma__) {
     global.jasmine = jasmine;
     for (var property in jasmineInterface) {
         if (jasmineInterface.hasOwnProperty(property)) {
-           global[property] = jasmineInterface[property];
+            global[property] = jasmineInterface[property];
         }
-    }   
+    }
 
     // Default reporter
     jasmineEnv.addReporter(jasmineInterface.jsApiReporter);
@@ -38,9 +38,15 @@ if (global.__karma__) {
     jasmineRequire.html(jasmine);
     var htmlReporter = new jasmine.HtmlReporter({
         env: jasmineEnv,
-        getContainer: function() { return document.body; },
-        createElement: function() { return document.createElement.apply(document, arguments); },
-        createTextNode: function() { return document.createTextNode.apply(document, arguments); },
+        getContainer: function () {
+            return document.body;
+        },
+        createElement: function () {
+            return document.createElement.apply(document, arguments);
+        },
+        createTextNode: function () {
+            return document.createTextNode.apply(document, arguments);
+        },
         timer: new jasmine.Timer()
     });
     htmlReporter.initialize();
@@ -52,7 +58,7 @@ global.queryString = function queryString(parameter) {
     var i, key, value, equalSign;
     var loc = location.search.substring(1, location.search.length);
     var params = loc.split('&');
-    for (i=0; i<params.length;i++) {
+    for (i = 0; i < params.length; i++) {
         equalSign = params[i].indexOf('=');
         if (equalSign < 0) {
             key = params[i];
@@ -60,11 +66,10 @@ global.queryString = function queryString(parameter) {
                 value = true;
                 break;
             }
-        }
-        else {
+        } else {
             key = params[i].substring(0, equalSign);
             if (key === parameter) {
-                value = decodeURIComponent(params[i].substring(equalSign+1));
+                value = decodeURIComponent(params[i].substring(equalSign + 1));
                 break;
             }
         }
@@ -81,10 +86,10 @@ function injectScript(src, module, callback) {
     script.addEventListener('load', function () {
         callback(null, module);
     });
-    script.addEventListener('error', function(err) { 
+    script.addEventListener('error', function (err) {
         callback(err, module);
     });
-    script.addEventListener('abort', function(err) {    
+    script.addEventListener('abort', function (err) {
         callback(err, module);
     });
     document.head.appendChild(script);

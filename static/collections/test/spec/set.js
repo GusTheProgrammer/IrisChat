@@ -1,7 +1,7 @@
-
 var Iterator = require("collections/iterator");
 
 module.exports = describeSet;
+
 function describeSet(Set, sorted) {
 
     it("uniqueness", function () {

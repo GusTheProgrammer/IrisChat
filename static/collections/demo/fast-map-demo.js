@@ -1,4 +1,3 @@
-
 var Map = require("../fast-map");
 
 var map = new Map();

@@ -1,4 +1,3 @@
-
 var Set = require("../set");
 var Iterator = require("../iterator");
 

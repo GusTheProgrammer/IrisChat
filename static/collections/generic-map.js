@@ -4,6 +4,7 @@ var Object = require("./shim-object");
 var Iterator = require("./iterator");
 
 module.exports = GenericMap;
+
 function GenericMap() {
     throw new Error("Can't construct. GenericMap is a mixin.");
 }
@@ -21,7 +22,7 @@ GenericMap.prototype.addEach = function (values) {
                 values.forEach(function (value, key) {
                     this.set(key, value);
                 }, this);
-            // iterate key value pairs of other iterables
+                // iterate key value pairs of other iterables
             } else {
                 values.forEach(function (pair) {
                     this.set(pair[0], pair[1]);
@@ -123,7 +124,7 @@ GenericMap.prototype.clear = function () {
     this.store.clear();
     this.length = 0;
     if (this.dispatchesMapChanges) {
-        for(var i=0;(key = keys[i]);i++) {
+        for (var i = 0; (key = keys[i]); i++) {
             this.dispatchMapChange(key);
         }
         // keys.forEach(function (key) {

@@ -1,4 +1,3 @@
-
 var Set = require("collections/set");
 var describeCollection = require("./collection");
 var describeSet = require("./set");
@@ -202,8 +201,10 @@ describe("Set-spec", function () {
         expect(set.has(1)).toBe(false);
         expect(set.has(2)).toBe(false);
         expect(set.has(3)).toBe(false);
-        
-        var argsForCall = spy.calls.all().map(function (call) { return call.args });
+
+        var argsForCall = spy.calls.all().map(function (call) {
+            return call.args
+        });
         expect(argsForCall).toEqual([
             ["size change from", 3],
             ["size change to", 0]
@@ -224,7 +225,9 @@ describe("Set-spec", function () {
         set.add(10);
         set.add(20);
 
-        var argsForCall = spy.calls.all().map(function (call) { return call.args });
+        var argsForCall = spy.calls.all().map(function (call) {
+            return call.args
+        });
         expect(argsForCall).toEqual([
             ["size change from", 0],
             ["size change to", 1],
@@ -246,7 +249,9 @@ describe("Set-spec", function () {
 
         set.delete(2);
         set.delete(1);
-        var argsForCall = spy.calls.all().map(function (call) { return call.args });
+        var argsForCall = spy.calls.all().map(function (call) {
+            return call.args
+        });
         expect(argsForCall).toEqual([
             ["size change from", 3],
             ["size change to", 2],

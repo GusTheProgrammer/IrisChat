@@ -35,6 +35,7 @@ describe("Array-spec", function () {
     function FakeArray() {
         this.length = 3;
     }
+
     Object.addEach(FakeArray.prototype, GenericCollection.prototype);
     FakeArray.prototype.reduce = function (callback, basis) {
         basis = callback(basis, 10, 0, this);
@@ -82,7 +83,7 @@ describe("Array-spec", function () {
                 {name: 'cherries', quantity: 5}
             ];
 
-            function isCherries(fruit) { 
+            function isCherries(fruit) {
                 return fruit.name === 'cherries';
             }
 
@@ -92,11 +93,11 @@ describe("Array-spec", function () {
         describe("find (deprecated support)", function () {
 
             it("should find equivalent objects", function () {
-                expect([{a:10}].find({a:10})).toEqual(0);
+                expect([{a: 10}].find({a: 10})).toEqual(0);
             });
 
             it("should allow equality comparison override", function () {
-                expect([{a:10}].find({a:10}, Object.is)).toEqual(-1);
+                expect([{a: 10}].find({a: 10}, Object.is)).toEqual(-1);
             });
         });
 
@@ -105,22 +106,22 @@ describe("Array-spec", function () {
     describe("findValue", function () {
 
         it("should find equivalent objects", function () {
-            expect([{a:10}].findValue({a:10})).toEqual(0);
+            expect([{a: 10}].findValue({a: 10})).toEqual(0);
         });
 
         it("should allow equality comparison override", function () {
-            expect([{a:10}].findValue({a:10}, Object.is)).toEqual(-1);
+            expect([{a: 10}].findValue({a: 10}, Object.is)).toEqual(-1);
         });
     });
 
     describe("findLast (deprecated support)", function () {
 
         it("should find equivalent objects", function () {
-            expect([{a:10}].findLast({a:10})).toEqual(0);
+            expect([{a: 10}].findLast({a: 10})).toEqual(0);
         });
 
         it("should allow equality comparison override", function () {
-            expect([{a:10}].findLast({a:10}, Object.is)).toEqual(-1);
+            expect([{a: 10}].findLast({a: 10}, Object.is)).toEqual(-1);
         });
 
         it("should find the last of equivalent objects", function () {
@@ -133,11 +134,11 @@ describe("Array-spec", function () {
     describe("findLastValue", function () {
 
         it("should find equivalent objects", function () {
-            expect([{a:10}].findLastValue({a:10})).toEqual(0);
+            expect([{a: 10}].findLastValue({a: 10})).toEqual(0);
         });
 
         it("should allow equality comparison override", function () {
-            expect([{a:10}].findLastValue({a:10}, Object.is)).toEqual(-1);
+            expect([{a: 10}].findLastValue({a: 10}, Object.is)).toEqual(-1);
         });
 
         it("should find the last of equivalent objects", function () {
@@ -270,7 +271,7 @@ describe("Array-spec", function () {
             array = [1, 2, 3];
         });
         it("should be able to replace content with content of another arraylike", function () {
-            otherArray = { __proto__ : Array.prototype };
+            otherArray = {__proto__: Array.prototype};
             otherArray[0] = 4;
             otherArray[1] = 5;
             otherArray.length = 2;
@@ -298,37 +299,37 @@ describe("Array-spec", function () {
             array.swap(4, 0, [5]);
             expect(array).toEqual([1, 2, 3, , 5]);
         });
-   });
+    });
 
-   describe("set", function () {
+    describe("set", function () {
 
-       it("sets an inner index", function () {
-           var array = [1, 2, 3];
-           array.set(1, 10);
-           expect(array).toEqual([1, 10, 3]);
-       });
+        it("sets an inner index", function () {
+            var array = [1, 2, 3];
+            array.set(1, 10);
+            expect(array).toEqual([1, 10, 3]);
+        });
 
-       it("sets an inner index of an observed array", function () {
-           var array = [1, 2, 3];
-           array.makeObservable();
-           array.set(1, 10);
-           expect(array).toEqual([1, 10, 3]);
-       });
+        it("sets an inner index of an observed array", function () {
+            var array = [1, 2, 3];
+            array.makeObservable();
+            array.set(1, 10);
+            expect(array).toEqual([1, 10, 3]);
+        });
 
-       it("sets an outer index", function () {
-           var array = [];
-           array.set(4, 10);
-           expect(array).toEqual([ , , , , 10]);
-       });
+        it("sets an outer index", function () {
+            var array = [];
+            array.set(4, 10);
+            expect(array).toEqual([, , , , 10]);
+        });
 
-       it("sets an outer index of an observed array", function () {
-           var array = [];
-           array.makeObservable();
-           array.set(4, 10);
-           expect(array).toEqual([ , , , , 10]);
-       });
+        it("sets an outer index of an observed array", function () {
+            var array = [];
+            array.makeObservable();
+            array.set(4, 10);
+            expect(array).toEqual([, , , , 10]);
+        });
 
-   });
+    });
 
     describe("deleteAll", function () {
         it("should delete a range of equivalent values", function () {

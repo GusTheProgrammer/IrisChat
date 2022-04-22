@@ -1410,24 +1410,6 @@
                 (e = ze(e)) && (this._element = e, mt.set(this._element, this.constructor.DATA_KEY, this))
             }
 
-            dispose() {
-                mt.remove(this._element, this.constructor.DATA_KEY), dt.off(this._element, this.constructor.EVENT_KEY), Object.getOwnPropertyNames(this).forEach(e => {
-                    this[e] = null
-                })
-            }
-
-            _queueCallback(e, t, n = !0) {
-                Ke(e, t, n)
-            }
-
-            static getInstance(e) {
-                return mt.get(ze(e), this.DATA_KEY)
-            }
-
-            static getOrCreateInstance(e, t = {}) {
-                return this.getInstance(e) || new this(e, "object" == typeof t ? t : null)
-            }
-
             static get VERSION() {
                 return "5.1.0"
             }
@@ -1442,6 +1424,24 @@
 
             static get EVENT_KEY() {
                 return "." + this.DATA_KEY
+            }
+
+            static getInstance(e) {
+                return mt.get(ze(e), this.DATA_KEY)
+            }
+
+            static getOrCreateInstance(e, t = {}) {
+                return this.getInstance(e) || new this(e, "object" == typeof t ? t : null)
+            }
+
+            dispose() {
+                mt.remove(this._element, this.constructor.DATA_KEY), dt.off(this._element, this.constructor.EVENT_KEY), Object.getOwnPropertyNames(this).forEach(e => {
+                    this[e] = null
+                })
+            }
+
+            _queueCallback(e, t, n = !0) {
+                Ke(e, t, n)
             }
         }
 
@@ -1460,6 +1460,16 @@
                 return "alert"
             }
 
+            static jQueryInterface(e) {
+                return this.each((function () {
+                    const t = yt.getOrCreateInstance(this);
+                    if ("string" == typeof e) {
+                        if (void 0 === t[e] || e.startsWith("_") || "constructor" === e) throw new TypeError(`No method named "${e}"`);
+                        t[e](this)
+                    }
+                }))
+            }
+
             close() {
                 if (dt.trigger(this._element, "close.bs.alert").defaultPrevented) return;
                 this._element.classList.remove("show");
@@ -1470,16 +1480,6 @@
             _destroyElement() {
                 this._element.remove(), dt.trigger(this._element, "closed.bs.alert"), this.dispose()
             }
-
-            static jQueryInterface(e) {
-                return this.each((function () {
-                    const t = yt.getOrCreateInstance(this);
-                    if ("string" == typeof e) {
-                        if (void 0 === t[e] || e.startsWith("_") || "constructor" === e) throw new TypeError(`No method named "${e}"`);
-                        t[e](this)
-                    }
-                }))
-            }
         }
 
         vt(yt, "close"), Qe(yt);
@@ -1489,15 +1489,15 @@
                 return "button"
             }
 
-            toggle() {
-                this._element.setAttribute("aria-pressed", this._element.classList.toggle("active"))
-            }
-
             static jQueryInterface(e) {
                 return this.each((function () {
                     const t = bt.getOrCreateInstance(this);
                     "toggle" === e && t[e]()
                 }))
+            }
+
+            toggle() {
+                this._element.setAttribute("aria-pressed", this._element.classList.toggle("active"))
             }
         }
 
@@ -1612,6 +1612,40 @@
 
             static get NAME() {
                 return "carousel"
+            }
+
+            static carouselInterface(e, t) {
+                const n = Dt.getOrCreateInstance(e, t);
+                let {
+                    _config: r
+                } = n;
+                "object" == typeof t && (r = {
+                    ...r,
+                    ...t
+                });
+                const i = "string" == typeof t ? t : r.slide;
+                if ("number" == typeof t) n.to(t);
+                else if ("string" == typeof i) {
+                    if (void 0 === n[i]) throw new TypeError(`No method named "${i}"`);
+                    n[i]()
+                } else r.interval && r.ride && (n.pause(), n.cycle())
+            }
+
+            static jQueryInterface(e) {
+                return this.each((function () {
+                    Dt.carouselInterface(this, e)
+                }))
+            }
+
+            static dataApiClickHandler(e) {
+                const t = Re(this);
+                if (!t || !t.classList.contains("carousel")) return;
+                const n = {
+                        ...Et.getDataAttributes(t),
+                        ...Et.getDataAttributes(this)
+                    },
+                    r = this.getAttribute("data-bs-slide-to");
+                r && (n.interval = !1), Dt.carouselInterface(t, n), r && Dt.getInstance(t).to(r), e.preventDefault()
             }
 
             next() {
@@ -1765,40 +1799,6 @@
             _orderToDirection(e) {
                 return [St, Lt].includes(e) ? Ve() ? e === Lt ? Ct : Ot : e === Lt ? Ot : Ct : e
             }
-
-            static carouselInterface(e, t) {
-                const n = Dt.getOrCreateInstance(e, t);
-                let {
-                    _config: r
-                } = n;
-                "object" == typeof t && (r = {
-                    ...r,
-                    ...t
-                });
-                const i = "string" == typeof t ? t : r.slide;
-                if ("number" == typeof t) n.to(t);
-                else if ("string" == typeof i) {
-                    if (void 0 === n[i]) throw new TypeError(`No method named "${i}"`);
-                    n[i]()
-                } else r.interval && r.ride && (n.pause(), n.cycle())
-            }
-
-            static jQueryInterface(e) {
-                return this.each((function () {
-                    Dt.carouselInterface(this, e)
-                }))
-            }
-
-            static dataApiClickHandler(e) {
-                const t = Re(this);
-                if (!t || !t.classList.contains("carousel")) return;
-                const n = {
-                        ...Et.getDataAttributes(t),
-                        ...Et.getDataAttributes(this)
-                    },
-                    r = this.getAttribute("data-bs-slide-to");
-                r && (n.interval = !1), Dt.carouselInterface(t, n), r && Dt.getInstance(t).to(r), e.preventDefault()
-            }
         }
 
         dt.on(document, Mt, "[data-bs-slide], [data-bs-slide-to]", Dt.dataApiClickHandler), dt.on(window, Ft, () => {
@@ -1833,6 +1833,18 @@
 
             static get NAME() {
                 return "collapse"
+            }
+
+            static jQueryInterface(e) {
+                return this.each((function () {
+                    const t = {};
+                    "string" == typeof e && /show|hide/.test(e) && (t.toggle = !1);
+                    const n = Pt.getOrCreateInstance(this, t);
+                    if ("string" == typeof e) {
+                        if (void 0 === n[e]) throw new TypeError(`No method named "${e}"`);
+                        n[e]()
+                    }
+                }))
             }
 
             toggle() {
@@ -1912,18 +1924,6 @@
                     t ? e.classList.remove("collapsed") : e.classList.add("collapsed"), e.setAttribute("aria-expanded", t)
                 })
             }
-
-            static jQueryInterface(e) {
-                return this.each((function () {
-                    const t = {};
-                    "string" == typeof e && /show|hide/.test(e) && (t.toggle = !1);
-                    const n = Pt.getOrCreateInstance(this, t);
-                    if ("string" == typeof e) {
-                        if (void 0 === n[e]) throw new TypeError(`No method named "${e}"`);
-                        n[e]()
-                    }
-                }))
-            }
         }
 
         dt.on(document, "click.bs.collapse.data-api", '[data-bs-toggle="collapse"]', (function (e) {
@@ -1974,6 +1974,52 @@
 
             static get NAME() {
                 return "dropdown"
+            }
+
+            static jQueryInterface(e) {
+                return this.each((function () {
+                    const t = Vt.getOrCreateInstance(this, e);
+                    if ("string" == typeof e) {
+                        if (void 0 === t[e]) throw new TypeError(`No method named "${e}"`);
+                        t[e]()
+                    }
+                }))
+            }
+
+            static clearMenus(e) {
+                if (e && (2 === e.button || "keyup" === e.type && "Tab" !== e.key)) return;
+                const t = xt.find('[data-bs-toggle="dropdown"]');
+                for (let n = 0, r = t.length; n < r; n++) {
+                    const r = Vt.getInstance(t[n]);
+                    if (!r || !1 === r._config.autoClose) continue;
+                    if (!r._isShown()) continue;
+                    const i = {
+                        relatedTarget: r._element
+                    };
+                    if (e) {
+                        const t = e.composedPath(),
+                            n = t.includes(r._menu);
+                        if (t.includes(r._element) || "inside" === r._config.autoClose && !n || "outside" === r._config.autoClose && n) continue;
+                        if (r._menu.contains(e.target) && ("keyup" === e.type && "Tab" === e.key || /input|select|option|textarea|form/i.test(e.target.tagName))) continue;
+                        "click" === e.type && (i.clickEvent = e)
+                    }
+                    r._completeHide(i)
+                }
+            }
+
+            static getParentFromElement(e) {
+                return Re(e) || e.parentNode
+            }
+
+            static dataApiKeydownHandler(e) {
+                if (/input|textarea/i.test(e.target.tagName) ? "Space" === e.key || "Escape" !== e.key && ("ArrowDown" !== e.key && "ArrowUp" !== e.key || e.target.closest(".dropdown-menu")) : !zt.test(e.key)) return;
+                const t = this.classList.contains("show");
+                if (!t && "Escape" === e.key) return;
+                if (e.preventDefault(), e.stopPropagation(), Be(this)) return;
+                const n = this.matches('[data-bs-toggle="dropdown"]') ? this : xt.prev(this, '[data-bs-toggle="dropdown"]')[0],
+                    r = Vt.getOrCreateInstance(n);
+                if ("Escape" !== e.key) return "ArrowUp" === e.key || "ArrowDown" === e.key ? (t || r.show(), void r._selectMenuItem(e)) : void (t && "Space" !== e.key || Vt.clearMenus());
+                r.hide()
             }
 
             toggle() {
@@ -2085,52 +2131,6 @@
                             }) {
                 const n = xt.find(".dropdown-menu .dropdown-item:not(.disabled):not(:disabled)", this._menu).filter(Ue);
                 n.length && Ge(n, t, "ArrowDown" === e, !n.includes(t)).focus()
-            }
-
-            static jQueryInterface(e) {
-                return this.each((function () {
-                    const t = Vt.getOrCreateInstance(this, e);
-                    if ("string" == typeof e) {
-                        if (void 0 === t[e]) throw new TypeError(`No method named "${e}"`);
-                        t[e]()
-                    }
-                }))
-            }
-
-            static clearMenus(e) {
-                if (e && (2 === e.button || "keyup" === e.type && "Tab" !== e.key)) return;
-                const t = xt.find('[data-bs-toggle="dropdown"]');
-                for (let n = 0, r = t.length; n < r; n++) {
-                    const r = Vt.getInstance(t[n]);
-                    if (!r || !1 === r._config.autoClose) continue;
-                    if (!r._isShown()) continue;
-                    const i = {
-                        relatedTarget: r._element
-                    };
-                    if (e) {
-                        const t = e.composedPath(),
-                            n = t.includes(r._menu);
-                        if (t.includes(r._element) || "inside" === r._config.autoClose && !n || "outside" === r._config.autoClose && n) continue;
-                        if (r._menu.contains(e.target) && ("keyup" === e.type && "Tab" === e.key || /input|select|option|textarea|form/i.test(e.target.tagName))) continue;
-                        "click" === e.type && (i.clickEvent = e)
-                    }
-                    r._completeHide(i)
-                }
-            }
-
-            static getParentFromElement(e) {
-                return Re(e) || e.parentNode
-            }
-
-            static dataApiKeydownHandler(e) {
-                if (/input|textarea/i.test(e.target.tagName) ? "Space" === e.key || "Escape" !== e.key && ("ArrowDown" !== e.key && "ArrowUp" !== e.key || e.target.closest(".dropdown-menu")) : !zt.test(e.key)) return;
-                const t = this.classList.contains("show");
-                if (!t && "Escape" === e.key) return;
-                if (e.preventDefault(), e.stopPropagation(), Be(this)) return;
-                const n = this.matches('[data-bs-toggle="dropdown"]') ? this : xt.prev(this, '[data-bs-toggle="dropdown"]')[0],
-                    r = Vt.getOrCreateInstance(n);
-                if ("Escape" !== e.key) return "ArrowUp" === e.key || "ArrowDown" === e.key ? (t || r.show(), void r._selectMenuItem(e)) : void (t && "Space" !== e.key || Vt.clearMenus());
-                r.hide()
             }
         }
 
@@ -2327,6 +2327,16 @@
                 return "modal"
             }
 
+            static jQueryInterface(e, t) {
+                return this.each((function () {
+                    const n = rn.getOrCreateInstance(this, e);
+                    if ("string" == typeof e) {
+                        if (void 0 === n[e]) throw new TypeError(`No method named "${e}"`);
+                        n[e](t)
+                    }
+                }))
+            }
+
             toggle(e) {
                 return this._isShown ? this.hide() : this.show(e)
             }
@@ -2440,16 +2450,6 @@
             _resetAdjustments() {
                 this._element.style.paddingLeft = "", this._element.style.paddingRight = ""
             }
-
-            static jQueryInterface(e, t) {
-                return this.each((function () {
-                    const n = rn.getOrCreateInstance(this, e);
-                    if ("string" == typeof e) {
-                        if (void 0 === n[e]) throw new TypeError(`No method named "${e}"`);
-                        n[e](t)
-                    }
-                }))
-            }
         }
 
         dt.on(document, "click.bs.modal.data-api", '[data-bs-toggle="modal"]', (function (e) {
@@ -2483,6 +2483,16 @@
 
             static get Default() {
                 return on
+            }
+
+            static jQueryInterface(e) {
+                return this.each((function () {
+                    const t = an.getOrCreateInstance(this, e);
+                    if ("string" == typeof e) {
+                        if (void 0 === t[e] || e.startsWith("_") || "constructor" === e) throw new TypeError(`No method named "${e}"`);
+                        t[e](this)
+                    }
+                }))
             }
 
             toggle(e) {
@@ -2543,16 +2553,6 @@
                 dt.on(this._element, "keydown.dismiss.bs.offcanvas", e => {
                     this._config.keyboard && "Escape" === e.key && this.hide()
                 })
-            }
-
-            static jQueryInterface(e) {
-                return this.each((function () {
-                    const t = an.getOrCreateInstance(this, e);
-                    if ("string" == typeof e) {
-                        if (void 0 === t[e] || e.startsWith("_") || "constructor" === e) throw new TypeError(`No method named "${e}"`);
-                        t[e](this)
-                    }
-                }))
             }
         }
 
@@ -2711,6 +2711,16 @@
 
             static get DefaultType() {
                 return mn
+            }
+
+            static jQueryInterface(e) {
+                return this.each((function () {
+                    const t = bn.getOrCreateInstance(this, e);
+                    if ("string" == typeof e) {
+                        if (void 0 === t[e]) throw new TypeError(`No method named "${e}"`);
+                        t[e]()
+                    }
+                }))
             }
 
             enable() {
@@ -2962,16 +2972,6 @@
                 } = e;
                 t && (this.tip = t.elements.popper, this._cleanTipClass(), this._addAttachmentClass(this._getAttachment(t.placement)))
             }
-
-            static jQueryInterface(e) {
-                return this.each((function () {
-                    const t = bn.getOrCreateInstance(this, e);
-                    if ("string" == typeof e) {
-                        if (void 0 === t[e]) throw new TypeError(`No method named "${e}"`);
-                        t[e]()
-                    }
-                }))
-            }
         }
 
         Qe(bn);
@@ -3017,6 +3017,16 @@
                 return wn
             }
 
+            static jQueryInterface(e) {
+                return this.each((function () {
+                    const t = xn.getOrCreateInstance(this, e);
+                    if ("string" == typeof e) {
+                        if (void 0 === t[e]) throw new TypeError(`No method named "${e}"`);
+                        t[e]()
+                    }
+                }))
+            }
+
             isWithContent() {
                 return this.getTitle() || this._getContent()
             }
@@ -3031,16 +3041,6 @@
 
             _getBasicClassPrefix() {
                 return "bs-popover"
-            }
-
-            static jQueryInterface(e) {
-                return this.each((function () {
-                    const t = xn.getOrCreateInstance(this, e);
-                    if ("string" == typeof e) {
-                        if (void 0 === t[e]) throw new TypeError(`No method named "${e}"`);
-                        t[e]()
-                    }
-                }))
             }
         }
 
@@ -3068,6 +3068,16 @@
 
             static get NAME() {
                 return "scrollspy"
+            }
+
+            static jQueryInterface(e) {
+                return this.each((function () {
+                    const t = Sn.getOrCreateInstance(this, e);
+                    if ("string" == typeof e) {
+                        if (void 0 === t[e]) throw new TypeError(`No method named "${e}"`);
+                        t[e]()
+                    }
+                }))
             }
 
             refresh() {
@@ -3143,16 +3153,6 @@
             _clear() {
                 xt.find(Tn, this._config.target).filter(e => e.classList.contains("active")).forEach(e => e.classList.remove("active"))
             }
-
-            static jQueryInterface(e) {
-                return this.each((function () {
-                    const t = Sn.getOrCreateInstance(this, e);
-                    if ("string" == typeof e) {
-                        if (void 0 === t[e]) throw new TypeError(`No method named "${e}"`);
-                        t[e]()
-                    }
-                }))
-            }
         }
 
         dt.on(window, "load.bs.scrollspy.data-api", () => {
@@ -3162,6 +3162,16 @@
         class Ln extends gt {
             static get NAME() {
                 return "tab"
+            }
+
+            static jQueryInterface(e) {
+                return this.each((function () {
+                    const t = Ln.getOrCreateInstance(this);
+                    if ("string" == typeof e) {
+                        if (void 0 === t[e]) throw new TypeError(`No method named "${e}"`);
+                        t[e]()
+                    }
+                }))
             }
 
             show() {
@@ -3211,16 +3221,6 @@
                 }
                 n && n()
             }
-
-            static jQueryInterface(e) {
-                return this.each((function () {
-                    const t = Ln.getOrCreateInstance(this);
-                    if ("string" == typeof e) {
-                        if (void 0 === t[e]) throw new TypeError(`No method named "${e}"`);
-                        t[e]()
-                    }
-                }))
-            }
         }
 
         dt.on(document, "click.bs.tab.data-api", '[data-bs-toggle="tab"], [data-bs-toggle="pill"], [data-bs-toggle="list"]', (function (e) {
@@ -3253,6 +3253,16 @@
 
             static get NAME() {
                 return "toast"
+            }
+
+            static jQueryInterface(e) {
+                return this.each((function () {
+                    const t = In.getOrCreateInstance(this, e);
+                    if ("string" == typeof e) {
+                        if (void 0 === t[e]) throw new TypeError(`No method named "${e}"`);
+                        t[e](this)
+                    }
+                }))
             }
 
             show() {
@@ -3310,16 +3320,6 @@
 
             _clearTimeout() {
                 clearTimeout(this._timeout), this._timeout = null
-            }
-
-            static jQueryInterface(e) {
-                return this.each((function () {
-                    const t = In.getOrCreateInstance(this, e);
-                    if ("string" == typeof e) {
-                        if (void 0 === t[e]) throw new TypeError(`No method named "${e}"`);
-                        t[e](this)
-                    }
-                }))
             }
         }
 

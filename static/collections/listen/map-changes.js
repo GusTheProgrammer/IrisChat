@@ -8,6 +8,7 @@ var WeakMap = require("../weak-map"),
     ListenerGhost = ChangeDescriptor.ListenerGhost;
 
 module.exports = MapChanges;
+
 function MapChanges() {
     throw new Error("Can't construct. MapChanges is a mixin.");
 }
@@ -45,16 +46,17 @@ var MapChangeListenersSpecificHandlerMethodName = new Map();
 
 function MapChangeListenersRecord(name) {
     var specificHandlerMethodName = MapChangeListenersSpecificHandlerMethodName.get(name);
-    if(!specificHandlerMethodName) {
+    if (!specificHandlerMethodName) {
         specificHandlerMethodName = "handle";
         specificHandlerMethodName += name.slice(0, 1).toUpperCase();
         specificHandlerMethodName += name.slice(1);
         specificHandlerMethodName += "MapChange";
-        MapChangeListenersSpecificHandlerMethodName.set(name,specificHandlerMethodName);
+        MapChangeListenersSpecificHandlerMethodName.set(name, specificHandlerMethodName);
     }
     this.specificHandlerMethodName = specificHandlerMethodName;
-	return this;
+    return this;
 }
+
 MapChangeListenersRecord.prototype = new ChangeListenersRecord();
 MapChangeListenersRecord.prototype.constructor = MapChangeListenersRecord;
 MapChangeListenersRecord.prototype.genericHandlerMethodName = "handleMapChange";
@@ -63,16 +65,17 @@ var MapWillChangeListenersSpecificHandlerMethodName = new Map();
 
 function MapWillChangeListenersRecord(name) {
     var specificHandlerMethodName = MapWillChangeListenersSpecificHandlerMethodName.get(name);
-    if(!specificHandlerMethodName) {
+    if (!specificHandlerMethodName) {
         specificHandlerMethodName = "handle";
         specificHandlerMethodName += name.slice(0, 1).toUpperCase();
         specificHandlerMethodName += name.slice(1);
         specificHandlerMethodName += "MapWillChange";
-        MapWillChangeListenersSpecificHandlerMethodName.set(name,specificHandlerMethodName);
+        MapWillChangeListenersSpecificHandlerMethodName.set(name, specificHandlerMethodName);
     }
     this.specificHandlerMethodName = specificHandlerMethodName;
     return this;
 }
+
 MapWillChangeListenersRecord.prototype = new ChangeListenersRecord();
 MapWillChangeListenersRecord.prototype.constructor = MapWillChangeListenersRecord;
 MapWillChangeListenersRecord.prototype.genericHandlerMethodName = "handleMapWillChange";
@@ -95,11 +98,11 @@ MapChanges.prototype.getMapChangeDescriptor = function (token) {
 };
 
 var ObjectsDispatchesMapChanges = new WeakMap(),
-    dispatchesMapChangesGetter = function() {
+    dispatchesMapChangesGetter = function () {
         return ObjectsDispatchesMapChanges.get(this);
     },
-    dispatchesMapChangesSetter = function(value) {
-        return ObjectsDispatchesMapChanges.set(this,value);
+    dispatchesMapChangesSetter = function (value) {
+        return ObjectsDispatchesMapChanges.set(this, value);
     },
     dispatchesChangesMethodName = "dispatchesMapChanges",
     dispatchesChangesPropertyDescriptor = {
@@ -127,18 +130,16 @@ MapChanges.prototype.addMapChangeListener = function addMapChangeListener(listen
     // console.log("addMapChangeListener()",listener, token);
     //console.log("this:",this," addMapChangeListener()  listeners._current is ",listeners._current);
 
-    if(!listeners._current) {
+    if (!listeners._current) {
         listeners._current = listener;
-    }
-    else if(!Array.isArray(listeners._current)) {
-        listeners._current = [listeners._current,listener]
-    }
-    else {
+    } else if (!Array.isArray(listeners._current)) {
+        listeners._current = [listeners._current, listener]
+    } else {
         listeners._current.push(listener);
     }
 
-    if(Object.getOwnPropertyDescriptor((this.__proto__||Object.getPrototypeOf(this)),dispatchesChangesMethodName) === void 0) {
-        Object.defineProperty((this.__proto__||Object.getPrototypeOf(this)), dispatchesChangesMethodName, dispatchesChangesPropertyDescriptor);
+    if (Object.getOwnPropertyDescriptor((this.__proto__ || Object.getPrototypeOf(this)), dispatchesChangesMethodName) === void 0) {
+        Object.defineProperty((this.__proto__ || Object.getPrototypeOf(this)), dispatchesChangesMethodName, dispatchesChangesPropertyDescriptor);
     }
     this.dispatchesMapChanges = true;
 
@@ -163,21 +164,18 @@ MapChanges.prototype.removeMapChangeListener = function (listener, token, before
         listeners = descriptor.changeListeners;
     }
 
-    if(listeners._current) {
-        if(listeners._current === listener) {
+    if (listeners._current) {
+        if (listeners._current === listener) {
             listeners._current = null;
-        }
-        else {
+        } else {
             var index = listeners._current.lastIndexOf(listener);
             if (index === -1) {
                 throw new Error("Can't remove map change listener: does not exist: token " + JSON.stringify(token));
-            }
-            else {
-                if(descriptor.isActive) {
-                    listeners.ghostCount = listeners.ghostCount+1
-                    listeners._current[index]=ListenerGhost
-                }
-                else {
+            } else {
+                if (descriptor.isActive) {
+                    listeners.ghostCount = listeners.ghostCount + 1
+                    listeners._current[index] = ListenerGhost
+                } else {
                     listeners._current.spliceOne(index);
                 }
             }
@@ -198,18 +196,18 @@ MapChanges.prototype.dispatchMapChange = function (key, value, beforeChange) {
         }
 
         var listeners = beforeChange ? descriptor.willChangeListeners : descriptor.changeListeners;
-        if(listeners && listeners._current) {
+        if (listeners && listeners._current) {
 
             var tokenName = listeners.specificHandlerMethodName;
-            if(Array.isArray(listeners._current)) {
-                if(listeners._current.length) {
+            if (Array.isArray(listeners._current)) {
+                if (listeners._current.length) {
                     //removeGostListenersIfNeeded returns listeners.current or a new filtered one when conditions are met
                     var currentListeners = listeners.removeCurrentGostListenersIfNeeded(),
                         i, countI, listener;
                     descriptor.isActive = true;
 
                     try {
-                        for(i=0, countI = currentListeners.length;i<countI;i++) {
+                        for (i = 0, countI = currentListeners.length; i < countI; i++) {
                             // dispatch to each listener
                             if ((listener = currentListeners[i]) !== Ghost) {
                                 if (listener[tokenName]) {
@@ -225,8 +223,7 @@ MapChanges.prototype.dispatchMapChange = function (key, value, beforeChange) {
                         descriptor.isActive = false;
                     }
                 }
-            }
-            else {
+            } else {
                 descriptor.isActive = true;
                 // dispatch each listener
 

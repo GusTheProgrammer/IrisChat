@@ -32,7 +32,7 @@ Object.addEach(LruSet.prototype, GenericCollection.prototype);
 Object.addEach(LruSet.prototype, GenericSet.prototype);
 Object.addEach(LruSet.prototype, PropertyChanges.prototype);
 Object.addEach(LruSet.prototype, RangeChanges.prototype);
-Object.defineProperty(LruSet.prototype,"size",GenericCollection._sizePropertyDescriptor);
+Object.defineProperty(LruSet.prototype, "size", GenericCollection._sizePropertyDescriptor);
 LruSet.from = GenericCollection.from;
 
 LruSet.prototype.constructClone = function (values) {

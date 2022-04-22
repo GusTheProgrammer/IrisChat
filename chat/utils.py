@@ -1,9 +1,10 @@
-from django.contrib.humanize.templatetags.humanize import naturalday
 from datetime import datetime
+
+from django.contrib.humanize.templatetags.humanize import naturalday
 from django.core.serializers.python import Serializer
 
-from .models import PrivateChatRoom
 from .constants import *
+from .models import PrivateChatRoom
 
 
 def find_or_create_private_chat(user1, user2):

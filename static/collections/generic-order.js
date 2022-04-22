@@ -1,7 +1,7 @@
-
 var Object = require("./shim-object");
 
 module.exports = GenericOrder;
+
 function GenericOrder() {
     throw new Error("Can't construct. GenericOrder is a mixin.");
 }

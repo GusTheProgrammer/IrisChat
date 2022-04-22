@@ -13,6 +13,7 @@ var RangeChanges = require("./listen/range-changes");
 // 2. Modulus avoided by using only powers of two for the capacity
 
 module.exports = Deque;
+
 function Deque(values, capacity) {
     if (!(this instanceof Deque)) {
         return new Deque(values, capacity);
@@ -64,8 +65,7 @@ Deque.prototype.push = function (value /* or ...values */) {
                 length++;
                 this.length = length;
             }
-        }
-        else {
+        } else {
             var j = this.front;
             for (var argIndex = 0; argIndex < argsLength; ++argIndex) {
                 this[(j + length) & (capacity - 1)] = arguments[argIndex];
@@ -153,8 +153,8 @@ Deque.prototype.unshift = function (value /* or ...values */) {
                 var index = (
                     (
                         (
-                            ( this.front - 1 ) &
-                            ( capacity - 1)
+                            (this.front - 1) &
+                            (capacity - 1)
                         ) ^ capacity
                     ) - capacity
                 );
@@ -347,11 +347,12 @@ Deque.prototype.lastIndexOf = function (value, index) {
 }
 
 var deprecatedWarnNonce = {};
+
 function deprecatedWarn(msg, notOnce) {
     if (
         typeof console !== 'undefined' &&
-            typeof console.warn === 'function' &&
-                (notOnce !== true && deprecatedWarnNonce.hasOwnProperty(msg) === false)
+        typeof console.warn === 'function' &&
+        (notOnce !== true && deprecatedWarnNonce.hasOwnProperty(msg) === false)
     ) {
         console.warn(msg);
         deprecatedWarnNonce[msg]++;

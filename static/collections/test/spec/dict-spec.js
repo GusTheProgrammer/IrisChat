@@ -1,4 +1,3 @@
-
 var Dict = require("collections/dict");
 var describeDict = require("./dict");
 var describeToJson = require("./to-json");

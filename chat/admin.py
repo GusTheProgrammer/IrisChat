@@ -1,7 +1,6 @@
 from django.contrib import admin
-from django.contrib import admin
-from django.core.paginator import Paginator
 from django.core.cache import cache
+from django.core.paginator import Paginator
 
 from chat.models import PrivateChatRoom, RoomChatMessage, UnreadChatRoomMessages
 
@@ -51,9 +50,9 @@ class RoomChatMessageAdmin(admin.ModelAdmin):
 
 
 class UnreadChatRoomMessagesAdmin(admin.ModelAdmin):
-    list_display = ['room','user', 'count' ]
+    list_display = ['room', 'user', 'count']
     search_fields = ['room__user1__username', 'room__user2__username', ]
-    readonly_fields = ['id',]
+    readonly_fields = ['id', ]
 
     class Meta:
         model = UnreadChatRoomMessages

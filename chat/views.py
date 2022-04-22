@@ -1,15 +1,13 @@
 import json
-import pytz
-
 from datetime import datetime
+from itertools import chain
+from urllib.parse import urlencode
 
+import pytz
+from django.conf import settings
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from django.conf import settings
-from itertools import chain
-
 from django.urls import reverse
-from urllib.parse import urlencode
 
 from account.models import Account
 from friend.models import FriendList
