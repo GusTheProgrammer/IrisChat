@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     'chat',
     'friend',
     'notification',
+    'coverage',
+    'rest_framework',
 
     'channels',  # 3rd party
 ]

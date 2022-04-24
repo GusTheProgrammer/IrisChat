@@ -330,9 +330,9 @@ def refresh_general_notifications(user, oldest_timestamp, newest_timestamp):
 	"""
 	payload = {}
 	if user.is_authenticated:
-		oldest_ts = oldest_timestamp[0:oldest_timestamp.find("+")] # remove timezone because who cares
+		oldest_ts = oldest_timestamp[0:oldest_timestamp.find("+")] # remove timezone
 		oldest_ts = datetime.strptime(oldest_ts, '%Y-%m-%d %H:%M:%S.%f')
-		newest_ts = newest_timestamp[0:newest_timestamp.find("+")] # remove timezone because who cares
+		newest_ts = newest_timestamp[0:newest_timestamp.find("+")] # remove timezone
 		newest_ts = datetime.strptime(newest_ts, '%Y-%m-%d %H:%M:%S.%f')
 		friend_request_ct = ContentType.objects.get_for_model(FriendRequest)
 		friend_list_ct = ContentType.objects.get_for_model(FriendList)
