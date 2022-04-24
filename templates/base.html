@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1, shrink-to-fit=no, viewport-fit=cover">
-    <title>{% block title %}ChatApp{% endblock title %}</title>
+    <title>{% block title %}IrisChat{% endblock title %}</title>
 
 
     <!-- Favicon -->
@@ -18,8 +18,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700" rel="stylesheet">
 
     <!--  Local  -->
-    <link id = "theme" rel="stylesheet" href="{% static 'css/style.dark.css' %}">
-    {#    <link rel="stylesheet" href="{% static 'css/style.light.css' %}">#}
+    <link id="theme" rel="stylesheet" href="{% static 'css/style.dark.css' %}">
     <script src="{% static 'js/script.js' %}"></script>
     <script src="{% static 'js/template.js' %}"></script>
     <script src="{% static 'js/vendor.js' %}"></script>
@@ -80,7 +79,6 @@
             {% include 'components/navbar/nav-general-notification.html' %}
             {% include 'components/navbar/nav-chat.html' %}
             {% include 'components/navbar/nav-chat-notification.html' %}
-            {% include 'components/navbar/nav-settings.html' %}
 
         </div>
     </aside>
@@ -112,7 +110,6 @@
 
 </div>
 <!-- Layout -->
-{% include 'components/modal-invite.html' %}
 {% include 'components/modal-profile.html' %}
 
 <script type="text/javascript">
@@ -127,7 +124,9 @@
 
     // Button selection
     const buttonDark = document.getElementById("id_dark_mode_btn");
-    const buttonDarkValue = document.getElementById("id_dark_mode_value")
+    const buttonDarkValue = document.getElementById("id_dark_mode_value");
+    const toggleDarkMode = document.getElementById("id_dark_mode_toggle");
+
     let cssFile = "{% static 'css' %}"
 
     // Style selection
@@ -137,11 +136,21 @@
     // Select the stylesheet <link>
     const theme = document.getElementById("theme");
 
-    function switchTheme() {
+    function switchThemeButton() {
         if (buttonDarkValue.value === "OFF") {
             lightFunction()
         }
         if (buttonDarkValue.value === "ON") {
+            darkFunction()
+        }
+
+    }
+
+    function toggleThemeCheck() {
+        if (toggleDarkMode.checked === false) {
+            lightFunction()
+        }
+        if (toggleDarkMode.checked === true) {
             darkFunction()
         }
     }
@@ -159,7 +168,7 @@
 
     // Listen for a click on the moon button (buttonDark)
     buttonDark.addEventListener("click", function () {
-        switchTheme()
+        switchThemeButton()
         if (buttonDarkValue.value === "OFF") {
             buttonDarkValue.value = "ON";
         } else if (buttonDarkValue.value === "ON") {
@@ -167,12 +176,18 @@
         }
     });
 
+    toggleDarkMode.addEventListener("click", function () {
+        toggleThemeCheck()
+
+    })
 
     const currentTheme = localStorage.getItem("theme");
 
-    if (currentTheme == "dark") {
+    if (currentTheme === "dark") {
+        toggleDarkMode.checked = true;
         darkFunction();
     } else {
+        toggleDarkMode.checked = false;
         lightFunction();
     }
 </script>

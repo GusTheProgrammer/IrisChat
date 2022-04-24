@@ -8,7 +8,7 @@
     <span class="{% if not debug %}d-none{% endif %} page-number" id="id_page_number">1</span>
 
     <!-- Chat -->
-    <main class="main is-visible" data-dropzone-area="">
+    <main class="main" data-dropzone-area="">
         <div class="container h-100">
 
             <div class="d-flex flex-column h-100 position-relative">
@@ -35,7 +35,10 @@
                                 <div class="col-12 col-xl-6">
                                     <div class="row align-items-center gx-5">
                                         <div class="col-auto">
-                                            <div class="avatar avatar-online d-none d-xl-inline-block">
+                                            <div class="avatar avatar-online d-none d-xl-inline-block"
+                                                 data-bs-toggle="offcanvas"
+                                                 data-bs-target="#offcanvas-more" aria-controls="offcanvas-more"
+                                                 style="cursor: pointer">
                                                 <img class="avatar-img" src="{% static 'img/dummy_image.png' %}"
                                                      id="id_group_image">
                                             </div>
@@ -185,7 +188,8 @@
                     <form class="chat-form rounded-pill bg-dark" data-emoji-form="">
                         <div class="row align-items-center gx-0">
                             <div class="col-auto">
-                                <button href="#" class="btn btn-icon btn-link text-body rounded-circle" id="dz-btn" disabled>
+                                <button href="#" class="btn btn-icon btn-link text-body rounded-circle" id="dz-btn"
+                                        disabled>
 
                                 </button>
                             </div>
@@ -199,19 +203,6 @@
                                                                                          data-autosize="true"
                                                                                          id="id_chat_message_input"></textarea>
 
-                                    <a href="#" class="input-group-text text-body pe-0" data-emoji-btn="">
-                                        <span class="icon icon-lg">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                                 stroke-linecap="round" stroke-linejoin="round"
-                                                 class="feather feather-smile">
-                                                <circle cx="12" cy="12" r="10"></circle>
-                                                <path d="M8 14s1.5 2 4 2 4-2 4-2"></path>
-                                                <line x1="9" y1="9" x2="9.01" y2="9"></line>
-                                                <line x1="15" y1="9" x2="15.01" y2="9"></line>
-                                            </svg>
-                                        </span>
-                                    </a>
                                 </div>
                             </div>
 
