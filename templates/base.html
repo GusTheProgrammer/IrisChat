@@ -18,7 +18,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700" rel="stylesheet">
 
     <!--  Local  -->
-    <link rel="stylesheet" href="{% static 'css/style.dark.css' %}" media="(prefers-color-scheme: dark)">
+    <link id = "theme" rel="stylesheet" href="{% static 'css/style.dark.css' %}">
     {#    <link rel="stylesheet" href="{% static 'css/style.light.css' %}">#}
     <script src="{% static 'js/script.js' %}"></script>
     <script src="{% static 'js/template.js' %}"></script>
@@ -123,6 +123,57 @@
         } else {
             spinner.style.display = "none"
         }
+    }
+
+    // Button selection
+    const buttonDark = document.getElementById("id_dark_mode_btn");
+    const buttonDarkValue = document.getElementById("id_dark_mode_value")
+    let cssFile = "{% static 'css' %}"
+
+    // Style selection
+    const lightStyle = "style.light.css";
+    const darkStyle = "style.dark.css";
+
+    // Select the stylesheet <link>
+    const theme = document.getElementById("theme");
+
+    function switchTheme() {
+        if (buttonDarkValue.value === "OFF") {
+            lightFunction()
+        }
+        if (buttonDarkValue.value === "ON") {
+            darkFunction()
+        }
+    }
+
+    function lightFunction() {
+        theme.href = cssFile + '/' + lightStyle;
+        window.localStorage.setItem('theme', 'light');
+    }
+
+    function darkFunction() {
+        theme.href = cssFile + '/' + darkStyle;
+        window.localStorage.setItem('theme', 'dark');
+    }
+
+
+    // Listen for a click on the moon button (buttonDark)
+    buttonDark.addEventListener("click", function () {
+        switchTheme()
+        if (buttonDarkValue.value === "OFF") {
+            buttonDarkValue.value = "ON";
+        } else if (buttonDarkValue.value === "ON") {
+            buttonDarkValue.value = "OFF";
+        }
+    });
+
+
+    const currentTheme = localStorage.getItem("theme");
+
+    if (currentTheme == "dark") {
+        darkFunction();
+    } else {
+        lightFunction();
     }
 </script>
 </body>
