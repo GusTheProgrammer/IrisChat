@@ -115,7 +115,7 @@
         Display a card that says "You have no notifications"
     */
     function setupChatNotificationsMenu() {
-        var notificationContainer = document.getElementById("id_chat_notifications_container")
+        const notificationContainer = document.getElementById("id_chat_notifications_container");
 
         if (notificationContainer != null) {
             card = createChatNotificationCard("id_no_chat_notifications")
@@ -138,6 +138,8 @@
 
             setChatNotificationsCount([])
         }
+
+
     }
 
     /*
