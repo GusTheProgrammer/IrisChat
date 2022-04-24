@@ -4,15 +4,24 @@ from django.conf import settings
 
 # Create your models here.
 
+def get_group_image_filepath(self, filename):
+    return 'group_images/' + str(self.pk) + '/group_image.png'
+
+
+def get_default_group_image():
+    return 'img/dummy_image.png'
+
 
 class PublicChatRoom(models.Model):
     title = models.CharField(max_length=255, unique=True, blank=False, )
     users = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True,
                                    help_text="users who are connected to chat room.")
+    about = models.TextField(max_length=150, blank=True)
+    group_image = models.ImageField(upload_to=get_group_image_filepath, blank=True, null=True, max_length=255,
+                                      default=get_default_group_image)
 
     class Meta:
         verbose_name = 'Room'
-
 
     def __str__(self):
         return self.title
@@ -60,7 +69,6 @@ class PublicRoomChatMessage(models.Model):
 
     class Meta:
         verbose_name = 'message'
-
 
     def __str__(self):
         return self.content

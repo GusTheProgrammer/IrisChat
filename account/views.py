@@ -46,7 +46,8 @@ def account_search_view(request, *args, **kwargs):
 def register_view(request, *args, **kwargs):
     user = request.user
     if user.is_authenticated:
-        return HttpResponse("You are already authenticated as " + str(user.email))
+        # return HttpResponse("You are already authenticated as " + str(user.email))
+        return redirect('public_chat:public_chat_view')
 
     context = {}
     if request.POST:
@@ -60,7 +61,7 @@ def register_view(request, *args, **kwargs):
             destination = kwargs.get("next")
             if destination:
                 return redirect(destination)
-            return redirect('homepage')
+            return redirect('public_chat:public_chat_view')
         else:
             context['registration_form'] = form
 
@@ -72,7 +73,7 @@ def register_view(request, *args, **kwargs):
 
 def logout_view(request):
     logout(request)
-    return redirect("homepage")
+    return redirect("public_chat:public_chat_view")
 
 
 def login_view(request, *args, **kwargs):
@@ -80,7 +81,7 @@ def login_view(request, *args, **kwargs):
 
     user = request.user
     if user.is_authenticated:
-        return redirect("homepage")
+        return redirect("public_chat:public_chat_view")
 
     destination = get_redirect_if_exists(request)
     print("destination: " + str(destination))
@@ -96,7 +97,7 @@ def login_view(request, *args, **kwargs):
                 login(request, user)
                 if destination:
                     return redirect(destination)
-                return redirect("homepage")
+                return redirect("public_chat:public_chat_view")
 
     else:
         form = AccountAuthenticationForm()
@@ -123,6 +124,7 @@ def account_view(request, *args, **kwargs):
                 0: THEM_SENT_TO_YOU
                 1: YOU_SENT_TO_THEM
     """
+    global can_view
     context = {}
     user_id = kwargs.get("user_id")
     try:
@@ -133,8 +135,13 @@ def account_view(request, *args, **kwargs):
         context['id'] = account.id
         context['username'] = account.username
         context['email'] = account.email
+        context['bio'] = account.bio
+        context['first_name'] = account.first_name
+        context['last_name'] = account.last_name
+        context['birth_date'] = account.birth_date
         context['profile_image'] = account.profile_image.url
-        context['hide_email'] = account.hide_email
+        context['hide_info'] = account.hide_info
+        context['hide_friends'] = account.hide_friends
 
         try:
             friend_list = FriendList.objects.get(user=account)
@@ -175,7 +182,35 @@ def account_view(request, *args, **kwargs):
             except:
                 pass
 
+        # Friend List
+        user = request.user
+        if user.is_authenticated:
+            if user_id:
+                try:
+                    this_user = Account.objects.get(pk=user_id)
+                    context['this_user'] = this_user
+                except Account.DoesNotExist:
+                    return HttpResponse("That user does not exist.")
+                try:
+                    friend_list = FriendList.objects.get(user=this_user)
+                except FriendList.DoesNotExist:
+                    return HttpResponse(f"Could not find a friends list for {this_user.username}")
+
+                # Must be friends to view a friends list
+                can_view = True
+
+                if user != this_user:
+                    if not user in friend_list.friends.all():
+                        can_view = False
+                friends = []  # [(friend1, True), (friend2, False), ...]
+                # get the authenticated users friend list
+                auth_user_friend_list = FriendList.objects.get(user=user)
+                for friend in friend_list.friends.all():
+                    friends.append((friend, auth_user_friend_list.is_mutual_friend(friend)))
+                context['friends'] = friends
+
         # Set the template variables to the values
+        context['can_view'] = can_view
         context['is_self'] = is_self
         context['is_friend'] = is_friend
         context['request_sent'] = request_sent
@@ -220,12 +255,22 @@ def crop_image(request, *args, **kwargs):
             cropY = int(float(str(request.POST.get("cropY"))))
             cropWidth = int(float(str(request.POST.get("cropWidth"))))
             cropHeight = int(float(str(request.POST.get("cropHeight"))))
+            cropRotate = int(float(str(request.POST.get("cropRotate"))))
             if cropX < 0:
                 cropX = 0
             if cropY < 0:  # There is a bug with cropperjs. y can be negative.
                 cropY = 0
-            crop_img = img[cropY:cropY + cropHeight, cropX:cropX + cropWidth]
 
+            if cropRotate == 90:
+                final_img = cv2.rotate(img, cv2.cv2.ROTATE_90_CLOCKWISE)
+            elif cropRotate == 180:
+                final_img = cv2.rotate(img, cv2.cv2.ROTATE_180)
+            elif cropRotate == 270:
+                final_img = cv2.rotate(img, cv2.cv2.ROTATE_90_COUNTERCLOCKWISE)
+            else:
+                final_img = img
+
+            crop_img = final_img[cropY:cropY + cropHeight, cropX:cropX + cropWidth]
             cv2.imwrite(url, crop_img)
 
             # delete the old image
@@ -263,14 +308,11 @@ def edit_account_view(request, *args, **kwargs):
             return redirect("account:view", user_id=account.pk)
         else:
             form = AccountUpdateForm(request.POST, instance=request.user,
-                                     initial={
-                                         "id": account.pk,
-                                         "email": account.email,
-                                         "username": account.username,
-                                         "profile_image": account.profile_image,
-                                         "hide_email": account.hide_email,
-                                     }
-                                     )
+                                     initial={"id": account.pk, "email": account.email, "username": account.username,
+                                              "profile_image": account.profile_image, "first_name": account.first_name,
+                                              "last_name": account.last_name, "bio": account.bio,
+                                              "birth_date": account.birth_date, "hide_info": account.hide_info,
+                                              "hide_friends": account.hide_friends, })
             context['form'] = form
     else:
         form = AccountUpdateForm(
@@ -279,7 +321,12 @@ def edit_account_view(request, *args, **kwargs):
                 "email": account.email,
                 "username": account.username,
                 "profile_image": account.profile_image,
-                "hide_email": account.hide_email,
+                "first_name": account.first_name,
+                "last_name": account.last_name,
+                "bio": account.bio,
+                "birth_date": account.birth_date,
+                "hide_info": account.hide_info,
+                "hide_friends": account.hide_friends,
             }
         )
         context['form'] = form

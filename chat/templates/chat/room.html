@@ -1,0 +1,739 @@
+<!-- PrivateChatRoom -->
+<!-- Chat room for 1 on 1 conversations -->
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <span class="{% if not debug %}d-none{% endif %} page-number" id="id_page_number">1</span>
+
+    <!-- Chat -->
+    <main class="main" data-dropzone-area="">
+        <div class="container h-100">
+
+            <div class="d-flex flex-column h-100 position-relative">
+                <!-- Chat: Header -->
+                <div class="chat-header border-bottom py-4 py-lg-7">
+                    <div class="row align-items-center">
+
+                        <!-- Mobile: close -->
+                        <div class="col-2 d-xl-none">
+                            <a class="icon icon-lg text-muted" href="#" onclick="toggleMainClass()">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                     stroke-linejoin="round" class="feather feather-chevron-left">
+                                    <polyline points="15 18 9 12 15 6"></polyline>
+                                </svg>
+                            </a>
+                        </div>
+                        <!-- Mobile: close -->
+
+                        <!-- Content -->
+                        <div class="col-8 col-xl-12">
+                            <div class="row align-items-center text-center text-xl-start">
+                                <!-- Title -->
+                                <div class="col-12 col-xl-6">
+                                    <div class="row align-items-center gx-5">
+                                        <div class="col-auto">
+                                            <div id="id_user_online_status"
+                                                 class="avatar d-none d-xl-inline-block" data-bs-toggle="offcanvas"
+                                                 data-bs-target="#offcanvas-more" aria-controls="offcanvas-more" style="cursor: pointer">
+                                                <img class="avatar-img" id="id_other_user_profile_image">
+                                            </div>
+                                        </div>
+
+                                        <div class="col overflow-hidden">
+                                            <a id="id_user_info_container"><h5 class="text-truncate"
+                                                                               id="id_other_username"></h5></a>
+                                            <p id="id_user_online_status_text" class="text-truncate"></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Title -->
+
+                                <!-- Toolbar -->
+                                <div class="col-xl-6 d-none d-xl-block">
+                                    <div class="row align-items-center justify-content-end gx-6">
+                                        <div class="col-auto">
+                                            <a href="#" class="icon icon-lg text-muted" data-bs-toggle="offcanvas"
+                                               data-bs-target="#offcanvas-more" aria-controls="offcanvas-more">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                     viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                     class="feather feather-more-horizontal">
+                                                    <circle cx="12" cy="12" r="1"></circle>
+                                                    <circle cx="19" cy="12" r="1"></circle>
+                                                    <circle cx="5" cy="12" r="1"></circle>
+                                                </svg>
+                                            </a>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <!-- Toolbar -->
+                            </div>
+                        </div>
+                        <!-- Content -->
+
+                        <!-- Mobile: more -->
+                        <div class="col-2 d-xl-none text-end">
+                            <a href="#" class="icon icon-lg text-muted" data-bs-toggle="offcanvas"
+                               data-bs-target="#offcanvas-more" aria-controls="offcanvas-more">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                     stroke-linejoin="round" class="feather feather-more-vertical">
+                                    <circle cx="12" cy="12" r="1"></circle>
+                                    <circle cx="12" cy="5" r="1"></circle>
+                                    <circle cx="12" cy="19" r="1"></circle>
+                                </svg>
+                            </a>
+                        </div>
+                        <!-- Mobile: more -->
+
+                    </div>
+                </div>
+                <!-- Chat: Header -->
+
+                <!-- Chat: Content -->
+                <div class="chat-body hide-scrollbar flex-1 h-100">
+                    <div class="chat-body-inner">
+                        <!-- Loading Spinner -->
+                        <div id="id_chatroom_loading_spinner" role="status" style="display: none;">
+                            <div class="message message-out">
+                                <a href="#" data-bs-toggle="modal" data-bs-target="#modal-profile"
+                                   class="avatar avatar-responsive">
+                                    <svg class="avatar-img placeholder-img" width="100%" height="100%"
+                                         xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder"
+                                         preserveAspectRatio="xMidYMid slice" focusable="false">
+                                        <title>Placeholder</title>
+                                        <rect width="100%" height="100%" fill="#868e96"></rect>
+                                    </svg>
+                                </a>
+
+                                <div class="message-inner">
+                                    <div class="message-body">
+                                        <div class="message-content">
+                                            <div class="message-footer col">
+                                                <div class="d-flex align-items-center mb-3 justify-content-end">
+                                                    <h5 class="placeholder-glow w-100 mb-0">
+                                                        <span class="placeholder col-3"></span>
+                                                    </h5>
+                                                </div>
+
+                                                <div class="placeholder-glow">
+                                                    <span class="placeholder col-5"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="message-footer">
+                                        <div class="placeholder-glow">
+                                            <span class="placeholder col-2"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="message">
+                                <a href="#" data-bs-toggle="modal" data-bs-target="#modal-profile"
+                                   class="avatar avatar-responsive">
+                                    <svg class="avatar-img placeholder-img" width="100%" height="100%"
+                                         xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder"
+                                         preserveAspectRatio="xMidYMid slice" focusable="false">
+                                        <title>Placeholder</title>
+                                        <rect width="100%" height="100%" fill="#868e96"></rect>
+                                    </svg>
+                                </a>
+
+                                <div class="message-inner">
+                                    <div class="message-body">
+                                        <div class="message-content">
+                                            <div class="col">
+                                                <div class="d-flex align-items-center mb-3">
+                                                    <h5 class="placeholder-glow w-100 mb-0">
+                                                        <span class="placeholder col-3"></span>
+                                                    </h5>
+                                                </div>
+
+                                                <div class="placeholder-glow">
+                                                    <span class="placeholder col-5"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="message-footer">
+                                        <div class="placeholder-glow">
+                                            <span class="placeholder col-2"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Loading Spinner -->
+                        <div class="d-flex py-6 py-lg-12" id="id_chat_log">
+                        </div>
+                    </div>
+                </div>
+                <!-- Chat: Content -->
+
+                <!-- Chat: Footer -->
+                <div class="chat-footer pb-3 pb-lg-7 position-absolute bottom-0 start-0">
+                    <!-- Chat: Files -->
+                    <div class="dz-preview bg-dark" id="dz-preview-row" data-horizontal-scroll="">
+                    </div>
+                    <!-- Chat: Files -->
+
+                    <!-- Chat: Form -->
+                    <form class="chat-form rounded-pill bg-dark" data-emoji-form="">
+                        <div class="row align-items-center gx-0">
+                            <div class="col-auto">
+                                <a href="#" class="btn btn-icon btn-link text-body rounded-circle" id="dz-btn"
+                                   disabled="">
+
+                                </a>
+                            </div>
+
+                            <div class="col">
+                                <div class="input-group">
+                                    <label for="id_chat_message_input"></label><textarea class="form-control px-0"
+                                                                                         placeholder="Type your message..."
+                                                                                         rows="1"
+                                                                                         data-emoji-input=""
+                                                                                         data-autosize="true"
+                                                                                         id="id_chat_message_input"></textarea>
+
+                                </div>
+                            </div>
+
+                            <div class="col-auto">
+                                <button class="btn btn-icon btn-primary rounded-circle ms-5"
+                                        id="id_chat_message_submit">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                         stroke-linejoin="round" class="feather feather-send">
+                                        <line x1="22" y1="2" x2="11" y2="13"></line>
+                                        <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- Chat: Form -->
+                </div>
+                <!-- Chat: Footer -->
+            </div>
+
+        </div>
+    </main>
+    <!-- Chat -->
+    {% include 'components/chat-sideprofile.html' %}
+
+    <script type="text/javascript">
+        var chatSocket = null;
+        var roomId = null;
+
+        onStart()
+
+        function onStart() {
+            {% if room %}
+                if ("{{ room.user1 }} == {{ request.user }}") {
+                    onSelectFriend({{ room.user2.id }})
+                } else {
+                    onSelectFriend({{ room.user1.id }})
+                }
+            {% else %}
+                {% if m_and_f %}
+                    onSelectFriend("{{m_and_f.0.friend.id}}")
+                {% endif %}
+            {% endif %}
+
+            {% for x in m_and_f %}
+                preloadImage("{{x.friend.profile_image.url|safe}}", "id_friend_img_{{x.friend.id}}")
+            {% endfor %}
+        }
+
+        function onSelectFriend(userId) {
+            console.log("onSelectFriend: " + userId)
+            createOrReturnPrivateChat(userId)
+            clearHighlightedFriend()
+            highlightFriend(userId)
+            toggleMainClass()
+        }
+
+        function closeWebSocket() {
+            if (chatSocket != null) {
+                chatSocket.close()
+                chatSocket = null
+                clearChatLog()
+                setPageNumber("1")
+                disableChatLogScrollListener()
+            }
+        }
+
+        function setupWebSocket(room_id) {
+
+            console.log("setupWebSocket: " + room_id)
+
+            roomId = room_id
+
+            // close previous socket if one is open
+            closeWebSocket()
+
+            // Correctly decide between ws:// and wss://
+            var ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";
+            {% if debug_mode %}
+                var ws_path = ws_scheme + '://' + window.location.host + "/chat/" + roomId + "/"; // development
+            {% else %}
+                var ws_path = ws_scheme + '://' + window.location.host + ":8001/chat/" + roomId + "/"; // production
+            {% endif %}
+
+
+            // console.log("Connecting to " + ws_path);
+            chatSocket = new WebSocket(ws_path);
+
+            // Handle incoming messages
+            chatSocket.onmessage = function (message) {
+                // Decode the JSON
+                // console.log("Got chat websocket message " + message.data);
+                console.log("Got websocket message.");
+                var data = JSON.parse(message.data);
+
+                // display the progress bar?
+                displayChatroomLoadingSpinner(data.display_progress_bar)
+
+                // Handle errors (ClientError)
+                if (data.error) {
+                    console.error(data.error + ": " + data.message)
+                    showClientErrorModal(data.message)
+                    return;
+                }
+                // Handle joining (Client perspective)
+                if (data.join) {
+                    console.log("Joining room " + data.join);
+                    getUserInfo()
+                    getRoomChatMessages()
+                    enableChatLogScrollListener()
+                }
+                // Handle leaving (client perspective)
+                if (data.leave) {
+                    // do nothing
+                    console.log("Leaving room " + data.leave);
+                }
+
+                // user info coming in from backend
+                if (data.user_info) {
+                    handleUserInfoPayload(data.user_info)
+                }
+
+                // Handle getting a message
+                if (data.msg_type == 0 || data.msg_type == 1 || data.msg_type == 2) {
+                    appendChatMessage(data, false, true)
+                }
+
+                // new payload of messages coming in from backend
+                if (data.messages_payload) {
+                    handleMessagesPayload(data.messages, data.new_page_number)
+                }
+            };
+
+            chatSocket.addEventListener("open", function (e) {
+                console.log("ChatSocket OPEN")
+                // join chat room
+                if ("{{request.user.is_authenticated}}") {
+                    chatSocket.send(JSON.stringify({
+                        "command": "join",
+                        "room": roomId
+                    }));
+                }
+            })
+
+            chatSocket.onclose = function (e) {
+                console.log('Chat socket closed.');
+            };
+
+            chatSocket.onOpen = function (e) {
+                console.log("ChatSocket onOpen", e)
+            }
+
+            chatSocket.onerror = function (e) {
+                console.log('ChatSocket error', e)
+            }
+
+            if (chatSocket.readyState == WebSocket.OPEN) {
+                console.log("ChatSocket OPEN")
+            } else if (chatSocket.readyState == WebSocket.CONNECTING) {
+                console.log("ChatSocket connecting..")
+            }
+        }
+
+        document.getElementById('id_chat_message_input').focus();
+        document.getElementById('id_chat_message_input').onkeyup = function (e) {
+            e.preventDefault()
+            if (e.keyCode === 13 && e.shiftKey) {  // enter + return
+                // Handled automatically by textarea
+            } else if (e.keyCode === 13 && !e.shiftKey) { // enter + !return
+                document.getElementById('id_chat_message_submit').click();
+            }
+        };
+
+        document.getElementById('id_chat_message_submit').onclick = function (e) {
+            e.preventDefault()
+            const messageInputDom = document.getElementById('id_chat_message_input');
+            const message = messageInputDom.value;
+            chatSocket.send(JSON.stringify({
+                "command": "send",
+                "message": message,
+                "room": roomId
+            }));
+            messageInputDom.value = '';
+        };
+
+        /*
+            Retrieve the user information of the user other in the chat.
+            1. Profile image
+            2. username
+            3. etc...
+        */
+        function getUserInfo() {
+            chatSocket.send(JSON.stringify({
+                "command": "get_user_info",
+                "room_id": roomId,
+            }));
+        }
+
+        function handleUserInfoPayload(user_info) {
+            let usernames = document.querySelectorAll("#id_other_username")
+
+
+            for (let i = 0; i < usernames.length; i++) {
+                usernames[i].innerHTML = user_info['username'];
+            }
+
+            let names = document.querySelectorAll("#id_other_fullname")
+            let fullName = user_info['first_name'] + " " + user_info['last_name']
+
+            for (let i = 0; i < names.length; i++) {
+                if (user_info['first_name'] !== "" || user_info['last_name'] !== "") {
+                    names[i].innerHTML = fullName
+                } else {
+                    names[i].innerHTML = user_info['username'];
+
+                }
+            }
+
+            document.getElementById("id_other_user_profile_image").classList.remove("d-none")
+            document.getElementById("id_user_dropdown").href = "{% url 'account:view' user_id=53252623623632623 %}".replace("53252623623632623", user_info['id'])
+
+
+            preloadImage(user_info['profile_image'], "id_other_user_profile_image")
+            preloadImage(user_info['profile_image'], "id_other_user_profile_image_2")
+
+            let email = document.getElementById("id_other_user_email")
+            email.innerHTML = user_info['email']
+
+            document.getElementById("id_other_user_email_mailto").href = "mailto:" + user_info['email']
+            document.getElementById("id_user_info_account").href = "{% url 'account:view' user_id=53252623623632623 %}".replace("53252623623632623", user_info['id'])
+
+
+            if (user_info['bio'] != "") {
+                let bio = document.getElementById("id_user_bio")
+                bio.innerHTML = user_info['bio']
+            }
+
+            if (user_info['birth_date'] != "None") {
+                document.getElementById("id_birth_date_container").classList.remove("d-none")
+                let birthDate = document.getElementById("id_user_birth_date")
+                birthDate.innerHTML = user_info['birth_date']
+
+            }
+
+
+        }
+
+        function showClientErrorModal(message) {
+            document.getElementById("id_client_error_modal_body").innerHTML = message
+            $('#id_client_error_modal').modal('toggle')
+        }
+
+        function appendChatMessage(data, maintainPosition, isNewMessage) {
+            messageType = data['msg_type']
+            msg_id = data['msg_id']
+            message = data['message']
+            uName = data['username']
+            user_id = data['user_id']
+            profile_image = data['profile_image']
+            timestamp = data['natural_timestamp']
+            console.log("append chat message: " + messageType)
+
+            var msg = "";
+            var username = ""
+
+            // determine what type of msg it is
+            switch (messageType) {
+                case 0:
+                    // new chatroom msg
+                    username = uName
+                    msg = message
+                    createChatMessageElement(msg, msg_id, username, profile_image, user_id, timestamp, maintainPosition, isNewMessage)
+                    break;
+                case 1:
+                    // User joined room
+                    createConnectedDisconnectedElement(message)
+                    break;
+                case 2:
+                    // User left room
+                    createConnectedDisconnectedElement(message)
+                    break;
+                default:
+                    console.log("Unsupported message type!");
+                    return;
+            }
+        }
+
+        /*
+            Build a new ChatMessage element and append to the list
+        */
+        function createChatMessageElement(msg, msg_id, username, profile_image, user_id, timestamp, maintainPosition, isNewMessage) {
+            var chatLog = document.getElementById("id_chat_log")
+
+            var newMessageDiv = document.createElement("div")
+            newMessageDiv.classList.add("message")
+
+            var profileDiv = document.createElement("div")
+
+            var profileButton = document.createElement("a")
+            profileButton.classList.add("avatar", "avatar-responsive", "mx-auto", "mb-2")
+            if (user_id == "{{ request.user.id }}") {
+                newMessageDiv.classList.add("message-out")
+                profileButton.setAttribute("data-bs-toggle", "modal")
+                profileButton.setAttribute("data-bs-target", "#modal-profile")
+                profileButton.setAttribute("aria-controls", "#modal-profile")
+
+            } else {
+                profileButton.setAttribute("data-bs-toggle", "offcanvas")
+                profileButton.setAttribute("data-bs-target", "#offcanvas-more")
+                profileButton.setAttribute("aria-controls", "#offcanvas-more")
+
+            }
+
+
+            var profileImage = document.createElement("img")
+            profileImage.classList.add("avatar-img")
+            profileImage.src = "{% static 'img/dummy_image.png' %}"
+            var profile_image_id = "id_profile_image_" + msg_id
+            profileImage.id = profile_image_id
+
+
+            var usernameSpan = document.createElement("div")
+            usernameSpan.classList.add("text-muted", "text-center", "text-break")
+            usernameSpan.style.width = "3.75rem"
+            usernameSpan.innerHTML = username
+
+            newMessageDiv.appendChild(profileDiv)
+            profileDiv.appendChild(profileButton)
+            profileDiv.appendChild(usernameSpan)
+            profileButton.appendChild(profileImage)
+
+            var messageInner = document.createElement("div")
+            messageInner.classList.add("message-inner")
+            newMessageDiv.appendChild(messageInner)
+
+            var messageBody = document.createElement("div")
+            messageBody.classList.add("message-body")
+            messageInner.appendChild(messageBody)
+
+            var messageContent = document.createElement("div")
+            messageContent.classList.add("message-content")
+            messageBody.appendChild(messageContent)
+
+            var messageText = document.createElement("div")
+            messageText.classList.add("message-text")
+            messageContent.appendChild(messageText)
+
+
+            var msgP = document.createElement("p")
+            msgP.innerHTML = validateText(msg)
+            msgP.classList.add("text-break")
+            messageText.appendChild(msgP)
+
+            var messageFooter = document.createElement("div")
+            messageFooter.classList.add("message-footer")
+            messageInner.appendChild(messageFooter)
+
+
+            var timestampSpan = document.createElement("span")
+            timestampSpan.innerHTML = timestamp
+            timestampSpan.id = "id_timestamp"
+            timestampSpan.classList.add("extra-small", "text-muted")
+            messageFooter.appendChild(timestampSpan)
+
+
+            /*if (timestamp.includes("yesterday")) {
+                var messageDivider = document.createElement("div")
+                messageDivider.classList.add("message-divider")
+                chatLog.appendChild(messageDivider)
+
+
+                var divider = document.createElement("small")
+                divider.classList.add("text-muted")
+                divider.innerHTML = "Yesterday"
+                messageDivider.appendChild(divider)
+            }*/
+
+
+            if (isNewMessage) {
+                chatLog.insertBefore(newMessageDiv, chatLog.firstChild)
+            } else {
+                chatLog.appendChild(newMessageDiv)
+            }
+
+            if (!maintainPosition) {
+                chatLog.scrollTop = chatLog.scrollHeight
+            }
+
+            preloadImage(profile_image, profile_image_id)
+        }
+
+        function createConnectedDisconnectedElement(msg) {
+            var userStatus = document.getElementById("id_user_online_status")
+            var username = document.getElementById("id_user_online_status_text")
+
+            if (msg.includes("connected.")) {
+                userStatus.classList.remove("avatar-offline")
+                userStatus.classList.add("avatar-online")
+                username.innerHTML = "Connected"
+
+            }
+            if (msg.includes("disconnected.")) {
+                userStatus.classList.remove("avatar-online")
+                userStatus.classList.add("avatar-offline")
+                username.innerHTML = "Disconnected"
+
+
+            }
+        }
+
+        function setPageNumber(pageNumber) {
+            document.getElementById("id_page_number").innerHTML = pageNumber
+        }
+
+        function clearChatLog() {
+            document.getElementById("id_chat_log").innerHTML = ""
+        }
+
+
+        function setPaginationExhausted() {
+            setPageNumber("-1")
+        }
+
+        /*
+           Retrieve the chat room messages given the page number.
+       */
+        function getRoomChatMessages() {
+            var pageNumber = document.getElementById("id_page_number").innerHTML
+            if (pageNumber != "-1") {
+                setPageNumber("-1") // loading in progress
+                chatSocket.send(JSON.stringify({
+                    "command": "get_room_chat_messages",
+                    "room_id": roomId,
+                    "page_number": pageNumber,
+                }));
+            }
+        }
+
+
+        function handleMessagesPayload(messages, new_page_number) {
+            if (messages != null && messages != "undefined" && messages != "None") {
+                setPageNumber(new_page_number)
+                messages.forEach(function (message) {
+                    appendChatMessage(message, true, false)
+                })
+            } else {
+                setPaginationExhausted() // no more messages
+            }
+        }
+
+        /*
+            Get the next page of chat messages when scrolls to bottom
+        */
+        function chatLogScrollListener(e) {
+            var chatLog = document.getElementById("id_chat_log")
+            if ((Math.abs(chatLog.scrollTop) + 2) >= (chatLog.scrollHeight - chatLog.offsetHeight)) {
+                getRoomChatMessages()
+            }
+        }
+
+        /*
+            Enable the function "chatLogScrollListener"
+        */
+        function enableChatLogScrollListener() {
+            document.getElementById("id_chat_log").addEventListener("scroll", chatLogScrollListener);
+        }
+
+        /*
+            Disable the function "chatLogScrollListener"
+        */
+        function disableChatLogScrollListener() {
+            document.getElementById("id_chat_log").removeEventListener("scroll", chatLogScrollListener)
+        }
+
+        function displayChatroomLoadingSpinner(isDisplayed) {
+            console.log("displayChatroomLoadingSpinner: " + isDisplayed)
+            var spinner = document.getElementById("id_chatroom_loading_spinner")
+            if (isDisplayed) {
+                spinner.style.display = "block"
+            } else {
+                spinner.style.display = "none"
+            }
+        }
+
+        function highlightFriend(userId) {
+            // select new friend
+            document.getElementById("id_friend_container_" + userId).style.background = "#1a5ca8"
+        }
+
+        function clearHighlightedFriend() {
+            {% if m_and_f %}
+                {% for x in m_and_f %}
+                    document.getElementById("id_friend_container_{{x.friend.id}}").style.background = ""
+                {% endfor %}
+            {% endif %}
+
+            // clear the profile image and username of current chat
+            document.getElementById("id_other_user_profile_image").classList.add("d-none")
+            document.getElementById("id_other_user_profile_image").src = "{% static 'img/dummy_image.png' %}"
+            document.getElementById("id_other_username").innerHTML = ""
+        }
+
+
+        function createOrReturnPrivateChat(id) {
+            payload = {
+                "csrfmiddlewaretoken": "{{ csrf_token }}",
+                "user2_id": id,
+            }
+            $.ajax({
+                type: 'POST',
+                dataType: "json",
+                url: "{% url 'private_chat:create-or-return-private-chat' %}", // production
+                data: payload,
+                timeout: 5000,
+                success: function (data) {
+                    console.log("SUCCESS", data)
+                    if (data['response'] == "Successfully got the chat.") {
+                        setupWebSocket(data['chatroom_id'])
+                    } else if (data['response'] != null) {
+                        alert(data['response'])
+                    }
+                },
+                error: function (data) {
+                    console.error("ERROR...", data)
+                    alert("Something went wrong.")
+                },
+            });
+        }
+
+    </script>
+
+    {% include 'components/modal-error.html' %}
+{% endblock content %}

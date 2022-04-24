@@ -1,52 +1,79 @@
-{% extends 'base.html' %}
-{% load static %}
-
+{% extends 'password_reset/auth_base.html' %}
+{% block title %}Log In{% endblock title %}
 {% block content %}
-    <div class="container-fluid">
-        <div class="row justify-content-center">
-            <div class="card card-signin">
-                <div class="card-body">
-                    <form class="form-signin" method="post">{% csrf_token %}
-                        <div class="d-flex flex-column pb-3">
-                            <img class="img-fluid mx-auto d-block"
-                                 src="{% static 'img/Sample_User_Icon.png' %}"
-                                 alt="Logo" width="72" height="72">
-                        </div>
-                        <input type="email" name="email" id="inputEmail" class="form-control"
-                               placeholder="Email address" required autofocus>
 
-                        <input type="password" name="password" id="inputPassword" class="form-control"
-                               placeholder="Password" required>
-
-                        {% for field in login_form %}
-                            <p>
-                                {% for error in field.errors %}
-                                    <p style="color: red">{{ error }}</p>
-                                {% endfor %}
-                            </p>
-                        {% endfor %}
-                        {% if login_form.non_field_errors %}
-                            <div style="color: red">
-                                <p>{{ login_form.non_field_errors }}</p>
+    <div class="container">
+        <div class="row align-items-center justify-content-center min-vh-100 gx-0">
+            <div class="col-12 col-md-5 col-lg-4">
+                <div class="card card-shadow border-0">
+                    <div class="card-body">
+                        <form class="row g-6" method="POST">
+                            {% csrf_token %}
+                            <div class="col-12">
+                                <div class="text-center">
+                                    <h3 class="fw-bold mb-2">Sign In</h3>
+                                    <p>Login to your account</p>
+                                </div>
                             </div>
 
-                        {% endif %}
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <input type="email" name="email"
+                                            {% if login_form.errors.email %}
+                                           class="form-control is-invalid"
+                                            {% else %}
+                                           class="form-control"
+                                            {% endif %}
+                                           id="id_input_email"
+                                           placeholder="Email" required autofocus>
+                                    <label for="id_input_email">Email</label>
+                                    {% if login_form.errors.email %}
+                                        <div id="id_input_email" class="invalid-feedback">
+                                            <p>{{ login_form.errors.email|striptags }}</p>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
 
-                        <button class="btn btn-lg btn-primary btn-block" type="submit">Log in</button>
-                    </form>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <input type="password" name="password"
+                                            {% if login_form.errors.password %}
+                                           class="form-control is-invalid"
+                                            {% else %}
+                                           class="form-control"
+                                            {% endif %}
+                                           id="id_input_password"
+                                           placeholder="Password" required>
+                                    <label for="id_input_password">Password</label>
+                                    {% if login_form.errors.password %}
+                                        <div id="id_input_password" class="invalid-feedback">
+                                            <p>{{ login_form.errors.password|striptags }}</p>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
 
-                    <div class="d-flex flex-column my-4">
-                        <a class="m-auto" href="{% url 'password_reset' %}">Reset password</a>
+                            {% if login_form.non_field_errors %}
+                                <p class="text-danger">{{ login_form.non_field_errors|striptags }}</p>
+                            {% endif %}
+
+                            <div class="col-12">
+                                <button class="btn btn-block btn-lg btn-primary w-100" type="submit">Sign In
+                                </button>
+                            </div>
+                        </form>
                     </div>
                 </div>
-            </div>
 
+                <!-- Text -->
+                <div class="text-center mt-8">
+                    <p>Don't have an account yet? <a href="{% url 'register' %}">Sign up</a></p>
+                    <p><a href="{% url 'password_reset' %}">Forgot Password?</a></p>
+                </div>
+            </div>
         </div>
     </div>
-
-
-
-
 
 
 {% endblock content %}

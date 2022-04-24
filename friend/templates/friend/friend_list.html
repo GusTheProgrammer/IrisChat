@@ -1,85 +1,235 @@
-{% extends 'base.html' %}
-{% load static %}
-
 {% block content %}
+    {% if friends %}
+        {% for friend in friends %}
+            <li class="list-group-item">
+                <div class="row align-items-center gx-5">
+                    <!-- Icons -->
+                    <div class="col-auto">
+                        <div class="avatar-group">
+                            <a href="{% url 'account:view' user_id=friend.0.pk %}" class="avatar avatar-sm">
+                                <img src="{{ friend.0.profile_image.url }}" class="avatar-img" alt="#">
+                            </a>
 
-<style type="text/css">
+                        </div>
+                    </div>
+                    <!-- Icons -->
+
+                    <!-- Text -->
+                    <div class="col overflow-hidden">
+                        <h5 class="text-truncate">
+                            <a href="{% url 'account:view' user_id=friend.0.pk %}">{{ friend.0.username|truncatechars:50 }}</a>
+                        </h5>
+                        <ul class="list-inline m-0">
+                            {% if friend.1 %}
+                                <li class="list-inline-item">
+                                    <a class="d-flex align-items-center" href="#"
+                                       onclick="createOrReturnPrivateChat('{{ friend.0.id }}')">
+                                        Send a Message
+                                        <div class="icon px-2">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                                 stroke-linecap="round" stroke-linejoin="round"
+                                                 class="feather feather-send">
+                                                <line x1="22" y1="2" x2="11" y2="13"></line>
+                                                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                                            </svg>
+                                        </div>
+                                    </a>
+                                </li>
 
 
-</style>
+                            {% endif %}
 
-<div class="container">
-	<div class="card p-2">
+                        </ul>
+                    </div>
+                    <!-- Text -->
+                    <div class="col-auto">
+                        {% if friend.1 %}
+                            <div class="d-flex flex-row text-muted">
+                                <p class="mx-4">
+                                    Friends
+                                </p>
 
-		{% if friends %}
-		<div class="d-flex flex-row flex-wrap">
-		{% for friend in friends %}
-		<div class="card flex-row flex-grow-1 p-2 mx-2 my-2 align-items-center">
-			<a class="profile-link" href="{% url 'account:view' user_id=friend.0.pk %}">
-				<div class="card-image m-2">
-					<img class="img-fluid profile-image" src="{{friend.0.profile_image.url}}" alt="">
-				</div>
-			</a>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                     stroke-linejoin="round" class="feather feather-user-check">
+                                    <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="8.5" cy="7" r="4"></circle>
+                                    <polyline points="17 11 19 13 23 9"></polyline>
+                                </svg>
+                            </div>
+                        {% else %}
+                            {% if friend.0 !=  request.user %}
+                                <div class="d-flex flex-row text-muted">
+                                    <p class="mx-4">
+                                        Not Friends
+                                    </p>
 
-			<div class="card-center px-2">
-				<a class="profile-link" href="{% url 'account:view' user_id=friend.0.pk %}">
-					<h4 class="card-title">{{friend.0.username|truncatechars:50}}</h4>
-				</a>
-				{% if friend.1 %}
-				<a href="#" onclick="createOrReturnPrivateChat('{{friend.0.id}}')">Send a Message</a>
-				{% endif %}
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                         stroke-linejoin="round" class="feather feather-user-x">
+                                        <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                        <circle cx="8.5" cy="7" r="4"></circle>
+                                        <line x1="18" y1="8" x2="23" y2="13"></line>
+                                        <line x1="23" y1="8" x2="18" y2="13"></line>
+                                    </svg>
+                                </div>
+                            {% endif %}
+                        {% endif %}
+                        {% if friend.0 == request.user %}
+                            <div class="d-flex flex-row text-muted">
+                                <p class="mx-4">
+                                    This is you
+                                </p>
 
-			</div>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                     stroke-linejoin="round" class="feather feather-user">
+                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="12" cy="7" r="4"></circle>
+                                </svg>
+                            </div>
+                        {% endif %}
+                    </div>
 
-			<div class="d-flex flex-row card-right flex-grow-1 justify-content-end mx-2">
-				{% if friend.1 %}
-					<div class="d-flex flex-row friends-text-container p-3">
-						<p class="friends-text m-auto">
-							Friends
-						</p>
-						<span class="material-icons checkmark-icon m-auto pl-2">
-						check_circle_outline
-						</span>
-					</div>
-				{% else %}
-					{% if friend.0 !=  request.user %}
-						<div class="d-flex flex-row friends-text-container p-3">
-							<p class="friends-text m-auto">
-								Not Friends
-							</p>
-							<span class="material-icons cancel-icon m-auto pl-2">cancel</span>
-						</div>
-					{% endif %}
-				{% endif %}
-				{% if friend.0 == request.user %}
-					<div class="d-flex flex-row friends-text-container p-3">
-						<p class="friends-text m-auto">
-							This is you
-						</p>
-						<span class="material-icons m-auto pl-2">
-						person_pin
-						</span>
-					</div>
-				{% endif %}
-			</div>
-		</div>
-		{% if forloop.counter|divisibleby:2 %}
-		</div><div class="d-flex flex-row flex-wrap">
-		{% endif %}
+                    <!-- Dropdown -->
+                    <div class="col-auto">
+                        <div class="dropdown">
+                            <a class="icon text-muted" href="#" role="button"
+                               data-bs-toggle="dropdown"
+                               aria-expanded="false">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                     viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                     class="feather feather-more-vertical">
+                                    <circle cx="12" cy="12" r="1"></circle>
+                                    <circle cx="12" cy="5" r="1"></circle>
+                                    <circle cx="12" cy="19" r="1"></circle>
+                                </svg>
+                            </a>
 
-		{% endfor %}
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a class="dropdown-item d-flex align-items-center text-info" href="#"
+                                       onclick="createOrReturnPrivateChat('{{ friend.0.id }}')">
+                                        Send Message
+                                        <div class="icon ms-auto">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                                 stroke-linecap="round" stroke-linejoin="round"
+                                                 class="feather feather-send">
+                                                <line x1="22" y1="2" x2="11" y2="13"></line>
+                                                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                                            </svg>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item d-flex align-items-center"
+                                       href="{% url 'account:view' user_id=friend.0.pk %}">
+                                        Show Profile
+                                        <div class="icon ms-auto">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                 viewBox="0 0 24 24"
+                                                 fill="none" stroke="currentColor" stroke-width="2"
+                                                 stroke-linecap="round"
+                                                 stroke-linejoin="round" class="feather feather-user-check">
+                                                <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                                <circle cx="8.5" cy="7" r="4"></circle>
+                                                <polyline points="17 11 19 13 23 9"></polyline>
+                                            </svg>
+                                        </div>
+                                    </a>
+                                </li>
+                                {% if is_self %}
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
 
-		{% else %} <!-- If no friends -->
-		<div class="d-flex flex-row flex-grow-1 justify-content-center align-items-center p-4">
-			<p>No friends :(</p>
-		</div>
-		{% endif %}
-		</div>
-	</div>
+                                    <li>
+                                        <a class="dropdown-item d-flex align-items-center text-danger"
+                                           href="#" data-bs-toggle="modal"
+                                           data-bs-target="#unfriendModal_{{ friend.0.pk }}"
+                                        >
+                                            <span class="me-auto">Unfriend</span>
+                                            <div class="icon">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                     viewBox="0 0 24 24"
+                                                     fill="none" stroke="currentColor" stroke-width="2"
+                                                     stroke-linecap="round"
+                                                     stroke-linejoin="round" class="feather feather-user-x">
+                                                    <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                                    <circle cx="8.5" cy="7" r="4"></circle>
+                                                    <line x1="18" y1="8" x2="23" y2="13"></line>
+                                                    <line x1="23" y1="8" x2="18" y2="13"></line>
+                                                </svg>
+                                            </div>
+                                        </a>
+                                    </li>
 
-</div>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Dropdown -->
+                </div>
+            </li>
 
-{%  include 'components/create_or_return_private_chat.html' %}
+            <div class="modal fade" id="unfriendModal_{{ friend.0.pk }}" tabindex="-1"
+                 aria-labelledby="unfriendModalLabel_{{ friend.0.pk }}" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title text-danger" id="unfriendModalLabel_{{ friend.0.pk }}">
+                                Unfriend {{ friend.0.username }}?</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            Are you sure you want to unfriend {{ friend.0.username }}?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary"
+                                    data-bs-dismiss="modal">No
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                     viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                     stroke-width="2" stroke-linecap="round"
+                                     stroke-linejoin="round" class="feather feather-x">
+                                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                                </svg>
+                            </button>
+                            <button type="button" class="btn btn-danger"
+                                    onclick="removeFriend('{{ friend.0.pk }}', onFriendRemoved)">Yes
+
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                     viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                     stroke-width="2" stroke-linecap="round"
+                                     stroke-linejoin="round" class="feather feather-trash-2">
+                                    <polyline points="3 6 5 6 21 6"></polyline>
+                                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                    <line x1="10" y1="11" x2="10" y2="17"></line>
+                                    <line x1="14" y1="11" x2="14" y2="17"></line>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        {% endfor %}
+
+
+    {% else %} <!-- If no friends -->
+        <li class="list-group-item">
+            <div class="row align-items-center gx-5 text-center">
+                <h5 class="text-muted"> No Friends 😞</h5>
+            </div>
+        </li>
+    {% endif %}
+
+
+    {% include 'chat/components/create_or_return_private_chat.html' %}
 
 
 {% endblock content %}
