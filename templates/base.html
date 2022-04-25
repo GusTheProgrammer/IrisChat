@@ -79,7 +79,6 @@
             {% include 'components/navbar/nav-general-notification.html' %}
             {% include 'components/navbar/nav-chat.html' %}
             {% include 'components/navbar/nav-chat-notification.html' %}
-            {% include 'components/navbar/nav-settings.html' %}
 
         </div>
     </aside>
@@ -112,6 +111,8 @@
 <!-- Layout -->
 {% include 'components/modal-profile.html' %}
 
+<p class="d-none" id="id_css_dark_file">{% static 'css/style.light.css' %}</p>
+<p class="d-none" id="id_css_light_file">{% static 'css/style.dark.css' %}</p>
 <script type="text/javascript">
     function displayLoadingSpinner(isDisplayed) {
         var spinner = document.getElementById("id_loading_spinner")
@@ -125,13 +126,14 @@
     // Button selection
     const buttonDark = document.getElementById("id_dark_mode_btn");
     const buttonDarkValue = document.getElementById("id_dark_mode_value");
+
     const toggleDarkMode = document.getElementById("id_dark_mode_toggle");
 
-    let cssFile = "{% static 'css' %}"
 
     // Style selection
-    const lightStyle = "style.light.css";
-    const darkStyle = "style.dark.css";
+    const cssLightFile = document.getElementById("id_css_light_file").innerHTML
+    let cssDarkFile = document.getElementById("id_css_dark_file").innerHTML
+
 
     // Select the stylesheet <link>
     const theme = document.getElementById("theme");
@@ -148,20 +150,20 @@
 
     function toggleThemeCheck() {
         if (toggleDarkMode.checked === false) {
-            lightFunction()
+            darkFunction()
         }
         if (toggleDarkMode.checked === true) {
-            darkFunction()
+            lightFunction()
         }
     }
 
     function lightFunction() {
-        theme.href = cssFile + '/' + lightStyle;
+        theme.href = cssLightFile.replace(/&amp;/g, "&")
         window.localStorage.setItem('theme', 'light');
     }
 
     function darkFunction() {
-        theme.href = cssFile + '/' + darkStyle;
+        theme.href = cssDarkFile.replace(/&amp;/g, "&")
         window.localStorage.setItem('theme', 'dark');
     }
 
@@ -184,10 +186,10 @@
     const currentTheme = localStorage.getItem("theme");
 
     if (currentTheme === "dark") {
-        toggleDarkMode.checked = true;
+        toggleDarkMode.checked = false;
         darkFunction();
     } else {
-        toggleDarkMode.checked = false;
+        toggleDarkMode.checked = true;
         lightFunction();
     }
 </script>
