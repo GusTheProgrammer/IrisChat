@@ -1,0 +1,928 @@
+{
+  "id": "38558b34-0127-47cb-bec6-a611da603ef0",
+  "version": "2.0",
+  "name": "ChatApp",
+  "url": "http://127.0.0.1:8000/",
+  "tests": [{
+    "id": "2ba44ffa-2807-40a0-8e33-f43b5717d0ae",
+    "name": "Sending A Message",
+    "commands": [{
+      "id": "f6641f49-8a9e-4f72-b07f-05c1c222b128",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "1821d4b2-7442-451d-979a-09cd9d499eb5",
+      "comment": "",
+      "command": "click",
+      "target": "css=#id_chat_notification_dropdown_toggle > .d-flex",
+      "targets": [
+        ["css=#id_chat_notification_dropdown_toggle > .d-flex", "css:finder"],
+        ["xpath=//div[@id='id_chat_notification_dropdown_toggle']/span[2]", "xpath:idRelative"],
+        ["xpath=//span[2]", "xpath:position"],
+        ["xpath=//span[contains(.,'chat')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "37e17094-06a1-492a-bfb1-c8648ce0b813",
+      "comment": "",
+      "command": "click",
+      "target": "css=.mr-2:nth-child(1)",
+      "targets": [
+        ["css=.mr-2:nth-child(1)", "css:finder"],
+        ["xpath=//div[@id='id_chat_notifications_container']/div/span", "xpath:idRelative"],
+        ["xpath=//div/div/div/div/div/span", "xpath:position"],
+        ["xpath=//span[contains(.,'Go to chat')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "76d85341-38ee-4db2-90c0-a1b21429b670",
+      "comment": "",
+      "command": "click",
+      "target": "id=id_chat_message_input",
+      "targets": [
+        ["id=id_chat_message_input", "id"],
+        ["css=#id_chat_message_input", "css:finder"],
+        ["xpath=//textarea[@id='id_chat_message_input']", "xpath:attributes"],
+        ["xpath=//div[@id='id_chat_log_container']/div[3]/textarea", "xpath:idRelative"],
+        ["xpath=//textarea", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "516747a6-a88d-4aac-bb71-7ce89c1c6040",
+      "comment": "",
+      "command": "type",
+      "target": "id=id_chat_message_input",
+      "targets": [
+        ["id=id_chat_message_input", "id"],
+        ["css=#id_chat_message_input", "css:finder"],
+        ["xpath=//textarea[@id='id_chat_message_input']", "xpath:attributes"],
+        ["xpath=//div[@id='id_chat_log_container']/div[3]/textarea", "xpath:idRelative"],
+        ["xpath=//textarea", "xpath:position"]
+      ],
+      "value": "Hi"
+    }, {
+      "id": "7c569a6b-dbf7-4604-ade8-6a968e182bc9",
+      "comment": "",
+      "command": "click",
+      "target": "id=id_chat_message_submit",
+      "targets": [
+        ["id=id_chat_message_submit", "id"],
+        ["css=#id_chat_message_submit", "css:finder"],
+        ["xpath=//span[@id='id_chat_message_submit']", "xpath:attributes"],
+        ["xpath=//div[@id='id_chat_log_container']/div[3]/button/span", "xpath:idRelative"],
+        ["xpath=//button/span", "xpath:position"],
+        ["xpath=//span[contains(.,'send')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "add9eed2-cff4-45bc-bcc5-56d9b3c43a40",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "id=id_chat_message_submit",
+      "targets": [
+        ["id=id_chat_message_submit", "id"],
+        ["css=#id_chat_message_submit", "css:finder"],
+        ["xpath=//span[@id='id_chat_message_submit']", "xpath:attributes"],
+        ["xpath=//div[@id='id_chat_log_container']/div[3]/button/span", "xpath:idRelative"],
+        ["xpath=//button/span", "xpath:position"],
+        ["xpath=//span[contains(.,'send')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "b71f24eb-9933-4cbf-a32b-677838b49cf2",
+      "comment": "",
+      "command": "mouseOut",
+      "target": "id=id_chat_message_submit",
+      "targets": [
+        ["id=id_chat_message_submit", "id"],
+        ["css=#id_chat_message_submit", "css:finder"],
+        ["xpath=//span[@id='id_chat_message_submit']", "xpath:attributes"],
+        ["xpath=//div[@id='id_chat_log_container']/div[3]/button/span", "xpath:idRelative"],
+        ["xpath=//button/span", "xpath:position"],
+        ["xpath=//span[contains(.,'send')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "bb5daf4a-e624-4a1b-bd40-bf5ecc2b31dd",
+      "comment": "",
+      "command": "click",
+      "target": "css=.d-flex:nth-child(1) > .d-flex > .msg-p > p",
+      "targets": [
+        ["css=.d-flex:nth-child(1) > .d-flex > .msg-p > p", "css:finder"],
+        ["xpath=//div[@id='id_chat_log']/div/div/p/p", "xpath:idRelative"],
+        ["xpath=//p/p", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "3b7b29bd-f233-4ce7-a3d1-9018780d2836",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.d-flex:nth-child(1) > .d-flex > .msg-p > p",
+      "targets": [
+        ["css=.d-flex:nth-child(1) > .d-flex > .msg-p > p", "css:finder"],
+        ["xpath=//div[@id='id_chat_log']/div/div/p/p", "xpath:idRelative"],
+        ["xpath=//p/p", "xpath:position"]
+      ],
+      "value": "Hi"
+    }]
+  }, {
+    "id": "40037be9-3726-4817-8ca1-8f21e9053517",
+    "name": "Selecting A Friend",
+    "commands": [{
+      "id": "379bb440-10bb-421c-8600-560911cbabca",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "0d75679d-a3df-4ab3-8614-ee60c0b38da3",
+      "comment": "",
+      "command": "click",
+      "target": "css=.show",
+      "targets": [
+        ["css=.show", "css:finder"],
+        ["xpath=//nav/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "b7f446df-eddf-4fa7-9abd-81d080407edc",
+      "comment": "",
+      "command": "click",
+      "target": "css=#id_chat_notification_dropdown_toggle > .d-flex",
+      "targets": [
+        ["css=#id_chat_notification_dropdown_toggle > .d-flex", "css:finder"],
+        ["xpath=//div[@id='id_chat_notification_dropdown_toggle']/span[2]", "xpath:idRelative"],
+        ["xpath=//span[2]", "xpath:position"],
+        ["xpath=//span[contains(.,'chat')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "8bfccef0-1190-4e78-a9ad-bde451fca487",
+      "comment": "",
+      "command": "click",
+      "target": "css=.chat-dropdown-header",
+      "targets": [
+        ["css=.chat-dropdown-header", "css:finder"],
+        ["xpath=//div[@id='id_chat_notifications_container']/div", "xpath:idRelative"],
+        ["xpath=//div/div/div/div/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "0cdbe791-7ab3-45dc-9350-f0370735235d",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "id=id_friend_container_2",
+      "targets": [
+        ["id=id_friend_container_2", "id"],
+        ["css=#id_friend_container_2", "css:finder"],
+        ["xpath=//div[@id='id_friend_container_2']", "xpath:attributes"],
+        ["xpath=//div[2]/div/div[2]/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "f9e3b4b1-1fd4-4e9d-84f5-9e9d0ca1f099",
+      "comment": "",
+      "command": "mouseOut",
+      "target": "id=id_friend_container_2",
+      "targets": [
+        ["id=id_friend_container_2", "id"],
+        ["css=#id_friend_container_2", "css:finder"],
+        ["xpath=//div[@id='id_friend_container_2']", "xpath:attributes"],
+        ["xpath=//div[3]/div/div/div[2]/div/div[2]/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "9d45c73a-26fc-4c43-bbe1-5ef6c158522f",
+      "comment": "",
+      "command": "click",
+      "target": "css=#id_friend_container_4 > .d-flex",
+      "targets": [
+        ["css=#id_friend_container_4 > .d-flex", "css:finder"],
+        ["xpath=//div[@id='id_friend_container_4']/div", "xpath:idRelative"],
+        ["xpath=//div[2]/div/div[3]/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "f5c47ff6-01d4-4019-8c11-3f554d98c459",
+      "comment": "",
+      "command": "assertText",
+      "target": "id=id_other_username",
+      "targets": [
+        ["id=id_other_username", "id"],
+        ["css=#id_other_username", "css:finder"],
+        ["xpath=//h3[@id='id_other_username']", "xpath:attributes"],
+        ["xpath=//a[@id='id_user_info_container']/h3", "xpath:idRelative"],
+        ["xpath=//h3", "xpath:position"],
+        ["xpath=//h3[contains(.,'DevFour')]", "xpath:innerText"]
+      ],
+      "value": "DevFour"
+    }, {
+      "id": "5e5d4ee2-d4ab-40b8-bd29-8f99f2c00a15",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=#id_friend_container_4 .username-span",
+      "targets": [
+        ["css=#id_friend_container_4 .username-span", "css:finder"],
+        ["xpath=//div[@id='id_friend_container_4']/div/span", "xpath:idRelative"],
+        ["xpath=//div[3]/div/span", "xpath:position"],
+        ["xpath=//span[contains(.,'DevFour')]", "xpath:innerText"]
+      ],
+      "value": "DevFour"
+    }]
+  }, {
+    "id": "3641480f-ac46-4e31-9a95-85ba1ce6380e",
+    "name": "Sending An Empty Message",
+    "commands": [{
+      "id": "a9053b73-ef03-473b-a9de-96586cc2d59f",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "ce1e8681-5e96-4a51-8871-45b4ce6d2dcc",
+      "comment": "",
+      "command": "click",
+      "target": "css=#id_chat_notification_dropdown_toggle > .d-flex",
+      "targets": [
+        ["css=#id_chat_notification_dropdown_toggle > .d-flex", "css:finder"],
+        ["xpath=//div[@id='id_chat_notification_dropdown_toggle']/span[2]", "xpath:idRelative"],
+        ["xpath=//span[2]", "xpath:position"],
+        ["xpath=//span[contains(.,'chat')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "0927bca3-267d-4251-ac73-957f8be9a3a6",
+      "comment": "",
+      "command": "click",
+      "target": "css=.chat-dropdown-header",
+      "targets": [
+        ["css=.chat-dropdown-header", "css:finder"],
+        ["xpath=//div[@id='id_chat_notifications_container']/div", "xpath:idRelative"],
+        ["xpath=//div/div/div/div/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "01835075-f270-4224-88b9-09bfde91c69d",
+      "comment": "",
+      "command": "click",
+      "target": "id=id_chat_message_input",
+      "targets": [
+        ["id=id_chat_message_input", "id"],
+        ["css=#id_chat_message_input", "css:finder"],
+        ["xpath=//textarea[@id='id_chat_message_input']", "xpath:attributes"],
+        ["xpath=//div[@id='id_chat_log_container']/div[3]/textarea", "xpath:idRelative"],
+        ["xpath=//textarea", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "4c846691-9782-4908-956f-c0b5265db427",
+      "comment": "",
+      "command": "click",
+      "target": "id=id_chat_message_submit",
+      "targets": [
+        ["id=id_chat_message_submit", "id"],
+        ["css=#id_chat_message_submit", "css:finder"],
+        ["xpath=//span[@id='id_chat_message_submit']", "xpath:attributes"],
+        ["xpath=//div[@id='id_chat_log_container']/div[3]/button/span", "xpath:idRelative"],
+        ["xpath=//button/span", "xpath:position"],
+        ["xpath=//span[contains(.,'send')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "486686a7-365b-48b1-a8ba-460e87f52c4e",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "id=id_chat_message_submit",
+      "targets": [
+        ["id=id_chat_message_submit", "id"],
+        ["css=#id_chat_message_submit", "css:finder"],
+        ["xpath=//span[@id='id_chat_message_submit']", "xpath:attributes"],
+        ["xpath=//div[@id='id_chat_log_container']/div[3]/button/span", "xpath:idRelative"],
+        ["xpath=//button/span", "xpath:position"],
+        ["xpath=//span[contains(.,'send')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "24154c2e-e59c-4850-9a97-b6a0ee1403b3",
+      "comment": "",
+      "command": "mouseOut",
+      "target": "id=id_chat_message_submit",
+      "targets": [
+        ["id=id_chat_message_submit", "id"],
+        ["css=#id_chat_message_submit", "css:finder"],
+        ["xpath=//span[@id='id_chat_message_submit']", "xpath:attributes"],
+        ["xpath=//div[@id='id_chat_log_container']/div[3]/button/span", "xpath:idRelative"],
+        ["xpath=//button/span", "xpath:position"],
+        ["xpath=//span[contains(.,'send')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "6c95d783-4958-4c09-b15e-95c33ab20e29",
+      "comment": "",
+      "command": "click",
+      "target": "id=id_client_error_modal_body",
+      "targets": [
+        ["id=id_client_error_modal_body", "id"],
+        ["css=#id_client_error_modal_body", "css:finder"],
+        ["xpath=//p[@id='id_client_error_modal_body']", "xpath:attributes"],
+        ["xpath=//div[@id='id_client_error_modal']/div/div/div[2]/p", "xpath:idRelative"],
+        ["xpath=//div[2]/p", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "7d43ce4d-9b1b-411f-b819-1b18bbaae55d",
+      "comment": "",
+      "command": "assertText",
+      "target": "id=id_client_error_modal_body",
+      "targets": [
+        ["id=id_client_error_modal_body", "id"],
+        ["css=#id_client_error_modal_body", "css:finder"],
+        ["xpath=//p[@id='id_client_error_modal_body']", "xpath:attributes"],
+        ["xpath=//div[@id='id_client_error_modal']/div/div/div[2]/p", "xpath:idRelative"],
+        ["xpath=//div[2]/p", "xpath:position"]
+      ],
+      "value": "You can't send an empty message."
+    }]
+  }, {
+    "id": "da0063b6-ac05-4f43-859b-eb3ed1af2931",
+    "name": "Selecting an Unfriended User",
+    "commands": [{
+      "id": "da06faee-0140-4adc-8fa5-734abcf30e69",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "c761b474-9d40-4d8e-bc99-016a837ba178",
+      "comment": "",
+      "command": "click",
+      "target": "css=#id_chat_notification_dropdown_toggle > .d-flex",
+      "targets": [
+        ["css=#id_chat_notification_dropdown_toggle > .d-flex", "css:finder"],
+        ["xpath=//div[@id='id_chat_notification_dropdown_toggle']/span[2]", "xpath:idRelative"],
+        ["xpath=//span[2]", "xpath:position"],
+        ["xpath=//span[contains(.,'chat')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "557ba7cb-0bad-4140-af9e-210b2442cc3b",
+      "comment": "",
+      "command": "click",
+      "target": "css=.mr-2:nth-child(1)",
+      "targets": [
+        ["css=.mr-2:nth-child(1)", "css:finder"],
+        ["xpath=//div[@id='id_chat_notifications_container']/div/span", "xpath:idRelative"],
+        ["xpath=//div/div/div/div/div/span", "xpath:position"],
+        ["xpath=//span[contains(.,'Go to chat')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "17c6235b-5876-4469-ae4e-b99ed2c377e8",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//div[@id='id_friend_container_1']/div/span",
+      "targets": [
+        ["xpath=//div[@id='id_friend_container_1']/div/span", "xpath:idRelative"],
+        ["xpath=//div[2]/div/div[2]/div/div[2]/div/span", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "b5dcc57c-f429-423c-9217-3451141bcad2",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "css=#id_friend_container_3 .username-span",
+      "targets": [
+        ["css=#id_friend_container_3 .username-span", "css:finder"],
+        ["xpath=//div[@id='id_friend_container_3']/div/span", "xpath:idRelative"],
+        ["xpath=//div[4]/div/span", "xpath:position"],
+        ["xpath=//span[contains(.,'DevThree')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "4470363a-6040-41ec-86f9-f30057c63c7b",
+      "comment": "",
+      "command": "mouseOut",
+      "target": "css=#id_friend_container_3 .username-span",
+      "targets": [
+        ["css=#id_friend_container_3 .username-span", "css:finder"],
+        ["xpath=//div[@id='id_friend_container_3']/div/span", "xpath:idRelative"],
+        ["xpath=//div[4]/div/span", "xpath:position"],
+        ["xpath=//span[contains(.,'DevThree')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "8f499661-430f-40b8-a5d7-cc08e034953c",
+      "comment": "",
+      "command": "click",
+      "target": "css=.modal-body",
+      "targets": [
+        ["css=.modal-body", "css:finder"],
+        ["xpath=//div[@id='id_client_error_modal']/div/div/div[2]", "xpath:idRelative"],
+        ["xpath=//div[2]/div/div/div[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "033e4165-60aa-4929-a15b-e630bb51d724",
+      "comment": "",
+      "command": "assertText",
+      "target": "id=id_client_error_modal_body",
+      "targets": [
+        ["id=id_client_error_modal_body", "id"],
+        ["css=#id_client_error_modal_body", "css:finder"],
+        ["xpath=//p[@id='id_client_error_modal_body']", "xpath:attributes"],
+        ["xpath=//div[@id='id_client_error_modal']/div/div/div[2]/p", "xpath:idRelative"],
+        ["xpath=//p", "xpath:position"],
+        ["xpath=//p[contains(.,'You must be friends to chat.')]", "xpath:innerText"]
+      ],
+      "value": "You must be friends to chat."
+    }]
+  }, {
+    "id": "7f6f0c37-f4e7-494e-b667-bb309f358871",
+    "name": "Send a message from friends list",
+    "commands": [{
+      "id": "f63688ce-17b6-4b0c-a188-e80fcf63fe7e",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "b967b1ca-e5c2-4d3c-8301-bb7a81f9d7c7",
+      "comment": "",
+      "command": "click",
+      "target": "id=id_profile_links",
+      "targets": [
+        ["id=id_profile_links", "id"],
+        ["css=.btn-group:nth-child(3) > #id_profile_links", "css:finder"],
+        ["xpath=//img[@alt='Profile Picture']", "xpath:img"],
+        ["xpath=//img[@id='id_profile_links']", "xpath:attributes"],
+        ["xpath=//img", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "831ff839-fe2b-4ae3-aa14-85d0b0b539cd",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Account",
+      "targets": [
+        ["linkText=Account", "linkText"],
+        ["css=.show > .dropdown-item:nth-child(1)", "css:finder"],
+        ["xpath=//a[contains(text(),'Account')]", "xpath:link"],
+        ["xpath=//a[contains(@href, '/account/1/')]", "xpath:href"],
+        ["xpath=//div/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Account')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "8c776246-ace5-4618-bfe6-a2120e4baf36",
+      "comment": "",
+      "command": "click",
+      "target": "css=.friend-text",
+      "targets": [
+        ["css=.friend-text", "css:finder"],
+        ["xpath=//a/div/span[2]", "xpath:position"],
+        ["xpath=//span[contains(.,'Friends (3)')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "bea28872-deee-4999-bade-32cd176074ce",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Send a Message",
+      "targets": [
+        ["linkText=Send a Message", "linkText"],
+        ["css=.d-flex:nth-child(1) > .card:nth-child(1) a:nth-child(2)", "css:finder"],
+        ["xpath=//a[contains(text(),'Send a Message')]", "xpath:link"],
+        ["xpath=//a[@onclick=\"createOrReturnPrivateChat('2')\"]", "xpath:attributes"],
+        ["xpath=//a[contains(@href, '#')]", "xpath:href"],
+        ["xpath=//div/div/div/div/div/a[2]", "xpath:position"],
+        ["xpath=//a[contains(.,'Send a Message')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "0e85fde7-7f8b-434e-86af-850efb68586c",
+      "comment": "",
+      "command": "type",
+      "target": "id=id_chat_message_input",
+      "targets": [
+        ["id=id_chat_message_input", "id"],
+        ["css=#id_chat_message_input", "css:finder"],
+        ["xpath=//textarea[@id='id_chat_message_input']", "xpath:attributes"],
+        ["xpath=//div[@id='id_chat_log_container']/div[3]/textarea", "xpath:idRelative"],
+        ["xpath=//textarea", "xpath:position"]
+      ],
+      "value": "Hello"
+    }, {
+      "id": "62bbb2f2-a144-4de8-a6a4-b863f1527b63",
+      "comment": "",
+      "command": "click",
+      "target": "css=.chat-message-submit-button",
+      "targets": [
+        ["css=.chat-message-submit-button", "css:finder"],
+        ["xpath=//div[@id='id_chat_log_container']/div[3]/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'send')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "e91fba30-4aea-47a2-84eb-c87301d70629",
+      "comment": "",
+      "command": "click",
+      "target": "id=id_chat_message_submit",
+      "targets": [
+        ["id=id_chat_message_submit", "id"],
+        ["css=#id_chat_message_submit", "css:finder"],
+        ["xpath=//span[@id='id_chat_message_submit']", "xpath:attributes"],
+        ["xpath=//div[@id='id_chat_log_container']/div[3]/button/span", "xpath:idRelative"],
+        ["xpath=//button/span", "xpath:position"],
+        ["xpath=//span[contains(.,'send')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "6d455517-d370-41ff-bc14-424fa67e39c7",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "id=id_chat_message_submit",
+      "targets": [
+        ["id=id_chat_message_submit", "id"],
+        ["css=#id_chat_message_submit", "css:finder"],
+        ["xpath=//span[@id='id_chat_message_submit']", "xpath:attributes"],
+        ["xpath=//div[@id='id_chat_log_container']/div[3]/button/span", "xpath:idRelative"],
+        ["xpath=//button/span", "xpath:position"],
+        ["xpath=//span[contains(.,'send')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "d82c709a-9aef-48a5-9059-c5c9990c505f",
+      "comment": "",
+      "command": "mouseOut",
+      "target": "id=id_chat_message_submit",
+      "targets": [
+        ["id=id_chat_message_submit", "id"],
+        ["css=#id_chat_message_submit", "css:finder"],
+        ["xpath=//span[@id='id_chat_message_submit']", "xpath:attributes"],
+        ["xpath=//div[@id='id_chat_log_container']/div[3]/button/span", "xpath:idRelative"],
+        ["xpath=//button/span", "xpath:position"],
+        ["xpath=//span[contains(.,'send')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "190ea8c3-936a-446e-94b5-f0f93934e816",
+      "comment": "",
+      "command": "click",
+      "target": "css=.message-container:nth-child(1)",
+      "targets": [
+        ["css=.message-container:nth-child(1)", "css:finder"],
+        ["xpath=//div[@id='id_chat_log']/div", "xpath:idRelative"],
+        ["xpath=//div[2]/div/div[2]/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "7dbca68c-94ca-4f47-8a0a-99e8c5478365",
+      "comment": "",
+      "command": "click",
+      "target": "css=.d-flex:nth-child(1) > .d-flex > .msg-p > p",
+      "targets": [
+        ["css=.d-flex:nth-child(1) > .d-flex > .msg-p > p", "css:finder"],
+        ["xpath=//div[@id='id_chat_log']/div/div/p/p", "xpath:idRelative"],
+        ["xpath=//p/p", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "544fc3be-56e3-4177-8cc2-6c34bf29b611",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.d-flex:nth-child(1) > .d-flex > .msg-p > p",
+      "targets": [
+        ["css=.d-flex:nth-child(1) > .d-flex > .msg-p > p", "css:finder"],
+        ["xpath=//div[@id='id_chat_log']/div/div/p/p", "xpath:idRelative"],
+        ["xpath=//p/p", "xpath:position"]
+      ],
+      "value": "Hello"
+    }]
+  }, {
+    "id": "9687cc09-0c48-4870-94e2-681efdb8aaf5",
+    "name": "Sending A Friend Request",
+    "commands": [{
+      "id": "9d0fd632-b2ab-492c-8463-464e09125203",
+      "comment": "",
+      "command": "open",
+      "target": "http://127.0.0.1:8000/account/2/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "51a1add2-ee8b-47f3-ae44-c89021d84443",
+      "comment": "",
+      "command": "click",
+      "target": "id=id_send_friend_request_btn",
+      "targets": [
+        ["id=id_send_friend_request_btn", "id"],
+        ["css=#id_send_friend_request_btn", "css:finder"],
+        ["xpath=//button[@id='id_send_friend_request_btn']", "xpath:attributes"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Send Friend Request')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "99d3cf1d-7f6a-4f83-8840-9f90a1693cdc",
+      "comment": "",
+      "command": "assertText",
+      "target": "id=id_cancel_friend_request_btn",
+      "targets": [
+        ["id=id_cancel_friend_request_btn", "id"],
+        ["css=#id_cancel_friend_request_btn", "css:finder"],
+        ["xpath=//button[@id='id_cancel_friend_request_btn']", "xpath:attributes"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Cancel Friend Request')]", "xpath:innerText"]
+      ],
+      "value": "Cancel Friend Request"
+    }]
+  }, {
+    "id": "b9d353eb-e3b8-4ff6-bf53-661cba530b8b",
+    "name": "Cancel Friend Request",
+    "commands": [{
+      "id": "bc57fbfa-3e80-4974-b1b0-6eed82801a6d",
+      "comment": "",
+      "command": "open",
+      "target": "http://127.0.0.1:8000/account/2/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "437a77b5-6ee1-471c-ba29-f8dc5edf891c",
+      "comment": "",
+      "command": "click",
+      "target": "id=id_cancel_friend_request_btn",
+      "targets": [
+        ["id=id_cancel_friend_request_btn", "id"],
+        ["css=#id_cancel_friend_request_btn", "css:finder"],
+        ["xpath=//button[@id='id_cancel_friend_request_btn']", "xpath:attributes"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Cancel Friend Request')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "de40fa22-d8af-4a58-8b36-41f87f7cafd7",
+      "comment": "",
+      "command": "assertText",
+      "target": "id=id_send_friend_request_btn",
+      "targets": [
+        ["id=id_send_friend_request_btn", "id"],
+        ["css=#id_send_friend_request_btn", "css:finder"],
+        ["xpath=//button[@id='id_send_friend_request_btn']", "xpath:attributes"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Send Friend Request')]", "xpath:innerText"]
+      ],
+      "value": "Send Friend Request"
+    }, {
+      "id": "d743f8b3-3479-4ee0-baa6-5e9f8e31bfae",
+      "comment": "",
+      "command": "close",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "80aed935-5598-4dd2-9b27-98d5268df03e",
+    "name": "Displaying Friend Requests",
+    "commands": [{
+      "id": "0e470e98-125b-473d-9626-f6340c76ccd1",
+      "comment": "",
+      "command": "open",
+      "target": "http://127.0.0.1:8000/account/2/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "3969d2c6-a71c-44c7-b402-9e0365868e37",
+      "comment": "",
+      "command": "click",
+      "target": "css=.card:nth-child(2) .friend-text",
+      "targets": [
+        ["css=.card:nth-child(2) .friend-text", "css:finder"],
+        ["xpath=//div[2]/div/a/div/span[2]", "xpath:position"],
+        ["xpath=//span[contains(.,'Friend Requests (1)')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "564f7cdf-79fa-4733-a33f-bd0066ffbae1",
+      "comment": "",
+      "command": "close",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "1240090f-30aa-47ad-be8a-d92f71a243e7",
+    "name": "Accept Friend Request",
+    "commands": [{
+      "id": "06743d13-0dac-4c7a-9d16-0ee4fe74ed9c",
+      "comment": "",
+      "command": "open",
+      "target": "http://127.0.0.1:8000/account/2/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "dda9eea3-fc08-4c5c-af1c-e806e4011c4e",
+      "comment": "",
+      "command": "click",
+      "target": "css=.card:nth-child(2) .friend-text",
+      "targets": [
+        ["css=.card:nth-child(2) .friend-text", "css:finder"],
+        ["xpath=//div[2]/div/a/div/span[2]", "xpath:position"],
+        ["xpath=//span[contains(.,'Friend Requests (1)')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "223a8f8b-178b-4ee3-9876-3eb82c854c9f",
+      "comment": "",
+      "command": "click",
+      "target": "id=id_confirm_1",
+      "targets": [
+        ["id=id_confirm_1", "id"],
+        ["css=#id_confirm_1", "css:finder"],
+        ["xpath=//span[@id='id_confirm_1']", "xpath:attributes"],
+        ["xpath=//div[3]/div/div/div/div/div/span[2]", "xpath:position"],
+        ["xpath=//span[contains(.,'check')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "c281f977-4b97-4694-b0bd-307ccaf2835b",
+      "comment": "",
+      "command": "close",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "cb7302a1-bbd4-45b0-a753-9ad0df5228e5",
+    "name": "Decline Friend Request",
+    "commands": [{
+      "id": "fba25b5c-6ffc-4bf9-bbc3-dc5a07829e7f",
+      "comment": "",
+      "command": "open",
+      "target": "http://127.0.0.1:8000/account/2/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "6bcdedf2-0835-4e03-b205-7f454da4614c",
+      "comment": "",
+      "command": "click",
+      "target": "css=.card:nth-child(2) .friend-text",
+      "targets": [
+        ["css=.card:nth-child(2) .friend-text", "css:finder"],
+        ["xpath=//div[2]/div/a/div/span[2]", "xpath:position"],
+        ["xpath=//span[contains(.,'Friend Requests (1)')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "74f70bb4-71c1-4428-ba40-c7962202c4ab",
+      "comment": "",
+      "command": "click",
+      "target": "id=id_cancel_1",
+      "targets": [
+        ["id=id_cancel_1", "id"],
+        ["css=#id_cancel_1", "css:finder"],
+        ["xpath=//span[@id='id_cancel_1']", "xpath:attributes"],
+        ["xpath=//div[3]/div/div/div/div/div/span", "xpath:position"],
+        ["xpath=//span[contains(.,'cancel')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "66163cac-f1b8-475f-8e2f-059204b7a644",
+      "comment": "",
+      "command": "close",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "33a02e42-76a8-444d-8f63-3ab728ddc4c9",
+    "name": "Remove A Friend",
+    "commands": [{
+      "id": "4425ed6a-b22c-4595-b2ec-4d9c3bc44dad",
+      "comment": "",
+      "command": "open",
+      "target": "http://127.0.0.1:8000/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "f9ac3560-498e-4d02-902b-8661bf5aae4a",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1283x918",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "7bff7bea-c9ed-43fe-92e2-e0f99f9b9829",
+      "comment": "",
+      "command": "click",
+      "target": "id=id_profile_links",
+      "targets": [
+        ["id=id_profile_links", "id"],
+        ["css=.btn-group:nth-child(3) > #id_profile_links", "css:finder"],
+        ["xpath=//img[@alt='Profile Picture']", "xpath:img"],
+        ["xpath=//img[@id='id_profile_links']", "xpath:attributes"],
+        ["xpath=//img", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "5ff1d3c9-7e6a-458c-8b0c-7c04d3c65f03",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Account",
+      "targets": [
+        ["linkText=Account", "linkText"],
+        ["css=.show > .dropdown-item:nth-child(1)", "css:finder"],
+        ["xpath=//a[contains(text(),'Account')]", "xpath:link"],
+        ["xpath=//a[contains(@href, '/account/1/')]", "xpath:href"],
+        ["xpath=//div/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Account')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "22ceb97e-0a3b-46ce-9aa6-0273e3b63b7e",
+      "comment": "",
+      "command": "click",
+      "target": "css=.friend-text",
+      "targets": [
+        ["css=.friend-text", "css:finder"],
+        ["xpath=//a/div/span[2]", "xpath:position"],
+        ["xpath=//span[contains(.,'Friends (3)')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "5599c099-98b0-45d6-9b23-7324b1b37cad",
+      "comment": "",
+      "command": "click",
+      "target": "css=.d-flex:nth-child(2) .card-title",
+      "targets": [
+        ["css=.d-flex:nth-child(2) .card-title", "css:finder"],
+        ["xpath=//div[2]/div/div/a/h4", "xpath:position"],
+        ["xpath=//h4[contains(.,'DevTwo')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "6eb96ff7-523d-469e-8977-daaa4148855e",
+      "comment": "",
+      "command": "click",
+      "target": "id=id_friends_toggle",
+      "targets": [
+        ["id=id_friends_toggle", "id"],
+        ["css=#id_friends_toggle", "css:finder"],
+        ["xpath=//button[@id='id_friends_toggle']", "xpath:attributes"],
+        ["xpath=//button", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "e56f441d-fb09-40a0-9f4d-9de6adf0ec30",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Unfriend",
+      "targets": [
+        ["linkText=Unfriend", "linkText"],
+        ["css=.show > .dropdown-item", "css:finder"],
+        ["xpath=//a[contains(text(),'Unfriend')]", "xpath:link"],
+        ["xpath=//a[@onclick=\"removeFriend('2', onFriendRemoved)\"]", "xpath:attributes"],
+        ["xpath=//a[contains(@href, '#')]", "xpath:href"],
+        ["xpath=//div[2]/div/div/div/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Unfriend')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "9940b360-65f6-4d20-95fb-257bec5dd73b",
+      "comment": "",
+      "command": "assertText",
+      "target": "id=id_send_friend_request_btn",
+      "targets": [
+        ["id=id_send_friend_request_btn", "id"],
+        ["css=#id_send_friend_request_btn", "css:finder"],
+        ["xpath=//button[@id='id_send_friend_request_btn']", "xpath:attributes"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Send Friend Request')]", "xpath:innerText"]
+      ],
+      "value": "Send Friend Request"
+    }, {
+      "id": "3cbc7e77-8193-46ee-8464-be9d890b92b5",
+      "comment": "",
+      "command": "close",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "1d6d3c54-0e80-43b6-b349-75a31d6f4f76",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["2ba44ffa-2807-40a0-8e33-f43b5717d0ae"]
+  }],
+  "urls": ["http://127.0.0.1:8000/", "http://127.0.0.1:8000/account/2"],
+  "plugins": []
+}

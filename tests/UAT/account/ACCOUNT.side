@@ -1,0 +1,677 @@
+{
+  "id": "c2d0bfdd-97c2-4758-a82e-4c22ba3fe2df",
+  "version": "2.0",
+  "name": "ACCOUNT",
+  "url": "https://irischat.me/",
+  "tests": [{
+    "id": "08ed4c4a-2c2c-41fb-ad32-ffa2f25186e6",
+    "name": "LOGIN",
+    "commands": [{
+      "id": "6787229e-0298-41b0-b52e-6f0e81326848",
+      "comment": "",
+      "command": "open",
+      "target": "/login/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "a8db3657-d3a6-40da-97dc-c8f4eafcc228",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1296x696",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "66f9eecc-0369-41f5-a3c4-d7631ca8872e",
+      "comment": "",
+      "command": "type",
+      "target": "id=id_input_email",
+      "targets": [
+        ["id=id_input_email", "id"],
+        ["name=email", "name"],
+        ["css=#id_input_email", "css:finder"],
+        ["xpath=//input[@id='id_input_email']", "xpath:attributes"],
+        ["xpath=//div/input", "xpath:position"]
+      ],
+      "value": "john2@test.com"
+    }, {
+      "id": "bd5b3975-a7ca-4e64-9943-0ec021446f35",
+      "comment": "",
+      "command": "click",
+      "target": "id=id_input_password",
+      "targets": [
+        ["id=id_input_password", "id"],
+        ["name=password", "name"],
+        ["css=#id_input_password", "css:finder"],
+        ["xpath=//input[@id='id_input_password']", "xpath:attributes"],
+        ["xpath=//div[3]/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "058c8487-1e82-4505-828c-5c383f9ca6b4",
+      "comment": "",
+      "command": "type",
+      "target": "id=id_input_password",
+      "targets": [
+        ["id=id_input_password", "id"],
+        ["name=password", "name"],
+        ["css=#id_input_password", "css:finder"],
+        ["xpath=//input[@id='id_input_password']", "xpath:attributes"],
+        ["xpath=//div[3]/div/input", "xpath:position"]
+      ],
+      "value": "talha2002"
+    }, {
+      "id": "273279e9-f416-427e-933c-7b6aab02f29a",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=id_input_password",
+      "targets": [
+        ["id=id_input_password", "id"],
+        ["name=password", "name"],
+        ["css=#id_input_password", "css:finder"],
+        ["xpath=//input[@id='id_input_password']", "xpath:attributes"],
+        ["xpath=//div[3]/div/input", "xpath:position"]
+      ],
+      "value": "${KEY_ENTER}"
+    }, {
+      "id": "9712abc1-0d5f-4394-acce-20a1d8b85d44",
+      "comment": "",
+      "command": "click",
+      "target": "css=#tab-content-public-channels .container > .d-flex",
+      "targets": [
+        ["css=#tab-content-public-channels .container > .d-flex", "css:finder"],
+        ["xpath=//div[@id='tab-content-public-channels']/div/div/div/div", "xpath:idRelative"],
+        ["xpath=//div/div/div/div/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "c7e28b40-491b-4e63-a9bd-d14492740a53",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=#tab-content-public-channels .fw-bold",
+      "targets": [
+        ["css=#tab-content-public-channels .fw-bold", "css:finder"],
+        ["xpath=//div[@id='tab-content-public-channels']/div/div/div/div/h2", "xpath:idRelative"],
+        ["xpath=//h2", "xpath:position"],
+        ["xpath=//h2[contains(.,'Public Channels')]", "xpath:innerText"]
+      ],
+      "value": "Public Channels"
+    }]
+  }, {
+    "id": "0712fb98-73d1-4bcd-9f51-647d2fac73c6",
+    "name": "REGISTER",
+    "commands": [{
+      "id": "3b9812eb-abed-460e-a17d-26cf0c2d6f61",
+      "comment": "",
+      "command": "open",
+      "target": "https://irischat.me/register/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "9b8f40f2-ec8f-4e92-8796-5566552c9d93",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1296x696",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "e4227c5b-b73f-48db-8dba-830af1affa79",
+      "comment": "",
+      "command": "type",
+      "target": "id=id_input_email",
+      "targets": [
+        ["id=id_input_email", "id"],
+        ["name=email", "name"],
+        ["css=#id_input_email", "css:finder"],
+        ["xpath=//input[@id='id_input_email']", "xpath:attributes"],
+        ["xpath=//div/input", "xpath:position"]
+      ],
+      "value": "john3@test.com"
+    }, {
+      "id": "6a192c9d-ba43-4d37-b924-79c79f8d7920",
+      "comment": "",
+      "command": "click",
+      "target": "id=id_input_username",
+      "targets": [
+        ["id=id_input_username", "id"],
+        ["name=username", "name"],
+        ["css=#id_input_username", "css:finder"],
+        ["xpath=//input[@id='id_input_username']", "xpath:attributes"],
+        ["xpath=//div[3]/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "88bfe0ff-a567-44e1-82b7-d0ab6cd876a1",
+      "comment": "",
+      "command": "type",
+      "target": "id=id_input_username",
+      "targets": [
+        ["id=id_input_username", "id"],
+        ["name=username", "name"],
+        ["css=#id_input_username", "css:finder"],
+        ["xpath=//input[@id='id_input_username']", "xpath:attributes"],
+        ["xpath=//div[3]/div/input", "xpath:position"]
+      ],
+      "value": "Lola"
+    }, {
+      "id": "9df6116d-e1b1-489e-9cf0-f022dc078321",
+      "comment": "",
+      "command": "click",
+      "target": "id=id_input_password1",
+      "targets": [
+        ["id=id_input_password1", "id"],
+        ["name=password1", "name"],
+        ["css=#id_input_password1", "css:finder"],
+        ["xpath=//input[@id='id_input_password1']", "xpath:attributes"],
+        ["xpath=//div[4]/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "1b41214a-d49e-4c67-bec8-b09c8cb2a694",
+      "comment": "",
+      "command": "type",
+      "target": "id=id_input_password1",
+      "targets": [
+        ["id=id_input_password1", "id"],
+        ["name=password1", "name"],
+        ["css=#id_input_password1", "css:finder"],
+        ["xpath=//input[@id='id_input_password1']", "xpath:attributes"],
+        ["xpath=//div[4]/div/input", "xpath:position"]
+      ],
+      "value": "talha2002"
+    }, {
+      "id": "c1aa3a3c-85fc-4c2a-a6cb-b22dc55b8f24",
+      "comment": "",
+      "command": "click",
+      "target": "id=id_input_password2",
+      "targets": [
+        ["id=id_input_password2", "id"],
+        ["name=password2", "name"],
+        ["css=#id_input_password2", "css:finder"],
+        ["xpath=//input[@id='id_input_password2']", "xpath:attributes"],
+        ["xpath=//div[5]/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "300b0396-cb30-40ea-937a-3ab88e9caa48",
+      "comment": "",
+      "command": "type",
+      "target": "id=id_input_password2",
+      "targets": [
+        ["id=id_input_password2", "id"],
+        ["name=password2", "name"],
+        ["css=#id_input_password2", "css:finder"],
+        ["xpath=//input[@id='id_input_password2']", "xpath:attributes"],
+        ["xpath=//div[5]/div/input", "xpath:position"]
+      ],
+      "value": "talha2002"
+    }, {
+      "id": "4d46ddde-a737-4aa3-b96e-24c0bce2b023",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn",
+      "targets": [
+        ["css=.btn", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Register')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "6aea360e-2abf-4fe0-8d57-70711c7595f8",
+      "comment": "",
+      "command": "click",
+      "target": "css=#tab-content-public-channels .fw-bold",
+      "targets": [
+        ["css=#tab-content-public-channels .fw-bold", "css:finder"],
+        ["xpath=//div[@id='tab-content-public-channels']/div/div/div/div/h2", "xpath:idRelative"],
+        ["xpath=//h2", "xpath:position"],
+        ["xpath=//h2[contains(.,'Public Channels')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "f5889df4-42df-4f0d-8485-8900804ba6f0",
+      "comment": "",
+      "command": "click",
+      "target": "css=#tab-content-public-channels .container > .d-flex",
+      "targets": [
+        ["css=#tab-content-public-channels .container > .d-flex", "css:finder"],
+        ["xpath=//div[@id='tab-content-public-channels']/div/div/div/div", "xpath:idRelative"],
+        ["xpath=//div/div/div/div/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "ddbf6221-1059-4e06-8b26-45db82182d47",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=#tab-content-public-channels .fw-bold",
+      "targets": [
+        ["css=#tab-content-public-channels .fw-bold", "css:finder"],
+        ["xpath=//div[@id='tab-content-public-channels']/div/div/div/div/h2", "xpath:idRelative"],
+        ["xpath=//h2", "xpath:position"],
+        ["xpath=//h2[contains(.,'Public Channels')]", "xpath:innerText"]
+      ],
+      "value": "Public Channels"
+    }]
+  }, {
+    "id": "c37569eb-d8f0-44ed-a9ec-1f396876ac48",
+    "name": "SEARCH",
+    "commands": [{
+      "id": "e314240a-61e5-4654-99fb-4da42ead4004",
+      "comment": "",
+      "command": "open",
+      "target": "https://irischat.me/login/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "0f553977-82b2-4d92-b521-30903f4b5270",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1296x696",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "8b474647-7697-41ff-9446-fef978b9af69",
+      "comment": "",
+      "command": "type",
+      "target": "id=id_input_email",
+      "targets": [
+        ["id=id_input_email", "id"],
+        ["name=email", "name"],
+        ["css=#id_input_email", "css:finder"],
+        ["xpath=//input[@id='id_input_email']", "xpath:attributes"],
+        ["xpath=//div/input", "xpath:position"]
+      ],
+      "value": "john@test.com"
+    }, {
+      "id": "a3863bd7-0b74-484a-b2e0-11377517db3c",
+      "comment": "",
+      "command": "click",
+      "target": "id=id_input_password",
+      "targets": [
+        ["id=id_input_password", "id"],
+        ["name=password", "name"],
+        ["css=#id_input_password", "css:finder"],
+        ["xpath=//input[@id='id_input_password']", "xpath:attributes"],
+        ["xpath=//div[3]/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "5d58ea1c-12d7-4469-bedf-104649e01e70",
+      "comment": "",
+      "command": "type",
+      "target": "id=id_input_password",
+      "targets": [
+        ["id=id_input_password", "id"],
+        ["name=password", "name"],
+        ["css=#id_input_password", "css:finder"],
+        ["xpath=//input[@id='id_input_password']", "xpath:attributes"],
+        ["xpath=//div[3]/div/input", "xpath:position"]
+      ],
+      "value": "talha2002"
+    }, {
+      "id": "6b8a1433-9b27-4ce8-adf1-d5ca743ddc46",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn",
+      "targets": [
+        ["css=.btn", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Sign In')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "a463ba69-8a5f-4ec4-9e06-1fcbe754dae3",
+      "comment": "",
+      "command": "click",
+      "target": "name=q",
+      "targets": [
+        ["name=q", "name"],
+        ["css=#tab-content-public-channels .search-box", "css:finder"],
+        ["xpath=//input[@name='q']", "xpath:attributes"],
+        ["xpath=//div[@id='tab-content-public-channels']/div/div/div/div[2]/div/form/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "c66efbdd-9d50-4255-930a-d5c38d3a971b",
+      "comment": "",
+      "command": "type",
+      "target": "name=q",
+      "targets": [
+        ["name=q", "name"],
+        ["css=#tab-content-public-channels .search-box", "css:finder"],
+        ["xpath=//input[@name='q']", "xpath:attributes"],
+        ["xpath=//div[@id='tab-content-public-channels']/div/div/div/div[2]/div/form/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "john"
+    }, {
+      "id": "ab88a335-e576-4100-9ae6-7f3093b7ff96",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "name=q",
+      "targets": [
+        ["name=q", "name"],
+        ["css=#tab-content-public-channels .search-box", "css:finder"],
+        ["xpath=//input[@name='q']", "xpath:attributes"],
+        ["xpath=//div[@id='tab-content-public-channels']/div/div/div/div[2]/div/form/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "${KEY_ENTER}"
+    }, {
+      "id": "d217a9e0-ea75-474c-9ae5-c158fce7576b",
+      "comment": "",
+      "command": "click",
+      "target": "css=.list-group-item:nth-child(1) > .gx-5",
+      "targets": [
+        ["css=.list-group-item:nth-child(1) > .gx-5", "css:finder"],
+        ["xpath=//div[@id='offcanvas-tab-profile']/div/li/div", "xpath:idRelative"],
+        ["xpath=//div/li/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "630ba3b9-abd3-48b2-8553-9df359fe553a",
+      "comment": "",
+      "command": "assertText",
+      "target": "linkText=John",
+      "targets": [
+        ["linkText=John", "linkText"],
+        ["css=.list-group-item:nth-child(1) .col a", "css:finder"],
+        ["xpath=//a[contains(text(),'John')]", "xpath:link"],
+        ["xpath=//div[@id='offcanvas-tab-profile']/div/li/div/div[2]/h5/a", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, '/account/4/')])[2]", "xpath:href"],
+        ["xpath=//h5/a", "xpath:position"],
+        ["xpath=//a[contains(.,'John')]", "xpath:innerText"]
+      ],
+      "value": "John"
+    }]
+  }, {
+    "id": "ad8d6c4f-45eb-42a1-8668-909b0df63a02",
+    "name": "EDIT-PROFILE",
+    "commands": [{
+      "id": "be64a2db-b327-49cb-8336-542136eb3431",
+      "comment": "",
+      "command": "open",
+      "target": "https://irischat.me/login/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "4f3b7252-d562-4d58-a543-e619e957011f",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1296x696",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "438f3fd2-392e-4436-9d10-cdc71ca57996",
+      "comment": "",
+      "command": "click",
+      "target": "id=id_input_email",
+      "targets": [
+        ["id=id_input_email", "id"],
+        ["name=email", "name"],
+        ["css=#id_input_email", "css:finder"],
+        ["xpath=//input[@id='id_input_email']", "xpath:attributes"],
+        ["xpath=//div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "66a16b46-0e6f-4bc9-af22-4830c582bbed",
+      "comment": "",
+      "command": "type",
+      "target": "id=id_input_email",
+      "targets": [
+        ["id=id_input_email", "id"],
+        ["name=email", "name"],
+        ["css=#id_input_email", "css:finder"],
+        ["xpath=//input[@id='id_input_email']", "xpath:attributes"],
+        ["xpath=//div/input", "xpath:position"]
+      ],
+      "value": "john@test.com"
+    }, {
+      "id": "aef8e5b3-06d0-4e67-8409-3b20cb71c682",
+      "comment": "",
+      "command": "click",
+      "target": "id=id_input_password",
+      "targets": [
+        ["id=id_input_password", "id"],
+        ["name=password", "name"],
+        ["css=#id_input_password", "css:finder"],
+        ["xpath=//input[@id='id_input_password']", "xpath:attributes"],
+        ["xpath=//div[3]/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "a4a880ab-8e63-44d4-a1dd-63005e772711",
+      "comment": "",
+      "command": "type",
+      "target": "id=id_input_password",
+      "targets": [
+        ["id=id_input_password", "id"],
+        ["name=password", "name"],
+        ["css=#id_input_password", "css:finder"],
+        ["xpath=//input[@id='id_input_password']", "xpath:attributes"],
+        ["xpath=//div[3]/div/input", "xpath:position"]
+      ],
+      "value": "talha2002"
+    }, {
+      "id": "23da23ff-6b45-47e7-9e76-3f913d1ceedf",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn",
+      "targets": [
+        ["css=.btn", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Sign In')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "0326b9f9-8d50-4d0d-bc3a-cd318dd3df46",
+      "comment": "",
+      "command": "click",
+      "target": "css=.feather-more-horizontal > circle:nth-child(1)",
+      "targets": [
+        ["css=.feather-more-horizontal > circle:nth-child(1)", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "881fe858-b1ba-4cf5-a3c4-7daf8b9842c1",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=View Profile",
+      "targets": [
+        ["linkText=View Profile", "linkText"],
+        ["css=.align-items-center > .col > .d-flex", "css:finder"],
+        ["xpath=//a[contains(text(),'View Profile')]", "xpath:link"],
+        ["xpath=//ul[@id='id_group_users_container']/li/div/div[2]/a", "xpath:idRelative"],
+        ["xpath=//li/div/div[2]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'View Profile')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "bb3e8eee-797f-4af2-b4a6-d1ca9df84c24",
+      "comment": "",
+      "command": "click",
+      "target": "css=.list-group-item > .text-reset",
+      "targets": [
+        ["css=.list-group-item > .text-reset", "css:finder"],
+        ["xpath=//a[contains(text(),'Edit\n                            Profile')]", "xpath:link"],
+        ["xpath=//div[@id='modal-profile']/div/div/div/ul[3]/li/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/account/4/edit/')]", "xpath:href"],
+        ["xpath=//ul[3]/li/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "4057ccbf-7bc7-49f8-a354-41f87c1b7693",
+      "comment": "",
+      "command": "click",
+      "target": "id=id_input_username",
+      "targets": [
+        ["id=id_input_username", "id"],
+        ["name=username", "name"],
+        ["css=#id_input_username", "css:finder"],
+        ["xpath=//input[@id='id_input_username']", "xpath:attributes"],
+        ["xpath=//div[@id='offcanvas-tab-profile']/ul/li/div/div/input", "xpath:idRelative"],
+        ["xpath=//li/div/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "d73b0152-1827-4064-9783-a49ca99106e9",
+      "comment": "",
+      "command": "type",
+      "target": "id=id_input_username",
+      "targets": [
+        ["id=id_input_username", "id"],
+        ["name=username", "name"],
+        ["css=#id_input_username", "css:finder"],
+        ["xpath=//input[@id='id_input_username']", "xpath:attributes"],
+        ["xpath=//div[@id='offcanvas-tab-profile']/ul/li/div/div/input", "xpath:idRelative"],
+        ["xpath=//li/div/div/input", "xpath:position"]
+      ],
+      "value": "John"
+    }, {
+      "id": "4aceec6f-661e-44d8-89ed-3d490cfb3478",
+      "comment": "",
+      "command": "click",
+      "target": "css=.justify-content-center > .w-100",
+      "targets": [
+        ["css=.justify-content-center > .w-100", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//main/div/div/div/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Update Profile')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "dc2a2101-1f64-4b00-8327-d26e0a9582da",
+      "comment": "",
+      "command": "runScript",
+      "target": "window.scrollTo(0,0)",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "52ea7f23-6c8a-4d93-8fd1-6016cd73ed37",
+      "comment": "",
+      "command": "click",
+      "target": "css=.list-group:nth-child(1) > .list-group-item:nth-child(1) > .gx-6 p",
+      "targets": [
+        ["css=.list-group:nth-child(1) > .list-group-item:nth-child(1) > .gx-6 p", "css:finder"],
+        ["xpath=//div[@id='offcanvas-tab-profile']/ul/li/div/div/p", "xpath:idRelative"],
+        ["xpath=//div[2]/div[2]/div/ul/li/div/div/p", "xpath:position"],
+        ["xpath=//p[contains(.,'John')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "54d5314d-98dc-44ca-9d95-6329fbeccf3f",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.list-group:nth-child(1) > .list-group-item:nth-child(1) > .gx-6 p",
+      "targets": [
+        ["css=.list-group:nth-child(1) > .list-group-item:nth-child(1) > .gx-6 p", "css:finder"],
+        ["xpath=//div[@id='offcanvas-tab-profile']/ul/li/div/div/p", "xpath:idRelative"],
+        ["xpath=//div[2]/div[2]/div/ul/li/div/div/p", "xpath:position"],
+        ["xpath=//p[contains(.,'John')]", "xpath:innerText"]
+      ],
+      "value": "John"
+    }]
+  }, {
+    "id": "1b0724a7-4211-4f9b-81fb-d71ed2214896",
+    "name": "EDIT-PROFILE-IMAGE",
+    "commands": [{
+      "id": "10f2fbb8-a516-4f0f-864b-5f9b7b9404d0",
+      "comment": "",
+      "command": "open",
+      "target": "https://irischat.me/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "e0e0fce6-8d9a-49e4-a8e1-72ae9a81acea",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1296x696",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "dc3b94e2-b73b-4518-b391-db56e490858d",
+      "comment": "",
+      "command": "click",
+      "target": "css=.feather-more-horizontal > circle:nth-child(1)",
+      "targets": [
+        ["css=.feather-more-horizontal > circle:nth-child(1)", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "cd7f1257-f09b-45ab-bbfb-85706c46d3cd",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=View Profile",
+      "targets": [
+        ["linkText=View Profile", "linkText"],
+        ["css=.align-items-center > .col > .d-flex", "css:finder"],
+        ["xpath=//a[contains(text(),'View Profile')]", "xpath:link"],
+        ["xpath=//ul[@id='id_group_users_container']/li/div/div[2]/a", "xpath:idRelative"],
+        ["xpath=//li/div/div[2]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'View Profile')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "6e8d901e-ac6d-44e0-8480-89cef048118a",
+      "comment": "",
+      "command": "click",
+      "target": "css=.list-group-item > .text-reset",
+      "targets": [
+        ["css=.list-group-item > .text-reset", "css:finder"],
+        ["xpath=//a[contains(text(),'Edit\n                            Profile')]", "xpath:link"],
+        ["xpath=//div[@id='modal-profile']/div/div/div/ul[3]/li/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/account/4/edit/')]", "xpath:href"],
+        ["xpath=//ul[3]/li/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "22b467b2-da45-46e7-921c-6107801831ac",
+      "comment": "",
+      "command": "click",
+      "target": "css=.ps-4",
+      "targets": [
+        ["css=.ps-4", "css:finder"],
+        ["xpath=//div[@id='id_text']/span", "xpath:idRelative"],
+        ["xpath=//div[2]/div/div/div/span", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "5d3ae036-5812-4d85-8513-6df34141ba1d",
+      "comment": "",
+      "command": "type",
+      "target": "id=id_profile_image",
+      "targets": [
+        ["id=id_profile_image", "id"],
+        ["name=profile_image", "name"],
+        ["css=#id_profile_image", "css:finder"],
+        ["xpath=//input[@id='id_profile_image']", "xpath:attributes"],
+        ["xpath=//form[@id='updateProfile']/div[2]/div/div/div[2]/input", "xpath:idRelative"],
+        ["xpath=//form/div[2]/div/div/div[2]/input", "xpath:position"]
+      ],
+      "value": "C:\\fakepath\\testim2.jpg"
+    }, {
+      "id": "76ea274f-79d1-43ca-9942-0bb7a7f61ede",
+      "comment": "",
+      "command": "click",
+      "target": "css=.feather-check-circle > polyline",
+      "targets": [
+        ["css=.feather-check-circle > polyline", "css:finder"]
+      ],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "07b2b73f-4abf-45fe-8920-c6c977cd99d9",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["08ed4c4a-2c2c-41fb-ad32-ffa2f25186e6"]
+  }],
+  "urls": ["https://irischat.me/", "https://irischat.me/register/"],
+  "plugins": []
+}

@@ -1,0 +1,259 @@
+{
+  "id": "fc9c3094-5397-4b17-a6d6-9ddd9c2e52be",
+  "version": "2.0",
+  "name": "NOTIFICATIONS",
+  "url": "https://irischat.me/login/",
+  "tests": [{
+    "id": "bd95681b-4292-40b9-945a-d9d51f3d84b9",
+    "name": "DECLINE_FRIEND_REQUEST_NOTIFICATION",
+    "commands": [{
+      "id": "31f8d51e-efa6-42b9-a251-db365e4a9959",
+      "comment": "",
+      "command": "open",
+      "target": "https://irischat.me/login/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "913da11b-01be-4dc9-b7d9-3e4c2c3ee150",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1296x696",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "44830e9f-4e04-4c2f-922a-6c9a48d13f83",
+      "comment": "",
+      "command": "click",
+      "target": "id=id_input_email",
+      "targets": [
+        ["id=id_input_email", "id"],
+        ["name=email", "name"],
+        ["css=#id_input_email", "css:finder"],
+        ["xpath=//input[@id='id_input_email']", "xpath:attributes"],
+        ["xpath=//div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "38b392f4-7f9c-4ca5-b6fe-4bff99b38f6b",
+      "comment": "",
+      "command": "type",
+      "target": "id=id_input_email",
+      "targets": [
+        ["id=id_input_email", "id"],
+        ["name=email", "name"],
+        ["css=#id_input_email", "css:finder"],
+        ["xpath=//input[@id='id_input_email']", "xpath:attributes"],
+        ["xpath=//div/input", "xpath:position"]
+      ],
+      "value": "john@test.com"
+    }, {
+      "id": "ac9bb7de-711b-40ee-b8d4-a8c89c2ab6ca",
+      "comment": "",
+      "command": "click",
+      "target": "id=id_input_password",
+      "targets": [
+        ["id=id_input_password", "id"],
+        ["name=password", "name"],
+        ["css=#id_input_password", "css:finder"],
+        ["xpath=//input[@id='id_input_password']", "xpath:attributes"],
+        ["xpath=//div[3]/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "ee33e919-8154-436a-afed-2e21fcce15c6",
+      "comment": "",
+      "command": "type",
+      "target": "id=id_input_password",
+      "targets": [
+        ["id=id_input_password", "id"],
+        ["name=password", "name"],
+        ["css=#id_input_password", "css:finder"],
+        ["xpath=//input[@id='id_input_password']", "xpath:attributes"],
+        ["xpath=//div[3]/div/input", "xpath:position"]
+      ],
+      "value": "talha2002"
+    }, {
+      "id": "0de4ed11-f285-431a-a0f9-17a148f4cee0",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn",
+      "targets": [
+        ["css=.btn", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Sign In')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "d56f7cfe-cd88-4ee5-9b5b-b34da965f19f",
+      "comment": "",
+      "command": "click",
+      "target": "id=tab-friends",
+      "targets": [
+        ["id=tab-friends", "id"],
+        ["linkText=2", "linkText"],
+        ["css=#tab-friends", "css:finder"],
+        ["xpath=//a[@id='tab-friends']", "xpath:attributes"],
+        ["xpath=//a[contains(@href, '#tab-content-friends')]", "xpath:href"],
+        ["xpath=//li[3]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'2')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "003c4257-efd9-44bd-9fa8-8389059492c8",
+      "comment": "",
+      "command": "click",
+      "target": "id=id_general_neg_action_105",
+      "targets": [
+        ["id=id_general_neg_action_105", "id"],
+        ["linkText=Decline", "linkText"],
+        ["css=#id_general_neg_action_105", "css:finder"],
+        ["xpath=//a[contains(text(),'Decline')]", "xpath:link"],
+        ["xpath=//a[@id='id_general_neg_action_105']", "xpath:attributes"],
+        ["xpath=//div[@id='id_notification_105']/div[2]/div/div/a", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, '#')])[12]", "xpath:href"],
+        ["xpath=//div[2]/div/div/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Decline')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "b6152b12-ec84-475f-805d-4b87c183aa9a",
+      "comment": "",
+      "command": "assertText",
+      "target": "id=id_general_verb_105",
+      "targets": [
+        ["id=id_general_verb_105", "id"],
+        ["css=#id_general_verb_105", "css:finder"],
+        ["xpath=//span[@id='id_general_verb_105']", "xpath:attributes"],
+        ["xpath=//div[@id='id_general_div2_105']/div[2]/span", "xpath:idRelative"],
+        ["xpath=//div[2]/span", "xpath:position"]
+      ],
+      "value": "You declined Lola's friend request."
+    }]
+  }, {
+    "id": "97d4a697-19f8-44b2-b543-792dff40ba75",
+    "name": "ACCEPT_FRIEND_REQUEST_NOTIFICATION",
+    "commands": [{
+      "id": "26a68eb0-3ac3-4ebf-b5e1-73b762cae06e",
+      "comment": "",
+      "command": "open",
+      "target": "https://irischat.me/login/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "8fff0945-a22a-4681-a72a-ad30f6bac497",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1050x660",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "82714a43-76a6-4d7a-9c63-0d821dd48371",
+      "comment": "",
+      "command": "click",
+      "target": "id=id_input_email",
+      "targets": [
+        ["id=id_input_email", "id"],
+        ["name=email", "name"],
+        ["css=#id_input_email", "css:finder"],
+        ["xpath=//input[@id='id_input_email']", "xpath:attributes"],
+        ["xpath=//div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "ea03d7f7-ac6e-4936-996a-bf53bfc3a00b",
+      "comment": "",
+      "command": "type",
+      "target": "id=id_input_email",
+      "targets": [
+        ["id=id_input_email", "id"],
+        ["name=email", "name"],
+        ["css=#id_input_email", "css:finder"],
+        ["xpath=//input[@id='id_input_email']", "xpath:attributes"],
+        ["xpath=//div/input", "xpath:position"]
+      ],
+      "value": "john@test.com"
+    }, {
+      "id": "35d202e4-1025-4c11-95c9-e86481b96c0a",
+      "comment": "",
+      "command": "click",
+      "target": "id=id_input_password",
+      "targets": [
+        ["id=id_input_password", "id"],
+        ["name=password", "name"],
+        ["css=#id_input_password", "css:finder"],
+        ["xpath=//input[@id='id_input_password']", "xpath:attributes"],
+        ["xpath=//div[3]/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "4858e046-0c3b-4414-901a-64572a929c9b",
+      "comment": "",
+      "command": "type",
+      "target": "id=id_input_password",
+      "targets": [
+        ["id=id_input_password", "id"],
+        ["name=password", "name"],
+        ["css=#id_input_password", "css:finder"],
+        ["xpath=//input[@id='id_input_password']", "xpath:attributes"],
+        ["xpath=//div[3]/div/input", "xpath:position"]
+      ],
+      "value": "talha2002"
+    }, {
+      "id": "e09fc2a0-a9af-4bb2-8261-c33e9ad8092b",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn",
+      "targets": [
+        ["css=.btn", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Sign In')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "459f1d6f-7d70-44aa-9d4d-a7010c514698",
+      "comment": "",
+      "command": "click",
+      "target": "css=#id_general_notifications_count > .feather",
+      "targets": [
+        ["css=#id_general_notifications_count > .feather", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "04532b21-4549-406e-995c-427afbe5ed2e",
+      "comment": "",
+      "command": "click",
+      "target": "id=id_general_pos_action_113",
+      "targets": [
+        ["id=id_general_pos_action_113", "id"],
+        ["linkText=Accept", "linkText"],
+        ["css=#id_general_pos_action_113", "css:finder"],
+        ["xpath=//a[contains(text(),'Accept')]", "xpath:link"],
+        ["xpath=//a[@id='id_general_pos_action_113']", "xpath:attributes"],
+        ["xpath=//div[@id='id_notification_113']/div[2]/div/div[2]/a", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, '#')])[13]", "xpath:href"],
+        ["xpath=//div[2]/div/div[2]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Accept')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "c5130823-33bc-4461-9833-224b424abd37",
+      "comment": "",
+      "command": "assertTitle",
+      "target": "IrisChat",
+      "targets": [],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "a78e29d2-e76c-4096-9319-fd69823a4d1d",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": []
+  }],
+  "urls": ["https://irischat.me/login/"],
+  "plugins": []
+}
