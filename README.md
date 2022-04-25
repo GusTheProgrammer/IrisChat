@@ -6,7 +6,7 @@
 
 Visit our final version [IrisChat.me](https://irischat.me/)
 
-rr
+or
 
 The Built-in Development Server using `python manage.py runserver`
 
